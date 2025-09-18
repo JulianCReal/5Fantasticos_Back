@@ -1,5 +1,7 @@
 package com.example._Fantasticos_Back;
 
+import com.example._Fantasticos_Back.util.CatalogoMaterias;
+import com.example._Fantasticos_Back.util.Materia;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

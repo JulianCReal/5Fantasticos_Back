@@ -1,7 +1,7 @@
-package com.example._Fantasticos_Back;
+package com.example._Fantasticos_Back.util;
 
 import java.util.Date;
-public class SolicitudCambioMateria  extends  Solicitud {
+public class SolicitudCambioMateria  extends Solicitud {
     private Materia materiaCambio;
     public SolicitudCambioMateria(int id, int grupoMateria, String observaciones, String estado, Date fechaSolicitud) {
         super(id, grupoMateria, observaciones, estado, fechaSolicitud);
