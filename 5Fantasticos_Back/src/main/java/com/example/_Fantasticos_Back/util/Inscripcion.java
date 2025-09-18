@@ -1,5 +1,7 @@
 package com.example._Fantasticos_Back.util;
 
+
+
 public class Inscripcion {
     private Grupo grupo;
     private int id;
@@ -13,8 +15,39 @@ public class Inscripcion {
         this.notaFinal = notaFinal;
     }
 
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public double getNotaFinal() {
+        return notaFinal;
+    }
+
+    public void setNotaFinal(double notaFinal) {
+        this.notaFinal = notaFinal;
+    }
+
     public void cancelar() {
-        // Lógica para cancelar la inscripción, creo que falta implementar
         this.estado = "cancelada";
     }
 
