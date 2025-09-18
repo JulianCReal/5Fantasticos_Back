@@ -9,6 +9,22 @@ public class Decanatura {
         this.facultad = facultad;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(String facultad) {
+        this.facultad = facultad;
+    }
+
     public void consultarSemaforo(Estudiante e) {
         //e.verSemaforo();
     }
@@ -24,6 +40,4 @@ public class Decanatura {
     public void verSolicitudes(Estudiante e) {
         //e.obtenerSolicitudes();
     }
-
-
 }
