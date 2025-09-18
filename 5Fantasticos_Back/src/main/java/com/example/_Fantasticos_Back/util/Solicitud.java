@@ -1,4 +1,4 @@
-package com.example._Fantasticos_Back;
+package com.example._Fantasticos_Back.util;
 import java.util.Date;
 
 public abstract class Solicitud {
