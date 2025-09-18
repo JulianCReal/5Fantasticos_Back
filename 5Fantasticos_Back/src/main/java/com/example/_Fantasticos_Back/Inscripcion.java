@@ -27,13 +27,17 @@ public class Inscripcion {
     }
 
     public void cambiarGrupo(Grupo nuevoGrupo) {
-        // Lógica para cambiar de grupo, creo que falta implementar
         this.grupo = nuevoGrupo;
     }
 
-    public void validarChoque(Inscripcion otra) {
-        // Lógica para validar choque de horarios, hacen falta otras clases para realizar la implementación correspondiente
+    public boolean validarChoque(Inscripcion otra) {
+        for (SesionClase sesion1 : this.grupo.getSesiones()) {
+            for (SesionClase sesion2 : otra.grupo.getSesiones()) {
+                if (sesion1.verificarChoque(sesion2)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
-
-
 }
