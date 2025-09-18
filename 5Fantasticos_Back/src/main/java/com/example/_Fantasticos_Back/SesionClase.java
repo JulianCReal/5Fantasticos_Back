@@ -14,6 +14,12 @@ public class SesionClase {
     }
 
     public boolean verificarChoque(SesionClase otraSesion) {
+        if (!this.dia.equals(otraSesion.dia)) {
+            return false;
+        }
+        else if  (this.horaInicio.equals(otraSesion.horaInicio) || this.horaFin.equals(otraSesion.horaFin)) {
+            return true;
+        }
         return false;
     }
 }

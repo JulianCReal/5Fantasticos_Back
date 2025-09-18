@@ -8,5 +8,18 @@ public class Grupo {
     private boolean estado;
     private ArrayList<SesionClase> sesiones = new ArrayList<SesionClase>();
 
+    public Grupo(int capacidad, int numero, boolean estado) {
+        this.capacidad = capacidad;
+        this.numero = numero;
+        this.estado = estado;
+    }
+
+    public void modificarCapacidad(int nuevaCapacidad) {
+        this.capacidad = nuevaCapacidad;
+    }
+
+    public ArrayList<SesionClase> getSesiones() {
+        return sesiones;
+    }
 
 }
