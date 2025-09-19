@@ -1,4 +1,4 @@
-package com.example._Fantasticos_Back.util;
+package com.example.fantasticosback.util;
 
 import java.util.HashMap;
 import java.util.Map;

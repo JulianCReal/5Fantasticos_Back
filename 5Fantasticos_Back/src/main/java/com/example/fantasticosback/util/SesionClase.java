@@ -1,4 +1,4 @@
-package com.example._Fantasticos_Back.util;
+package com.example.fantasticosback.util;
 
 public class SesionClase {
     private String dia;
