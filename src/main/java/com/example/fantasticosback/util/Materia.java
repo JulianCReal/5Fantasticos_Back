@@ -18,29 +18,59 @@ public class Materia {
     private static final Logger logger = Logger.getLogger(Materia.class.getName());
     private static Map<String, Materia> catalogoMaterias = new HashMap<>();
 
+    public Materia() {
+        this.gruposDisponibles = new ArrayList<>();
+    }
+
     public Materia(int idMateria, String nombre, int creditos, int semestre) {
         this.idMateria = idMateria;
         this.nombre = nombre;
         this.creditos = creditos;
         this.semestre = semestre;
+        this.gruposDisponibles = new ArrayList<>();
+    }
+
+    // Getters y Setters
+    public int getIdMateria() {
+        return idMateria;
+    }
+
+    public void setIdMateria(int idMateria) {
+        this.idMateria = idMateria;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCreditos() {
+        return creditos;
     }
 
     public void setCreditos(int creditos) {
         this.creditos = creditos;
     }
 
-    public int getIdMateria() {
-        return idMateria;
-    }
-    public String getNombre() {
-        return nombre;
-    }
-    public int getCreditos() {
-        return creditos;
-    }
     public int getSemestre() {
         return semestre;
     }
+
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
+    }
+
+    public ArrayList<Grupo> getGruposDisponibles() {
+        return gruposDisponibles;
+    }
+
+    public void setGruposDisponibles(ArrayList<Grupo> gruposDisponibles) {
+        this.gruposDisponibles = gruposDisponibles;
+    }
+
     public void agregarGrupo(Grupo grupo) {
         this.gruposDisponibles.add(grupo);
     }
