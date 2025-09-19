@@ -1,6 +1,4 @@
-package com.example.fantasticosback;
-
-import com.example.fantasticosback.util.*;
+package com.example.fantasticosback.util;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -27,8 +25,8 @@ public class DecanaturaTest {
         decanatura = new Decanatura("DEC001", "Ingeniería de Sistemas");
 
         estudiante = new Estudiante(
-            "María", "González", 98765, "Ingeniería de Sistemas",
-            "2020001", "est001", 4
+                "María", "González", 98765, "Ingeniería de Sistemas",
+                "2020001", "est001", 4
         );
 
         profesor = new Profesor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
@@ -104,7 +102,7 @@ public class DecanaturaTest {
         assertEquals("rechazada", solicitudSinCupos.getEstado());
     }
 
-    /*@Test
+    @Test
     @DisplayName("No debería aprobar una solicitud de cambio de grupo cuando hay choque de horario")
     void testEvaluarSolicitudCambioGrupoConChoque() {
         Grupo grupoConChoque = new Grupo(6, 8, 25, true, materia2, profesor);
@@ -116,9 +114,9 @@ public class DecanaturaTest {
 
         boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudConChoque);
 
-        assertTrue(resultado);
+        assertFalse(resultado);
         assertEquals("rechazada", solicitudConChoque.getEstado());
-    }*/
+    }
 
     @Test
     @DisplayName("Debería aprobar una solicitud de cambio de materia cuando cumple todos los requisitos")
@@ -159,7 +157,8 @@ public class DecanaturaTest {
         assertFalse(resultado);
         assertEquals("rechazada", solicitudCambioMateria.getEstado());
     }
-    /*
+
+    /**
     @Test
     @DisplayName("No debería aprobar una solicitud de cambio de materia cuando hay choque de horario")
     void testEvaluarSolicitudCambioMateriaConChoque() {
@@ -171,9 +170,10 @@ public class DecanaturaTest {
 
         boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudMateriaChoque);
 
-        assertTrue(resultado);
+        assertFalse(resultado);
         assertEquals("rechazada", solicitudMateriaChoque.getEstado());
-    }*/
+    }
+     **/
 
     @Test
     @DisplayName("No debería aprobar una solicitud con tipo no reconocido")
@@ -192,7 +192,7 @@ public class DecanaturaTest {
     @DisplayName("No debería detectar choque de horario cuando el estudiante no tiene semestres")
     void testVerificarChoqueHorarioEstudianteSinSemestres() {
         Estudiante estudianteSinSemestres = new Estudiante(
-            "Ana", "López", 54321, "Medicina", "2022001", "est002", 1
+                "Ana", "López", 54321, "Medicina", "2022001", "est002", 1
         );
 
         Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
