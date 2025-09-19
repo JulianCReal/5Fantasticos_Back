@@ -6,6 +6,7 @@ public class Inscripcion {
     private String estado;
     private double notaFinal;
 
+
     public Inscripcion(Grupo grupo, int id, String estado, double notaFinal) {
         this.grupo = grupo;
         this.id = id;
@@ -16,10 +17,6 @@ public class Inscripcion {
     // Getters y Setters
     public Grupo getGrupo() {
         return grupo;
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
     }
 
     public int getId() {
@@ -34,17 +31,10 @@ public class Inscripcion {
         return estado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
     public double getNotaFinal() {
         return notaFinal;
     }
 
-    public void setNotaFinal(double notaFinal) {
-        this.notaFinal = notaFinal;
-    }
 
     public void cancelar() {
         this.estado = "cancelada";
@@ -57,6 +47,7 @@ public class Inscripcion {
             this.estado = "reprobada";
         }
     }
+
 
     public void cambiarGrupo(Grupo nuevoGrupo) {
         this.grupo = nuevoGrupo;
