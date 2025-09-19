@@ -16,6 +16,7 @@ public class Estudiante extends Persona {
     private int semestre;
     private ArrayList<Semestre> semestres = new ArrayList<>();
     private static final Logger log = Logger.getLogger(Estudiante.class.getName());
+    private ArrayList<Solicitud> solicitudes = new ArrayList<>();
 
     public Estudiante(String nombre, String apellido, int documento, String carrera, String codigo, String idEstudiante, int semestre) {
         super(nombre, apellido, documento);
@@ -27,26 +28,14 @@ public class Estudiante extends Persona {
     public void setId(String _id) {
         this.idEstudiante = _id;
     }
-    public int getSemestre(){
-        return semestre;
-    }
-    public void setSemestre(int semestre) {
-        this.semestre = semestre;
-    }
 
     public String getCarrera() {
         return carrera;
     }
 
-    public void setCarrera(String carrera) {
-        this.carrera = carrera;
-    }
 
     public ArrayList<Semestre> getSemestres() {
         return semestres;
-    }
-    public void setSemestres(ArrayList<Semestre> semestres) {
-        this.semestres = semestres;
     }
 
     public boolean verificarChoqueHorario(Grupo grupoDeseado) {
@@ -90,6 +79,57 @@ public class Estudiante extends Persona {
 
         log.warning("No hay semestre activo para agregar la materia.");
         return false;
+    }
+
+    public void quitarMateria(Inscripcion inscripcion) {
+        if (!semestres.isEmpty()) {
+            Semestre semestreActual = semestres.get(semestres.size() - 1);
+            semestreActual.quitarMateria(inscripcion);
+            log.info("Materia " + inscripcion.getGrupo().getMateria().getNombre() + " retirada exitosamente.");
+        } else {
+            log.warning("No hay semestre activo para quitar la materia.");
+        }
+    }
+
+    public void cancelarMateria(Inscripcion inscripcion) {
+        if (!semestres.isEmpty()) {
+            Semestre semestreActual = semestres.get(semestres.size() - 1);
+            semestreActual.cancelarMateria(inscripcion);
+            log.info("Materia " + inscripcion.getGrupo().getMateria().getNombre() + " cancelada exitosamente.");
+        } else {
+            log.warning("No hay semestre activo para cancelar la materia.");
+        }
+    }
+
+    public Solicitud crearSolicitud(String tipo, Inscripcion materiaActual, Grupo grupoDestino, String observaciones) {
+        int solicitudId = (int) (Math.random() * 100000);
+        Date fechaActual = new Date();
+
+        Solicitud solicitud = new Solicitud(
+                solicitudId,
+                materiaActual.getGrupo(),
+                grupoDestino,
+                tipo,
+                observaciones,
+                "pendiente",
+                fechaActual
+        );
+
+        if ("grupo".equals(tipo)) {
+            log.info("Solicitud de cambio de grupo creada: ID " + solicitudId +
+                    " de grupo " + materiaActual.getGrupo().getNumero() + " a grupo " + grupoDestino.getNumero());
+        } else if ("materia".equals(tipo)) {
+            log.info("Solicitud de cambio de materia creada: ID " + solicitudId +
+                    " de materia " + materiaActual.getGrupo().getMateria().getNombre() +
+                    " a materia " + grupoDestino.getMateria().getNombre());
+        }
+
+        solicitudes.add(solicitud);
+        return solicitud;
+    }
+
+    public ArrayList<Solicitud> getSolicitudes() {
+        return solicitudes;
     }
 
     @Override
