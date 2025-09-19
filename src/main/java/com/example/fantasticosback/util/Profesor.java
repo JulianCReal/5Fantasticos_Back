@@ -25,6 +25,7 @@ public class Profesor extends Persona {
         this.materiasAsignadas = new HashMap<>();
     }
 
+    // Getters y Setters
     public String getId() {
         return id;
     }

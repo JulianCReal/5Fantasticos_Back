@@ -24,18 +24,43 @@ public class Estudiante extends Persona {
         this.codigo = codigo;
         this.idEstudiante = idEstudiante;
         this.semestre = semestre;
+        this.semestres = new ArrayList<>();
+        this.solicitudes = new ArrayList<>();
     }
-    public void setId(String _id) {
-        this.idEstudiante = _id;
+
+    // Getters y Setters
+    public String getIdEstudiante() {
+        return idEstudiante;
     }
+
 
     public String getCarrera() {
         return carrera;
     }
 
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+
+    public int getSemestre() {
+        return semestre;
+    }
+
+
     public ArrayList<Semestre> getSemestres() {
         return semestres;
+    }
+
+
+    public ArrayList<Solicitud> getSolicitudes() {
+        return solicitudes;
+    }
+
+
+    public void setId(String _id) {
+        this.idEstudiante = _id;
     }
 
     public boolean verificarChoqueHorario(Grupo grupoDeseado) {
@@ -49,7 +74,7 @@ public class Estudiante extends Persona {
         for (Inscripcion inscripcionExistente : semestreActual.getMaterias()) {
             if (inscripcionTemporal.validarChoque(inscripcionExistente)) {
                 log.warning(" El grupo " + grupoDeseado.getNumero() +
-                           " choca con " + inscripcionExistente.getGrupo().getMateria().getNombre());
+                        " choca con " + inscripcionExistente.getGrupo().getMateria().getNombre());
                 return true;
             }
         }
@@ -128,12 +153,8 @@ public class Estudiante extends Persona {
         return solicitud;
     }
 
-    public ArrayList<Solicitud> getSolicitudes() {
-        return solicitudes;
-    }
-
     @Override
-    public void mostrarInformacion(){
+    public void mostrarInformacion() {
         log.info(() -> "Estudiante: " + nombre + " " + apellido + ", " +
                 "Documento: " + documento + ", " +
                 "Carrera: " + carrera + ", " +

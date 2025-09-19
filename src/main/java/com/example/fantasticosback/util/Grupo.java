@@ -11,6 +11,10 @@ public class Grupo {
     private Profesor profesor;
     private ArrayList<SesionClase> sesiones = new ArrayList<>();
 
+    public Grupo() {
+        this.sesiones = new ArrayList<>();
+    }
+
     public Grupo(int id, int numero, int capacidad, boolean estado, Materia materia, Profesor profesor) {
         this.id = id;
         this.numero = numero;
@@ -18,12 +22,14 @@ public class Grupo {
         this.estado = estado;
         this.materia = materia;
         this.profesor = profesor;
+        this.sesiones = new ArrayList<>();
     }
 
     public Grupo(int id, int numero, int capacidad, Materia materia) {
         this(id, numero, capacidad, true, materia, null);
     }
 
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -44,6 +50,9 @@ public class Grupo {
         return capacidad;
     }
 
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
 
     public boolean isEstado() {
         return estado;
