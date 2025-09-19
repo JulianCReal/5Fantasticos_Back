@@ -1,9 +1,15 @@
 package com.example.fantasticosback.util;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.*;
 import java.util.logging.Logger;
 
+@Document(collection = "Materias")
 public class Materia {
+
+    @Id
     private int idMateria;
     private String nombre;
     private int creditos;
@@ -17,6 +23,10 @@ public class Materia {
         this.nombre = nombre;
         this.creditos = creditos;
         this.semestre = semestre;
+    }
+
+    public void setCreditos(int creditos) {
+        this.creditos = creditos;
     }
 
     public int getIdMateria() {
