@@ -61,7 +61,10 @@ public class Semestre {
     }
 
     public void quitarMateria(Inscripcion materia) {
-        materia.cancelar();
         this.materias.remove(materia);
+    }
+
+    public void cancelarMateria(Inscripcion materia) {
+        materia.cancelar();
     }
 }

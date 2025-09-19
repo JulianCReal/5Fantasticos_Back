@@ -44,9 +44,6 @@ public class Grupo {
         return capacidad;
     }
 
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
 
     public boolean isEstado() {
         return estado;
