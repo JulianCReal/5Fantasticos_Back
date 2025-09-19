@@ -61,6 +61,11 @@
     <img width="1335" height="435" alt="image" src="https://github.com/user-attachments/assets/0cd3ac9e-003c-4f4e-b384-f6256f20f024" />
     <img width="1338" height="379" alt="image" src="https://github.com/user-attachments/assets/06051b46-2053-477c-9f4f-9cf519dd356e" />
 
+  - **Jacoco y sonarQube**
+    <img width="1363" height="426" alt="Captura de pantalla de 2025-09-19 10-30-45" src="https://github.com/user-attachments/assets/0f7f15ba-41a0-496c-b557-58a247464389" />
+<img width="856" height="178" alt="Captura de pantalla de 2025-09-19 10-30-25" src="https://github.com/user-attachments/assets/80754aa0-25a7-4720-98b0-b123dc38f685" />
+
+
    
 
   - 
