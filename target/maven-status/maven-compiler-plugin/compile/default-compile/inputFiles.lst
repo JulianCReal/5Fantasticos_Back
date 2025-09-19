@@ -1,25 +1,25 @@
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Application.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/DecanaturaController.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/MateriaController.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/StudentController.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/TeacherController.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/DecanaturaRepository.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/MateriaRepository.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/StudentRepository.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/TeacherRepository.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/DecanaturaService.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/MateriaService.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/StudentService.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/TeacherService.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/CatalogoMaterias.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Decanatura.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Estudiante.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Grupo.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Inscripcion.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Materia.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Persona.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Profesor.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SemaforoAcademico.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Semestre.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SesionClase.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Solicitud.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Application.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\DecanaturaController.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\MateriaController.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\StudentController.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\TeacherController.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\DecanaturaRepository.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\MateriaRepository.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\StudentRepository.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\TeacherRepository.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\DecanaturaService.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\MateriaService.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\StudentService.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\TeacherService.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\CatalogoMaterias.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Decanatura.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Estudiante.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Grupo.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Inscripcion.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Materia.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Persona.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Profesor.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SemaforoAcademico.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Semestre.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SesionClase.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Solicitud.java

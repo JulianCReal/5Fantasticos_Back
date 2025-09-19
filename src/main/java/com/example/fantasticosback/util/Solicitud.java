@@ -30,19 +30,80 @@ public class Solicitud {
         this.prioridad = contadorPrioridad++;
     }
 
+    // Getters y Setters
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getSolicitudId() {
+        return solicitudId;
+    }
+
+    public void setSolicitudId(int solicitudId) {
+        this.solicitudId = solicitudId;
+    }
+
+    public Grupo getGrupoOrigen() {
+        return grupoOrigen;
+    }
+
+    public void setGrupoOrigen(Grupo grupoOrigen) {
+        this.grupoOrigen = grupoOrigen;
+    }
+
+    public Grupo getGrupoDestino() {
+        return grupoDestino;
+    }
+
+    public void setGrupoDestino(Grupo grupoDestino) {
+        this.grupoDestino = grupoDestino;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public Date getFechaSolicitud() {
+        return fechaSolicitud;
+    }
+
+    public void setFechaSolicitud(Date fechaSolicitud) {
+        this.fechaSolicitud = fechaSolicitud;
+    }
+
+    public int getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(int prioridad) {
+        this.prioridad = prioridad;
+    }
+
     public void cambiarEstado(String nuevoEstado) {
         this.estado = nuevoEstado;
     }
-
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public int getSolicitudId() { return solicitudId; }
-
-    public Grupo getGrupoOrigen() { return grupoOrigen; }
-
-    public Grupo getGrupoDestino() { return grupoDestino; }
-
-    public String getTipo() { return tipo; }
-
 }

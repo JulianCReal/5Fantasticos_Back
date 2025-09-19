@@ -1,7 +1,5 @@
 package com.example.fantasticosback.util;
 
-
-
 public class Inscripcion {
     private Grupo grupo;
     private int id;
@@ -15,6 +13,7 @@ public class Inscripcion {
         this.notaFinal = notaFinal;
     }
 
+    // Getters y Setters
     public Grupo getGrupo() {
         return grupo;
     }
