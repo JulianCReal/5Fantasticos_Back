@@ -1,18 +1,36 @@
 package com.example.fantasticosback.util;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+@Document(collection = "Profesores")
 public class Profesor extends Persona {
 
+    @Id
+    private String id;
     private String departamento;
     private HashMap<String, Materia> materiasAsignadas;
     private static final Logger log = Logger.getLogger(Profesor.class.getName());
+
+    public Profesor() {
+        super();
+        this.materiasAsignadas = new HashMap<>();
+    }
 
     public Profesor(String nombre, String apellido, int documento, String departamento) {
         super(nombre, apellido, documento);
         this.departamento = departamento;
         this.materiasAsignadas = new HashMap<>();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDepartamento() {
