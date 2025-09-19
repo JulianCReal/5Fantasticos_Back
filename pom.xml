@@ -65,7 +65,7 @@
     </dependencies>
 
     <build>
-        <!-- 👇 Ajustamos rutas porque tu estructura no es la estándar -->
+
         <sourceDirectory>${project.basedir}/5Fantasticos_Back/src/main/java</sourceDirectory>
         <resources>
             <resource>
