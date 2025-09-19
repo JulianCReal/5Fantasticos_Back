@@ -45,4 +45,6 @@ public class Solicitud {
 
     public String getTipo() { return tipo; }
 
+    public String getEstado() { return estado;}
+
 }

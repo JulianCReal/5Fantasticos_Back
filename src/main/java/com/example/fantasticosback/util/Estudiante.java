@@ -29,9 +29,13 @@ public class Estudiante extends Persona {
         this.idEstudiante = _id;
     }
 
+    public String getIdEstudiante() {return idEstudiante;}
+
     public String getCarrera() {
         return carrera;
     }
+
+
 
 
     public ArrayList<Semestre> getSemestres() {

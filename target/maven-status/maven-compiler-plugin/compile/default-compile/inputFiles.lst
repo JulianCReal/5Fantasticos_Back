@@ -1,25 +1,25 @@
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Application.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/DecanaturaController.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/MateriaController.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/StudentController.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/TeacherController.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/DecanaturaRepository.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/MateriaRepository.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/StudentRepository.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/TeacherRepository.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/DecanaturaService.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/MateriaService.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/StudentService.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/TeacherService.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/CatalogoMaterias.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Decanatura.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Estudiante.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Grupo.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Inscripcion.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Materia.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Persona.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Profesor.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SemaforoAcademico.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Semestre.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SesionClase.java
-/home/karol/Documentos/Dosw/proyecto5555t/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Solicitud.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Application.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\DecanaturaController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\MateriaController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\StudentController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\TeacherController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\DecanaturaRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\MateriaRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\StudentRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\TeacherRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\DecanaturaService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\MateriaService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\StudentService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\TeacherService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\CatalogoMaterias.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Decanatura.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Estudiante.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Grupo.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Inscripcion.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Materia.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Persona.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Profesor.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SemaforoAcademico.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Semestre.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SesionClase.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Solicitud.java

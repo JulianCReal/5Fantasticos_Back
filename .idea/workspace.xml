@@ -5,38 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8b483ba-0893-4807-b9de-299509be591a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/fantasticosback/util/CatalogoMateriasTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/fantasticosback/util/MateriaTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/DecanaturaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Controller/DecanaturaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Controller/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Controller/TeacherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/DecanaturaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Repository/DecanaturaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Repository/StudentRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/TeacherRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Repository/TeacherRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/DecanaturaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Server/DecanaturaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Server/StudentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Server/TeacherService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/CatalogoMaterias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/CatalogoMaterias.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Decanatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Decanatura.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Estudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Estudiante.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Grupo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Grupo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Inscripcion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Inscripcion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Materia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Materia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Profesor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Profesor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SemaforoAcademico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/SemaforoAcademico.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Semestre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Semestre.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SesionClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/SesionClase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Solicitud.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/test/java/com/example/fantasticosback/TestsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/fantasticosback/TestsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Estudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Estudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Solicitud.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
@@ -44,6 +18,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -78,9 +59,16 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.CatalogoMateriasTest.executor": "Run",
+    "JUnit.EstudianteTest.executor": "Run",
+    "JUnit.MateriaTest.executor": "Run",
+    "JUnit.PersonaTest.executor": "Run",
+    "JUnit.ProfesorTest.executor": "Run",
+    "Maven.5Fantasticos_Back [clean].executor": "Run",
+    "Maven.5Fantasticos_Back [install].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.Application.executor": "Run",
-    "git-widget-placeholder": "feature/leal__mega__visaje__azaroso__carpetas",
+    "git-widget-placeholder": "feature/pruebas-unidad/idarraga",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Trabajos ECI/DOSW/Proyecto/Backend/5Fantasticos_Back/5Fantasticos_Back",
     "node.js.detected.package.eslint": "true",
@@ -95,8 +83,86 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.fantasticosback.util" />
+    </key>
   </component>
   <component name="RunManager">
+    <configuration name="CatalogoMateriasTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.CatalogoMateriasTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EstudianteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.EstudianteTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MateriaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.MateriaTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersonaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.PersonaTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProfesorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.ProfesorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="5Fantasticos_Back" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.fantasticosback.Application" />
@@ -104,6 +170,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.EstudianteTest" />
+        <item itemvalue="JUnit.ProfesorTest" />
+        <item itemvalue="JUnit.PersonaTest" />
+        <item itemvalue="JUnit.CatalogoMateriasTest" />
+        <item itemvalue="JUnit.MateriaTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -122,6 +197,7 @@
       <option name="presentableId" value="Default" />
       <updated>1758260938189</updated>
       <workItem from="1758260942139" duration="407000" />
+      <workItem from="1758288557691" duration="3037000" />
     </task>
     <servers />
   </component>
