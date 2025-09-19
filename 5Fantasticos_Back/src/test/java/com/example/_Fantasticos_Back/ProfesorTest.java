@@ -1,4 +1,4 @@
-package com.example._Fantasticos_Back;
+package com.example.fantasticosback;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
