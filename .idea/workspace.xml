@@ -5,6 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8b483ba-0893-4807-b9de-299509be591a" name="Changes" comment="">
+<<<<<<< HEAD
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/fantasticosback/util/CatalogoMateriasTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/example/fantasticosback/util/MateriaTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Estudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Estudiante.java" afterDir="false" />
+=======
       <change afterPath="$PROJECT_DIR$/src/test/java/com/example/fantasticosback/DecanaturaTest.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/test/java/com/example/fantasticosback/EstudianteTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -17,6 +24,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Profesor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Profesor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Semestre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Semestre.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/SesionClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/SesionClase.java" afterDir="false" />
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Solicitud.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
@@ -71,6 +79,18 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< HEAD
+    "JUnit.CatalogoMateriasTest.executor": "Run",
+    "JUnit.EstudianteTest.executor": "Run",
+    "JUnit.MateriaTest.executor": "Run",
+    "JUnit.PersonaTest.executor": "Run",
+    "JUnit.ProfesorTest.executor": "Run",
+    "Maven.5Fantasticos_Back [clean].executor": "Run",
+    "Maven.5Fantasticos_Back [install].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.Application.executor": "Run",
+    "git-widget-placeholder": "feature/pruebas-unidad/idarraga",
+=======
     "JUnit.DecanaturaTest.executor": "Run",
     "JUnit.DecanaturaTest.testEvaluarSolicitudCambioGrupoConChoque.executor": "Run",
     "JUnit.DecanaturaTest.testEvaluarSolicitudCambioGrupoSinCupos.executor": "Run",
@@ -89,6 +109,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.Application.executor": "Run",
     "git-widget-placeholder": "test/pruebasUnitarias",
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Trabajos ECI/DOSW/Proyecto/Backend/5Fantasticos_Back/5Fantasticos_Back",
     "node.js.detected.package.eslint": "true",
@@ -103,7 +124,24 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.example.fantasticosback.util" />
+    </key>
   </component>
+<<<<<<< HEAD
+  <component name="RunManager">
+    <configuration name="CatalogoMateriasTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.CatalogoMateriasTest" />
+      <option name="TEST_OBJECT" value="class" />
+=======
   <component name="RunManager" selected="JUnit.DecanaturaTest.testEvaluarSolicitudCambioMateriaConChoque">
     <configuration name="DecanaturaTest.testEvaluarSolicitudCambioMateriaConChoque" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="5Fantasticos_Back" />
@@ -117,10 +155,24 @@
       <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.DecanaturaTest" />
       <option name="METHOD_NAME" value="testEvaluarSolicitudCambioMateriaConChoque" />
       <option name="TEST_OBJECT" value="method" />
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
+    <configuration name="EstudianteTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.EstudianteTest" />
+      <option name="TEST_OBJECT" value="class" />
+=======
     <configuration name="DecanaturaTest.testEvaluarSolicitudCambioMateriaGrupoInactivo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="5Fantasticos_Back" />
       <extension name="coverage">
@@ -133,10 +185,24 @@
       <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.DecanaturaTest" />
       <option name="METHOD_NAME" value="testEvaluarSolicitudCambioMateriaGrupoInactivo" />
       <option name="TEST_OBJECT" value="method" />
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
+    <configuration name="MateriaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.MateriaTest" />
+      <option name="TEST_OBJECT" value="class" />
+=======
     <configuration name="DecanaturaTest.testEvaluarSolicitudConError" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="5Fantasticos_Back" />
       <extension name="coverage">
@@ -149,10 +215,24 @@
       <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.DecanaturaTest" />
       <option name="METHOD_NAME" value="testEvaluarSolicitudConError" />
       <option name="TEST_OBJECT" value="method" />
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
+    <configuration name="PersonaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.PersonaTest" />
+      <option name="TEST_OBJECT" value="class" />
+=======
     <configuration name="DecanaturaTest.testValidarChoques" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="5Fantasticos_Back" />
       <extension name="coverage">
@@ -165,10 +245,24 @@
       <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.DecanaturaTest" />
       <option name="METHOD_NAME" value="testValidarChoques" />
       <option name="TEST_OBJECT" value="method" />
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
+    <configuration name="ProfesorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.fantasticosback.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.fantasticosback.util" />
+      <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.util.ProfesorTest" />
+      <option name="TEST_OBJECT" value="class" />
+=======
     <configuration name="DecanaturaTest.verificarChoque" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="5Fantasticos_Back" />
       <extension name="coverage">
@@ -181,6 +275,7 @@
       <option name="MAIN_CLASS_NAME" value="com.example.fantasticosback.DecanaturaTest" />
       <option name="METHOD_NAME" value="verificarChoque" />
       <option name="TEST_OBJECT" value="method" />
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -194,11 +289,19 @@
     </configuration>
     <recent_temporary>
       <list>
+<<<<<<< HEAD
+        <item itemvalue="JUnit.EstudianteTest" />
+        <item itemvalue="JUnit.ProfesorTest" />
+        <item itemvalue="JUnit.PersonaTest" />
+        <item itemvalue="JUnit.CatalogoMateriasTest" />
+        <item itemvalue="JUnit.MateriaTest" />
+=======
         <item itemvalue="JUnit.DecanaturaTest.testEvaluarSolicitudCambioMateriaConChoque" />
         <item itemvalue="JUnit.DecanaturaTest.verificarChoque" />
         <item itemvalue="JUnit.DecanaturaTest.testValidarChoques" />
         <item itemvalue="JUnit.DecanaturaTest.testEvaluarSolicitudConError" />
         <item itemvalue="JUnit.DecanaturaTest.testEvaluarSolicitudCambioMateriaGrupoInactivo" />
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325
       </list>
     </recent_temporary>
   </component>
@@ -219,6 +322,7 @@
       <option name="presentableId" value="Default" />
       <updated>1758260938189</updated>
       <workItem from="1758260942139" duration="407000" />
+      <workItem from="1758288557691" duration="3037000" />
     </task>
     <servers />
   </component>

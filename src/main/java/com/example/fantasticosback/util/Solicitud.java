@@ -106,4 +106,5 @@ public class Solicitud {
     public void cambiarEstado(String nuevoEstado) {
         this.estado = nuevoEstado;
     }
+
 }

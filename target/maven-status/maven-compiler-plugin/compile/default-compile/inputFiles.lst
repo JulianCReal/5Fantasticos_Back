@@ -1,3 +1,30 @@
+<<<<<<< HEAD
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Application.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\DecanaturaController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\MateriaController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\StudentController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\TeacherController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\DecanaturaRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\MateriaRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\StudentRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\TeacherRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\DecanaturaService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\MateriaService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\StudentService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\TeacherService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\CatalogoMaterias.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Decanatura.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Estudiante.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Grupo.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Inscripcion.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Materia.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Persona.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Profesor.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SemaforoAcademico.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Semestre.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SesionClase.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Solicitud.java
+=======
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Application.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\DecanaturaController.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\MateriaController.java
@@ -23,3 +50,4 @@ C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proye
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Semestre.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SesionClase.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Solicitud.java
+>>>>>>> be2342c081a67c5a4f7a1cd032e44e2363d2d325

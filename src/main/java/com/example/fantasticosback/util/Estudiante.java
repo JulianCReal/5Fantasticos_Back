@@ -34,6 +34,7 @@ public class Estudiante extends Persona {
     }
 
 
+
     public String getCarrera() {
         return carrera;
     }
