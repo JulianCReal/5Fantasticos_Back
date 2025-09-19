@@ -1,16 +1,37 @@
-package com.example._Fantasticos_Back.util;
+package com.example.fantasticosback.util;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
 import java.util.logging.Logger;
 
+@Document(collection = "Estudiantes")
 public class Estudiante extends Persona {
+
+    @Id
+    private String idEstudiante;
     private String carrera;
+    private String codigo;
+    private int semestre;
     private ArrayList<Semestre> semestres = new ArrayList<>();
     private static final Logger log = Logger.getLogger(Estudiante.class.getName());
 
-    public Estudiante(String nombre, String apellido, int documento, String carrera) {
+    public Estudiante(String nombre, String apellido, int documento, String carrera, String codigo, String idEstudiante, int semestre) {
         super(nombre, apellido, documento);
         this.carrera = carrera;
+        this.codigo = codigo;
+        this.idEstudiante = idEstudiante;
+        this.semestre = semestre;
+    }
+    public void setId(String _id) {
+        this.idEstudiante = _id;
+    }
+    public int getSemestre(){
+        return semestre;
+    }
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
     }
 
     public String getCarrera() {
@@ -24,7 +45,6 @@ public class Estudiante extends Persona {
     public ArrayList<Semestre> getSemestres() {
         return semestres;
     }
-
     public void setSemestres(ArrayList<Semestre> semestres) {
         this.semestres = semestres;
     }

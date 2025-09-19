@@ -1,6 +1,6 @@
-package com.example._Fantasticos_Back;
+package com.example.fantasticosback;
 
-import com.example._Fantasticos_Back.util.Materia;
+import com.example.fantasticosback.util.Materia;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
