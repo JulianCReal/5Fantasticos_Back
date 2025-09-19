@@ -4,7 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d8b483ba-0893-4807-b9de-299509be591a" name="Changes" comment="" />
+    <list default="true" id="d8b483ba-0893-4807-b9de-299509be591a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/.gitattributes" beforeDir="false" afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/DecanaturaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Controller/DecanaturaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Controller/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/TeacherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Controller/TeacherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/DecanaturaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Repository/DecanaturaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Repository/StudentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/TeacherRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Repository/TeacherRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/DecanaturaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Server/DecanaturaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Server/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/TeacherService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/Server/TeacherService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/CatalogoMaterias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/CatalogoMaterias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Decanatura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Decanatura.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Estudiante.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Estudiante.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Grupo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Grupo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Inscripcion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Inscripcion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Materia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Materia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Persona.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Profesor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Profesor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SemaforoAcademico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/SemaforoAcademico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Semestre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Semestre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SesionClase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/SesionClase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Solicitud.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/fantasticosback/util/Solicitud.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/5Fantasticos_Back/src/test/java/com/example/fantasticosback/TestsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/fantasticosback/TestsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,22 +48,29 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ALEJO21005"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ALEJO21005&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/JulianCReal/5Fantasticos_Back.git",
-    "accountId": "eca60be1-0c2a-432e-b66d-90fe485d7dd7"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JulianCReal/5Fantasticos_Back.git&quot;,
+    &quot;accountId&quot;: &quot;eca60be1-0c2a-432e-b66d-90fe485d7dd7&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 1
-}]]></component>
+}</component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="32uCBjoeGzb1fpHa4DOw2O7vb0U" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,7 +79,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/endpoints-teacher/idarraga",
+    "Spring Boot.Application.executor": "Run",
+    "git-widget-placeholder": "feature/leal__mega__visaje__azaroso__carpetas",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Trabajos ECI/DOSW/Proyecto/Backend/5Fantasticos_Back/5Fantasticos_Back",
     "node.js.detected.package.eslint": "true",
@@ -48,6 +91,20 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="5Fantasticos_Back" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.fantasticosback.Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
