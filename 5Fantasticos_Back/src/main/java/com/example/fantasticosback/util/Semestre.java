@@ -28,32 +28,16 @@ public class Semestre {
         return año;
     }
 
-    public void setAño(int año) {
-        this.año = año;
-    }
-
     public int getPeriodoAcademico() {
         return periodoAcademico;
-    }
-
-    public void setPeriodoAcademico(int periodoAcademico) {
-        this.periodoAcademico = periodoAcademico;
     }
 
     public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
     public ArrayList<Inscripcion> getMaterias() {
         return materias;
-    }
-
-    public void setMaterias(ArrayList<Inscripcion> materias) {
-        this.materias = materias;
     }
 
     public void agregarMateria(Inscripcion materia) {
@@ -61,7 +45,10 @@ public class Semestre {
     }
 
     public void quitarMateria(Inscripcion materia) {
-        materia.cancelar();
         this.materias.remove(materia);
+    }
+
+    public void cancelarMateria(Inscripcion materia) {
+        materia.cancelar();
     }
 }
