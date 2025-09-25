@@ -1,5 +1,7 @@
 package com.example.fantasticosback.util;
 
+import com.example.fantasticosback.Model.Materia;
+
 import java.util.HashMap;
 import java.util.Map;
 

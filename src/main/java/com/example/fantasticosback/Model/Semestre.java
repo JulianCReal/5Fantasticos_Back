@@ -1,4 +1,4 @@
-package com.example.fantasticosback.util;
+package com.example.fantasticosback.Model;
 
 import java.util.ArrayList;
 

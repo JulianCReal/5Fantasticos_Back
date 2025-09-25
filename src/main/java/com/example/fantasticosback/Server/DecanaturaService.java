@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Server;
 
 import com.example.fantasticosback.Repository.DecanaturaRepository;
-import com.example.fantasticosback.util.Decanatura;
+import com.example.fantasticosback.Model.Decanatura;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,8 @@
-package com.example.fantasticosback.util;
+package com.example.fantasticosback.Model;
 
+import com.example.fantasticosback.Model.EstadosSolicitudes.EstadoPendiente;
+import com.example.fantasticosback.Model.EstadosSolicitudes.EstadoSolicitud;
+import com.example.fantasticosback.util.Estados;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
@@ -13,28 +16,29 @@ public class Solicitud {
     private int solicitudId;
     private Grupo grupoOrigen;
     private Grupo grupoDestino;
-    private String tipo; // "grupo" o "materia"
+    private String tipo;
     private String observaciones;
-    private String estado;
+    private String nombreEstado;
     private Date fechaSolicitud;
     private int prioridad;
 
-    public Solicitud(int solicitudId, Grupo grupoOrigen, Grupo grupoDestino, String tipo, String observaciones, String estado, Date fechaSolicitud) {
+    private transient EstadoSolicitud estado;
+    private transient boolean evaluacionSolicitud;
+
+    public Solicitud(int solicitudId, Grupo grupoOrigen, Grupo grupoDestino, String tipo, String observaciones, Date fechaSolicitud) {
         this.solicitudId = solicitudId;
         this.grupoOrigen = grupoOrigen;
         this.grupoDestino = grupoDestino;
         this.tipo = tipo;
         this.observaciones = observaciones;
-        this.estado = estado;
         this.fechaSolicitud = fechaSolicitud;
         this.prioridad = contadorPrioridad++;
+        setEstado(new EstadoPendiente());
     }
 
-    // Getters y Setters
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -42,7 +46,6 @@ public class Solicitud {
     public int getSolicitudId() {
         return solicitudId;
     }
-
     public void setSolicitudId(int solicitudId) {
         this.solicitudId = solicitudId;
     }
@@ -50,7 +53,6 @@ public class Solicitud {
     public Grupo getGrupoOrigen() {
         return grupoOrigen;
     }
-
     public void setGrupoOrigen(Grupo grupoOrigen) {
         this.grupoOrigen = grupoOrigen;
     }
@@ -58,7 +60,6 @@ public class Solicitud {
     public Grupo getGrupoDestino() {
         return grupoDestino;
     }
-
     public void setGrupoDestino(Grupo grupoDestino) {
         this.grupoDestino = grupoDestino;
     }
@@ -66,7 +67,6 @@ public class Solicitud {
     public String getTipo() {
         return tipo;
     }
-
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -74,23 +74,13 @@ public class Solicitud {
     public String getObservaciones() {
         return observaciones;
     }
-
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
     }
 
     public Date getFechaSolicitud() {
         return fechaSolicitud;
     }
-
     public void setFechaSolicitud(Date fechaSolicitud) {
         this.fechaSolicitud = fechaSolicitud;
     }
@@ -98,13 +88,40 @@ public class Solicitud {
     public int getPrioridad() {
         return prioridad;
     }
-
     public void setPrioridad(int prioridad) {
         this.prioridad = prioridad;
     }
 
-    public void cambiarEstado(String nuevoEstado) {
-        this.estado = nuevoEstado;
+    public void recoverState() {
+        EstadoSolicitud estadoReconstruido = Estados.getEstados().get(nombreEstado);
+        if (estadoReconstruido == null) {
+            throw new IllegalStateException("Estado desconocido: " + nombreEstado);
+        }
+        this.estado = estadoReconstruido;
+    }
+    public EstadoSolicitud getEstado() {
+        if (estado == null) {
+            recoverState();
+        }
+        return estado;
+    }
+
+    public void setEstado(EstadoSolicitud estado) {
+        this.estado = estado;
+        this.nombreEstado = estado.getNombreEstado();
+    }
+
+    public void procesar(String rolUsuario) {
+        if (estado == null) {
+            recoverState();
+        }
+        estado.changeState(this, rolUsuario);
+    }
+    public void setEvaluacionAprobada(Boolean evaluacionAprobada) {
+        this.evaluacionSolicitud = evaluacionAprobada;
+    }
+    public Boolean getEvaluacionAprobada() {
+        return evaluacionSolicitud;
     }
 
 }

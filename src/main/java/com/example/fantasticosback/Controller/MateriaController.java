@@ -2,11 +2,9 @@ package com.example.fantasticosback.Controller;
 
 
 import com.example.fantasticosback.Server.MateriaService;
-import com.example.fantasticosback.util.Estudiante;
-import com.example.fantasticosback.util.Materia;
+import com.example.fantasticosback.Model.Materia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
