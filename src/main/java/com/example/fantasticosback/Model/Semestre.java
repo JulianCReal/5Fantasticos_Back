@@ -7,6 +7,7 @@ public class Semestre {
     private int año;
     private int periodoAcademico;
     private boolean estado;
+    private int promedioSemestre;
     private ArrayList<Inscripcion> materias = new ArrayList<>();
 
     public Semestre() {
@@ -43,5 +44,20 @@ public class Semestre {
 
     public void cancelarMateria(Inscripcion materia) {
         materia.cancelar();
+    }
+
+    public void calcularPromedioSemestre() {
+        double sumaNotasCreditos = 0.0;
+        int creditosTotales = 0;
+
+        for (Inscripcion inscripcion : materias) {
+            int creditos = inscripcion.getGrupo().getMateria().getCreditos();
+            double nota = inscripcion.getNotaFinal();
+
+            sumaNotasCreditos += nota * creditos;
+            creditosTotales += creditos;
+
+        }
+            this.promedioSemestre = (int) (sumaNotasCreditos / creditosTotales);
     }
 }
