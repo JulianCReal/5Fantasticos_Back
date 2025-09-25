@@ -1,9 +1,9 @@
 package com.example.fantasticosback.util;
+
+import com.example.fantasticosback.Model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
-
-import java.sql.SQLOutput;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,16 +31,18 @@ public class DecanaturaTest {
 
         profesor = new Profesor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
 
-        materia1 = CatalogoMaterias.getMateria("AYSR"); // Arquitectura y Servicios de Red
-        materia2 = CatalogoMaterias.getMateria("DOPO"); // Desarrollo Orientado Por Objetos
+        materia1 = CatalogoMaterias.getMateria("AYSR");
+        materia2 = CatalogoMaterias.getMateria("DOPO");
 
         grupoOrigen = new Grupo(1, 1, 25, true, materia1, profesor);
         grupoDestino = new Grupo(2, 2, 30, true, materia1, profesor);
         grupoInactivo = new Grupo(3, 3, 20, false, materia1, profesor);
+        grupoSinCupos = new Grupo(4, 4, 0, true, materia2, profesor);
 
         grupoOrigen.agregarSesion(new SesionClase("Lunes", "07:00", "08:30", "A-101"));
         grupoDestino.agregarSesion(new SesionClase("Martes", "14:30", "16:00", "H-303"));
         grupoInactivo.agregarSesion(new SesionClase("Miércoles", "10:00", "11:30", "C-203"));
+        grupoSinCupos.agregarSesion(new SesionClase("Jueves", "16:00", "17:30", "D-307"));
 
         Semestre semestre = new Semestre(1, 2025, 2, true);
         estudiante.getSemestres().add(semestre);
@@ -48,161 +50,111 @@ public class DecanaturaTest {
 
         Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
         solicitudCambioGrupo = estudiante.crearSolicitud("grupo", inscripcionOrigen, grupoDestino, "Cambio por horario laboral");
-
-        grupoSinCupos = new Grupo(4, 4, 0, true, materia2, profesor);
-        grupoSinCupos.agregarSesion(new SesionClase("Jueves", "16:00", "17:30", "D-307"));
         solicitudCambioMateria = estudiante.crearSolicitud("materia", inscripcionOrigen, grupoSinCupos, "Cambio de carrera");
     }
 
     @Test
-    @DisplayName("Debería inicializar correctamente una decanatura con ID y facultad")
-    void testConstructorYGetters() {
-        assertEquals("DEC001", decanatura.getId());
-        assertEquals("Ingeniería de Sistemas", decanatura.getFacultad());
+    @DisplayName("Solicitud de cambio de grupo válida debería aprobarse")
+    void testCambioGrupoExitoso() {
+        decanatura.gestionarSolicitud(estudiante, solicitudCambioGrupo);
+
+        assertEquals("Aceptada", solicitudCambioGrupo.getEstado().getNombreEstado());
     }
 
     @Test
-    @DisplayName("Debería permitir cambiar el ID de la decanatura")
-    void testSetId() {
-        decanatura.setId("DEC002");
-        assertEquals("DEC002", decanatura.getId());
+    @DisplayName("Rechaza cambio de grupo si grupo está inactivo")
+    void testCambioGrupoGrupoInactivo() {
+        Solicitud solicitud = estudiante.crearSolicitud("grupo",
+                estudiante.getSemestres().get(0).getMaterias().get(0), grupoInactivo, "Destino inactivo");
+
+        decanatura.gestionarSolicitud(estudiante, solicitud);
+
+        assertEquals("Rechazada", solicitud.getEstado().getNombreEstado());
     }
 
     @Test
-    @DisplayName("Debería aprobar una solicitud de cambio de grupo cuando cumple todos los requisitos")
-    void testEvaluarSolicitudCambioGrupoExitoso() {
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudCambioGrupo);
+    @DisplayName("Rechaza cambio de grupo si no hay cupos")
+    void testCambioGrupoSinCupos() {
+        Solicitud solicitud = estudiante.crearSolicitud("grupo",
+                estudiante.getSemestres().get(0).getMaterias().get(0), grupoSinCupos, "Sin cupos");
 
-        assertTrue(resultado);
-        assertEquals("aprobada", solicitudCambioGrupo.getEstado());
+        decanatura.gestionarSolicitud(estudiante, solicitud);
+
+        assertEquals("Rechazada", solicitud.getEstado().getNombreEstado());
     }
 
     @Test
-    @DisplayName("No debería aprobar una solicitud de cambio de grupo cuando el grupo destino está inactivo")
-    void testEvaluarSolicitudCambioGrupoInactivo() {
-        Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
-        Solicitud solicitudGrupoInactivo = estudiante.crearSolicitud("grupo", inscripcionOrigen, grupoInactivo, "Test grupo inactivo");
-
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudGrupoInactivo);
-
-        assertFalse(resultado);
-        assertEquals("rechazada", solicitudGrupoInactivo.getEstado());
-    }
-
-    @Test
-    @DisplayName("No debería aprobar una solicitud de cambio de grupo cuando no hay cupos disponibles")
-    void testEvaluarSolicitudCambioGrupoSinCupos() {
-
-        Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
-        Solicitud solicitudSinCupos = estudiante.crearSolicitud("grupo", inscripcionOrigen, grupoSinCupos, "Test sin cupos");
-
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudSinCupos);
-
-        assertFalse(resultado);
-        assertEquals("rechazada", solicitudSinCupos.getEstado());
-    }
-
-    @Test
-    @DisplayName("No debería aprobar una solicitud de cambio de grupo cuando hay choque de horario")
-    void testEvaluarSolicitudCambioGrupoConChoque() {
+    @DisplayName("Rechaza si hay choque de horario")
+    void testCambioGrupoConChoque() {
         Grupo grupoConChoque = new Grupo(6, 8, 25, true, materia2, profesor);
         grupoConChoque.agregarSesion(new SesionClase("Martes", "13:00", "16:00", "F-206"));
         estudiante.agregarMateria(grupoConChoque);
 
-        Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
-        Solicitud solicitudConChoque = estudiante.crearSolicitud("grupo", inscripcionOrigen, grupoDestino, "Test choque horario");
+        Solicitud solicitud = estudiante.crearSolicitud("grupo",
+                estudiante.getSemestres().get(0).getMaterias().get(0), grupoDestino, "Choque horario");
 
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudConChoque);
+        decanatura.gestionarSolicitud(estudiante, solicitud);
 
-        assertFalse(resultado);
-        assertEquals("rechazada", solicitudConChoque.getEstado());
+        assertEquals("Rechazada", solicitud.getEstado().getNombreEstado());
     }
 
     @Test
-    @DisplayName("Debería aprobar una solicitud de cambio de materia cuando cumple todos los requisitos")
-    void testEvaluarSolicitudCambioMateriaExitoso() {
-        // Crear grupo destino válido para cambio de materia
+    @DisplayName("Cambio de materia válido se aprueba")
+    void testCambioMateriaExitoso() {
         Grupo grupoDestinoValido = new Grupo(7, 7, 30, true, materia2, profesor);
         grupoDestinoValido.agregarSesion(new SesionClase("Viernes", "10:00", "11:30", "G-106"));
 
-        Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
-        Solicitud solicitudCambioMateriaValida = estudiante.crearSolicitud("materia", inscripcionOrigen, grupoDestinoValido, "Cambio válido");
+        Solicitud solicitud = estudiante.crearSolicitud("materia",
+                estudiante.getSemestres().get(0).getMaterias().get(0), grupoDestinoValido, "Cambio válido");
 
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudCambioMateriaValida);
+        decanatura.gestionarSolicitud(estudiante, solicitud);
 
-        assertTrue(resultado);
-        assertEquals("aprobada", solicitudCambioMateriaValida.getEstado());
+        assertEquals("Aceptada", solicitud.getEstado().getNombreEstado());
     }
 
     @Test
-    @DisplayName("No debería aprobar una solicitud de cambio de materia cuando el grupo destino está inactivo")
-    void testEvaluarSolicitudCambioMateriaGrupoInactivo() {
+    @DisplayName("Rechaza cambio de materia si grupo destino está inactivo")
+    void testCambioMateriaGrupoInactivo() {
         Grupo grupoInactivoMateria2 = new Grupo(8, 8, 25, false, materia2, profesor);
         grupoInactivoMateria2.agregarSesion(new SesionClase("Sábado", "08:30", "10:00", "H-808"));
 
-        Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
-        Solicitud solicitudMateriaInactiva = estudiante.crearSolicitud("materia", inscripcionOrigen, grupoInactivoMateria2, "Test materia inactiva");
+        Solicitud solicitud = estudiante.crearSolicitud("materia",
+                estudiante.getSemestres().get(0).getMaterias().get(0), grupoInactivoMateria2, "Inactivo");
 
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudMateriaInactiva);
+        decanatura.gestionarSolicitud(estudiante, solicitud);
 
-        assertFalse(resultado);
-        assertEquals("rechazada", solicitudMateriaInactiva.getEstado());
+        assertEquals("Rechazada", solicitud.getEstado().getNombreEstado());
     }
 
     @Test
-    @DisplayName("No debería aprobar una solicitud de cambio de materia cuando no hay cupos disponibles")
-    void testEvaluarSolicitudCambioMateriaSinCupos() {
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudCambioMateria);
+    @DisplayName("Rechaza cambio de materia si no hay cupos")
+    void testCambioMateriaSinCupos() {
+        decanatura.gestionarSolicitud(estudiante, solicitudCambioMateria);
 
-        assertFalse(resultado);
-        assertEquals("rechazada", solicitudCambioMateria.getEstado());
+        assertEquals("Rechazada", solicitudCambioMateria.getEstado().getNombreEstado());
     }
-
-    /**
-    @Test
-    @DisplayName("No debería aprobar una solicitud de cambio de materia cuando hay choque de horario")
-    void testEvaluarSolicitudCambioMateriaConChoque() {
-        Grupo grupoChoqueMateria2 = new Grupo(9, 9, 30, true, materia2, profesor);
-        grupoChoqueMateria2.agregarSesion(new SesionClase("Lunes", "07:00", "10:00", "E-203"));
-
-        Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
-        Solicitud solicitudMateriaChoque = estudiante.crearSolicitud("materia", inscripcionOrigen, grupoChoqueMateria2, "Test choque materia");
-
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudMateriaChoque);
-
-        assertFalse(resultado);
-        assertEquals("rechazada", solicitudMateriaChoque.getEstado());
-    }
-     **/
 
     @Test
-    @DisplayName("No debería aprobar una solicitud con tipo no reconocido")
-    void testEvaluarSolicitudTipoInvalido() {
-        Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
-        Solicitud solicitudInvalida = estudiante.crearSolicitud("tipo_invalido", inscripcionOrigen, grupoDestino, "Test tipo inválido");
+    @DisplayName("Tipo de solicitud inválido debería ser rechazada")
+    void testTipoInvalido() {
+        Solicitud solicitud = estudiante.crearSolicitud("otro",
+                estudiante.getSemestres().get(0).getMaterias().get(0), grupoDestino, "Tipo inválido");
 
-        boolean resultado = decanatura.evaluarSolicitud(estudiante, solicitudInvalida);
+        decanatura.gestionarSolicitud(estudiante, solicitud);
 
-        assertFalse(resultado);
-        assertEquals("rechazada", solicitudInvalida.getEstado());
+        assertEquals("Rechazada", solicitud.getEstado().getNombreEstado());
     }
-
 
     @Test
-    @DisplayName("No debería detectar choque de horario cuando el estudiante no tiene semestres")
-    void testVerificarChoqueHorarioEstudianteSinSemestres() {
-        Estudiante estudianteSinSemestres = new Estudiante(
-                "Ana", "López", 54321, "Medicina", "2022001", "est002", 1
-        );
+    @DisplayName("No hay choque si el estudiante no tiene semestres")
+    void testSinSemestres() {
+        Estudiante nuevo = new Estudiante("Ana", "López", 54321, "Medicina", "2022001", "est002", 1);
 
         Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
-        Solicitud solicitudSinSemestres = estudiante.crearSolicitud("grupo", inscripcionOrigen, grupoDestino, "Test sin semestres");
+        Solicitud solicitud = nuevo.crearSolicitud("grupo", inscripcionOrigen, grupoDestino, "Sin semestres");
 
-        boolean resultado = decanatura.evaluarSolicitud(estudianteSinSemestres, solicitudSinSemestres);
+        decanatura.gestionarSolicitud(nuevo, solicitud);
 
-        assertTrue(resultado);
-        assertEquals("aprobada", solicitudSinSemestres.getEstado());
+        assertEquals("Aceptada", solicitud.getEstado().getNombreEstado());
     }
-
-
 }

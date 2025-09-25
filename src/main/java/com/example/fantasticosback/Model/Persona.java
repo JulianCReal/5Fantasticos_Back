@@ -1,4 +1,4 @@
-package com.example.fantasticosback.util;
+package com.example.fantasticosback.Model;
 
 public abstract class Persona {
 

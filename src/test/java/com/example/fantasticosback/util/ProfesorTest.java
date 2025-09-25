@@ -1,10 +1,11 @@
 package com.example.fantasticosback.util;
 
+import com.example.fantasticosback.Model.Materia;
+import com.example.fantasticosback.Model.Profesor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class ProfesorTest {
 

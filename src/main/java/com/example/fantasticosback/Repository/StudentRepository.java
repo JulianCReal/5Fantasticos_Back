@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Repository;
 
-import com.example.fantasticosback.util.Estudiante;
+import com.example.fantasticosback.Model.Estudiante;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

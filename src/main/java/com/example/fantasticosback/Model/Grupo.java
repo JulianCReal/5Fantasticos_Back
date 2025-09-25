@@ -1,4 +1,6 @@
-package com.example.fantasticosback.util;
+package com.example.fantasticosback.Model;
+
+import com.example.fantasticosback.util.SesionClase;
 
 import java.util.ArrayList;
 

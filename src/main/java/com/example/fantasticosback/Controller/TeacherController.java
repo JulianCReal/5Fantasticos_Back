@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Server.TeacherService;
-import com.example.fantasticosback.util.Profesor;
+import com.example.fantasticosback.Model.Profesor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

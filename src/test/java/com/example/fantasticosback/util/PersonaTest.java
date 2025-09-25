@@ -1,7 +1,6 @@
 package com.example.fantasticosback.util;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+import com.example.fantasticosback.Model.Persona;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
