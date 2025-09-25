@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Server;
 
 import com.example.fantasticosback.Repository.TeacherRepository;
-import com.example.fantasticosback.util.Profesor;
+import com.example.fantasticosback.Model.Profesor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Server.DecanaturaService;
-import com.example.fantasticosback.util.Decanatura;
+import com.example.fantasticosback.Model.Decanatura;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

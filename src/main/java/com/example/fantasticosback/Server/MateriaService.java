@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Server;
 
 import com.example.fantasticosback.Repository.MateriaRepository;
-import com.example.fantasticosback.util.Materia;
+import com.example.fantasticosback.Model.Materia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

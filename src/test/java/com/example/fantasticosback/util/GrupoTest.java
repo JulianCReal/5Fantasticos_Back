@@ -1,5 +1,8 @@
 package com.example.fantasticosback.util;
 
+import com.example.fantasticosback.Model.Grupo;
+import com.example.fantasticosback.Model.Materia;
+import com.example.fantasticosback.Model.Profesor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
