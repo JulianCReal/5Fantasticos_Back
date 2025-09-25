@@ -6,19 +6,23 @@ public class SemaforoAcademico {
     private int id;
     private int avancePorcentaje;
     private ArrayList<Inscripcion> materias = new ArrayList<>();
-    private double promedioAcumulado; // Cambiar a double para mayor precisión
+    private double promedioAcumulado;
     private int totalCreditos;
     private int creditosAprobados;
+    private ArrayList<Semestre> semestres = new ArrayList<>();
 
     public SemaforoAcademico(int id, int avancePorcentaje, int totalCreditos) {
         this.id = id;
         this.avancePorcentaje = avancePorcentaje;
-        this.promedioAcumulado = 0.0; // Cambiar a 0.0
+        this.promedioAcumulado = 0.0;
         this.totalCreditos = totalCreditos;
         this.creditosAprobados = 0;
     }
 
-    // METODO INCOMPLETO
+    public void agregarSemestre(Semestre semestre) {
+        this.semestres.add(semestre);
+    }
+
     public void actualizarAvance(ArrayList<Inscripcion> materias) {
         this.materias = materias;
 
@@ -29,11 +33,10 @@ public class SemaforoAcademico {
         }
 
         calcularPromedioAcumulado();
-        this.avancePorcentaje = (int) ((double) creditosAprobados / totalCreditos * 100);
+        this.avancePorcentaje = creditosAprobados / totalCreditos * 100;
     }
 
 
-    // METODO INCOMPLETO
     private void calcularPromedioAcumulado() {
         double sumaNotasCreditos = 0.0;
 
@@ -48,6 +51,7 @@ public class SemaforoAcademico {
         }
             this.promedioAcumulado = sumaNotasCreditos / creditosAprobados;
     }
+
 
     public int getId() {
         return id;
