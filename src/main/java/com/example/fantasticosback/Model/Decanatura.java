@@ -1,8 +1,10 @@
 package com.example.fantasticosback.Model;
 
+import com.example.fantasticosback.Model.Observers.ObserverSolicitud;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 @Document(collection = "Decanaturas")
@@ -12,6 +14,8 @@ public class Decanatura {
     private String id;
     private String facultad;
     private static final Logger log = Logger.getLogger(Decanatura.class.getName());
+
+    private ArrayList<ObserverSolicitud> observers = new ArrayList<>();
 
     public Decanatura(String id, String facultad) {
         this.id = id;
@@ -29,6 +33,15 @@ public class Decanatura {
         return facultad;
     }
 
+    public void addObserver(ObserverSolicitud observer){
+        observers.add(observer);
+    }
+    private void alertObserver(Solicitud solicitud){
+        for(ObserverSolicitud observer: observers){
+            observer.notificarSolicitud(solicitud);
+        }
+    }
+
     public void gestionarSolicitud(Estudiante estudiante, Solicitud solicitud) {
         try {
             solicitud.recoverState();
@@ -41,6 +54,7 @@ public class Decanatura {
             solicitud.setEvaluacionAprobada(aprobada);
 
             solicitud.procesar("Decanatura");
+            alertObserver(solicitud);
 
         } catch (Exception e) {
             log.severe("Error al gestionar solicitud: " + e.getMessage());

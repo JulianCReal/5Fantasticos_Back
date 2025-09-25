@@ -1,5 +1,6 @@
 package com.example.fantasticosback.Model;
 
+import com.example.fantasticosback.Model.Observers.ObserverSolicitud;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,6 +18,8 @@ public class Estudiante extends Persona {
     private ArrayList<Semestre> semestres = new ArrayList<>();
     private static final Logger log = Logger.getLogger(Estudiante.class.getName());
     private ArrayList<Solicitud> solicitudes = new ArrayList<>();
+
+    private ArrayList<ObserverSolicitud> observers = new ArrayList<>();
 
     public Estudiante(String nombre, String apellido, int documento, String carrera, String codigo, String idEstudiante, int semestre) {
         super(nombre, apellido, documento);
@@ -127,6 +130,15 @@ public class Estudiante extends Persona {
         }
     }
 
+    public void addObserver(ObserverSolicitud observer){
+        observers.add(observer);
+    }
+    private void alertObserver(Solicitud solicitud){
+        for(ObserverSolicitud observer: observers){
+            observer.notificarSolicitud(solicitud);
+        }
+    }
+
     public Solicitud crearSolicitud(String tipo, Inscripcion materiaActual, Grupo grupoDestino, String observaciones) {
         int solicitudId = (int) (Math.random() * 100000);
         Date fechaActual = new Date();
@@ -148,7 +160,7 @@ public class Estudiante extends Persona {
                     " de materia " + materiaActual.getGrupo().getMateria().getNombre() +
                     " a materia " + grupoDestino.getMateria().getNombre());
         }
-
+        alertObserver(solicitud);
         solicitudes.add(solicitud);
         return solicitud;
     }
