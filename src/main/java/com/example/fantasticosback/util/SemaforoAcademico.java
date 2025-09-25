@@ -27,38 +27,53 @@ public class SemaforoAcademico {
 
     public void actualizarAvance(ArrayList<Inscripcion> materias) {
         this.materias = materias;
-
+        this.creditosAprobados = 0; // Reset counter
         for (Inscripcion inscripcion : materias) {
             if (inscripcion.getEstado().equals("aprobada")) {
                 creditosAprobados += inscripcion.getGrupo().getMateria().getCreditos();
             }
         }
-
         calcularPromedioAcumulado();
-        this.avancePorcentaje = creditosAprobados / totalCreditos * 100;
+        double avanceCalculado = (double) creditosAprobados / totalCreditos * 100;
+        this.avancePorcentaje = (int) avanceCalculado;
     }
-
 
     private void calcularPromedioAcumulado() {
         double sumaNotasCreditos = 0.0;
+        int creditosCursados = 0;
 
         for (Inscripcion inscripcion : materias) {
-            if (inscripcion.getEstado().equals("aprobada")) {
-                int creditos = inscripcion.getGrupo().getMateria().getCreditos();
-                double nota = inscripcion.getNotaFinal();
-
-                sumaNotasCreditos += nota * creditos;
-                creditosAprobados += creditos;
-            }
+            int creditos = inscripcion.getGrupo().getMateria().getCreditos();
+            double nota = inscripcion.getNotaFinal();
+            sumaNotasCreditos += nota * creditos;
+            creditosCursados += creditos;
         }
-            this.promedioAcumulado = sumaNotasCreditos / creditosAprobados;
-    }
 
+        if (creditosCursados > 0) {
+            double promedioCalculado = sumaNotasCreditos / creditosCursados;
+            this.promedioAcumulado = Math.round(promedioCalculado * 10.0) / 10.0;
+        } else {
+            this.promedioAcumulado = 0.0;
+        }
+    }
 
     public int getId() {
         return id;
     }
 
+    public int getAvancePorcentaje() {
+        return avancePorcentaje;
+    }
 
+    public double getPromedioAcumulado() {
+        return promedioAcumulado;
+    }
 
+    public int getTotalCreditos() {
+        return totalCreditos;
+    }
+
+    public ArrayList<Semestre> getSemestres() {
+        return semestres;
+    }
 }
