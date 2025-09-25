@@ -1,4 +1,6 @@
 package com.example.fantasticosback.util;
+import com.example.fantasticosback.Model.Inscripcion;
+import com.example.fantasticosback.Model.Semestre;
 
 import java.util.ArrayList;
 
