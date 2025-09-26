@@ -57,9 +57,20 @@ public class Estudiante extends Persona {
         return semestres;
     }
 
+    public void setSemestres(ArrayList<Semestre> semestres) {
+        this.semestres = semestres;
+    }
+
+    public void agregarSemestre(Semestre semestre) {
+        this.semestres.add(semestre);
+    }
 
     public ArrayList<Solicitud> getSolicitudes() {
         return solicitudes;
+    }
+
+    public void setSolicitudes(ArrayList<Solicitud> solicitudes) {
+        this.solicitudes = solicitudes;
     }
 
 
