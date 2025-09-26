@@ -34,7 +34,7 @@ class SolicitudControllerTest {
     }
 
     private Solicitud crearSolicitudDummy() {
-        return new Solicitud(1, grupoOrigen, grupoDestino, "tipo", "obs", new Date());
+        return new Solicitud(1, grupoOrigen, grupoDestino, "tipo", "obs", new java.util.Date(), "E001");
     }
 
     @Test
