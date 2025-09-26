@@ -195,7 +195,7 @@ git commit -m "cambios varios"                   # Sin código Jira ni tipo
 ## Diagramas
 
 - Diagrama de base de datos:
-  <img width="1768" height="1134" alt="image" src="https://github.com/user-attachments/assets/6d4c61a2-ac61-475a-b32c-2dfb451ffb88" />
+  <img width="3127" height="2645" alt="Diagramas SIRHA los 5 fantasticos - Diagrama base de datos" src="https://github.com/user-attachments/assets/c0674877-4cb7-456c-a67b-cba4c4f10658" />
   - El diagrama representa el modelo de datos de un sistema académico basado en documentos NoSQL. Se definen entidades principales como User, de la cual heredan Student y Teacher, además de Department, Group, Subject y Petition. Cada entidad cuenta con su respectiva colección en formato de documento, donde se almacenan atributos como identificadores, nombres, códigos, materias, grupos y observaciones.
   
   - Las relaciones muestran que los estudiantes y profesores pertenecen a departamentos; los profesores dictan materias y grupos; los estudiantes cursan asignaturas y pueden generar peticiones relacionadas con cambios o solicitudes académicas. En conjunto, el modelo busca organizar y gestionar de forma estructurada la información académica de usuarios, departamentos, materias y procesos administrativos.
@@ -207,12 +207,12 @@ git commit -m "cambios varios"                   # Sin código Jira ni tipo
 
 
 - Diagrama de contexto:
-  <img width="1946" height="1098" alt="image" src="https://github.com/user-attachments/assets/8f74c69f-c4bf-4497-b088-00cc41db49dd" />
+ <img width="1886" height="1154" alt="Diagramas SIRHA los 5 fantasticos - Diagrama de contexto" src="https://github.com/user-attachments/assets/9a65022f-acb5-4922-9eb6-5759e5cdc826" />
 - El diagrama de contexto muestra al sistema Sirha como el núcleo que centraliza la información académica y administrativa. Los estudiantes pueden visualizar sus horarios, avances académicos y realizar solicitudes. Los administrativos gestionan la asignación de salones y franjas horarias, además de acceder a la información de los estudiantes. Las decanaturas revisan solicitudes, habilitan cupos y realizan los procedimientos correspondientes. Finalmente, los profesores consultan los horarios de sus clases y de sus alumnos.
 
 
 - Diagrama de clases:
-  <img width="4980" height="2896" alt="Diagrama en blanco (4)" src="https://github.com/user-attachments/assets/c020d945-55ed-421f-9e25-28f3cbffa119" />
+  ![Diagramas SIRHA los 5 fantasticos - Diagrama de Clases](https://github.com/user-attachments/assets/44f398bf-4121-4656-be7e-56397baaac1e)
 - El diagrama de clases representa la estructura del sistema Sirha, mostrando las entidades principales y sus relaciones. Se incluyen clases académicas como Estudiante, Profesor, Decanatura, Administrador, Materia, Grupo, Carrera, Horario, SemáforoAcadémico y Solicitud, que permiten gestionar la información de los usuarios, las asignaturas, los horarios y los procesos académicos. En conjunto, el modelo organiza la lógica del sistema y facilita la administración de los recursos académicos y las solicitudes de los estudiantes.
 
 
