@@ -45,30 +45,37 @@ public class Solicitud {
         this.id = id;
     }
 
+    /**
     public int getSolicitudId() {
         return solicitudId;
     }
     public void setSolicitudId(int solicitudId) {
         this.solicitudId = solicitudId;
     }
+     **/
 
     public Grupo getGrupoOrigen() {
         return grupoOrigen;
     }
+    /**
     public void setGrupoOrigen(Grupo grupoOrigen) {
         this.grupoOrigen = grupoOrigen;
     }
+     **/
 
     public Grupo getGrupoDestino() {
         return grupoDestino;
     }
+    /**
     public void setGrupoDestino(Grupo grupoDestino) {
         this.grupoDestino = grupoDestino;
     }
+     **/
 
     public String getTipo() {
         return tipo;
     }
+    /**
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -93,6 +100,7 @@ public class Solicitud {
     public void setPrioridad(int prioridad) {
         this.prioridad = prioridad;
     }
+     **/
 
     public void recoverState() {
         EstadoSolicitud estadoReconstruido = Estados.getEstados().get(nombreEstado);

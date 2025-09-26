@@ -168,14 +168,12 @@ public class InscripcionTest {
 
     @Test
     void testValidarChoqueHorarioFinalIgual() {
-        // Crear grupo con horario que termina a la misma hora
         Grupo grupoChoqueFinal = new Grupo(4, 104, 15, true, materia, profesor);
         SesionClase sesionChoqueFinal = new SesionClase("Lunes", "09:00", "10:00", "D401");
         grupoChoqueFinal.agregarSesion(sesionChoqueFinal);
 
         Inscripcion inscripcionChoqueFinal = new Inscripcion(grupoChoqueFinal, 4, "inscrita", 0.0);
 
-        // Debe haber choque porque una termina cuando la otra termina (10:00)
         assertTrue(inscripcion.validarChoque(inscripcionChoqueFinal));
         assertTrue(inscripcionChoqueFinal.validarChoque(inscripcion));
     }

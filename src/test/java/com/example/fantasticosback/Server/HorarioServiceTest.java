@@ -5,6 +5,7 @@ import com.example.fantasticosback.Repository.DecanaturaRepository;
 import com.example.fantasticosback.Repository.StudentRepository;
 import com.example.fantasticosback.Repository.TeacherRepository;
 import com.example.fantasticosback.enums.UserRole;
+import com.example.fantasticosback.util.SemaforoAcademico;
 import com.example.fantasticosback.util.SesionClase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,9 @@ class HorarioServiceTest {
     @BeforeEach
     void setUp() {
         // Crear estudiante de prueba
-        estudiante = new Estudiante("Juan", "Pérez", 123456789, "Ingeniería", "C001", "E001", 5);
+        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
+        estudiante = new Estudiante("Juan", "Pérez", 123456789, "Ingeniería", "C001", "E001", 5, semaforo);
         
         // Crear profesor de prueba
         profesor = new Profesor("María", "González", 987654321, "Matemáticas");
@@ -239,7 +242,9 @@ class HorarioServiceTest {
     @Test
     void testObtenerHorarioEstudiante_EstudianteSinSemestres_RetornaHorarioVacio() throws Exception {
         // Arrange
-        Estudiante estudianteSinSemestres = new Estudiante("Ana", "López", 111111111, "Ingeniería", "C002", "E002", 1);
+        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
+        Estudiante estudianteSinSemestres = new Estudiante("Ana", "López", 111111111, "Ingeniería", "C002", "E002", 1, semaforo);
         when(studentRepository.findById("E002")).thenReturn(Optional.of(estudianteSinSemestres));
 
         // Act
