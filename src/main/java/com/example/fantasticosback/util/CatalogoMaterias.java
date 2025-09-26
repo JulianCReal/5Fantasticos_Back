@@ -14,6 +14,7 @@ public class CatalogoMaterias {
         materias.put("AYSR", new Materia(301, "Arquitectura y Servicios de Red", 4, 5));
         materias.put("IPRO", new Materia(401, "Introducción a la programación", 3, 1));
         materias.put("DOPO", new Materia(501, "Desarrollo Orientado Por Objetos", 4, 5));
+
     }
 
     public static Materia getMateria(String codigo) {

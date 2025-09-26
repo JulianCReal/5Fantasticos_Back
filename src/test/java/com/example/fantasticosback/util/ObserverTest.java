@@ -28,7 +28,9 @@ public class ObserverTest {
 
         // Arrange
         DeanObserver deanObserver = new DeanObserver();
-        Estudiante estudiante = new Estudiante("Ana", "García", 123456, "Ingeniería", "202301", "E01", 5);
+        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
+        Estudiante estudiante = new Estudiante("Ana", "García", 123456, "Ingeniería", "202301", "E01", 5, semaforo);
 
         // Hacer el método addObserver público en Estudiante
         estudiante.addObserver(deanObserver);
@@ -63,8 +65,9 @@ public class ObserverTest {
         Decanatura decanatura = new Decanatura("D01", "Ingeniería");
 
         decanatura.addObserver(studentObserver);
-
-        Estudiante estudiante = new Estudiante("Carlos", "Lopez", 987654, "Sistemas", "202302", "E02", 6);
+        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
+        Estudiante estudiante = new Estudiante("Carlos", "Lopez", 987654, "Sistemas", "202302", "E02", 6, semaforo);
 
         Materia materia1 = CatalogoMaterias.getMateria("AYSR");
         Materia materia2 = CatalogoMaterias.getMateria("DOPO");

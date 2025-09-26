@@ -55,6 +55,14 @@ public class Grupo {
         this.materia = materia;
     }
 
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
 
     public ArrayList<SesionClase> getSesiones() {
         return sesiones;
