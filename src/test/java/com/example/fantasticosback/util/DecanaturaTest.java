@@ -29,6 +29,9 @@ public class DecanaturaTest {
                 "2020001", "est001", 4
         );
 
+
+        decanatura.addEstudiante(estudiante);
+
         profesor = new Profesor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
 
         materia1 = CatalogoMaterias.getMateria("AYSR");
@@ -156,5 +159,20 @@ public class DecanaturaTest {
         decanatura.gestionarSolicitud(nuevo, solicitud);
 
         assertEquals("Aceptada", solicitud.getEstado().getNombreEstado());
+    }
+
+    @Test
+    @DisplayName("Lista todas las solicitudes de la facultad")
+    void testListarSolicitudes() {
+        Estudiante estudiante1 = new Estudiante(
+                "Luis", "Ramírez", 11223, "Ingeniería de Sistemas",
+                "2021002", "est003", 3
+        );
+        decanatura.addEstudiante(estudiante1);
+        estudiante1.getSemestres().add(new Semestre(1, 2025, 2, true));
+        estudiante1.agregarMateria(grupoOrigen);
+        Inscripcion inscripcion1 = estudiante1.getSemestres().get(0).getMaterias().get(0);
+         estudiante1.crearSolicitud("grupo", inscripcion1, grupoDestino, "Cambio por horario");
+         assertEquals(3, decanatura.getSolicitudesPorFacultad().size());
     }
 }
