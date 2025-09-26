@@ -11,6 +11,7 @@ public class Grupo {
     private boolean estado;
     private Materia materia;
     private Profesor profesor;
+    private ArrayList<Estudiante> estudiantesGrupo;
     private ArrayList<SesionClase> sesiones = new ArrayList<>();
 
     public Grupo(int id, int numero, int capacidad, boolean estado, Materia materia, Profesor profesor) {
@@ -20,6 +21,7 @@ public class Grupo {
         this.estado = estado;
         this.materia = materia;
         this.profesor = profesor;
+        this.estudiantesGrupo = new ArrayList<>();
         this.sesiones = new ArrayList<>();
     }
 
@@ -55,11 +57,29 @@ public class Grupo {
         this.materia = materia;
     }
 
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public ArrayList<Estudiante> getEstudiantesGrupo() {
+        return estudiantesGrupo;
+    }
+
+    public void setEstudiantesGrupo(ArrayList<Estudiante> estudiantesGrupo) {
+        this.estudiantesGrupo = estudiantesGrupo;
+    }
 
     public ArrayList<SesionClase> getSesiones() {
         return sesiones;
     }
 
+    public void setSesiones(ArrayList<SesionClase> sesiones) {
+        this.sesiones = sesiones;
+    }
 
     public void agregarSesion(SesionClase sesion) {
         this.sesiones.add(sesion);
