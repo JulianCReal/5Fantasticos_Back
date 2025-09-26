@@ -1,7 +1,6 @@
 package com.example.fantasticosback.Model;
 
 import com.example.fantasticosback.Model.Observers.ObserverSolicitud;
-import com.example.fantasticosback.util.SemaforoAcademico;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,10 +18,8 @@ public class Estudiante extends Persona {
     private ArrayList<Semestre> semestres = new ArrayList<>();
     private static final Logger log = Logger.getLogger(Estudiante.class.getName());
     private ArrayList<Solicitud> solicitudes = new ArrayList<>();
-    private SemaforoAcademico semaforoAcademico;
 
     private ArrayList<ObserverSolicitud> observers = new ArrayList<>();
-
 
     public Estudiante(String nombre, String apellido, int documento, String carrera, String codigo, String idEstudiante, int semestre, SemaforoAcademico semaforoAcademico) {
         super(nombre, apellido, documento);
@@ -32,7 +29,6 @@ public class Estudiante extends Persona {
         this.semestre = semestre;
         this.semestres = new ArrayList<>();
         this.solicitudes = new ArrayList<>();
-        this.semaforoAcademico = semaforoAcademico;
     }
 
     // Getters y Setters
@@ -73,16 +69,10 @@ public class Estudiante extends Persona {
         return solicitudes;
     }
 
-    public SemaforoAcademico getSemaforoAcademico() {
-        return semaforoAcademico;
-    }
-
-    public SemaforoAcademico verSemaforo() {
-        return  semaforoAcademico;
-    }
     public void setSolicitudes(ArrayList<Solicitud> solicitudes) {
         this.solicitudes = solicitudes;
     }
+
 
     public void setId(String _id) {
         this.idEstudiante = _id;
@@ -185,21 +175,6 @@ public class Estudiante extends Persona {
         alertObserver(solicitud);
         solicitudes.add(solicitud);
         return solicitud;
-    }
-
-    public SemaforoAcademico verSemaforoAcademico() {
-        return semaforoAcademico;
-    }
-
-
-    public boolean estaInscritoEnGrupo(Grupo grupo) {
-        Semestre semestre = semestres.get(semestres.size() - 1);
-        for (Inscripcion inscripcion : semestre.getMaterias()) {
-            if (inscripcion.getGrupo().getId() == grupo.getId()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
