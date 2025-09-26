@@ -66,9 +66,15 @@
     <img width="1364" height="429" alt="image" src="https://github.com/user-attachments/assets/bd2bcbf7-3f41-47cd-ae9d-6f1467ed4461" />
     <img width="1335" height="435" alt="image" src="https://github.com/user-attachments/assets/0cd3ac9e-003c-4f4e-b384-f6256f20f024" />
     <img width="1338" height="379" alt="image" src="https://github.com/user-attachments/assets/06051b46-2053-477c-9f4f-9cf519dd356e" />
+    <img width="1831" height="503" alt="image" src="https://github.com/user-attachments/assets/6bc20c0f-2854-4ef2-abf5-7c4797b59b35" />
+    <img width="1839" height="230" alt="image" src="https://github.com/user-attachments/assets/e8cdd27d-3d5f-42ae-829b-735dfcc5cb37" />
+
+
 
   - **Jacoco y sonarQube**
-    <img width="1363" height="426" alt="Captura de pantalla de 2025-09-19 10-30-45" src="https://github.com/user-attachments/assets/0f7f15ba-41a0-496c-b557-58a247464389" />
+    
+    <img width="1916" height="394" alt="image" src="https://github.com/user-attachments/assets/d9a451ea-9fbf-4554-a32b-4bbd7134ee7a" />
+
 <img width="856" height="178" alt="Captura de pantalla de 2025-09-19 10-30-25" src="https://github.com/user-attachments/assets/80754aa0-25a7-4720-98b0-b123dc38f685" />
 
 
