@@ -15,14 +15,20 @@
 ## Diagramas
 
 - Diagrama de base de datos:
-  <img width="3436" height="1910" alt="Diagrama en blanco (1)" src="https://github.com/user-attachments/assets/9aa3e58e-6864-484c-a6c1-f8e7903e2138" />
+  <img width="1768" height="1134" alt="image" src="https://github.com/user-attachments/assets/6d4c61a2-ac61-475a-b32c-2dfb451ffb88" />
 - Diagrama casos de uso:
-  <img width="2745" height="2243" alt="Diagrama en blanco (2)" src="https://github.com/user-attachments/assets/582461ec-5798-4539-8323-0095f35bcb5c" />
+  <img width="1093" height="1162" alt="image" src="https://github.com/user-attachments/assets/3cc9718c-51de-402c-ad37-bdac7f4a13b7" />
 - Diagrama de contexto:
-  <img width="1965" height="1256" alt="Diagrama en blanco (3)" src="https://github.com/user-attachments/assets/7f761f9b-bb57-4e80-baa8-d472a7af3fad" />
+  <img width="1946" height="1098" alt="image" src="https://github.com/user-attachments/assets/8f74c69f-c4bf-4497-b088-00cc41db49dd" />
 - Diagrama de clases:
   <img width="4980" height="2896" alt="Diagrama en blanco (4)" src="https://github.com/user-attachments/assets/c020d945-55ed-421f-9e25-28f3cbffa119" />
-
+- Diagrama de secuencia:
+  <img width="2206" height="1186" alt="image" src="https://github.com/user-attachments/assets/3a0dd45d-a506-42bd-985a-255d8809db8c" />
+  <img width="1732" height="515" alt="image" src="https://github.com/user-attachments/assets/57fd1bab-f173-4f4f-9244-9e67d768d088" />
+- Diagrama de componentes General:
+  <img width="1796" height="968" alt="image" src="https://github.com/user-attachments/assets/3c128637-0267-4734-bc4a-b0155bfad393" />
+- Diagrama de componentes Especifico:
+  <img width="2367" height="1130" alt="image" src="https://github.com/user-attachments/assets/485bba7d-6002-4044-949c-b5a2d3115be2" />
 
 ## Prebas del funcionamiento del api est
 - **Materias**

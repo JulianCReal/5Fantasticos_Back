@@ -60,6 +60,13 @@ public class Estudiante extends Persona {
         return semestres;
     }
 
+    public void setSemestres(ArrayList<Semestre> semestres) {
+        this.semestres = semestres;
+    }
+
+    public void agregarSemestre(Semestre semestre) {
+        this.semestres.add(semestre);
+    }
 
     public ArrayList<Solicitud> getSolicitudes() {
         return solicitudes;
@@ -71,6 +78,9 @@ public class Estudiante extends Persona {
 
     public SemaforoAcademico verSemaforo() {
         return  semaforoAcademico;
+    }
+    public void setSolicitudes(ArrayList<Solicitud> solicitudes) {
+        this.solicitudes = solicitudes;
     }
 
     public void setId(String _id) {
