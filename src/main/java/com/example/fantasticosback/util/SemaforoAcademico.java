@@ -27,6 +27,7 @@ public class SemaforoAcademico {
         this.semestres.add(semestre);
     }
 
+
     public void actualizarAvance(ArrayList<Inscripcion> materias) {
         this.materias = materias;
         this.creditosAprobados = 0; // Reset counter
