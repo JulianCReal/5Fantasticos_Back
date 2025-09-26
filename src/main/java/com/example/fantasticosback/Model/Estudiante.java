@@ -1,6 +1,7 @@
 package com.example.fantasticosback.Model;
 
 import com.example.fantasticosback.Model.Observers.ObserverSolicitud;
+import com.example.fantasticosback.util.SemaforoAcademico;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -18,6 +19,7 @@ public class Estudiante extends Persona {
     private ArrayList<Semestre> semestres = new ArrayList<>();
     private static final Logger log = Logger.getLogger(Estudiante.class.getName());
     private ArrayList<Solicitud> solicitudes = new ArrayList<>();
+    private SemaforoAcademico semaforoAcademico;
 
     private ArrayList<ObserverSolicitud> observers = new ArrayList<>();
 
@@ -29,6 +31,7 @@ public class Estudiante extends Persona {
         this.semestre = semestre;
         this.semestres = new ArrayList<>();
         this.solicitudes = new ArrayList<>();
+        this.semaforoAcademico = semaforoAcademico;
     }
 
     // Getters y Setters

@@ -12,7 +12,8 @@ public class SemaforoAcademicoTest {
 
     @BeforeEach
     public void setUp() {
-        semaforo = new SemaforoAcademico(1, 0, 160);
+        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
+        semaforo = new SemaforoAcademico(1, 0, carrera);
         createData();
     }
 
@@ -35,7 +36,6 @@ public class SemaforoAcademicoTest {
         assertNotNull(semaforo);
         assertEquals(1, semaforo.getId());
         assertEquals(0, semaforo.getAvancePorcentaje());
-        assertEquals(160, semaforo.getTotalCreditos());
         assertEquals(0.0, semaforo.getPromedioAcumulado());
     }
 

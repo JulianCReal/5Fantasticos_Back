@@ -23,10 +23,12 @@ public class DecanaturaTest {
     @BeforeEach
     void setUp() {
         decanatura = new Decanatura("DEC001", "Ingeniería de Sistemas");
+        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
 
         estudiante = new Estudiante(
                 "María", "González", 98765, "Ingeniería de Sistemas",
-                "2020001", "est001", 4
+                "2020001", "est001", 4, semaforo
         );
 
 
@@ -151,7 +153,9 @@ public class DecanaturaTest {
     @Test
     @DisplayName("No hay choque si el estudiante no tiene semestres")
     void testSinSemestres() {
-        Estudiante nuevo = new Estudiante("Ana", "López", 54321, "Medicina", "2022001", "est002", 1);
+        Carrera carreraTemp = new Carrera("Medicina", 200);
+        SemaforoAcademico semaforoTemp = new SemaforoAcademico(1, 0, carreraTemp);
+        Estudiante nuevo = new Estudiante("Ana", "López", 54321, "Medicina", "2022001", "est002", 1, semaforoTemp);
 
         Inscripcion inscripcionOrigen = estudiante.getSemestres().get(0).getMaterias().get(0);
         Solicitud solicitud = nuevo.crearSolicitud("grupo", inscripcionOrigen, grupoDestino, "Sin semestres");
@@ -164,9 +168,11 @@ public class DecanaturaTest {
     @Test
     @DisplayName("Lista todas las solicitudes de la facultad")
     void testListarSolicitudes() {
+        Carrera carreraTemp = new Carrera("Ingeniería de Sistemas", 160);
+        SemaforoAcademico semaforoTemp = new SemaforoAcademico(1, 0, carreraTemp);
         Estudiante estudiante1 = new Estudiante(
                 "Luis", "Ramírez", 11223, "Ingeniería de Sistemas",
-                "2021002", "est003", 3
+                "2021002", "est003", 3, semaforoTemp
         );
         decanatura.addEstudiante(estudiante1);
         estudiante1.getSemestres().add(new Semestre(1, 2025, 2, true));
