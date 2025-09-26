@@ -21,7 +21,7 @@ public class Estudiante extends Persona {
 
     private ArrayList<ObserverSolicitud> observers = new ArrayList<>();
 
-    public Estudiante(String nombre, String apellido, int documento, String carrera, String codigo, String idEstudiante, int semestre) {
+    public Estudiante(String nombre, String apellido, int documento, String carrera, String codigo, String idEstudiante, int semestre, SemaforoAcademico semaforoAcademico) {
         super(nombre, apellido, documento);
         this.carrera = carrera;
         this.codigo = codigo;
