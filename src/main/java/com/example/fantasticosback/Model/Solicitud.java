@@ -25,14 +25,16 @@ public class Solicitud {
     private transient EstadoSolicitud estado;
     private transient boolean evaluacionSolicitud;
 
-    public Solicitud(int solicitudId, Grupo grupoOrigen, Grupo grupoDestino, String tipo, String observaciones, Date fechaSolicitud) {
+    public Solicitud(int solicitudId, Grupo grupoOrigen, Grupo grupoDestino, String tipo, String observaciones, Date fechaSolicitud, String idEstudiante) {
         this.solicitudId = solicitudId;
         this.grupoOrigen = grupoOrigen;
         this.grupoDestino = grupoDestino;
         this.tipo = tipo;
         this.observaciones = observaciones;
         this.fechaSolicitud = fechaSolicitud;
+        this.id = idEstudiante;
         this.prioridad = contadorPrioridad++;
+
         setEstado(new EstadoPendiente());
     }
 

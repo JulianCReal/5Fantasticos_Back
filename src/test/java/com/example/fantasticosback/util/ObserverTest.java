@@ -80,7 +80,8 @@ public class ObserverTest {
                 grupoDestino,
                 "grupo",
                 "Cambio de grupo",
-                new Date()
+                new Date(),
+                estudiante.getIdEstudiante()
         );
 
         // Act
