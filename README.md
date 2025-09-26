@@ -27,6 +27,8 @@
   <img width="1732" height="515" alt="image" src="https://github.com/user-attachments/assets/57fd1bab-f173-4f4f-9244-9e67d768d088" />
 - Diagrama de componentes General:
   <img width="1796" height="968" alt="image" src="https://github.com/user-attachments/assets/3c128637-0267-4734-bc4a-b0155bfad393" />
+- Diagrama de componentes Especifico:
+  <img width="2367" height="1130" alt="image" src="https://github.com/user-attachments/assets/485bba7d-6002-4044-949c-b5a2d3115be2" />
 
 ## Prebas del funcionamiento del api est
 - **Materias**
