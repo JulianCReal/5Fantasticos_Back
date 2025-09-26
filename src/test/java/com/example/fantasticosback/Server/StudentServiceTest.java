@@ -1,7 +1,9 @@
 package com.example.fantasticosback.Server;
 
+import com.example.fantasticosback.Model.Carrera;
 import com.example.fantasticosback.Model.Estudiante;
 import com.example.fantasticosback.Repository.StudentRepository;
+import com.example.fantasticosback.util.SemaforoAcademico;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,7 +25,9 @@ class StudentServiceTest {
     private StudentService studentService;
 
     private Estudiante getEstudianteDummy() {
-        return new Estudiante("Juan", "Perez", 123, "Ing", "C001", "E001", 1);
+        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
+        return new Estudiante("Juan", "Perez", 123, "Ing", "C001", "E001", 1, semaforo);
     }
 
     @Test

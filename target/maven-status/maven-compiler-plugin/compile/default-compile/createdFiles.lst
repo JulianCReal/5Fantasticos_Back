@@ -26,6 +26,7 @@ com\example\fantasticosback\Model\EstadosSolicitudes\EstadoPendiente.class
 com\example\fantasticosback\Repository\TeacherRepository.class
 com\example\fantasticosback\Server\DecanaturaService.class
 com\example\fantasticosback\util\SemaforoAcademico.class
+com\example\fantasticosback\Model\Carrera.class
 com\example\fantasticosback\Server\HorarioService.class
 com\example\fantasticosback\Server\MateriaService.class
 com\example\fantasticosback\Model\Observers\DeanObserver.class

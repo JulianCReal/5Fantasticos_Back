@@ -30,6 +30,7 @@ public class Semestre {
         this.id = id;
     }
 
+    /**
     public int getAño() {
         return año;
     }
@@ -45,30 +46,37 @@ public class Semestre {
     public void setPeriodoAcademico(int periodoAcademico) {
         this.periodoAcademico = periodoAcademico;
     }
+     **/
 
     public boolean isEstado() {
         return estado;
     }
 
+    /**
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+     **/
 
     public int getPromedioSemestre() {
         return promedioSemestre;
     }
 
+    /**
     public void setPromedioSemestre(int promedioSemestre) {
         this.promedioSemestre = promedioSemestre;
     }
+     **/
 
     public ArrayList<Inscripcion> getMaterias() {
         return materias;
     }
 
+    /**
     public void setMaterias(ArrayList<Inscripcion> materias) {
         this.materias = materias;
     }
+     **/
 
     public void agregarMateria(Inscripcion materia) {
         this.materias.add(materia);
