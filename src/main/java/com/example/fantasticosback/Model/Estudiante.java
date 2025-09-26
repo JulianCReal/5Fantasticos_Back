@@ -180,6 +180,10 @@ public class Estudiante extends Persona {
         return solicitud;
     }
 
+    public SemaforoAcademico verSemaforoAcademico() {
+        return semaforoAcademico;
+    }
+
     @Override
     public void mostrarInformacion() {
         log.info(() -> "Estudiante: " + nombre + " " + apellido + ", " +
