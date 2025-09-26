@@ -14,6 +14,7 @@ public class Decanatura {
     private String id;
     private String facultad;
     private static final Logger log = Logger.getLogger(Decanatura.class.getName());
+    private ArrayList<Estudiante> estudiantes = new ArrayList<>();
 
     private ArrayList<ObserverSolicitud> observers = new ArrayList<>();
 
@@ -36,10 +37,14 @@ public class Decanatura {
     public void addObserver(ObserverSolicitud observer){
         observers.add(observer);
     }
-    private void alertObserver(Solicitud solicitud){
+    private void alertObserver(Solicitud solicitud) {
         for(ObserverSolicitud observer: observers){
             observer.notificarSolicitud(solicitud);
         }
+    }
+
+    public void addEstudiante(Estudiante estudiante) {
+        estudiantes.add(estudiante);
     }
 
     public void gestionarSolicitud(Estudiante estudiante, Solicitud solicitud) {
@@ -105,5 +110,15 @@ public class Decanatura {
 
         return semestreActual.getMaterias().stream().filter(inscripcion -> !inscripcion.getGrupo().equals(grupoExcluir)).anyMatch(inscripcionTemporal::validarChoque);
     }
+
+    public  ArrayList<Solicitud> getSolicitudesPorFacultad() {
+        ArrayList<Solicitud> solicitudesFacultad = new ArrayList<>();
+        for (Estudiante estudiante : estudiantes) {
+            solicitudesFacultad.addAll(estudiante.getSolicitudes());
+        }
+        return solicitudesFacultad;
+    }
+
+
 }
 

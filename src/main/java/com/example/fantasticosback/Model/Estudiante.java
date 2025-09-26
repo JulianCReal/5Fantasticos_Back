@@ -149,7 +149,8 @@ public class Estudiante extends Persona {
                 grupoDestino,
                 tipo,
                 observaciones,
-                fechaActual
+                fechaActual,
+                this.idEstudiante
         );
 
         if ("grupo".equals(tipo)) {
