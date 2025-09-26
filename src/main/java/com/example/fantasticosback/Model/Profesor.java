@@ -3,6 +3,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 @Document(collection = "Profesores")
@@ -67,4 +69,24 @@ public class Profesor extends Persona {
                 ", Departamento: " + departamento +
                 ", Materias asignadas: " + materiasAsignadas.size());
     }
+
+    public boolean esEstudianteMatriculado(Estudiante estudiante, List<Grupo> grupos) {
+        for (Grupo grupo : grupos) {
+            if (estudiante.estaInscritoEnGrupo(grupo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void verSemaforoEstudiante(Estudiante estudiante, List<Grupo> grupos) {
+        if (esEstudianteMatriculado(estudiante, grupos)) {
+            log.info("=== SEMÁFORO ACADÉMICO DEL ESTUDIANTE ===");
+            log.info("Consultado por el profesor: " + this.nombre + " " + this.apellido);
+        } else {
+            log.warning("El estudiante " + estudiante.getNombre() + " " + estudiante.getApellido() +
+                       " no está matriculado en ninguna de sus materias. No puede ver su semáforo académico.");
+        }
+    }
+
 }
