@@ -29,7 +29,7 @@ class SolicitudServiceTest {
     private SolicitudService solicitudService;
 
     private Solicitud getSolicitudDummy() {
-        return new Solicitud(1, grupoOrigen, grupoDestino, "tipo", "obs", new Date(), "E001");
+        return new Solicitud("1", grupoOrigen, grupoDestino, "tipo", "obs", new Date(), "E001");
     }
 
     @Test

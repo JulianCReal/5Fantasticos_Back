@@ -1,41 +1,57 @@
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Application.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\DecanaturaController.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\HorarioController.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\MateriaController.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\SolicitudController.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\StudentController.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\TeacherController.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\UserRole.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Carrera.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Decanatura.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\EstadosSolicitudes\EstadoAceptada.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\EstadosSolicitudes\EstadoPendiente.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\EstadosSolicitudes\EstadoProceso.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\EstadosSolicitudes\EstadoRechazada.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\EstadosSolicitudes\EstadoSolicitud.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Estudiante.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Grupo.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Inscripcion.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Materia.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Observers\DeanObserver.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Observers\ObserverSolicitud.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Observers\StudentObserver.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Persona.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Profesor.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Semestre.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Model\Solicitud.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\DecanaturaRepository.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\MateriaRepository.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\SolicitudRepository.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\StudentRepository.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Repository\TeacherRepository.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\DecanaturaService.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\HorarioService.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\MateriaService.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\SolicitudService.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\StudentService.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\TeacherService.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\CatalogoMaterias.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\Estados.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SemaforoAcademico.java
-C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SesionClase.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Application.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/AuthController.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/DecanaturaController.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/HorarioController.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/MateriaController.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/SolicitudController.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/StudentController.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/TeacherController.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/BaseDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/ResponseDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/StudentDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Carrera.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Decanatura.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/EstadosSolicitudes/EstadoAceptada.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/EstadosSolicitudes/EstadoPendiente.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/EstadosSolicitudes/EstadoProceso.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/EstadosSolicitudes/EstadoRechazada.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/EstadosSolicitudes/EstadoSolicitud.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Estudiante.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Factory/PerfilStrategyFactory.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Grupo.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Inscripcion.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Materia.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Observers/DeanObserver.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Observers/ObserverSolicitud.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Observers/StudentObserver.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Persona.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Profesor.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Semestre.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Solicitud.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Strategy/PerfilDecanoStrategy.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Strategy/PerfilEstudianteStrategy.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Strategy/PerfilProfeStrategy.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Strategy/PerfilStrategy.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Usuario.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/DecanaturaRepository.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/MateriaRepository.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/SolicitudRepository.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/StudentRepository.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/TeacherRepository.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Repository/UserRepository.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/DecanaturaService.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/HorarioService.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/MatcherService.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/MateriaService.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/SolicitudService.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/StudentService.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Server/TeacherService.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/enums/UserRole.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/CatalogoMaterias.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Estados.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/LoginRequest.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/LoginResponse.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/Rol.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SecurityConfig.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SemaforoAcademico.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/util/SesionClase.java

@@ -154,7 +154,7 @@ public class Estudiante extends Persona {
     }
 
     public Solicitud crearSolicitud(String tipo, Inscripcion materiaActual, Grupo grupoDestino, String observaciones) {
-        int solicitudId = (int) (Math.random() * 100000);
+        String solicitudId = String.valueOf((int) (Math.random() * 100000));
         Date fechaActual = new Date();
 
         Solicitud solicitud = new Solicitud(

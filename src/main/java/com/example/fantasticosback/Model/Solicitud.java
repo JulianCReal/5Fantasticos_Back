@@ -12,8 +12,9 @@ public class Solicitud {
 
     @Id
     private String id;
+
+    private String idEstudiante;
     private static int contadorPrioridad = 0;
-    private int solicitudId;
     private Grupo grupoOrigen;
     private Grupo grupoDestino;
     private String tipo;
@@ -25,57 +26,53 @@ public class Solicitud {
     private transient EstadoSolicitud estado;
     private transient boolean evaluacionSolicitud;
 
-    public Solicitud(int solicitudId, Grupo grupoOrigen, Grupo grupoDestino, String tipo, String observaciones, Date fechaSolicitud, String idEstudiante) {
-        this.solicitudId = solicitudId;
+    public Solicitud(String solicitudId, Grupo grupoOrigen, Grupo grupoDestino, String tipo, String observaciones, Date fechaSolicitud, String idEstudiante) {
+        this.id = solicitudId;
         this.grupoOrigen = grupoOrigen;
         this.grupoDestino = grupoDestino;
         this.tipo = tipo;
         this.observaciones = observaciones;
         this.fechaSolicitud = fechaSolicitud;
-        this.id = idEstudiante;
+        this.idEstudiante = idEstudiante;
         this.prioridad = contadorPrioridad++;
 
         setEstado(new EstadoPendiente());
     }
 
-    public String getId() {
-        return id;
+    public String getIdEstudiante() {
+        return idEstudiante;
     }
-    public void setId(String id) {
-        this.id = id;
+    public void setIdEstudiante(String idEstudiante) {
+        this.idEstudiante = idEstudiante;
     }
 
-    /**
-    public int getSolicitudId() {
-        return solicitudId;
+
+    public String getSolicitudId() {
+        return id;
     }
-    public void setSolicitudId(int solicitudId) {
-        this.solicitudId = solicitudId;
+    public void setSolicitudId(String id) {
+        this.id = id;
     }
-     **/
 
     public Grupo getGrupoOrigen() {
         return grupoOrigen;
     }
-    /**
+
     public void setGrupoOrigen(Grupo grupoOrigen) {
         this.grupoOrigen = grupoOrigen;
     }
-     **/
 
     public Grupo getGrupoDestino() {
         return grupoDestino;
     }
-    /**
+
     public void setGrupoDestino(Grupo grupoDestino) {
         this.grupoDestino = grupoDestino;
     }
-     **/
 
     public String getTipo() {
         return tipo;
     }
-    /**
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -100,7 +97,6 @@ public class Solicitud {
     public void setPrioridad(int prioridad) {
         this.prioridad = prioridad;
     }
-     **/
 
     public void recoverState() {
         EstadoSolicitud estadoReconstruido = Estados.getEstados().get(nombreEstado);

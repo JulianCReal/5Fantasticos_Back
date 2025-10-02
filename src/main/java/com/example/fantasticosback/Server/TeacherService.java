@@ -1,5 +1,6 @@
 package com.example.fantasticosback.Server;
 
+import com.example.fantasticosback.Dtos.TeacherDTO;
 import com.example.fantasticosback.Repository.TeacherRepository;
 import com.example.fantasticosback.Model.Profesor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +45,29 @@ public class TeacherService {
     public List<Profesor> obtenerPorApellido(String apellido) {
         return teacherRepository.findByApellido(apellido);
     }
+    public TeacherDTO toDTO(Profesor profesor) {
+        return new TeacherDTO(
+                profesor.getId(),
+                profesor.getNombre(),
+                profesor.getApellido(),
+                profesor.getDocumento(),
+                profesor.getDepartamento()
+        );
+    }
+
+    public Profesor fromDTO(TeacherDTO dto) {
+        Profesor profesor = new Profesor(
+                dto.getName(),
+                dto.getLastName(),
+                dto.getDocument(),
+                dto.getDepartment()
+        );
+        profesor.setId(dto.getId());
+        return profesor;
+    }
+
+    public List<TeacherDTO> toDTOList(List<Profesor> profesores) {
+        return profesores.stream().map(this::toDTO).toList();
+    }
+
 }
