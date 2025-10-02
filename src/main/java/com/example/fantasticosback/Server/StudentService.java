@@ -1,11 +1,13 @@
 package com.example.fantasticosback.Server;
 
+import com.example.fantasticosback.Dtos.StudentDTO;
 import com.example.fantasticosback.Repository.StudentRepository;
 import com.example.fantasticosback.Model.Estudiante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -39,5 +41,29 @@ public class StudentService {
 
     public List<Estudiante> obtenerPorSemestre(int semestre) {
         return studentRepository.findBySemestre(semestre);
+    }
+
+    public StudentDTO convertirAEstudianteDTO(Estudiante estudiante) {
+        return new StudentDTO(
+                estudiante.getIdEstudiante(),
+                estudiante.getNombre(),
+                estudiante.getCarrera(),
+                estudiante.getSemestre()
+        );
+    }
+    public List<StudentDTO> convertirLista(List<Estudiante> estudiantes) {
+        return estudiantes.stream().map(this::convertirAEstudianteDTO).collect(Collectors.toList());
+    }
+    public Estudiante convertirADominio(StudentDTO dto) {
+        return new Estudiante(
+                dto.getNombre(),
+                "",
+                0,
+                dto.getCarrera(),
+                "",
+                dto.getId(),
+                dto.getSemestre(),
+                null
+        );
     }
 }
