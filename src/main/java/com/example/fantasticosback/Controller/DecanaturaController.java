@@ -1,5 +1,7 @@
 package com.example.fantasticosback.Controller;
 
+import com.example.fantasticosback.Dtos.DeanOfficeDTO;
+import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Server.DecanaturaService;
 import com.example.fantasticosback.Model.Decanatura;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,48 +18,50 @@ public class DecanaturaController {
     private DecanaturaService decanaturaService;
 
     @PostMapping
-    public ResponseEntity<Decanatura> crear(@RequestBody Decanatura decanatura) {
-        Decanatura guardada = decanaturaService.guardar(decanatura);
-        return ResponseEntity.ok(guardada);
+    public ResponseEntity<ResponseDTO<DeanOfficeDTO>> crear(@RequestBody DeanOfficeDTO dto) {
+        Decanatura guardada = decanaturaService.guardar(decanaturaService.fromDTO(dto));
+        return ResponseEntity.ok(ResponseDTO.success(decanaturaService.toDTO(guardada), "Dean office created successfully"));
     }
 
     @GetMapping
-    public ResponseEntity<List<Decanatura>> listar() {
-        return ResponseEntity.ok(decanaturaService.obtenerTodos());
+    public ResponseEntity<ResponseDTO<List<DeanOfficeDTO>>> listar() {
+        List<Decanatura> decanaturas = decanaturaService.obtenerTodos();
+        return ResponseEntity.ok(ResponseDTO.success(decanaturaService.toDTOList(decanaturas), "List of dean offices"));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Decanatura> obtener(@PathVariable String id) {
+    public ResponseEntity<ResponseDTO<DeanOfficeDTO>> obtener(@PathVariable String id) {
         Decanatura decanatura = decanaturaService.obtenerPorId(id);
         if (decanatura != null) {
-            return ResponseEntity.ok(decanatura);
+            return ResponseEntity.ok(ResponseDTO.success(decanaturaService.toDTO(decanatura), "Dean office found"));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(404).body(ResponseDTO.error("Dean office not found"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Decanatura> actualizar(@PathVariable String id, @RequestBody Decanatura decanatura) {
+    public ResponseEntity<ResponseDTO<DeanOfficeDTO>> actualizar(@PathVariable String id, @RequestBody DeanOfficeDTO dto) {
         Decanatura existente = decanaturaService.obtenerPorId(id);
         if (existente != null) {
-            decanatura.setId(id);
-            Decanatura actualizado = decanaturaService.actualizar(decanatura);
-            return ResponseEntity.ok(actualizado);
+            Decanatura actualizado = decanaturaService.actualizar(decanaturaService.fromDTO(dto));
+            actualizado.setId(id);
+            return ResponseEntity.ok(ResponseDTO.success(decanaturaService.toDTO(actualizado), "Dean office updated successfully"));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(404).body(ResponseDTO.error("Dean office not found"));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable String id) {
+    public ResponseEntity<ResponseDTO<Void>> eliminar(@PathVariable String id) {
         Decanatura existente = decanaturaService.obtenerPorId(id);
         if (existente != null) {
             decanaturaService.eliminar(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(ResponseDTO.success(null, "Dean office deleted successfully"));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(404).body(ResponseDTO.error("Dean office not found"));
     }
 
     @GetMapping("/facultad/{facultad}")
-    public ResponseEntity<List<Decanatura>> obtenerPorFacultad(@PathVariable String facultad) {
-        return ResponseEntity.ok(decanaturaService.obtenerPorFacultad(facultad));
+    public ResponseEntity<ResponseDTO<List<DeanOfficeDTO>>> obtenerPorFacultad(@PathVariable String facultad) {
+        List<Decanatura> decanaturas = decanaturaService.obtenerPorFacultad(facultad);
+        return ResponseEntity.ok(ResponseDTO.success(decanaturaService.toDTOList(decanaturas), "Dean offices by faculty"));
     }
 }

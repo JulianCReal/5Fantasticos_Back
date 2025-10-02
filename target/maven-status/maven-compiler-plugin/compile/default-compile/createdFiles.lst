@@ -1,3 +1,4 @@
+
 com/example/fantasticosback/Model/Inscripcion.class
 com/example/fantasticosback/util/SesionClase.class
 com/example/fantasticosback/Model/Estudiante.class
@@ -56,3 +57,4 @@ com/example/fantasticosback/Repository/UserRepository.class
 com/example/fantasticosback/Controller/DecanaturaController.class
 com/example/fantasticosback/Server/DecanaturaService.class
 com/example/fantasticosback/Model/Factory/PerfilStrategyFactory.class
+

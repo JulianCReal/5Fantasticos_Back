@@ -119,6 +119,10 @@ public class Decanatura {
         return solicitudesFacultad;
     }
 
+    public ArrayList<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
 
 }
 

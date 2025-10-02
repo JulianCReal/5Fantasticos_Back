@@ -79,7 +79,7 @@ public class ObserverTest {
         Inscripcion inscripcion = new Inscripcion(grupoOrigen, 1, "activa", 0.0);
 
         Solicitud solicitud = new Solicitud(
-                555,
+                "555",
                 grupoOrigen,
                 grupoDestino,
                 "grupo",
