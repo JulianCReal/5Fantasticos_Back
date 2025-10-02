@@ -1,6 +1,8 @@
 package com.example.fantasticosback.Controller;
 
 
+import com.example.fantasticosback.Dtos.RequestDTO;
+import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Model.Solicitud;
 import com.example.fantasticosback.Server.SolicitudService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,48 +18,53 @@ public class SolicitudController {
     private SolicitudService solicitudService;
 
     @PostMapping
-    public ResponseEntity<Solicitud> crear(@RequestBody Solicitud decanatura) {
-        Solicitud guardada = solicitudService.guardar(decanatura);
-        return ResponseEntity.ok(guardada);
+    public ResponseEntity<ResponseDTO<RequestDTO>> create(@RequestBody RequestDTO dto) {
+        Solicitud solicitud = solicitudService.fromDTO(dto);
+        Solicitud saved = solicitudService.guardar(solicitud);
+        return ResponseEntity.ok(ResponseDTO.success(solicitudService.toDTO(saved), "Request created successfully"));
     }
 
     @GetMapping
-    public ResponseEntity<List<Solicitud>> listar() {
-        return ResponseEntity.ok(solicitudService.encontrarTodos());
+    public ResponseEntity<ResponseDTO<List<RequestDTO>>> list() {
+        List<RequestDTO> list = solicitudService.toDTOList(solicitudService.encontrarTodos());
+        return ResponseEntity.ok(ResponseDTO.success(list, "List of requests"));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Solicitud> obtener(@PathVariable String id) {
-        Solicitud decanatura = solicitudService.obtenerPorId(id);
-        if (decanatura != null) {
-            return ResponseEntity.ok(decanatura);
+    public ResponseEntity<ResponseDTO<RequestDTO>> getById(@PathVariable String id) {
+        Solicitud solicitud = solicitudService.obtenerPorId(id);
+        if (solicitud == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Request not found"));
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(ResponseDTO.success(solicitudService.toDTO(solicitud), "Request found"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Solicitud> actualizar(@PathVariable String id, @RequestBody Solicitud solicitud) {
-        Solicitud existente = solicitudService.obtenerPorId(id);
-        if (existente != null) {
-            solicitud.setId(id);
-            Solicitud actualizado = solicitudService.actualizar(solicitud);
-            return ResponseEntity.ok(actualizado);
+    public ResponseEntity<ResponseDTO<RequestDTO>> update(@PathVariable String id, @RequestBody RequestDTO dto) {
+        Solicitud existing = solicitudService.obtenerPorId(id);
+        if (existing == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Request not found"));
         }
-        return ResponseEntity.notFound().build();
+
+        Solicitud updatedSolicitud = solicitudService.fromDTO(dto);
+        updatedSolicitud.setSolicitudId(id);  // Important: preserve original ID
+        Solicitud updated = solicitudService.actualizar(updatedSolicitud);
+        return ResponseEntity.ok(ResponseDTO.success(solicitudService.toDTO(updated), "Request updated successfully"));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable String id) {
-        Solicitud existente = solicitudService.obtenerPorId(id);
-        if (existente != null) {
-            solicitudService.eliminar(id);
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<ResponseDTO<Void>> delete(@PathVariable String id) {
+        Solicitud existing = solicitudService.obtenerPorId(id);
+        if (existing == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Request not found"));
         }
-        return ResponseEntity.notFound().build();
+        solicitudService.eliminar(id);
+        return ResponseEntity.ok(ResponseDTO.success(null, "Request deleted successfully"));
     }
 
-    @GetMapping("/nombreEstado/{nombreEstado}")
-    public ResponseEntity<List<Solicitud>> obtenerPorEstado(@PathVariable String nombreEstado) {
-        return ResponseEntity.ok(solicitudService.obtenerPorNombreEstado(nombreEstado));
+    @GetMapping("/status/{nombreEstado}")
+    public ResponseEntity<ResponseDTO<List<RequestDTO>>> getByStatus(@PathVariable String nombreEstado) {
+        List<RequestDTO> list = solicitudService.toDTOList(solicitudService.obtenerPorNombreEstado(nombreEstado));
+        return ResponseEntity.ok(ResponseDTO.success(list, "Requests by status"));
     }
 }
