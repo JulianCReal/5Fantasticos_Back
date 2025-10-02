@@ -1,5 +1,7 @@
 package com.example.fantasticosback.Controller;
 
+import com.example.fantasticosback.Dtos.ResponseDTO;
+import com.example.fantasticosback.Dtos.StudentDTO;
 import com.example.fantasticosback.Server.StudentService;
 import com.example.fantasticosback.Model.Estudiante;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,56 +18,64 @@ public class StudentController {
     private StudentService studentService;
 
     @PostMapping
-    public ResponseEntity<Estudiante> crear(@RequestBody Estudiante estudiante) {
-        Estudiante guardado = studentService.guardar(estudiante);
-        return ResponseEntity.ok(guardado);
+    public ResponseEntity<ResponseDTO<StudentDTO>> crear(@RequestBody StudentDTO dto) {
+        Estudiante nuevo = studentService.convertirADominio(dto);
+        Estudiante guardado = studentService.guardar(nuevo);
+        StudentDTO respuesta = studentService.convertirAEstudianteDTO(guardado);
+        return ResponseEntity.ok(ResponseDTO.success(respuesta, "Estudiante creado correctamente"));
     }
 
     @GetMapping
-    public ResponseEntity<List<Estudiante>> listar() {
-        List<Estudiante> estudiantes = studentService.obtenerTodos();
-        return ResponseEntity.ok(estudiantes);
+    public ResponseEntity<ResponseDTO<List<StudentDTO>>> listar() {
+        List<StudentDTO> estudiantes = studentService.convertirLista(studentService.obtenerTodos());
+        return ResponseEntity.ok(ResponseDTO.success(estudiantes, "Lista de estudiantes"));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Estudiante> obtener(@PathVariable String id) {
+    public ResponseEntity<ResponseDTO<StudentDTO>> obtener(@PathVariable String id) {
         Estudiante estudiante = studentService.obtenerPorId(id);
-        if (estudiante != null) {
-            return ResponseEntity.ok(estudiante);
+        if (estudiante == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
         }
-        return ResponseEntity.notFound().build();
+        StudentDTO dto = studentService.convertirAEstudianteDTO(estudiante);
+        return ResponseEntity.ok(ResponseDTO.success(dto, "Estudiante encontrado"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Estudiante> actualizar(@PathVariable String id, @RequestBody Estudiante estudiante) {
+    public ResponseEntity<ResponseDTO<StudentDTO>> actualizar(@PathVariable String id, @RequestBody StudentDTO dto) {
         Estudiante existente = studentService.obtenerPorId(id);
-        if (existente != null) {
-            estudiante.setId(id);
-            Estudiante actualizado = studentService.actualizar(estudiante);
-            return ResponseEntity.ok(actualizado);
+        if (existente == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
         }
-        return ResponseEntity.notFound().build();
+
+        Estudiante actualizado = studentService.convertirADominio(dto);
+        actualizado.setId(id);
+        Estudiante guardado = studentService.actualizar(actualizado);
+        StudentDTO respuesta = studentService.convertirAEstudianteDTO(guardado);
+
+        return ResponseEntity.ok(ResponseDTO.success(respuesta, "Estudiante actualizado"));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable String id) {
+    public ResponseEntity<ResponseDTO<Void>> eliminar(@PathVariable String id) {
         Estudiante existente = studentService.obtenerPorId(id);
-        if (existente != null) {
-            studentService.eliminar(id);
-            return ResponseEntity.noContent().build();
+        if (existente == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
         }
-        return ResponseEntity.notFound().build();
+
+        studentService.eliminar(id);
+        return ResponseEntity.ok(ResponseDTO.success(null, "Estudiante eliminado correctamente"));
     }
 
     @GetMapping("/carrera/{carrera}")
-    public ResponseEntity<List<Estudiante>> obtenerPorCarrera(@PathVariable String carrera) {
-        List<Estudiante> estudiantes = studentService.obtenerPorCarrera(carrera);
-        return ResponseEntity.ok(estudiantes);
+    public ResponseEntity<ResponseDTO<List<StudentDTO>>> obtenerPorCarrera(@PathVariable String carrera) {
+        List<StudentDTO> estudiantes = studentService.convertirLista(studentService.obtenerPorCarrera(carrera));
+        return ResponseEntity.ok(ResponseDTO.success(estudiantes, "Estudiantes por carrera"));
     }
 
     @GetMapping("/semestre/{semestre}")
-    public ResponseEntity<List<Estudiante>> obtenerPorSemestre(@PathVariable int semestre) {
-        List<Estudiante> estudiantes = studentService.obtenerPorSemestre(semestre);
-        return ResponseEntity.ok(estudiantes);
+    public ResponseEntity<ResponseDTO<List<StudentDTO>>> obtenerPorSemestre(@PathVariable int semestre) {
+        List<StudentDTO> estudiantes = studentService.convertirLista(studentService.obtenerPorSemestre(semestre));
+        return ResponseEntity.ok(ResponseDTO.success(estudiantes, "Estudiantes por semestre"));
     }
 }
