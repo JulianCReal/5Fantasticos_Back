@@ -31,7 +31,6 @@ jobs:
       - name: Compilar proyecto con Maven
         run: mvn -B clean package --file pom.xml
 
-      - name: Ejecutar pruebas
-        run: mvn test
+      
 
   
