@@ -239,6 +239,7 @@ Son hipervínculos que llevan a los videos alojados en YouTube.
 **Video métodos POST**
 
 [![Video Post](https://img.youtube.com/vi/fVzrYhhFVuE/hqdefault.jpg)](https://youtu.be/fVzrYhhFVuE)
+
 **Video métodos GET**
 
 [![Video Get](https://img.youtube.com/vi/XOMNDiEAiiY/hqdefault.jpg)](https://youtu.be/XOMNDiEAiiY)
