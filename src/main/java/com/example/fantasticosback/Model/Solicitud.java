@@ -26,8 +26,8 @@ public class Solicitud {
     private transient EstadoSolicitud estado;
     private transient boolean evaluacionSolicitud;
 
-    public Solicitud(String solicitudId, Grupo grupoOrigen, Grupo grupoDestino, String tipo, String observaciones, Date fechaSolicitud, String idEstudiante) {
-        this.id = solicitudId;
+    public Solicitud(String id, Grupo grupoOrigen, Grupo grupoDestino, String tipo, String observaciones, Date fechaSolicitud, String idEstudiante) {
+        this.id = id;
         this.grupoOrigen = grupoOrigen;
         this.grupoDestino = grupoDestino;
         this.tipo = tipo;
