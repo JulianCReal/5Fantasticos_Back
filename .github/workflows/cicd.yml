@@ -1,0 +1,60 @@
+name: CI/CD Java API REST
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'feature/*'
+      - 'release/*'
+      - 'hotfix/*'
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'   # Ajusta si usas otra versión
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Compilar proyecto con Maven
+        run: mvn -B clean package --file pom.xml
+
+      - name: Ejecutar pruebas
+        run: mvn test
+
+  deploy-to-azure:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      - name: Configurar JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compilar proyecto con Maven (producción)
+        run: mvn -B clean package --file pom.xml -DskipTests
+
+      - name: Desplegar en Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ secrets.AZURE_APP_NAME }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: '${{ github.workspace }}/target/*.jar'
