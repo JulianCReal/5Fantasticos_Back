@@ -34,27 +34,4 @@ jobs:
       - name: Ejecutar pruebas
         run: mvn test
 
-  deploy-to-azure:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Clonar repositorio
-        uses: actions/checkout@v3
-
-      - name: Configurar JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-
-      - name: Compilar proyecto con Maven (producción)
-        run: mvn -B clean package --file pom.xml -DskipTests
-
-      - name: Desplegar en Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ secrets.AZURE_APP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: '${{ github.workspace }}/target/*.jar'
+  
