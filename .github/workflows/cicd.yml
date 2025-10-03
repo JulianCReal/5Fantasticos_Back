@@ -26,5 +26,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Compilar proyecto con Maven
-        run: mvn -B clean package -f ./pom.xml
+      - name: Compilar y ejecutar pruebas con Maven
+        run: mvn -B clean verify -f ./pom.xml
+
+      - name: Publicar reportes de pruebas
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: target/surefire-reports/
