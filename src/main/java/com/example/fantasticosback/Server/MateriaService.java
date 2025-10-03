@@ -41,9 +41,10 @@ public class MateriaService {
         );
     }
 
+
     public Materia fromDTO(SubjectDTO dto) {
         Materia materia = new Materia(
-                Integer.parseInt(dto.getId()),
+                dto.getId(),   // <-- ya es String
                 dto.getName(),
                 dto.getCredits(),
                 dto.getSemester()
@@ -51,6 +52,7 @@ public class MateriaService {
         materia.setGruposDisponibles(dto.getAvailableGroups());
         return materia;
     }
+
 
     public List<SubjectDTO> toDTOList(List<Materia> materias) {
         return materias.stream().map(this::toDTO).collect(Collectors.toList());

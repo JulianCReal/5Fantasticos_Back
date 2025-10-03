@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class Materia {
 
     @Id
-    private int idMateria;
+    private String idMateria;
     private String nombre;
     private int creditos;
     private int semestre;
@@ -22,7 +22,7 @@ public class Materia {
         this.gruposDisponibles = new ArrayList<>();
     }
 
-    public Materia(int idMateria, String nombre, int creditos, int semestre) {
+    public Materia(String idMateria, String nombre, int creditos, int semestre) {
         this.idMateria = idMateria;
         this.nombre = nombre;
         this.creditos = creditos;
@@ -31,11 +31,11 @@ public class Materia {
     }
 
     // Getters y Setters
-    public int getIdMateria() {
+    public String getIdMateria() {
         return idMateria;
     }
 
-    public void setIdMateria(int idMateria) {
+    public void setIdMateria(String idMateria) {
         this.idMateria = idMateria;
     }
 
