@@ -233,37 +233,26 @@ git commit -m "cambios varios"                   # Sin código Jira ni tipo
   El diagrama de componentes específico del backend de SIRHA detalla cómo están organizados los módulos internos del sistema. Cada entidad principal (Decanatura, Materia, Profesor y Estudiante) cuenta con su propio flujo compuesto por Controller, Service y Repository, lo que sigue la arquitectura por capas típica en aplicaciones con Spring.
 
 ## Prebas del funcionamiento del api est
-- **Materias**
-  - get
-    ![WhatsApp Image 2025-09-19 at 1 38 38 AM](https://github.com/user-attachments/assets/6d6ae153-accc-483b-82ab-fa2125e938cd)
-  - Post
-    ![WhatsApp Image 2025-09-19 at 1 37 55 AM](https://github.com/user-attachments/assets/d710a21e-7397-49f0-bd06-d9eec8f886dc)
-- **Estudiantes**
+A continuación se presentan videos que muestran el funcionamiento de los diferentes métodos del API, incluyendo ejemplos de solicitudes POST y GET, así como el proceso de autenticación.
+Son hipervínculos que llevan a los videos alojados en YouTube.
 
-  - Get
-    ![WhatsApp Image 2025-09-19 at 1 14 43 AM](https://github.com/user-attachments/assets/6fbc2e7d-6854-43fd-90a1-9593edc015a9)
-  
-  - Post
-    ![WhatsApp Image 2025-09-19 at 1 14 43 AM (2)](https://github.com/user-attachments/assets/9c1ad5c6-d710-49ee-9935-906fd9836122)
+**Video métodos POST**
 
-  - **Decanaturas**
- 
-  - Get
-    ![WhatsApp Image 2025-09-19 at 1 32 33 AM](https://github.com/user-attachments/assets/4502e1d2-734a-4f9d-a703-afdf1c2de916)
+[![Video Post](https://img.youtube.com/vi/fVzrYhhFVuE/hqdefault.jpg)](https://youtu.be/fVzrYhhFVuE)
 
-  - Post
-    
-   ![WhatsApp Image 2025-09-19 at 1 32 17 AM](https://github.com/user-attachments/assets/4253b97a-79a7-4b68-b750-3d4e70b48d4a)
+**Video métodos GET**
 
-  - **Profesores**
- 
-    - Get
-    - ![WhatsApp Image 2025-09-19 at 1 46 41 AM](https://github.com/user-attachments/assets/c62251f7-f466-4708-8d33-be4fd421446e)
+[![Video Get](https://img.youtube.com/vi/XOMNDiEAiiY/hqdefault.jpg)](https://youtu.be/XOMNDiEAiiY)
 
-    - Post
-      ![WhatsApp Image 2025-09-19 at 1 46 20 AM](https://github.com/user-attachments/assets/86893250-3c43-43c2-8ec3-c3fb8ef176f5)
 
-  - **Documentacion Swagger**
+**Video de autenticación**
+
+[![Video Auth](https://img.youtube.com/vi/NoaxL3vf8rw/hqdefault.jpg)](https://youtu.be/NoaxL3vf8rw)
+
+
+## Documentación Swagger
+
+  - **Pantallazos:**
     <img width="1364" height="603" alt="image" src="https://github.com/user-attachments/assets/9d6a2c41-aae8-43ac-bea2-684f1409d42a" />
     <img width="1364" height="429" alt="image" src="https://github.com/user-attachments/assets/bd2bcbf7-3f41-47cd-ae9d-6f1467ed4461" />
     <img width="1335" height="435" alt="image" src="https://github.com/user-attachments/assets/0cd3ac9e-003c-4f4e-b384-f6256f20f024" />
@@ -272,6 +261,7 @@ git commit -m "cambios varios"                   # Sin código Jira ni tipo
     <img width="1839" height="230" alt="image" src="https://github.com/user-attachments/assets/e8cdd27d-3d5f-42ae-829b-735dfcc5cb37" />
 
 
+## Informes estáticos y dinámicos
 
   - **Jacoco y sonarQube**
   - ![Jacoco](docs/images/jacoco.jpg)
