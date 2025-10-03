@@ -32,8 +32,3 @@ jobs:
 
       - name: Compilar proyecto con Maven
         run: mvn -B clean package -f ./pom.xml
-
-
-      
-
-  
