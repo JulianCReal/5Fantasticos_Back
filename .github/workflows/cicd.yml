@@ -24,7 +24,7 @@ jobs:
       - name: Configurar JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'   # Ajusta si usas otra versión
+          java-version: '17'   
           distribution: 'temurin'
           cache: maven
 
