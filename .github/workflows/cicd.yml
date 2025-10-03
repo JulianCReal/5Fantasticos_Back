@@ -34,3 +34,12 @@ jobs:
         with:
           name: test-results
           path: target/surefire-reports/
+
+      - name: Calcular cobertura de pruebas con JaCoCo
+        run: mvn jacoco:report
+
+      - name: Publicar cobertura de código
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage
+          path: target/site/jacoco/
