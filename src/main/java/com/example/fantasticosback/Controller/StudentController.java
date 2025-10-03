@@ -2,8 +2,8 @@ package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.StudentDTO;
+import com.example.fantasticosback.Model.Student;
 import com.example.fantasticosback.Server.StudentService;
-import com.example.fantasticosback.Model.Estudiante;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +19,8 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<ResponseDTO<StudentDTO>> crear(@RequestBody StudentDTO dto) {
-        Estudiante nuevo = studentService.convertirADominio(dto);
-        Estudiante guardado = studentService.guardar(nuevo);
+        Student nuevo = studentService.convertirADominio(dto);
+        Student guardado = studentService.guardar(nuevo);
         StudentDTO respuesta = studentService.convertirAEstudianteDTO(guardado);
         return ResponseEntity.ok(ResponseDTO.success(respuesta, "Estudiante creado correctamente"));
     }
@@ -33,24 +33,24 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<StudentDTO>> obtener(@PathVariable String id) {
-        Estudiante estudiante = studentService.obtenerPorId(id);
-        if (estudiante == null) {
+        Student student = studentService.obtenerPorId(id);
+        if (student == null) {
             return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
         }
-        StudentDTO dto = studentService.convertirAEstudianteDTO(estudiante);
+        StudentDTO dto = studentService.convertirAEstudianteDTO(student);
         return ResponseEntity.ok(ResponseDTO.success(dto, "Estudiante encontrado"));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDTO<StudentDTO>> actualizar(@PathVariable String id, @RequestBody StudentDTO dto) {
-        Estudiante existente = studentService.obtenerPorId(id);
+        Student existente = studentService.obtenerPorId(id);
         if (existente == null) {
             return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
         }
 
-        Estudiante actualizado = studentService.convertirADominio(dto);
+        Student actualizado = studentService.convertirADominio(dto);
         actualizado.setId(id);
-        Estudiante guardado = studentService.actualizar(actualizado);
+        Student guardado = studentService.actualizar(actualizado);
         StudentDTO respuesta = studentService.convertirAEstudianteDTO(guardado);
 
         return ResponseEntity.ok(ResponseDTO.success(respuesta, "Estudiante actualizado"));
@@ -58,7 +58,7 @@ public class StudentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO<Void>> eliminar(@PathVariable String id) {
-        Estudiante existente = studentService.obtenerPorId(id);
+        Student existente = studentService.obtenerPorId(id);
         if (existente == null) {
             return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
         }

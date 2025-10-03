@@ -2,18 +2,18 @@ package com.example.fantasticosback.util;
 
 public class LoginResponse {
     private Object perfil;
-    private Rol rol;
+    private Role role;
 
-    public LoginResponse(Object perfil, Rol rol) {
+    public LoginResponse(Object perfil, Role role) {
         this.perfil = perfil;
-        this.rol = rol;
+        this.role = role;
     }
 
     public Object getPerfil() {
         return perfil;
     }
 
-    public Rol getRol() {
-        return rol;
+    public Role getRol() {
+        return role;
     }
 }

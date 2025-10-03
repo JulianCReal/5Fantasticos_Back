@@ -1,27 +1,27 @@
 package com.example.fantasticosback.Dtos;
 
 public class StudentDTO extends BaseDTO {
-    private String nombre;
-    private String carrera;
-    private int semestre;
+    private String name;
+    private String career;
+    private int semester;
 
-    public StudentDTO(String id, String nombre, String carrera, int semestre) {
+    public StudentDTO(String id, String name, String career, int semester) {
         super(id);
-        this.nombre = nombre;
-        this.carrera = carrera;
-        this.semestre = semestre;
+        this.name = name;
+        this.career = career;
+        this.semester = semester;
     }
 
     // Getters y Setters
-    public String getNombre() { return nombre; }
+    public String getName() { return name; }
 
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setName(String name) { this.name = name; }
 
-    public String getCarrera() { return carrera; }
+    public String getCareer() { return career; }
 
-    public void setCarrera(String carrera) { this.carrera = carrera; }
+    public void setCareer(String career) { this.career = career; }
 
-    public int getSemestre() { return semestre; }
+    public int getSemester() { return semester; }
 
-    public void setSemestre(int semestre) { this.semestre = semestre; }
+    public void setSemester(int semester) { this.semester = semester; }
 }

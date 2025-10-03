@@ -1,43 +1,43 @@
 package com.example.fantasticosback.util;
-import com.example.fantasticosback.Model.Carrera;
-import com.example.fantasticosback.Model.Inscripcion;
-import com.example.fantasticosback.Model.Materia;
-import com.example.fantasticosback.Model.Semestre;
+import com.example.fantasticosback.Model.Career;
+import com.example.fantasticosback.Model.Enrollment;
+import com.example.fantasticosback.Model.Subject;
+import com.example.fantasticosback.Model.Semester;
 
 import java.util.ArrayList;
 
 public class SemaforoAcademico {
     private int id;
     private int avancePorcentaje;
-    private ArrayList<Inscripcion> materias = new ArrayList<>();
+    private ArrayList<Enrollment> materias = new ArrayList<>();
     private double promedioAcumulado;
     private int creditosAprobados;
-    private ArrayList<Semestre> semestres = new ArrayList<>();
-    private Carrera carrera;
+    private ArrayList<Semester> semesters = new ArrayList<>();
+    private Career career;
 
-    public SemaforoAcademico(int id, int avancePorcentaje,  Carrera carrera) {
+    public SemaforoAcademico(int id, int avancePorcentaje,  Career career) {
         this.id = id;
         this.avancePorcentaje = avancePorcentaje;
         this.promedioAcumulado = 0.0;
         this.creditosAprobados = 0;
-        this.carrera = carrera;
+        this.career = career;
     }
 
-    public void agregarSemestre(Semestre semestre) {
-        this.semestres.add(semestre);
+    public void agregarSemestre(Semester semester) {
+        this.semesters.add(semester);
     }
 
 
-    public void actualizarAvance(ArrayList<Inscripcion> materias) {
+    public void actualizarAvance(ArrayList<Enrollment> materias) {
         this.materias = materias;
         this.creditosAprobados = 0; // Reset counter
-        for (Inscripcion inscripcion : materias) {
-            if (inscripcion.getEstado().equals("aprobada")) {
-                creditosAprobados += inscripcion.getGrupo().getMateria().getCreditos();
+        for (Enrollment enrollment : materias) {
+            if (enrollment.getState().equals("aprobada")) {
+                creditosAprobados += enrollment.getGrupo().getMateria().getCredits();
             }
         }
         calcularPromedioAcumulado();
-        double avanceCalculado = (double) creditosAprobados / carrera.getTotalCreditos() * 100;
+        double avanceCalculado = (double) creditosAprobados / career.getTotalCredits() * 100;
         this.avancePorcentaje = (int) avanceCalculado;
     }
 
@@ -45,9 +45,9 @@ public class SemaforoAcademico {
         double sumaNotasCreditos = 0.0;
         int creditosCursados = 0;
 
-        for (Inscripcion inscripcion : materias) {
-            int creditos = inscripcion.getGrupo().getMateria().getCreditos();
-            double nota = inscripcion.getNotaFinal();
+        for (Enrollment enrollment : materias) {
+            int creditos = enrollment.getGrupo().getMateria().getCredits();
+            double nota = enrollment.getFinalGrade();
             sumaNotasCreditos += nota * creditos;
             creditosCursados += creditos;
         }
@@ -72,18 +72,18 @@ public class SemaforoAcademico {
         return promedioAcumulado;
     }
 
-    public ArrayList<Semestre> getSemestres() {
-        return semestres;
+    public ArrayList<Semester> getSemestres() {
+        return semesters;
     }
 
-    public ArrayList<Materia> getTodasLasMaterias() {
-        if (carrera != null && carrera.getMaterias() != null) {
-            return carrera.getMaterias();
+    public ArrayList<Subject> getTodasLasMaterias() {
+        if (career != null && career.getMaterias() != null) {
+            return career.getMaterias();
         }
         return new ArrayList<>();
     }
 
-    public ArrayList<Inscripcion> getMaterias() {
+    public ArrayList<Enrollment> getMaterias() {
         return materias;
     }
 

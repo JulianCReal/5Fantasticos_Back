@@ -95,7 +95,7 @@
 ### 🌟 **Feature Branches**
 
 ```bash
-feature/[nombre-funcionalidad]-sirha_[codigo-jira]
+feature/[name-funcionalidad]-sirha_[studentCode-jira]
 ```
 
 **Ejemplos:**
@@ -143,7 +143,7 @@ hotfix/[descripcion-breve-del-fix]
 ### 📐 **Formato Estándar**
 
 ```bash
-[codigo-jira] [tipo]: [descripción específica de la acción]
+[studentCode-jira] [type]: [descripción específica de la acción]
 ```
 
 ### 🏷️ **Tipos de Commit**
@@ -162,7 +162,7 @@ hotfix/[descripcion-breve-del-fix]
 ```bash
 git commit -m "26-feat: agregar validación de email en formulario login"
 git commit -m "24-fix: corregir error de navegación en header mobile"  
-git commit -m "28-test: agregar tests unitarios para servicio usuario"
+git commit -m "28-test: agregar tests unitarios para servicio user"
 git commit -m "30-docs: actualizar documentación de API endpoints"
 ```
 
@@ -170,7 +170,7 @@ git commit -m "30-docs: actualizar documentación de API endpoints"
 ```bash
 git commit -m "23-feat: agregar login"           # Muy genérico
 git commit -m "24-fix: arreglar bug"             # Sin contexto
-git commit -m "cambios varios"                   # Sin código Jira ni tipo
+git commit -m "cambios varios"                   # Sin código Jira ni type
 ```
 
 ### 📋 **Reglas de Commits Específicos**
@@ -196,42 +196,46 @@ git commit -m "cambios varios"                   # Sin código Jira ni tipo
 
 - Diagrama de base de datos:
   <img width="3127" height="2645" alt="Diagramas SIRHA los 5 fantasticos - Diagrama base de datos" src="https://github.com/user-attachments/assets/c0674877-4cb7-456c-a67b-cba4c4f10658" />
-  - El diagrama representa el modelo de datos de un sistema académico basado en documentos NoSQL. Se definen entidades principales como User, de la cual heredan Student y Teacher, además de Department, Group, Subject y Petition. Cada entidad cuenta con su respectiva colección en formato de documento, donde se almacenan atributos como identificadores, nombres, códigos, materias, grupos y observaciones.
+  - El diagrama representa el modelo de datos de un sistema académico basado en documentos NoSQL. Se definen entidades principales como User, de la cual heredan Student y Teacher, además de Department, Group, Subject y Petition. Cada entidad cuenta con su respectiva colección en formato de documento, donde se almacenan atributos como identificadores, nombres, códigos, subjects, grupos y observations.
   
-  - Las relaciones muestran que los estudiantes y profesores pertenecen a departamentos; los profesores dictan materias y grupos; los estudiantes cursan asignaturas y pueden generar peticiones relacionadas con cambios o solicitudes académicas. En conjunto, el modelo busca organizar y gestionar de forma estructurada la información académica de usuarios, departamentos, materias y procesos administrativos.
+  - Las relaciones muestran que los students y profesores pertenecen a departamentos; los profesores dictan subjects y grupos; los students cursan asignaturas y pueden generar peticiones relacionadas con cambios o requests académicas. En conjunto, el modelo busca organizar y gestionar de forma estructurada la información académica de usuarios, departamentos, subjects y procesos administrativos.
 
 
 - Diagrama casos de uso:
   <img width="1093" height="1162" alt="image" src="https://github.com/user-attachments/assets/3cc9718c-51de-402c-ad37-bdac7f4a13b7" />
-- El diagrama de casos de uso representa las funcionalidades del sistema SIHRA App y los actores que interactúan con él. Los estudiantes pueden registrarse en la plataforma, consultar sus horarios, ver el semáforo académico, crear y dar seguimiento a solicitudes, así como inscribir materias y consultar la capacidad de los grupos. La decanatura gestiona procesos como la aprobación de casos excepcionales, la consulta de información de los estudiantes, la disponibilidad de grupos, los horarios y solicitudes, además de configurar periodos de inscripción. Los profesores tienen acceso a la información de los estudiantes, mientras que el administrador se encarga de registrar usuarios, asignar profesores a grupos, administrar horarios y modificar cupos. En conjunto, el sistema centraliza la gestión académica y administrativa para mejorar el control de los procesos universitarios.
+  ![img.png](img.png)
+- El diagrama de casos de uso representa las funcionalidades del sistema SIHRA App y los actores que interactúan con él. Los students pueden registrarse en la plataforma, consultar sus horarios, ver el semáforo académico, crear y dar seguimiento a requests, así como inscribir subjects y consultar la capacity de los grupos. La deanOffice gestiona procesos como la aprobación de casos excepcionales, la consulta de información de los students, la disponibilidad de grupos, los horarios y requests, además de configurar periodos de inscripción. Los profesores tienen acceso a la información de los students, mientras que el administrador se encarga de registrar usuarios, asignar profesores a grupos, administrar horarios y modificar cupos. En conjunto, el sistema centraliza la gestión académica y administrativa para mejorar el control de los procesos universitarios.
 
 
 - Diagrama de contexto:
  <img width="1886" height="1154" alt="Diagramas SIRHA los 5 fantasticos - Diagrama de contexto" src="https://github.com/user-attachments/assets/9a65022f-acb5-4922-9eb6-5759e5cdc826" />
-- El diagrama de contexto muestra al sistema Sirha como el núcleo que centraliza la información académica y administrativa. Los estudiantes pueden visualizar sus horarios, avances académicos y realizar solicitudes. Los administrativos gestionan la asignación de salones y franjas horarias, además de acceder a la información de los estudiantes. Las decanaturas revisan solicitudes, habilitan cupos y realizan los procedimientos correspondientes. Finalmente, los profesores consultan los horarios de sus clases y de sus alumnos.
+- El diagrama de contexto muestra al sistema Sirha como el núcleo que centraliza la información académica y administrativa. Los students pueden visualizar sus horarios, avances académicos y realizar requests. Los administrativos gestionan la asignación de salones y franjas horarias, además de acceder a la información de los students. Las deanOffices revisan requests, habilitan cupos y realizan los procedimientos correspondientes. Finalmente, los profesores consultan los horarios de sus clases y de sus alumnos.
 
 
 - Diagrama de clases:
   ![Diagramas SIRHA los 5 fantasticos - Diagrama de Clases](https://github.com/user-attachments/assets/44f398bf-4121-4656-be7e-56397baaac1e)
-- El diagrama de clases representa la estructura del sistema Sirha, mostrando las entidades principales y sus relaciones. Se incluyen clases académicas como Estudiante, Profesor, Decanatura, Administrador, Materia, Grupo, Carrera, Horario, SemáforoAcadémico y Solicitud, que permiten gestionar la información de los usuarios, las asignaturas, los horarios y los procesos académicos. En conjunto, el modelo organiza la lógica del sistema y facilita la administración de los recursos académicos y las solicitudes de los estudiantes.
+- El diagrama de clases representa la estructura del sistema Sirha, mostrando las entidades principales y sus relaciones. Se incluyen clases académicas como Estudiante, Profesor, Decanatura, Administrador, Materia, Grupo, Carrera, Horario, SemáforoAcadémico y Solicitud, que permiten gestionar la información de los usuarios, las asignaturas, los horarios y los procesos académicos. En conjunto, el modelo organiza la lógica del sistema y facilita la administración de los recursos académicos y las requests de los students.
 
 
 - Diagrama de secuencia:
   <img width="2206" height="1186" alt="image" src="https://github.com/user-attachments/assets/3a0dd45d-a506-42bd-985a-255d8809db8c" />
   <img width="1732" height="515" alt="image" src="https://github.com/user-attachments/assets/57fd1bab-f173-4f4f-9244-9e67d768d088" />
   Los diagramas de secuencia representan la interacción entre los distintos objetos o actores del sistema a lo largo del tiempo. En ellos se muestran los mensajes que se envían entre las entidades y el orden en que ocurren, lo que permite visualizar cómo se desarrolla un proceso específico dentro del sistema. Cada objeto se representa con una línea de vida vertical, mientras que las flechas indican la comunicación o invocación de métodos.
-  En el caso del sistema Sirha, los diagramas de secuencia permiten describir escenarios como el registro de un estudiante, la creación de una solicitud, la consulta de horarios o la gestión de cupos, mostrando paso a paso cómo interactúan los estudiantes, profesores, administrativos y decanaturas con el sistema para completar dichas acciones.
+  En el caso del sistema Sirha, los diagramas de secuencia permiten describir escenarios como el registro de un student, la creación de una request, la consulta de horarios o la gestión de cupos, mostrando paso a paso cómo interactúan los students, profesores, administrativos y deanOffices con el sistema para completar dichas acciones.
 
 
 - Diagrama de componentes General:
   <img width="1796" height="968" alt="image" src="https://github.com/user-attachments/assets/3c128637-0267-4734-bc4a-b0155bfad393" />
-  El diagrama de componentes del sistema SIRHA muestra cómo está organizada la arquitectura de la aplicación. En primer lugar, se encuentra el Frontend SIRHA, desarrollado con tecnologías como React, TypeScript y Figma, encargado de la interfaz gráfica que usan los estudiantes y administrativos. Este frontend se comunica con el Backend SIRHA, implementado con Java y Spring, apoyado en herramientas como Maven, Docker, SonarQube, Swagger y Jacoco para la gestión de dependencias, despliegue, control de calidad y documentación de servicios. Finalmente, el backend interactúa con la base de datos MongoDB (5-Fantásticos-SIRHA MongoDB), donde se almacena y gestiona la información académica y administrativa del sistema.
+  El diagrama de componentes del sistema SIRHA muestra cómo está organizada la arquitectura de la aplicación. En primer lugar, se encuentra el Frontend SIRHA, desarrollado con tecnologías como React, TypeScript y Figma, encargado de la interfaz gráfica que usan los students y administrativos. Este frontend se comunica con el Backend SIRHA, implementado con Java y Spring, apoyado en herramientas como Maven, Docker, SonarQube, Swagger y Jacoco para la gestión de dependencias, despliegue, control de calidad y documentación de servicios. Finalmente, el backend interactúa con la base de datos MongoDB (5-Fantásticos-SIRHA MongoDB), donde se almacena y gestiona la información académica y administrativa del sistema.
 
 
 - Diagrama de componentes Especifico:
   <img width="2367" height="1130" alt="image" src="https://github.com/user-attachments/assets/485bba7d-6002-4044-949c-b5a2d3115be2" />
   El diagrama de componentes específico del backend de SIRHA detalla cómo están organizados los módulos internos del sistema. Cada entidad principal (Decanatura, Materia, Profesor y Estudiante) cuenta con su propio flujo compuesto por Controller, Service y Repository, lo que sigue la arquitectura por capas típica en aplicaciones con Spring.
 
+- Diagrama de despliegue:
+  ![img.png](docs/images/img.png)
+- El diagrama de despliegue muestra cómo se comunican los componentes principales de la aplicación: el cliente accede desde un navegador al frontend en React, que a su vez consume el backend expuesto como API REST; este se conecta a la base de datos MongoDB y se integra con pipelines de CI/CD para despliegue en entornos de desarrollo y producción.
 ## Prebas del funcionamiento del api est
 - **Materias**
   - get

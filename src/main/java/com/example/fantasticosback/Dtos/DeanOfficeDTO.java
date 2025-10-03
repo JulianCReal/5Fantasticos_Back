@@ -1,14 +1,14 @@
 package com.example.fantasticosback.Dtos;
 
-import com.example.fantasticosback.Model.Estudiante;
+import com.example.fantasticosback.Model.Student;
 
 import java.util.ArrayList;
 
 public class DeanOfficeDTO extends BaseDTO {
     private String faculty;
-    private ArrayList<Estudiante> students;
+    private ArrayList<Student> students;
 
-    public DeanOfficeDTO(String id, String faculty, ArrayList<Estudiante> students) {
+    public DeanOfficeDTO(String id, String faculty, ArrayList<Student> students) {
         super(id);
         this.faculty = faculty;
         this.students = students;
@@ -22,11 +22,11 @@ public class DeanOfficeDTO extends BaseDTO {
         this.faculty = faculty;
     }
 
-    public ArrayList<Estudiante> getStudents() {
+    public ArrayList<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(ArrayList<Estudiante> students) {
+    public void setStudents(ArrayList<Student> students) {
         this.students = students;
     }
 }

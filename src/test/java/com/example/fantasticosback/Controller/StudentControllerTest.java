@@ -2,8 +2,8 @@ package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.StudentDTO;
-import com.example.fantasticosback.Model.Carrera;
-import com.example.fantasticosback.Model.Estudiante;
+import com.example.fantasticosback.Model.Career;
+import com.example.fantasticosback.Model.Student;
 import com.example.fantasticosback.Server.StudentService;
 import com.example.fantasticosback.util.SemaforoAcademico;
 import org.junit.jupiter.api.Test;
@@ -31,13 +31,13 @@ class StudentControllerTest {
     @Test
     void testCrear() {
         StudentDTO dto = new StudentDTO("E001", "Juan", "Ing", 1);
-        Carrera carrera = new Carrera("Ing", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Juan", "Perez", 123, "Ing", "C001", "E001", 1, semaforo);
+        Career career = new Career("Ing", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, career);
+        Student student = new Student("Juan", "Perez", 123, "Ing", "C001", "E001", 1, semaforo);
 
-        when(studentService.convertirADominio(dto)).thenReturn(estudiante);
-        when(studentService.guardar(estudiante)).thenReturn(estudiante);
-        when(studentService.convertirAEstudianteDTO(estudiante)).thenReturn(dto);
+        when(studentService.convertirADominio(dto)).thenReturn(student);
+        when(studentService.guardar(student)).thenReturn(student);
+        when(studentService.convertirAEstudianteDTO(student)).thenReturn(dto);
 
         ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.crear(dto);
 
@@ -70,12 +70,12 @@ class StudentControllerTest {
     void testObtener_Existe() {
         String id = "E001";
         StudentDTO dto = new StudentDTO(id, "Juan", "Ing", 1);
-        Carrera carrera = new Carrera("Ing", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
+        Career career = new Career("Ing", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, career);
+        Student student = new Student("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
 
-        when(studentService.obtenerPorId(id)).thenReturn(estudiante);
-        when(studentService.convertirAEstudianteDTO(estudiante)).thenReturn(dto);
+        when(studentService.obtenerPorId(id)).thenReturn(student);
+        when(studentService.convertirAEstudianteDTO(student)).thenReturn(dto);
 
         ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.obtener(id);
 
@@ -103,14 +103,14 @@ class StudentControllerTest {
     void testActualizar_Existe() {
         String id = "E001";
         StudentDTO dto = new StudentDTO(id, "Juan", "Ing", 1);
-        Carrera carrera = new Carrera("Ing", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
+        Career career = new Career("Ing", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, career);
+        Student student = new Student("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
 
-        when(studentService.obtenerPorId(id)).thenReturn(estudiante);
-        when(studentService.convertirADominio(dto)).thenReturn(estudiante);
-        when(studentService.actualizar(estudiante)).thenReturn(estudiante);
-        when(studentService.convertirAEstudianteDTO(estudiante)).thenReturn(dto);
+        when(studentService.obtenerPorId(id)).thenReturn(student);
+        when(studentService.convertirADominio(dto)).thenReturn(student);
+        when(studentService.actualizar(student)).thenReturn(student);
+        when(studentService.convertirAEstudianteDTO(student)).thenReturn(dto);
 
         ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.actualizar(id, dto);
 
@@ -140,11 +140,11 @@ class StudentControllerTest {
     @Test
     void testEliminar_Existe() {
         String id = "E001";
-        Carrera carrera = new Carrera("Ing", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
+        Career career = new Career("Ing", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, career);
+        Student student = new Student("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
 
-        when(studentService.obtenerPorId(id)).thenReturn(estudiante);
+        when(studentService.obtenerPorId(id)).thenReturn(student);
         doNothing().when(studentService).eliminar(id);
 
         ResponseEntity<ResponseDTO<Void>> response = studentController.eliminar(id);

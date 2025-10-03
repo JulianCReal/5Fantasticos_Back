@@ -3,7 +3,7 @@ package com.example.fantasticosback.Controller;
 import com.example.fantasticosback.Dtos.RegisterRequestDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.UserResponseDTO;
-import com.example.fantasticosback.Model.Usuario;
+import com.example.fantasticosback.Model.User;
 import com.example.fantasticosback.Repository.UserRepository;
 import com.example.fantasticosback.Server.MatcherService;
 import com.example.fantasticosback.util.LoginRequest;
@@ -23,7 +23,7 @@ public class AuthController {
     private MatcherService matcherService;
 
     @Autowired
-    private UserRepository usuarioRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -32,9 +32,9 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             Object perfil = matcherService.autenticarYObtenerPerfil(loginRequest.getEmail(), loginRequest.getPassword());
-            Usuario usuario = matcherService.obtenerUsuario(loginRequest.getEmail());
+            User user = matcherService.obtenerUsuario(loginRequest.getEmail());
 
-            LoginResponse response = new LoginResponse(perfil, usuario.getRol());
+            LoginResponse response = new LoginResponse(perfil, user.getRol());
 
             return ResponseEntity.ok(ResponseDTO.success(response, "Login successful"));
         } catch (RuntimeException e) {
@@ -44,23 +44,23 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequest) {
-        if (usuarioRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {
             return ResponseEntity.badRequest().body(ResponseDTO.error("Email is already in use"));
         }
 
-        Usuario nuevoUsuario = new Usuario(
+        User nuevoUser = new User(
                 registerRequest.getEmail(),
                 passwordEncoder.encode(registerRequest.getPassword()),
                 registerRequest.getRol(),
-                registerRequest.getPerfilId()
+                registerRequest.getProfileId()
         );
 
-        Usuario guardado = usuarioRepository.save(nuevoUsuario);
+        User guardado = userRepository.save(nuevoUser);
 
         UserResponseDTO response = new UserResponseDTO(
                 guardado.getEmail(),
                 guardado.getRol(),
-                guardado.getPerfilId()
+                guardado.getProfileId()
         );
 
         return ResponseEntity.ok(ResponseDTO.success(response, "User registered successfully"));

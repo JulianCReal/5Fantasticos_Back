@@ -1,18 +1,14 @@
 package com.example.fantasticosback.util;
 
 import com.example.fantasticosback.Model.*;
-import com.example.fantasticosback.Model.Observers.DeanObserver;
-import com.example.fantasticosback.Model.Observers.ObserverSolicitud;
-import com.example.fantasticosback.Model.Observers.StudentObserver;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.fantasticosback.Model.Observers.DeanRequestObserver;
+import com.example.fantasticosback.Model.Observers.StudentRequestObserver;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Date;
-import java.util.HashMap;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,23 +23,23 @@ public class ObserverTest {
         System.setOut(new PrintStream(outContent));
 
         // Arrange
-        DeanObserver deanObserver = new DeanObserver();
-        Carrera carrera = new Carrera("Ingeniería", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Ana", "García", 123456, "Ingeniería", "202301", "E01", 5, semaforo);
+        DeanRequestObserver deanObserver = new DeanRequestObserver();
+        Career career = new Career("Ingeniería", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, career);
+        Student student = new Student("Ana", "García", 123456, "Ingeniería", "202301", "E01", 5, semaforo);
 
         // Hacer el método addObserver público en Estudiante
-        estudiante.addObserver(deanObserver);
-        Materia materia1 = CatalogoMaterias.getMateria("AYSR");
-        Materia materia2 = CatalogoMaterias.getMateria("DOPO");
-        Profesor profesor = new Profesor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
+        student.addObserver(deanObserver);
+        Subject subject1 = SubjectCatalog.getMateria("AYSR");
+        Subject subject2 = SubjectCatalog.getMateria("DOPO");
+        Professor professor = new Professor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
 
-        Grupo grupoOrigen = new Grupo(1, 1, 25, true, materia1, profesor);
-        Grupo grupoDestino = new Grupo(2, 2, 30, true, materia2, profesor);
-        Inscripcion inscripcionActual = new Inscripcion(grupoOrigen, 1, "cursando", 0.0);
+        Group groupOrigen = new Group(1, 1, 25, true, subject1, professor);
+        Group groupDestino = new Group(2, 2, 30, true, subject2, professor);
+        Enrollment enrollmentActual = new Enrollment(groupOrigen, 1, "cursando", 0.0);
 
         // Act
-        estudiante.crearSolicitud("grupo", inscripcionActual, grupoDestino, "Cambio por choque de horario");
+        student.crearSolicitud("grupo", enrollmentActual, groupDestino, "Cambio por choque de horario");
 
         // Restaurar salida estándar
         System.setOut(originalOut);
@@ -61,35 +57,35 @@ public class ObserverTest {
         System.setOut(new PrintStream(outContent));
 
         // Arrange
-        StudentObserver studentObserver = new StudentObserver();
-        Decanatura decanatura = new Decanatura("D01", "Ingeniería");
+        StudentRequestObserver studentObserver = new StudentRequestObserver();
+        DeanOffice deanOffice = new DeanOffice("D01", "Ingeniería");
 
-        decanatura.addObserver(studentObserver);
+        deanOffice.addObserver(studentObserver);
 
-        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Carlos", "Lopez", 987654, "Sistemas", "202302", "E02", 6, semaforo);
+        Career career = new Career("Ingeniería de Sistemas", 160);
+        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, career);
+        Student student = new Student("Carlos", "Lopez", 987654, "Sistemas", "202302", "E02", 6, semaforo);
 
-        Materia materia1 = CatalogoMaterias.getMateria("AYSR");
-        Materia materia2 = CatalogoMaterias.getMateria("DOPO");
-        Profesor profesor = new Profesor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
-        Grupo grupoOrigen = new Grupo(1, 1, 25, true, materia1, profesor);
-        Grupo grupoDestino = new Grupo(2, 2, 30, true, materia2, profesor);
+        Subject subject1 = SubjectCatalog.getMateria("AYSR");
+        Subject subject2 = SubjectCatalog.getMateria("DOPO");
+        Professor professor = new Professor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
+        Group groupOrigen = new Group(1, 1, 25, true, subject1, professor);
+        Group groupDestino = new Group(2, 2, 30, true, subject2, professor);
 
-        Inscripcion inscripcion = new Inscripcion(grupoOrigen, 1, "activa", 0.0);
+        Enrollment enrollment = new Enrollment(groupOrigen, 1, "activa", 0.0);
 
-        Solicitud solicitud = new Solicitud(
+        Request request = new Request(
                 "555",
-                grupoOrigen,
-                grupoDestino,
+                groupOrigen,
+                groupDestino,
                 "grupo",
                 "Cambio de grupo",
                 new Date(),
-                estudiante.getIdEstudiante()
+                student.getStudentId()
         );
 
         // Act
-        decanatura.gestionarSolicitud(estudiante, solicitud);
+        deanOffice.gestionarSolicitud(student, request);
 
         // Restaurar salida estándar
         System.setOut(originalOut);

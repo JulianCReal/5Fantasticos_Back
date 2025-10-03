@@ -1,11 +1,11 @@
 package com.example.fantasticosback.Server;
 
 
+import com.example.fantasticosback.Model.User;
 import com.example.fantasticosback.Repository.UserRepository;
-import com.example.fantasticosback.Model.Usuario;
 
-import com.example.fantasticosback.Model.Strategy.PerfilStrategy;
-import com.example.fantasticosback.Model.Factory.PerfilStrategyFactory;
+import com.example.fantasticosback.Model.Strategy.ProfileStrategy;
+import com.example.fantasticosback.Model.Factory.ProfileStrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,20 +20,20 @@ public class MatcherService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PerfilStrategyFactory strategyFactory;
+    private ProfileStrategyFactory strategyFactory;
 
     public Object autenticarYObtenerPerfil(String email, String rawPassword) {
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        User user = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        if (!passwordEncoder.matches(rawPassword, usuario.getPassword())) {
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
-        PerfilStrategy estrategia = strategyFactory.getStrategy(usuario.getRol());
-        return estrategia.obtenerPerfil(usuario.getPerfilId());
+        ProfileStrategy estrategia = strategyFactory.getStrategy(user.getRol());
+        return estrategia.obtainProfile(user.getProfileId());
     }
 
-    public Usuario obtenerUsuario(String email) {
+    public User obtenerUsuario(String email) {
         return usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
     }
 }

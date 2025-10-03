@@ -8,26 +8,26 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SemaforoAcademicoTest {
     private SemaforoAcademico semaforo;
-    private Semestre semestre1;
+    private Semester semester1;
 
     @BeforeEach
     public void setUp() {
-        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
-        semaforo = new SemaforoAcademico(1, 0, carrera);
+        Career career = new Career("Ingeniería de Sistemas", 160);
+        semaforo = new SemaforoAcademico(1, 0, career);
         createData();
     }
 
     public void createData() {
-        semestre1 = new Semestre(1, 2024, 2, false);
-        Grupo grupo1 = new Grupo(1, 1, 30, true, CatalogoMaterias.getMateria("AYSR"), new Profesor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas"));
-        Inscripcion inscripcion1 = new Inscripcion(grupo1, 1, "aprobada", 4.0);
-        Grupo grupo2 = new Grupo(2, 1, 30, true, CatalogoMaterias.getMateria("DOPO"), new Profesor("Dra. Ana", "López", 654321, "Ingeniería de Sistemas"));
-        Inscripcion inscripcion2 = new Inscripcion(grupo2, 1, "aprobada", 3.5);
-        Grupo grupo3 = new Grupo(3, 1, 30, true, CatalogoMaterias.getMateria("CALD"), new Profesor("Dr. Juan",  "Pérez", 112233, "Matemáticas"));
-        Inscripcion inscripcion3 = new Inscripcion(grupo3, 1, "reprobada", 2.7);
-        semestre1.agregarMateria(inscripcion1);
-        semestre1.agregarMateria(inscripcion2);
-        semestre1.agregarMateria(inscripcion3);
+        semester1 = new Semester(1, 2024, 2, false);
+        Group group1 = new Group(1, 1, 30, true, SubjectCatalog.getMateria("AYSR"), new Professor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas"));
+        Enrollment enrollment1 = new Enrollment(group1, 1, "aprobada", 4.0);
+        Group group2 = new Group(2, 1, 30, true, SubjectCatalog.getMateria("DOPO"), new Professor("Dra. Ana", "López", 654321, "Ingeniería de Sistemas"));
+        Enrollment enrollment2 = new Enrollment(group2, 1, "aprobada", 3.5);
+        Group group3 = new Group(3, 1, 30, true, SubjectCatalog.getMateria("CALD"), new Professor("Dr. Juan",  "Pérez", 112233, "Matemáticas"));
+        Enrollment enrollment3 = new Enrollment(group3, 1, "reprobada", 2.7);
+        semester1.agregarMateria(enrollment1);
+        semester1.agregarMateria(enrollment2);
+        semester1.agregarMateria(enrollment3);
     }
 
     @Test
@@ -42,16 +42,16 @@ public class SemaforoAcademicoTest {
     @Test
     @DisplayName("Debería agregar semestre al semáforo académico")
     void testAgregarSemestre() {
-        semaforo.agregarSemestre(semestre1);
+        semaforo.agregarSemestre(semester1);
         assertEquals(1, semaforo.getSemestres().size());
-        assertEquals(semestre1, semaforo.getSemestres().get(0));
+        assertEquals(semester1, semaforo.getSemestres().get(0));
     }
 
     @Test
     @DisplayName("Debería actualizar avance académico y calcular promedio acumulado")
     void testActualizarAvanceYCalcularPromedio() {
-        semaforo.agregarSemestre(semestre1);
-        semaforo.actualizarAvance(semestre1.getMaterias());
+        semaforo.agregarSemestre(semester1);
+        semaforo.actualizarAvance(semester1.getSubjects());
         assertEquals(5, semaforo.getAvancePorcentaje());
         assertEquals(3.5, semaforo.getPromedioAcumulado(), 0.001);
 
