@@ -22,7 +22,7 @@ public class InscripcionTest {
 
     @BeforeEach
     void setUp() {
-        materia = new Materia(1, "Cálculo I", 4, 1);
+        materia = new Materia("1", "Cálculo I", 4, 1);
         profesor = new Profesor("Juan", "Pérez", 12345678, "Matemáticas");
 
         grupo = new Grupo(1, 101, 30, true, materia, profesor);

@@ -59,7 +59,7 @@ class HorarioServiceTest {
         decanatura = new Decanatura("D001", "Ingeniería");
 
         // Crear materia de prueba
-        materia = new Materia(1001, "Cálculo I", 4, 1);
+        materia = new Materia("1001", "Cálculo I", 4, 1);
 
         // Crear grupo de prueba
         grupo = new Grupo(1, 1, 30, true, materia, profesor);

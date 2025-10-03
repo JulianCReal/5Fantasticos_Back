@@ -23,7 +23,7 @@ class MateriaServiceTest {
     private MateriaService materiaService;
 
     private Materia getMateriaDummy() {
-        return new Materia(1, "Matemáticas", 3, 1);
+        return new Materia("1", "Matemáticas", 3, 1);
     }
 
     @Test

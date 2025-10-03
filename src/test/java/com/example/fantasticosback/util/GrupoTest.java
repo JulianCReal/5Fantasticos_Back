@@ -18,7 +18,7 @@ public class GrupoTest {
 
     @BeforeEach
     void setUp() {
-        materia = new Materia(1, "Cálculo I", 4, 1);
+        materia = new Materia("1", "Cálculo I", 4, 1);
         profesor = new Profesor("Juan", "Pérez", 12345678, "Matemáticas");
         grupo = new Grupo(1, 101, 30, true, materia, profesor);
 
@@ -62,7 +62,7 @@ public class GrupoTest {
 
         assertTrue(grupo.isEstado());
 
-        Materia nuevaMateria = new Materia(2, "Física I", 3, 2);
+        Materia nuevaMateria = new Materia("2", "Física I", 3, 2);
         grupo.setMateria(nuevaMateria);
         assertEquals(nuevaMateria, grupo.getMateria());
 

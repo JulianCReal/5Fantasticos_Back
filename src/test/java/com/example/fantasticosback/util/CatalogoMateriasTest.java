@@ -15,7 +15,7 @@ public class CatalogoMateriasTest {
 
     @Test
     void testAgregarYRecuperarMateria() {
-        Materia nueva = new Materia(600, "Bases de Datos", 4, 3);
+        Materia nueva = new Materia("600", "Bases de Datos", 4, 3);
         CatalogoMaterias.agregarMateria("BBDD", nueva);
 
         Materia recuperada = CatalogoMaterias.getMateria("BBDD");

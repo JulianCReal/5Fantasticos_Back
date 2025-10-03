@@ -26,8 +26,8 @@ public class SemestreTest {
         // Crear objetos reales para las pruebas
         profesor = new Profesor("Juan", "Pérez", 12345678, "Sistemas");
 
-        materia1 = new Materia(101, "Matemáticas", 3, 1);
-        materia2 = new Materia(102, "Física", 4, 2);
+        materia1 = new Materia("101", "Matemáticas", 3, 1);
+        materia2 = new Materia("102", "Física", 4, 2);
 
         grupo1 = new Grupo(1, 1, 30, true, materia1, profesor);
         grupo2 = new Grupo(2, 2, 25, true, materia2, profesor);

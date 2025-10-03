@@ -7,8 +7,14 @@
 /Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/StudentController.java
 /Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Controller/TeacherController.java
 /Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/BaseDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/DeanOfficeDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/RegisterRequestDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/RequestDTO.java
 /Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/ResponseDTO.java
 /Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/StudentDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/SubjectDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/TeacherDTO.java
+/Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Dtos/UserResponseDTO.java
 /Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Carrera.java
 /Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/Decanatura.java
 /Users/juancarlos/Desktop/5Fantasticos_Back/src/main/java/com/example/fantasticosback/Model/EstadosSolicitudes/EstadoAceptada.java

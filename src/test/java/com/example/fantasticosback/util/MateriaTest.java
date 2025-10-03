@@ -12,8 +12,8 @@ public class MateriaTest {
 
     @Test
     void testGetters() {
-        Materia materia = new Materia(1, "Programación", 3, 1);
-        assertEquals(1, materia.getIdMateria());
+        Materia materia = new Materia("1", "Programación", 3, 1);
+        assertEquals("1", materia.getIdMateria());
         assertEquals("Programación", materia.getNombre());
         assertEquals(3, materia.getCreditos());
         assertEquals(1, materia.getSemestre());
@@ -21,14 +21,14 @@ public class MateriaTest {
 
     @Test
     void testSetCreditos() {
-        Materia materia = new Materia(1, "Programación", 3, 1);
+        Materia materia = new Materia("1", "Programación", 3, 1);
         materia.setCreditos(4);
         assertEquals(4, materia.getCreditos());
     }
 
     @Test
     void testAgregarGrupoYObtenerActivos() {
-        Materia materia = new Materia(1, "Programación", 3, 1);
+        Materia materia = new Materia("1", "Programación", 3, 1);
 
         Grupo grupoActivo = mock(Grupo.class);
         Grupo grupoInactivo = mock(Grupo.class);
@@ -46,7 +46,7 @@ public class MateriaTest {
 
     @Test
     void testMostrarInformacion() {
-        Materia materia = new Materia(1, "Programación", 3, 1);
+        Materia materia = new Materia("1", "Programación", 3, 1);
         assertDoesNotThrow(materia::mostrarInformacion);
     }
 }

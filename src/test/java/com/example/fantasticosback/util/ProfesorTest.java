@@ -32,7 +32,7 @@ public class ProfesorTest {
         assertEquals("Matemáticas", profesor.getDepartamento());
 
         HashMap<String, Materia> mapa = new HashMap<>();
-        Materia materia = new Materia(1, "Álgebra", 3, 1);
+        Materia materia = new Materia("1", "Álgebra", 3, 1);
         mapa.put("1", materia);
         profesor.setMateriasAsignadas(mapa);
 
@@ -42,7 +42,7 @@ public class ProfesorTest {
 
     @Test
     void testAsignarMateriaNueva() {
-        Materia materia = new Materia(10, "Programación", 3, 1);
+        Materia materia = new Materia("10", "Programación", 3, 1);
         profesor.asignarMateria(materia);
 
         assertEquals(1, profesor.getMateriasAsignadas().size());
@@ -51,7 +51,7 @@ public class ProfesorTest {
 
     @Test
     void testAsignarMateriaDuplicada() {
-        Materia materia = new Materia(20, "Bases de Datos", 4, 3);
+        Materia materia = new Materia("20", "Bases de Datos", 4, 3);
         profesor.asignarMateria(materia);
         profesor.asignarMateria(materia);
 
@@ -60,7 +60,7 @@ public class ProfesorTest {
 
     @Test
     void testMostrarInformacion() {
-        Materia materia = new Materia(30, "Redes", 4, 5);
+        Materia materia = new Materia("30", "Redes", 4, 5);
         profesor.asignarMateria(materia);
 
         assertDoesNotThrow(profesor::mostrarInformacion);
