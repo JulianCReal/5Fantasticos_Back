@@ -3,10 +3,13 @@ package com.example.fantasticosback.util;
 public class LoginResponse {
     private Object profile;
     private Role role;
+    private String token;
+    private String tokenType = "Bearer";
 
-    public LoginResponse(Object profile, Role role) {
+    public LoginResponse(Object profile, Role role, String token) {
         this.profile = profile;
         this.role = role;
+        this.token = token;
     }
 
     public Object getProfile() {
@@ -15,5 +18,13 @@ public class LoginResponse {
 
     public Role getRole() {
         return role;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String getTokenType() {
+        return tokenType;
     }
 }
