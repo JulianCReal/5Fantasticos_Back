@@ -10,6 +10,7 @@ com\example\fantasticosback\Model\Observers\RequestObserver.class
 com\example\fantasticosback\Dtos\UserResponseDTO.class
 com\example\fantasticosback\Model\Career.class
 com\example\fantasticosback\Server\RequestService.class
+com\example\fantasticosback\util\JwtTokenUtil.class
 com\example\fantasticosback\Controller\StudentController.class
 com\example\fantasticosback\util\SecurityConfig.class
 com\example\fantasticosback\Controller\DeanOfficeController.class
