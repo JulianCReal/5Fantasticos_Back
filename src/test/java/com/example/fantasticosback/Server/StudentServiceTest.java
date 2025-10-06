@@ -1,16 +1,15 @@
 package com.example.fantasticosback.Server;
 
-import com.example.fantasticosback.Model.Carrera;
-import com.example.fantasticosback.Model.Estudiante;
+import com.example.fantasticosback.Model.Career;
+import com.example.fantasticosback.Model.Student;
 import com.example.fantasticosback.Repository.StudentRepository;
-import com.example.fantasticosback.util.SemaforoAcademico;
+import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,59 +23,59 @@ class StudentServiceTest {
     @InjectMocks
     private StudentService studentService;
 
-    private Estudiante getEstudianteDummy() {
-        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        return new Estudiante("Juan", "Perez", 123, "Ing", "C001", "E001", 1, semaforo);
+    private Student getStudentDummy() {
+        Career career = new Career("Systems Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        return new Student("John", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight);
     }
 
     @Test
-    void testGuardar() {
-        Estudiante estudiante = getEstudianteDummy();
-        when(studentRepository.save(estudiante)).thenReturn(estudiante);
-        assertEquals(estudiante, studentService.guardar(estudiante));
+    void testSave() {
+        Student student = getStudentDummy();
+        when(studentRepository.save(student)).thenReturn(student);
+        assertEquals(student, studentService.save(student));
     }
 
     @Test
-    void testObtenerTodos() {
-        List<Estudiante> lista = Arrays.asList(getEstudianteDummy());
-        when(studentRepository.findAll()).thenReturn(lista);
-        assertEquals(lista, studentService.obtenerTodos());
+    void testFindAll() {
+        List<Student> list = List.of(getStudentDummy());
+        when(studentRepository.findAll()).thenReturn(list);
+        assertEquals(list, studentService.findAll());
     }
 
     @Test
-    void testObtenerPorId() {
-        Estudiante estudiante = getEstudianteDummy();
-        when(studentRepository.findById("1")).thenReturn(Optional.of(estudiante));
-        assertEquals(estudiante, studentService.obtenerPorId("1"));
+    void testFindById() {
+        Student student = getStudentDummy();
+        when(studentRepository.findById("1")).thenReturn(Optional.of(student));
+        assertEquals(student, studentService.findById("1"));
         when(studentRepository.findById("2")).thenReturn(Optional.empty());
-        assertNull(studentService.obtenerPorId("2"));
+        assertNull(studentService.findById("2"));
     }
 
     @Test
-    void testActualizar() {
-        Estudiante estudiante = getEstudianteDummy();
-        when(studentRepository.save(estudiante)).thenReturn(estudiante);
-        assertEquals(estudiante, studentService.actualizar(estudiante));
+    void testUpdate() {
+        Student student = getStudentDummy();
+        when(studentRepository.save(student)).thenReturn(student);
+        assertEquals(student, studentService.update(student));
     }
 
     @Test
-    void testEliminar() {
-        studentService.eliminar("1");
+    void testDelete() {
+        studentService.delete("1");
         verify(studentRepository).deleteById("1");
     }
 
     @Test
-    void testObtenerPorCarrera() {
-        List<Estudiante> lista = Arrays.asList(getEstudianteDummy());
-        when(studentRepository.findByCarrera("Ing")).thenReturn(lista);
-        assertEquals(lista, studentService.obtenerPorCarrera("Ing"));
+    void testFindByCareer() {
+        List<Student> list = List.of(getStudentDummy());
+        when(studentRepository.findByCareer("Engineering")).thenReturn(list);
+        assertEquals(list, studentService.findByCareer("Engineering"));
     }
 
     @Test
-    void testObtenerPorSemestre() {
-        List<Estudiante> lista = Arrays.asList(getEstudianteDummy());
-        when(studentRepository.findBySemestre(1)).thenReturn(lista);
-        assertEquals(lista, studentService.obtenerPorSemestre(1));
+    void testFindBySemester() {
+        List<Student> list = List.of(getStudentDummy());
+        when(studentRepository.findBySemester(1)).thenReturn(list);
+        assertEquals(list, studentService.findBySemester(1));
     }
 }

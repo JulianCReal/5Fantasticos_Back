@@ -2,10 +2,9 @@ package com.example.fantasticosback.Server;
 
 
 import com.example.fantasticosback.Repository.UserRepository;
-import com.example.fantasticosback.Model.Usuario;
-
-import com.example.fantasticosback.Model.Strategy.PerfilStrategy;
-import com.example.fantasticosback.Model.Factory.PerfilStrategyFactory;
+import com.example.fantasticosback.Model.User;
+import com.example.fantasticosback.Model.Strategy.ProfileStrategy;
+import com.example.fantasticosback.Model.Factory.ProfileStrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,26 +13,26 @@ import org.springframework.stereotype.Service;
 public class MatcherService {
 
     @Autowired
-    private UserRepository usuarioRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PerfilStrategyFactory strategyFactory;
+    private ProfileStrategyFactory strategyFactory;
 
-    public Object autenticarYObtenerPerfil(String email, String rawPassword) {
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    public Object authenticateAndGetProfile(String email, String rawPassword) {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
 
-        if (!passwordEncoder.matches(rawPassword, usuario.getPassword())) {
-            throw new RuntimeException("Contraseña incorrecta");
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
+            throw new RuntimeException("Incorrect password");
         }
 
-        PerfilStrategy estrategia = strategyFactory.getStrategy(usuario.getRol());
-        return estrategia.obtenerPerfil(usuario.getPerfilId());
+        ProfileStrategy strategy = strategyFactory.getStrategy(user.getRole());
+        return strategy.getProfile(user.getProfileId());
     }
 
-    public Usuario obtenerUsuario(String email) {
-        return usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    public User getUser(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 }

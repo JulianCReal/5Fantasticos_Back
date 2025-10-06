@@ -3,12 +3,12 @@ package com.example.fantasticosback.Controller;
 import com.example.fantasticosback.Dtos.RegisterRequestDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.UserResponseDTO;
-import com.example.fantasticosback.Model.Usuario;
+import com.example.fantasticosback.Model.User;
 import com.example.fantasticosback.Repository.UserRepository;
 import com.example.fantasticosback.Server.MatcherService;
 import com.example.fantasticosback.util.LoginRequest;
 import com.example.fantasticosback.util.LoginResponse;
-import com.example.fantasticosback.util.Rol;
+import com.example.fantasticosback.util.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,7 +26,7 @@ class AuthControllerTest {
     @Mock
     private MatcherService matcherService;
     @Mock
-    private UserRepository usuarioRepository;
+    private UserRepository userRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
     @InjectMocks
@@ -40,12 +40,12 @@ class AuthControllerTest {
     @Test
     void testLoginSuccess() {
         LoginRequest loginRequest = new LoginRequest("test@mail.com", "1234");
-        Object perfil = new Object();
-        Usuario usuario = new Usuario("test@mail.com", "encoded", Rol.ESTUDIANTE, "E001");
-        LoginResponse loginResponse = new LoginResponse(perfil, usuario.getRol());
+        Object profile = new Object();
+        User user = new User("test@mail.com", "encoded", Role.STUDENT, "E001");
+        LoginResponse loginResponse = new LoginResponse(profile, user.getRole());
 
-        when(matcherService.autenticarYObtenerPerfil("test@mail.com", "1234")).thenReturn(perfil);
-        when(matcherService.obtenerUsuario("test@mail.com")).thenReturn(usuario);
+        when(matcherService.authenticateAndGetProfile("test@mail.com", "1234")).thenReturn(profile);
+        when(matcherService.getUser("test@mail.com")).thenReturn(user);
 
         ResponseEntity<?> response = authController.login(loginRequest);
         assertEquals(200, response.getStatusCode().value());
@@ -55,13 +55,13 @@ class AuthControllerTest {
         assertEquals("Login successful", body.getMessage());
         assertTrue(body.getData() instanceof LoginResponse);
         LoginResponse data = (LoginResponse) body.getData();
-        assertEquals(usuario.getRol(), data.getRol());
+        assertEquals(user.getRole(), data.getRole());
     }
 
     @Test
     void testLoginFail() {
         LoginRequest loginRequest = new LoginRequest("fail@mail.com", "wrong");
-        when(matcherService.autenticarYObtenerPerfil(anyString(), anyString())).thenThrow(new RuntimeException());
+        when(matcherService.authenticateAndGetProfile(anyString(), anyString())).thenThrow(new RuntimeException());
         ResponseEntity<?> response = authController.login(loginRequest);
         assertEquals(401, response.getStatusCode().value());
         assertTrue(response.getBody() instanceof ResponseDTO);
@@ -73,11 +73,11 @@ class AuthControllerTest {
 
     @Test
     void testRegisterSuccess() {
-        RegisterRequestDTO registerRequest = new RegisterRequestDTO("test@mail.com", "1234", Rol.ESTUDIANTE, "E001");
-        when(usuarioRepository.findByEmail("test@mail.com")).thenReturn(Optional.empty());
+        RegisterRequestDTO registerRequest = new RegisterRequestDTO("test@mail.com", "1234", Role.STUDENT, "E001");
+        when(userRepository.findByEmail("test@mail.com")).thenReturn(Optional.empty());
         when(passwordEncoder.encode("1234")).thenReturn("encoded");
-        Usuario usuario = new Usuario("test@mail.com", "encoded", Rol.ESTUDIANTE, "E001");
-        when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuario);
+        User user = new User("test@mail.com", "encoded", Role.STUDENT, "E001");
+        when(userRepository.save(any(User.class))).thenReturn(user);
         ResponseEntity<?> response = authController.register(registerRequest);
         assertEquals(200, response.getStatusCode().value());
         assertTrue(response.getBody() instanceof ResponseDTO);
@@ -87,14 +87,14 @@ class AuthControllerTest {
         assertTrue(body.getData() instanceof UserResponseDTO);
         UserResponseDTO data = (UserResponseDTO) body.getData();
         assertEquals("test@mail.com", data.getEmail());
-        assertEquals(Rol.ESTUDIANTE, data.getRol());
-        assertEquals("E001", data.getPerfilId());
+        assertEquals(Role.STUDENT, data.getRole());
+        assertEquals("E001", data.getProfileId());
     }
 
     @Test
     void testRegisterEmailInUse() {
-        RegisterRequestDTO registerRequest = new RegisterRequestDTO("test@mail.com", "1234", Rol.ESTUDIANTE, "E001");
-        when(usuarioRepository.findByEmail("test@mail.com")).thenReturn(Optional.of(new Usuario()));
+        RegisterRequestDTO registerRequest = new RegisterRequestDTO("test@mail.com", "1234", Role.STUDENT, "E001");
+        when(userRepository.findByEmail("test@mail.com")).thenReturn(Optional.of(new User()));
         ResponseEntity<?> response = authController.register(registerRequest);
         assertEquals(400, response.getStatusCode().value());
         assertTrue(response.getBody() instanceof ResponseDTO);

@@ -2,7 +2,7 @@ package com.example.fantasticosback.Server;
 
 import com.example.fantasticosback.Dtos.TeacherDTO;
 import com.example.fantasticosback.Repository.TeacherRepository;
-import com.example.fantasticosback.Model.Profesor;
+import com.example.fantasticosback.Model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,60 +14,60 @@ public class TeacherService {
     @Autowired
     private TeacherRepository teacherRepository;
 
-    public Profesor guardar(Profesor profesor) {
-        return teacherRepository.save(profesor);
+    public Teacher save(Teacher teacher) {
+        return teacherRepository.save(teacher);
     }
 
-    public List<Profesor> obtenerTodos() {
+    public List<Teacher> findAll() {
         return teacherRepository.findAll();
     }
 
-    public Profesor obtenerPorId(String id) {
+    public Teacher findById(String id) {
         return teacherRepository.findById(id).orElse(null);
     }
 
-    public Profesor actualizar(Profesor profesor) {
-        return teacherRepository.save(profesor);
+    public Teacher update(Teacher teacher) {
+        return teacherRepository.save(teacher);
     }
 
-    public void eliminar(String id) {
+    public void delete(String id) {
         teacherRepository.deleteById(id);
     }
 
-    public List<Profesor> obtenerPorDepartamento(String departamento) {
-        return teacherRepository.findByDepartamento(departamento);
+    public List<Teacher> findByDepartment(String department) {
+        return teacherRepository.findByDepartment(department);
     }
 
-    public List<Profesor> obtenerPorNombre(String nombre) {
-        return teacherRepository.findByNombre(nombre);
+    public List<Teacher> findByName(String name) {
+        return teacherRepository.findByName(name);
     }
 
-    public List<Profesor> obtenerPorApellido(String apellido) {
-        return teacherRepository.findByApellido(apellido);
+    public List<Teacher> findByLastName(String lastName) {
+        return teacherRepository.findByLastName(lastName);
     }
-    public TeacherDTO toDTO(Profesor profesor) {
+
+    public TeacherDTO toDTO(Teacher teacher) {
         return new TeacherDTO(
-                profesor.getId(),
-                profesor.getNombre(),
-                profesor.getApellido(),
-                profesor.getDocumento(),
-                profesor.getDepartamento()
+                teacher.getId(),
+                teacher.getName(),
+                teacher.getLastName(),
+                teacher.getDocument(),
+                teacher.getDepartment()
         );
     }
 
-    public Profesor fromDTO(TeacherDTO dto) {
-        Profesor profesor = new Profesor(
+    public Teacher fromDTO(TeacherDTO dto) {
+        Teacher teacher = new Teacher(
                 dto.getName(),
                 dto.getLastName(),
                 dto.getDocument(),
                 dto.getDepartment()
         );
-        profesor.setId(dto.getId());
-        return profesor;
+        teacher.setId(dto.getId());
+        return teacher;
     }
 
-    public List<TeacherDTO> toDTOList(List<Profesor> profesores) {
-        return profesores.stream().map(this::toDTO).toList();
+    public List<TeacherDTO> toDTOList(List<Teacher> teachers) {
+        return teachers.stream().map(this::toDTO).toList();
     }
-
 }

@@ -2,100 +2,96 @@ package com.example.fantasticosback.util;
 
 import com.example.fantasticosback.Model.*;
 import com.example.fantasticosback.Model.Observers.DeanObserver;
-import com.example.fantasticosback.Model.Observers.ObserverSolicitud;
+import com.example.fantasticosback.Model.Observers.RequestObserver;
 import com.example.fantasticosback.Model.Observers.StudentObserver;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.fantasticosback.util.SubjectCatalog;
+import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Date;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
 
 public class ObserverTest {
     @Test
-    public void testDeanObserverNotifiedOnSolicitudCreation() {
-        // Capturar salida estándar
+    public void testDeanObserverNotifiedOnRequestCreation() {
+        // Capture standard output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
         // Arrange
         DeanObserver deanObserver = new DeanObserver();
-        Carrera carrera = new Carrera("Ingeniería", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Ana", "García", 123456, "Ingeniería", "202301", "E01", 5, semaforo);
+        Career career = new Career("Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        Student student = new Student("Ana", "Garcia", 123456, "Engineering", "202301", "E01", 5, trafficLight);
 
-        // Hacer el método addObserver público en Estudiante
-        estudiante.addObserver(deanObserver);
-        Materia materia1 = CatalogoMaterias.getMateria("AYSR");
-        Materia materia2 = CatalogoMaterias.getMateria("DOPO");
-        Profesor profesor = new Profesor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
+        // Make the addObserver method public in Student
+        student.addObserver(deanObserver);
+        Subject subject1 = SubjectCatalog.getSubject("AYSR");
+        Subject subject2 = SubjectCatalog.getSubject("DOPO");
+        Teacher teacher = new Teacher("Dr. Carlos", "Martinez", 123456, "Systems Engineering");
 
-        Grupo grupoOrigen = new Grupo(1, 1, 25, true, materia1, profesor);
-        Grupo grupoDestino = new Grupo(2, 2, 30, true, materia2, profesor);
-        Inscripcion inscripcionActual = new Inscripcion(grupoOrigen, 1, "cursando", 0.0);
+        Group originGroup = new Group(1, 1, 25, true, subject1, teacher);
+        Group destinationGroup = new Group(2, 2, 30, true, subject2, teacher);
+        Enrollment currentEnrollment = new Enrollment(originGroup, 1, "enrolled", 0.0);
 
         // Act
-        estudiante.crearSolicitud("grupo", inscripcionActual, grupoDestino, "Cambio por choque de horario");
+        student.createRequest("group", currentEnrollment, destinationGroup, "Change due to schedule conflict");
 
-        // Restaurar salida estándar
+        // Restore standard output
         System.setOut(originalOut);
 
         // Assert
         String output = outContent.toString().trim();
-        assertTrue(output.contains("Se ha creado una nueva solicitud"));
+        assertTrue(output.contains("A new request has been created"));
     }
 
     @Test
-    public void testStudentObserverNotifiedOnSolicitudStateChange() {
-        // Capturar salida estándar
+    public void testStudentObserverNotifiedOnRequestStateChange() {
+        // Capture standard output
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outContent));
 
         // Arrange
         StudentObserver studentObserver = new StudentObserver();
-        Decanatura decanatura = new Decanatura("D01", "Ingeniería");
+        DeanOffice deanOffice = new DeanOffice("D01", "Engineering");
 
-        decanatura.addObserver(studentObserver);
+        deanOffice.addObserver(studentObserver);
 
-        Carrera carrera = new Carrera("Ingeniería de Sistemas", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Carlos", "Lopez", 987654, "Sistemas", "202302", "E02", 6, semaforo);
+        Career career = new Career("Systems Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        Student student = new Student("Carlos", "Lopez", 987654, "Systems", "202302", "E02", 6, trafficLight);
 
-        Materia materia1 = CatalogoMaterias.getMateria("AYSR");
-        Materia materia2 = CatalogoMaterias.getMateria("DOPO");
-        Profesor profesor = new Profesor("Dr. Carlos", "Martínez", 123456, "Ingeniería de Sistemas");
-        Grupo grupoOrigen = new Grupo(1, 1, 25, true, materia1, profesor);
-        Grupo grupoDestino = new Grupo(2, 2, 30, true, materia2, profesor);
+        Subject subject1 = SubjectCatalog.getSubject("AYSR");
+        Subject subject2 = SubjectCatalog.getSubject("DOPO");
+        Teacher teacher = new Teacher("Dr. Carlos", "Martinez", 123456, "Systems Engineering");
+        Group originGroup = new Group(1, 1, 25, true, subject1, teacher);
+        Group destinationGroup = new Group(2, 2, 30, true, subject2, teacher);
 
-        Inscripcion inscripcion = new Inscripcion(grupoOrigen, 1, "activa", 0.0);
+        Enrollment enrollment = new Enrollment(originGroup, 1, "active", 0.0);
 
-        Solicitud solicitud = new Solicitud(
+        Request request = new Request(
                 "555",
-                grupoOrigen,
-                grupoDestino,
-                "grupo",
-                "Cambio de grupo",
+                originGroup,
+                destinationGroup,
+                "group",
+                "Group change",
                 new Date(),
-                estudiante.getIdEstudiante()
+                student.getStudentId()
         );
 
         // Act
-        decanatura.gestionarSolicitud(estudiante, solicitud);
+        deanOffice.manageRequest(student, request);
 
-        // Restaurar salida estándar
+        // Restore standard output
         System.setOut(originalOut);
 
         // Assert
         String output = outContent.toString().trim();
-        assertTrue(output.contains("Tu solicitud ha sido modificada a"));
+        assertTrue(output.contains("Your request has been modified to"));
     }
 }

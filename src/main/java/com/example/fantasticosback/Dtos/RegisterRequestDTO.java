@@ -1,20 +1,20 @@
 package com.example.fantasticosback.Dtos;
 
-import com.example.fantasticosback.util.Rol;
+import com.example.fantasticosback.util.Role;
 
 public class RegisterRequestDTO {
     private String email;
     private String password;
-    private Rol rol;
-    private String perfilId;
+    private Role role;
+    private String profileId;
 
     public RegisterRequestDTO() {}
 
-    public RegisterRequestDTO(String email, String password, Rol rol, String perfilId) {
+    public RegisterRequestDTO(String email, String password, Role role, String profileId) {
         this.email = email;
         this.password = password;
-        this.rol = rol;
-        this.perfilId = perfilId;
+        this.role = role;
+        this.profileId = profileId;
     }
 
     public String getEmail() { return email; }
@@ -23,9 +23,9 @@ public class RegisterRequestDTO {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public Rol getRol() { return rol; }
-    public void setRol(Rol rol) { this.rol = rol; }
+    public Role getRole() { return role; }
+    public void setRole(Role role) { this.role = role; }
 
-    public String getPerfilId() { return perfilId; }
-    public void setPerfilId(String perfilId) { this.perfilId = perfilId; }
+    public String getProfileId() { return profileId; }
+    public void setProfileId(String profileId) { this.profileId = profileId; }
 }

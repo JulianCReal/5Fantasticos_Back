@@ -1,23 +1,23 @@
 package com.example.fantasticosback.Dtos;
 
-import com.example.fantasticosback.util.Rol;
+import com.example.fantasticosback.util.Role;
 
 public class UserResponseDTO {
     private String email;
-    private Rol rol;
-    private String perfilId;
+    private Role role;
+    private String profileId;
 
-    public UserResponseDTO(String email, Rol rol, String perfilId) {
+    public UserResponseDTO(String email, Role role, String profileId) {
         this.email = email;
-        this.rol = rol;
-        this.perfilId = perfilId;
+        this.role = role;
+        this.profileId = profileId;
     }
 
     public String getEmail() { return email; }
-    public Rol getRol() { return rol; }
-    public String getPerfilId() { return perfilId; }
+    public Role getRole() { return role; }
+    public String getProfileId() { return profileId; }
 
     public void setEmail(String email) { this.email = email; }
-    public void setRol(Rol rol) { this.rol = rol; }
-    public void setPerfilId(String perfilId) { this.perfilId = perfilId; }
+    public void setRole(Role role) { this.role = role; }
+    public void setProfileId(String profileId) { this.profileId = profileId; }
 }

@@ -3,7 +3,7 @@ package com.example.fantasticosback.Controller;
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.StudentDTO;
 import com.example.fantasticosback.Server.StudentService;
-import com.example.fantasticosback.Model.Estudiante;
+import com.example.fantasticosback.Model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,71 +11,71 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/estudiantes")
+@RequestMapping("/api/students")
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
 
     @PostMapping
-    public ResponseEntity<ResponseDTO<StudentDTO>> crear(@RequestBody StudentDTO dto) {
-        Estudiante nuevo = studentService.convertirADominio(dto);
-        Estudiante guardado = studentService.guardar(nuevo);
-        StudentDTO respuesta = studentService.convertirAEstudianteDTO(guardado);
-        return ResponseEntity.ok(ResponseDTO.success(respuesta, "Estudiante creado correctamente"));
+    public ResponseEntity<ResponseDTO<StudentDTO>> create(@RequestBody StudentDTO dto) {
+        Student newStudent = studentService.convertToDomain(dto);
+        Student saved = studentService.save(newStudent);
+        StudentDTO response = studentService.convertToStudentDTO(saved);
+        return ResponseEntity.ok(ResponseDTO.success(response, "Student created successfully"));
     }
 
     @GetMapping
-    public ResponseEntity<ResponseDTO<List<StudentDTO>>> listar() {
-        List<StudentDTO> estudiantes = studentService.convertirLista(studentService.obtenerTodos());
-        return ResponseEntity.ok(ResponseDTO.success(estudiantes, "Lista de estudiantes"));
+    public ResponseEntity<ResponseDTO<List<StudentDTO>>> list() {
+        List<StudentDTO> students = studentService.convertList(studentService.findAll());
+        return ResponseEntity.ok(ResponseDTO.success(students, "List of students"));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseDTO<StudentDTO>> obtener(@PathVariable String id) {
-        Estudiante estudiante = studentService.obtenerPorId(id);
-        if (estudiante == null) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
+    public ResponseEntity<ResponseDTO<StudentDTO>> get(@PathVariable String id) {
+        Student student = studentService.findById(id);
+        if (student == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found"));
         }
-        StudentDTO dto = studentService.convertirAEstudianteDTO(estudiante);
-        return ResponseEntity.ok(ResponseDTO.success(dto, "Estudiante encontrado"));
+        StudentDTO dto = studentService.convertToStudentDTO(student);
+        return ResponseEntity.ok(ResponseDTO.success(dto, "Student found"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseDTO<StudentDTO>> actualizar(@PathVariable String id, @RequestBody StudentDTO dto) {
-        Estudiante existente = studentService.obtenerPorId(id);
-        if (existente == null) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
+    public ResponseEntity<ResponseDTO<StudentDTO>> update(@PathVariable String id, @RequestBody StudentDTO dto) {
+        Student existing = studentService.findById(id);
+        if (existing == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found"));
         }
 
-        Estudiante actualizado = studentService.convertirADominio(dto);
-        actualizado.setId(id);
-        Estudiante guardado = studentService.actualizar(actualizado);
-        StudentDTO respuesta = studentService.convertirAEstudianteDTO(guardado);
+        Student updated = studentService.convertToDomain(dto);
+        updated.setId(id);
+        Student saved = studentService.update(updated);
+        StudentDTO response = studentService.convertToStudentDTO(saved);
 
-        return ResponseEntity.ok(ResponseDTO.success(respuesta, "Estudiante actualizado"));
+        return ResponseEntity.ok(ResponseDTO.success(response, "Student updated"));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDTO<Void>> eliminar(@PathVariable String id) {
-        Estudiante existente = studentService.obtenerPorId(id);
-        if (existente == null) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Estudiante no encontrado"));
+    public ResponseEntity<ResponseDTO<Void>> delete(@PathVariable String id) {
+        Student existing = studentService.findById(id);
+        if (existing == null) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found"));
         }
 
-        studentService.eliminar(id);
-        return ResponseEntity.ok(ResponseDTO.success(null, "Estudiante eliminado correctamente"));
+        studentService.delete(id);
+        return ResponseEntity.ok(ResponseDTO.success(null, "Student deleted successfully"));
     }
 
-    @GetMapping("/carrera/{carrera}")
-    public ResponseEntity<ResponseDTO<List<StudentDTO>>> obtenerPorCarrera(@PathVariable String carrera) {
-        List<StudentDTO> estudiantes = studentService.convertirLista(studentService.obtenerPorCarrera(carrera));
-        return ResponseEntity.ok(ResponseDTO.success(estudiantes, "Estudiantes por carrera"));
+    @GetMapping("/career/{career}")
+    public ResponseEntity<ResponseDTO<List<StudentDTO>>> getByCareer(@PathVariable String career) {
+        List<StudentDTO> students = studentService.convertList(studentService.findByCareer(career));
+        return ResponseEntity.ok(ResponseDTO.success(students, "Students by career"));
     }
 
-    @GetMapping("/semestre/{semestre}")
-    public ResponseEntity<ResponseDTO<List<StudentDTO>>> obtenerPorSemestre(@PathVariable int semestre) {
-        List<StudentDTO> estudiantes = studentService.convertirLista(studentService.obtenerPorSemestre(semestre));
-        return ResponseEntity.ok(ResponseDTO.success(estudiantes, "Estudiantes por semestre"));
+    @GetMapping("/semester/{semester}")
+    public ResponseEntity<ResponseDTO<List<StudentDTO>>> getBySemester(@PathVariable int semester) {
+        List<StudentDTO> students = studentService.convertList(studentService.findBySemester(semester));
+        return ResponseEntity.ok(ResponseDTO.success(students, "Students by semester"));
     }
 }

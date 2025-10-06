@@ -1,67 +1,68 @@
 package com.example.fantasticosback.Dtos;
 
-import com.example.fantasticosback.Model.Grupo;
+import com.example.fantasticosback.Model.Group;
 
 import java.util.Date;
 
 public class RequestDTO extends BaseDTO {
     private String studentId;
-    private Grupo grupoOrigen;
-    private Grupo grupoDestino;
-    private String tipo;
-    private String observaciones;
-    private String nombreEstado;
-    private Date fechaSolicitud;
-    private int prioridad;
-    private Boolean evaluacionAprobada;
+    private Group sourceGroup;
+    private Group destinationGroup;
+    private String type;
+    private String observations;
+    private String statusName;
+    private Date requestDate;
+    private int priority;
+    private Boolean evaluationApproved;
 
-    public RequestDTO(String id, String studentId, Grupo grupoOrigen, Grupo grupoDestino, String tipo,
-                      String observaciones, String nombreEstado, Date fechaSolicitud,
-                      int prioridad, Boolean evaluacionAprobada) {
+    public RequestDTO(String id, String studentId, Group sourceGroup, Group destinationGroup, String type,
+                      String observations, String statusName, Date requestDate,
+                      int priority, Boolean evaluationApproved) {
         super(id);
         this.studentId = studentId;
-        this.grupoOrigen = grupoOrigen;
-        this.grupoDestino = grupoDestino;
-        this.tipo = tipo;
-        this.observaciones = observaciones;
-        this.nombreEstado = nombreEstado;
-        this.fechaSolicitud = fechaSolicitud;
-        this.prioridad = prioridad;
-        this.evaluacionAprobada = evaluacionAprobada;
+        this.sourceGroup = sourceGroup;
+        this.destinationGroup = destinationGroup;
+        this.type = type;
+        this.observations = observations;
+        this.statusName = statusName;
+        this.requestDate = requestDate;
+        this.priority = priority;
+        this.evaluationApproved = evaluationApproved;
     }
 
     public String getStudentId() {return studentId;}
 
-    public Grupo getGrupoOrigen() {return grupoOrigen;}
+    public Group getSourceGroup() {return sourceGroup;}
 
-    public Grupo getGrupoDestino() {return grupoDestino;}
+    public Group getDestinationGroup() {return destinationGroup;}
 
-    public String getTipo() {return tipo;}
+    public String getType() {return type;}
 
     public void setStudentId(String studentId) {this.studentId = studentId;}
 
-    public void setGrupoOrigen(Grupo grupoOrigen) {this.grupoOrigen = grupoOrigen;}
+    public void setSourceGroup(Group sourceGroup) {this.sourceGroup = sourceGroup;}
 
-    public void setGrupoDestino(Grupo grupoDestino) {this.grupoDestino = grupoDestino;}
+    public void setDestinationGroup(Group destinationGroup) {this.destinationGroup = destinationGroup;}
 
-    public void setTipo(String tipo) {this.tipo = tipo;}
+    public void setType(String type) {this.type = type;}
 
-    public void setObservaciones(String observaciones) {this.observaciones = observaciones;}
+    public void setObservations(String observations) {this.observations = observations;}
 
-    public void setNombreEstado(String nombreEstado) {this.nombreEstado = nombreEstado;}
+    public void setStatusName(String statusName) {this.statusName = statusName;}
 
-    public void setFechaSolicitud(Date fechaSolicitud) {this.fechaSolicitud = fechaSolicitud;}
+    public void setRequestDate(Date requestDate) {this.requestDate = requestDate;}
 
-    public void setPrioridad(int prioridad) {this.prioridad = prioridad;}
+    public void setPriority(int priority) {this.priority = priority;}
 
-    public void setEvaluacionAprobada(Boolean evaluacionAprobada) {this.evaluacionAprobada = evaluacionAprobada;}
+    public void setEvaluationApproved(Boolean evaluationApproved) {this.evaluationApproved = evaluationApproved;}
 
-    public String getObservaciones() {return observaciones;}
+    public String getObservations() {return observations;}
 
-    public String getNombreEstado() {return nombreEstado;}
+    public String getStatusName() {return statusName;}
 
-    public Date getFechaSolicitud() {return fechaSolicitud;}
+    public Date getRequestDate() {return requestDate;}
 
-    public int getPrioridad() {return prioridad;}
-    public Boolean getEvaluacionAprobada() {return evaluacionAprobada;}
+    public int getPriority() {return priority;}
+
+    public Boolean getEvaluationApproved() {return evaluationApproved;}
 }

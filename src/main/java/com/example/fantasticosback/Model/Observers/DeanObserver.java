@@ -1,11 +1,11 @@
 package com.example.fantasticosback.Model.Observers;
 
-import com.example.fantasticosback.Model.Solicitud;
+import com.example.fantasticosback.Model.Request;
 
-public class DeanObserver implements ObserverSolicitud{
+public class DeanObserver implements RequestObserver{
 
     @Override
-    public void notificarSolicitud(Solicitud solicitud) {
-        System.out.println("Se ha creado una nueva solicitud");
+    public void notifyRequest(Request request) {
+        System.out.println("A new request has been created");
     }
 }

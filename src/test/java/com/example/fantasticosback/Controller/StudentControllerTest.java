@@ -2,10 +2,10 @@ package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.StudentDTO;
-import com.example.fantasticosback.Model.Carrera;
-import com.example.fantasticosback.Model.Estudiante;
+import com.example.fantasticosback.Model.Career;
+import com.example.fantasticosback.Model.Student;
 import com.example.fantasticosback.Server.StudentService;
-import com.example.fantasticosback.util.SemaforoAcademico;
+import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,180 +29,204 @@ class StudentControllerTest {
     private StudentController studentController;
 
     @Test
-    void testCrear() {
-        StudentDTO dto = new StudentDTO("E001", "Juan", "Ing", 1);
-        Carrera carrera = new Carrera("Ing", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Juan", "Perez", 123, "Ing", "C001", "E001", 1, semaforo);
+    void testCreate() {
+        StudentDTO dto = new StudentDTO("E001", "Juan", "Engineering", 1);
+        Career career = new Career("Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        Student student = new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight);
 
-        when(studentService.convertirADominio(dto)).thenReturn(estudiante);
-        when(studentService.guardar(estudiante)).thenReturn(estudiante);
-        when(studentService.convertirAEstudianteDTO(estudiante)).thenReturn(dto);
+        when(studentService.convertToDomain(dto)).thenReturn(student);
+        when(studentService.save(student)).thenReturn(student);
+        when(studentService.convertToStudentDTO(student)).thenReturn(dto);
 
-        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.crear(dto);
+        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.create(dto);
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Estudiante creado correctamente", response.getBody().getMessage());
+        assertEquals("Student created successfully", response.getBody().getMessage());
         assertEquals(dto, response.getBody().getData());
     }
 
     @Test
-    void testListar() {
-        StudentDTO dto1 = new StudentDTO("E001", "Juan", "Ing", 1);
-        StudentDTO dto2 = new StudentDTO("E002", "Ana", "Med", 2);
-        List<StudentDTO> listaDTOs = Arrays.asList(dto1, dto2);
+    void testList() {
+        Career career = new Career("Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        Student student1 = new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight);
+        Student student2 = new Student("Ana", "Lopez", 456, "Engineering", "C002", "E002", 2, trafficLight);
 
-        when(studentService.obtenerTodos()).thenReturn(Arrays.asList()); // original no importa
-        when(studentService.convertirLista(any())).thenReturn(listaDTOs);
+        List<Student> students = Arrays.asList(student1, student2);
+        List<StudentDTO> dtos = Arrays.asList(
+                new StudentDTO("E001", "Juan", "Engineering", 1),
+                new StudentDTO("E002", "Ana", "Engineering", 2)
+        );
 
-        ResponseEntity<ResponseDTO<List<StudentDTO>>> response = studentController.listar();
+        when(studentService.findAll()).thenReturn(students);
+        when(studentService.convertList(students)).thenReturn(dtos);
+
+        ResponseEntity<ResponseDTO<List<StudentDTO>>> response = studentController.list();
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Lista de estudiantes", response.getBody().getMessage());
-        assertEquals(listaDTOs, response.getBody().getData());
+        assertEquals("List of students", response.getBody().getMessage());
+        assertEquals(dtos, response.getBody().getData());
     }
 
     @Test
-    void testObtener_Existe() {
+    void testGetSuccess() {
         String id = "E001";
-        StudentDTO dto = new StudentDTO(id, "Juan", "Ing", 1);
-        Carrera carrera = new Carrera("Ing", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
+        Career career = new Career("Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        Student student = new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight);
+        StudentDTO dto = new StudentDTO("E001", "Juan", "Engineering", 1);
 
-        when(studentService.obtenerPorId(id)).thenReturn(estudiante);
-        when(studentService.convertirAEstudianteDTO(estudiante)).thenReturn(dto);
+        when(studentService.findById(id)).thenReturn(student);
+        when(studentService.convertToStudentDTO(student)).thenReturn(dto);
 
-        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.obtener(id);
+        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.get(id);
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Estudiante encontrado", response.getBody().getMessage());
+        assertEquals("Student found", response.getBody().getMessage());
         assertEquals(dto, response.getBody().getData());
     }
 
     @Test
-    void testObtener_NoExiste() {
-        when(studentService.obtenerPorId("E001")).thenReturn(null);
+    void testGetNotFound() {
+        when(studentService.findById("E001")).thenReturn(null);
 
-        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.obtener("E001");
+        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.get("E001");
 
         assertEquals(404, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Estudiante no encontrado", response.getBody().getMessage());
+        assertEquals("Student not found", response.getBody().getMessage());
         assertNull(response.getBody().getData());
     }
 
     @Test
-    void testActualizar_Existe() {
+    void testUpdateSuccess() {
         String id = "E001";
-        StudentDTO dto = new StudentDTO(id, "Juan", "Ing", 1);
-        Carrera carrera = new Carrera("Ing", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
+        StudentDTO dto = new StudentDTO("E001", "Juan Updated", "Engineering", 2);
+        Career career = new Career("Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        Student existingStudent = new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight);
+        Student updatedStudent = new Student("Juan Updated", "Perez", 123, "Engineering", "C001", "E001", 2, trafficLight);
 
-        when(studentService.obtenerPorId(id)).thenReturn(estudiante);
-        when(studentService.convertirADominio(dto)).thenReturn(estudiante);
-        when(studentService.actualizar(estudiante)).thenReturn(estudiante);
-        when(studentService.convertirAEstudianteDTO(estudiante)).thenReturn(dto);
+        when(studentService.findById(id)).thenReturn(existingStudent);
+        when(studentService.convertToDomain(dto)).thenReturn(updatedStudent);
+        when(studentService.update(updatedStudent)).thenReturn(updatedStudent);
+        when(studentService.convertToStudentDTO(updatedStudent)).thenReturn(dto);
 
-        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.actualizar(id, dto);
+        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.update(id, dto);
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Estudiante actualizado", response.getBody().getMessage());
+        assertEquals("Student updated", response.getBody().getMessage());
         assertEquals(dto, response.getBody().getData());
     }
 
     @Test
-    void testActualizar_NoExiste() {
+    void testUpdateNotFound() {
         String id = "E001";
-        StudentDTO dto = new StudentDTO(id, "Juan", "Ing", 1);
+        StudentDTO dto = new StudentDTO("E001", "Juan", "Engineering", 1);
 
-        when(studentService.obtenerPorId(id)).thenReturn(null);
+        when(studentService.findById(id)).thenReturn(null);
 
-        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.actualizar(id, dto);
+        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.update(id, dto);
 
         assertEquals(404, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Estudiante no encontrado", response.getBody().getMessage());
+        assertEquals("Student not found", response.getBody().getMessage());
         assertNull(response.getBody().getData());
     }
 
     @Test
-    void testEliminar_Existe() {
+    void testDeleteSuccess() {
         String id = "E001";
-        Carrera carrera = new Carrera("Ing", 160);
-        SemaforoAcademico semaforo = new SemaforoAcademico(1, 0, carrera);
-        Estudiante estudiante = new Estudiante("Juan", "Perez", 123, "Ing", "C001", id, 1, semaforo);
+        Career career = new Career("Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        Student student = new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight);
 
-        when(studentService.obtenerPorId(id)).thenReturn(estudiante);
-        doNothing().when(studentService).eliminar(id);
+        when(studentService.findById(id)).thenReturn(student);
 
-        ResponseEntity<ResponseDTO<Void>> response = studentController.eliminar(id);
+        ResponseEntity<ResponseDTO<Void>> response = studentController.delete(id);
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Estudiante eliminado correctamente", response.getBody().getMessage());
+        assertEquals("Student deleted successfully", response.getBody().getMessage());
         assertNull(response.getBody().getData());
+        verify(studentService).delete(id);
     }
 
     @Test
-    void testEliminar_NoExiste() {
+    void testDeleteNotFound() {
         String id = "E001";
-        when(studentService.obtenerPorId(id)).thenReturn(null);
 
-        ResponseEntity<ResponseDTO<Void>> response = studentController.eliminar(id);
+        when(studentService.findById(id)).thenReturn(null);
+
+        ResponseEntity<ResponseDTO<Void>> response = studentController.delete(id);
 
         assertEquals(404, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Estudiante no encontrado", response.getBody().getMessage());
+        assertEquals("Student not found", response.getBody().getMessage());
         assertNull(response.getBody().getData());
+        verify(studentService, never()).delete(id);
     }
 
     @Test
-    void testObtenerPorCarrera() {
-        String carrera = "Ing";
-        StudentDTO dto1 = new StudentDTO("E001", "Juan", "Ing", 1);
-        List<StudentDTO> listaDTOs = Arrays.asList(dto1);
+    void testGetByCareer() {
+        String career = "Engineering";
+        Career careerObj = new Career("Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, careerObj);
+        List<Student> students = Arrays.asList(
+                new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight),
+                new Student("Ana", "Lopez", 456, "Engineering", "C002", "E002", 2, trafficLight)
+        );
+        List<StudentDTO> dtos = Arrays.asList(
+                new StudentDTO("E001", "Juan", "Engineering", 1),
+                new StudentDTO("E002", "Ana", "Engineering", 2)
+        );
 
-        when(studentService.obtenerPorCarrera(carrera)).thenReturn(Arrays.asList()); // original no importa
-        when(studentService.convertirLista(any())).thenReturn(listaDTOs);
+        when(studentService.findByCareer(career)).thenReturn(students);
+        when(studentService.convertList(students)).thenReturn(dtos);
 
-        ResponseEntity<ResponseDTO<List<StudentDTO>>> response = studentController.obtenerPorCarrera(carrera);
+        ResponseEntity<ResponseDTO<List<StudentDTO>>> response = studentController.getByCareer(career);
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Estudiantes por carrera", response.getBody().getMessage());
-        assertEquals(listaDTOs, response.getBody().getData());
+        assertEquals("Students by career", response.getBody().getMessage());
+        assertEquals(dtos, response.getBody().getData());
     }
 
     @Test
-    void testObtenerPorSemestre() {
-        int semestre = 1;
-        StudentDTO dto1 = new StudentDTO("E001", "Juan", "Ing", 1);
-        List<StudentDTO> listaDTOs = Arrays.asList(dto1);
+    void testGetBySemester() {
+        int semester = 1;
+        Career career = new Career("Engineering", 160);
+        AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
+        List<Student> students = Arrays.asList(
+                new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight)
+        );
+        List<StudentDTO> dtos = Arrays.asList(
+                new StudentDTO("E001", "Juan", "Engineering", 1)
+        );
 
-        when(studentService.obtenerPorSemestre(semestre)).thenReturn(Arrays.asList()); // original no importa
-        when(studentService.convertirLista(any())).thenReturn(listaDTOs);
+        when(studentService.findBySemester(semester)).thenReturn(students);
+        when(studentService.convertList(students)).thenReturn(dtos);
 
-        ResponseEntity<ResponseDTO<List<StudentDTO>>> response = studentController.obtenerPorSemestre(semestre);
+        ResponseEntity<ResponseDTO<List<StudentDTO>>> response = studentController.getBySemester(semester);
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Estudiantes por semestre", response.getBody().getMessage());
-        assertEquals(listaDTOs, response.getBody().getData());
+        assertEquals("Students by semester", response.getBody().getMessage());
+        assertEquals(dtos, response.getBody().getData());
     }
 }

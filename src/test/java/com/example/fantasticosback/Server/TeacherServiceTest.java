@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Server;
 
-import com.example.fantasticosback.Model.Profesor;
+import com.example.fantasticosback.Model.Teacher;
 import com.example.fantasticosback.Repository.TeacherRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,7 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,66 +21,66 @@ class TeacherServiceTest {
     @InjectMocks
     private TeacherService teacherService;
 
-    private Profesor getProfesorDummy() {
-        Profesor profesor = new Profesor("Juan", "Perez", 123, "Matemáticas");
-        profesor.setId("1");
-        return profesor;
+    private Teacher getTeacherDummy() {
+        Teacher teacher = new Teacher("John", "Perez", 123, "Mathematics");
+        teacher.setId("1");
+        return teacher;
     }
 
     @Test
-    void testGuardar() {
-        Profesor profesor = getProfesorDummy();
-        when(teacherRepository.save(profesor)).thenReturn(profesor);
-        assertEquals(profesor, teacherService.guardar(profesor));
+    void testSave() {
+        Teacher teacher = getTeacherDummy();
+        when(teacherRepository.save(teacher)).thenReturn(teacher);
+        assertEquals(teacher, teacherService.save(teacher));
     }
 
     @Test
-    void testObtenerTodos() {
-        List<Profesor> lista = Arrays.asList(getProfesorDummy());
-        when(teacherRepository.findAll()).thenReturn(lista);
-        assertEquals(lista, teacherService.obtenerTodos());
+    void testFindAll() {
+        List<Teacher> list = List.of(getTeacherDummy());
+        when(teacherRepository.findAll()).thenReturn(list);
+        assertEquals(list, teacherService.findAll());
     }
 
     @Test
-    void testObtenerPorId() {
-        Profesor profesor = getProfesorDummy();
-        when(teacherRepository.findById("1")).thenReturn(Optional.of(profesor));
-        assertEquals(profesor, teacherService.obtenerPorId("1"));
+    void testFindById() {
+        Teacher teacher = getTeacherDummy();
+        when(teacherRepository.findById("1")).thenReturn(Optional.of(teacher));
+        assertEquals(teacher, teacherService.findById("1"));
         when(teacherRepository.findById("2")).thenReturn(Optional.empty());
-        assertNull(teacherService.obtenerPorId("2"));
+        assertNull(teacherService.findById("2"));
     }
 
     @Test
-    void testActualizar() {
-        Profesor profesor = getProfesorDummy();
-        when(teacherRepository.save(profesor)).thenReturn(profesor);
-        assertEquals(profesor, teacherService.actualizar(profesor));
+    void testUpdate() {
+        Teacher teacher = getTeacherDummy();
+        when(teacherRepository.save(teacher)).thenReturn(teacher);
+        assertEquals(teacher, teacherService.update(teacher));
     }
 
     @Test
-    void testEliminar() {
-        teacherService.eliminar("1");
+    void testDelete() {
+        teacherService.delete("1");
         verify(teacherRepository).deleteById("1");
     }
 
     @Test
-    void testObtenerPorDepartamento() {
-        List<Profesor> lista = Arrays.asList(getProfesorDummy());
-        when(teacherRepository.findByDepartamento("Departamento")).thenReturn(lista);
-        assertEquals(lista, teacherService.obtenerPorDepartamento("Departamento"));
+    void testFindByDepartment() {
+        List<Teacher> list = List.of(getTeacherDummy());
+        when(teacherRepository.findByDepartment("Department")).thenReturn(list);
+        assertEquals(list, teacherService.findByDepartment("Department"));
     }
 
     @Test
-    void testObtenerPorNombre() {
-        List<Profesor> lista = Arrays.asList(getProfesorDummy());
-        when(teacherRepository.findByNombre("Juan")).thenReturn(lista);
-        assertEquals(lista, teacherService.obtenerPorNombre("Juan"));
+    void testFindByName() {
+        List<Teacher> list = List.of(getTeacherDummy());
+        when(teacherRepository.findByName("John")).thenReturn(list);
+        assertEquals(list, teacherService.findByName("John"));
     }
 
     @Test
-    void testObtenerPorApellido() {
-        List<Profesor> lista = Arrays.asList(getProfesorDummy());
-        when(teacherRepository.findByApellido("Perez")).thenReturn(lista);
-        assertEquals(lista, teacherService.obtenerPorApellido("Perez"));
+    void testFindByLastName() {
+        List<Teacher> list = List.of(getTeacherDummy());
+        when(teacherRepository.findByLastName("Perez")).thenReturn(list);
+        assertEquals(list, teacherService.findByLastName("Perez"));
     }
 }

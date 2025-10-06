@@ -2,7 +2,7 @@ package com.example.fantasticosback.Server;
 
 import com.example.fantasticosback.Dtos.StudentDTO;
 import com.example.fantasticosback.Repository.StudentRepository;
-import com.example.fantasticosback.Model.Estudiante;
+import com.example.fantasticosback.Model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,54 +15,56 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public Estudiante guardar(Estudiante estudiante) {
-        return studentRepository.save(estudiante);
+    public Student save(Student student) {
+        return studentRepository.save(student);
     }
 
-    public List<Estudiante> obtenerTodos() {
+    public List<Student> findAll() {
         return studentRepository.findAll();
     }
 
-    public Estudiante obtenerPorId(String id) {
+    public Student findById(String id) {
         return studentRepository.findById(id).orElse(null);
     }
 
-    public Estudiante actualizar(Estudiante estudiante) {
-        return studentRepository.save(estudiante); // save actualiza si el ID existe
+    public Student update(Student student) {
+        return studentRepository.save(student);
     }
 
-    public void eliminar(String id) {
+    public void delete(String id) {
         studentRepository.deleteById(id);
     }
 
-    public List<Estudiante> obtenerPorCarrera(String carrera) {
-        return studentRepository.findByCarrera(carrera);
+    public List<Student> findByCareer(String career) {
+        return studentRepository.findByCareer(career);
     }
 
-    public List<Estudiante> obtenerPorSemestre(int semestre) {
-        return studentRepository.findBySemestre(semestre);
+    public List<Student> findBySemester(int semester) {
+        return studentRepository.findBySemester(semester);
     }
 
-    public StudentDTO convertirAEstudianteDTO(Estudiante estudiante) {
+    public StudentDTO convertToStudentDTO(Student student) {
         return new StudentDTO(
-                estudiante.getIdEstudiante(),
-                estudiante.getNombre(),
-                estudiante.getCarrera(),
-                estudiante.getSemestre()
+                student.getStudentId(),
+                student.getName(),
+                student.getCareer(),
+                student.getSemester()
         );
     }
-    public List<StudentDTO> convertirLista(List<Estudiante> estudiantes) {
-        return estudiantes.stream().map(this::convertirAEstudianteDTO).collect(Collectors.toList());
+
+    public List<StudentDTO> convertList(List<Student> students) {
+        return students.stream().map(this::convertToStudentDTO).collect(Collectors.toList());
     }
-    public Estudiante convertirADominio(StudentDTO dto) {
-        return new Estudiante(
-                dto.getNombre(),
+
+    public Student convertToDomain(StudentDTO dto) {
+        return new Student(
+                dto.getName(),
                 "",
                 0,
-                dto.getCarrera(),
+                dto.getCareer(),
                 "",
                 dto.getId(),
-                dto.getSemestre(),
+                dto.getSemester(),
                 null
         );
     }
