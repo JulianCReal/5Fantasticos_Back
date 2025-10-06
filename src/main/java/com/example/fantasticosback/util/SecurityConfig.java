@@ -29,8 +29,8 @@ public class SecurityConfig {
                 .requestMatchers("/v3/api-docs/**", "/swagger-resources/**").permitAll()
                 .requestMatchers("/webjars/**").permitAll()
 
-                // Todos los demás endpoints requieren autenticación
-                .anyRequest().authenticated()
+                // TEMPORALMENTE: Permitir acceso a todos los endpoints para pruebas
+                .anyRequest().permitAll()
             );
 
         return http.build();
