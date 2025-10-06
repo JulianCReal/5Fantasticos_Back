@@ -1,6 +1,5 @@
 package com.example.fantasticosback.Controller;
-
-
+import com.example.fantasticosback.Dtos.CreateGroupDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.SubjectDTO;
 import com.example.fantasticosback.Server.SubjectService;
@@ -17,16 +16,10 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
 
-    @PostMapping
-    public ResponseEntity<ResponseDTO<SubjectDTO>> create(@RequestBody SubjectDTO dto) {
-        Subject saved = subjectService.save(subjectService.fromDTO(dto));
-        return ResponseEntity.ok(ResponseDTO.success(subjectService.toDTO(saved), "Subject created successfully"));
-    }
-
     @GetMapping
     public ResponseEntity<ResponseDTO<List<SubjectDTO>>> list() {
         List<Subject> subjects = subjectService.findAll();
-        return ResponseEntity.ok(ResponseDTO.success(subjectService.toDTOList(subjects), "List of subjects"));
+        return ResponseEntity.ok(ResponseDTO.success(subjectService.toDTOList(subjects), "List of predefined subjects"));
     }
 
     @GetMapping("/{id}")
@@ -34,32 +27,6 @@ public class SubjectController {
         Subject subject = subjectService.findById(id);
         if (subject != null) {
             return ResponseEntity.ok(ResponseDTO.success(subjectService.toDTO(subject), "Subject found"));
-        }
-        return ResponseEntity.status(404).body(ResponseDTO.error("Subject not found"));
-    }
-
-    @PutMapping("/credits/{credits}")
-    public ResponseEntity<ResponseDTO<List<SubjectDTO>>> updateByCredits(@PathVariable int credits, @RequestBody SubjectDTO dto) {
-        List<Subject> existing = subjectService.findByCredits(credits);
-
-        if (existing.isEmpty()) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("No subjects found with the specified credits"));
-        }
-
-        for (Subject existingSubject : existing) {
-            existingSubject.setCredits(dto.getCredits());
-            subjectService.save(existingSubject);
-        }
-
-        return ResponseEntity.ok(ResponseDTO.success(subjectService.toDTOList(existing), "Subjects updated by credits"));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDTO<Void>> delete(@PathVariable String id){
-        Subject existing = subjectService.findById(id);
-        if (existing != null){
-            subjectService.delete(id);
-            return ResponseEntity.ok(ResponseDTO.success(null, "Subject deleted successfully"));
         }
         return ResponseEntity.status(404).body(ResponseDTO.error("Subject not found"));
     }
@@ -74,5 +41,37 @@ public class SubjectController {
     public ResponseEntity<ResponseDTO<List<SubjectDTO>>> getByName(@PathVariable String name){
         List<Subject> subjects = subjectService.findByName(name);
         return ResponseEntity.ok(ResponseDTO.success(subjectService.toDTOList(subjects), "Subjects by name"));
+    }
+
+    // Endpoint para agregar grupos a una materia existente usando abreviatura
+    @PostMapping("/{subjectCode}/groups")
+    public ResponseEntity<ResponseDTO<String>> addGroupToSubject(
+            @PathVariable String subjectCode,
+            @RequestBody CreateGroupDTO groupDto) {
+        try {
+            boolean success = subjectService.addGroupToSubjectByCode(subjectCode, groupDto);
+            if (success) {
+                return ResponseEntity.ok(ResponseDTO.success("Group added successfully", "Group added to subject " + subjectCode));
+            } else {
+                return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to add group to subject"));
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Subject not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
+
+    // Endpoint para ver grupos de una materia específica usando abreviatura
+    @GetMapping("/{subjectCode}/groups")
+    public ResponseEntity<ResponseDTO<List<Object>>> getSubjectGroups(@PathVariable String subjectCode) {
+        try {
+            List<Object> groups = subjectService.getGroupsBySubjectCode(subjectCode);
+            return ResponseEntity.ok(ResponseDTO.success(groups, "Groups retrieved for " + subjectCode));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Subject not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
     }
 }

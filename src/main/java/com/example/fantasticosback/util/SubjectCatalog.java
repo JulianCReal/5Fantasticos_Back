@@ -9,11 +9,11 @@ public class SubjectCatalog {
     private static Map<String, Subject> subjects = new HashMap<>();
 
     static {
-        subjects.put("CALD", new Subject("101", "Differential Calculus", 3, 1));
-        subjects.put("DDYA", new Subject("201", "Data Design and Algorithms", 4, 2));
-        subjects.put("AYSR", new Subject("301", "Network Architecture and Services", 4, 5));
-        subjects.put("IPRO", new Subject("401", "Introduction to Programming", 3, 1));
-        subjects.put("DOPO", new Subject("501", "Object-Oriented Development", 4, 5));
+        subjects.put("CALD", new Subject("101", "Cálculo Diferencial", 3, 1));
+        subjects.put("DDYA", new Subject("201", "Diseño de Datos y Algoritmos", 4, 2));
+        subjects.put("AYSR", new Subject("301", "Arquitectura y Servicios de Red", 4, 5));
+        subjects.put("IPRO", new Subject("401", "Introducción a la Programación", 3, 1));
+        subjects.put("DOPO", new Subject("501", "Desarrollo Orientado a Objetos", 4, 5));
     }
 
     public static Subject getSubject(String code) {

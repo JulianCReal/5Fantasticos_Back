@@ -7,6 +7,7 @@ C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proye
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\SubjectController.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Controller\TeacherController.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Dtos\BaseDTO.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Dtos\CreateGroupDTO.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Dtos\DeanOfficeDTO.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Dtos\RegisterRequestDTO.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Dtos\RequestDTO.java
@@ -51,6 +52,7 @@ C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proye
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\RequestService.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\ScheduleService.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\StudentService.java
+C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\SubjectCatalogInitializer.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\SubjectService.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Server\TeacherService.java
 C:\Users\santi\OneDrive\Desktop\Santiago\Universidad\Septimo Semestre\DOSW\Proyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\AcademicTrafficLight.java
