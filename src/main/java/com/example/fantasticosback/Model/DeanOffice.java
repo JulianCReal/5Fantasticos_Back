@@ -3,8 +3,10 @@ package com.example.fantasticosback.Model;
 import com.example.fantasticosback.Model.Observers.RequestObserver;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import com.example.fantasticosback.util.SubjectCatalog;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.logging.Logger;
 
 @Document(collection = "DeanOffices")
@@ -111,11 +113,43 @@ public class DeanOffice {
         }
 
         Semester currentSemester = student.getSemesters().get(student.getSemesters().size() - 1);
-        Enrollment temporaryEnrollment = new Enrollment(destinationGroup, 0, "temporary", 0.0);
+
+        // Necesitamos encontrar la materia correspondiente al grupo de destino
+        Subject destinationSubject = findSubjectByGroup(destinationGroup);
+        if (destinationSubject == null) {
+            log.warning("Could not find subject for destination group " + destinationGroup.getNumber());
+            return true; // Asumimos conflicto si no encontramos la materia
+        }
+
+        Enrollment temporaryEnrollment = new Enrollment(destinationGroup, destinationSubject, 0, "temporary", 0.0);
 
         return currentSemester.getSubjects().stream()
                 .filter(enrollment -> !enrollment.getGroup().equals(excludeGroup))
                 .anyMatch(temporaryEnrollment::validateConflict);
+    }
+
+    /**
+     * Método auxiliar para encontrar la materia que contiene un grupo específico
+     */
+    private Subject findSubjectByGroup(Group targetGroup) {
+        // Buscar en el catálogo estático de materias usando getSubjects()
+        Map<String, Subject> subjects = SubjectCatalog.getSubjects();
+
+        for (Map.Entry<String, Subject> entry : subjects.entrySet()) {
+            Subject catalogSubject = entry.getValue();
+            if (catalogSubject != null && catalogSubject.getAvailableGroups() != null) {
+                // Verificar si este grupo pertenece a esta materia comparando por ID y número
+                for (Group group : catalogSubject.getAvailableGroups()) {
+                    if (group.getId() == targetGroup.getId() &&
+                        group.getNumber() == targetGroup.getNumber()) {
+                        return catalogSubject;
+                    }
+                }
+            }
+        }
+
+        log.warning("Subject not found for group ID: " + targetGroup.getId() + ", number: " + targetGroup.getNumber());
+        return null;
     }
 
     public ArrayList<Request> getRequestsByFaculty() {

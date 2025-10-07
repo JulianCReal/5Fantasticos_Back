@@ -8,6 +8,7 @@ import com.example.fantasticosback.Model.Subject;
 import com.example.fantasticosback.Model.Group;
 import com.example.fantasticosback.Model.Teacher;
 import com.example.fantasticosback.util.SubjectCatalog;
+import com.example.fantasticosback.util.ClassSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,13 +88,12 @@ public class SubjectService {
         // Generar ID único para el grupo
         int newGroupId = generateGroupId(subject);
 
-        // Crear el nuevo grupo
+        // Crear el nuevo grupo (sin la referencia a subject)
         Group newGroup = new Group(
             newGroupId,
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
-            subject,
             teacher
         );
 
@@ -172,13 +172,12 @@ public class SubjectService {
         // Generar ID único para el grupo
         int newGroupId = generateGroupId(subject);
 
-        // Crear el nuevo grupo
+        // Crear el nuevo grupo (sin la referencia a subject)
         Group newGroup = new Group(
             newGroupId,
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
-            subject,
             teacher
         );
 
@@ -221,5 +220,114 @@ public class SubjectService {
                     "subjectName", subject.getName()
                 ))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Añade una sesión de clase a un grupo específico de una materia
+     */
+    public boolean addSessionToGroup(String subjectCode, int groupId, ClassSession session) {
+        // Obtener la materia del catálogo usando la abreviatura
+        Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
+        if (catalogSubject == null) {
+            throw new IllegalArgumentException("Subject not found in catalog with code: " + subjectCode);
+        }
+
+        // Buscar la materia en la BD usando el ID del catálogo
+        Subject subject = findById(catalogSubject.getSubjectId());
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject not found in database with code: " + subjectCode);
+        }
+
+        // Buscar el grupo específico
+        Group targetGroup = subject.getAvailableGroups().stream()
+                .filter(group -> group.getId() == groupId)
+                .findFirst()
+                .orElse(null);
+
+        if (targetGroup == null) {
+            throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectCode);
+        }
+
+        // Verificar conflictos de horario dentro del mismo grupo
+        for (ClassSession existingSession : targetGroup.getSessions()) {
+            if (existingSession.verifyConflict(session)) {
+                throw new IllegalArgumentException("Schedule conflict detected. Session overlaps with existing session on " +
+                    existingSession.getDay() + " from " + existingSession.getStartTime() + " to " + existingSession.getEndTime());
+            }
+        }
+
+        // Añadir la sesión al grupo
+        targetGroup.addSession(session);
+
+        // Guardar la materia actualizada
+        subjectRepository.save(subject);
+        return true;
+    }
+
+    /**
+     * Obtiene las sesiones de un grupo específico
+     */
+    public List<ClassSession> getGroupSessions(String subjectCode, int groupId) {
+        // Obtener la materia del catálogo usando la abreviatura
+        Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
+        if (catalogSubject == null) {
+            throw new IllegalArgumentException("Subject not found in catalog with code: " + subjectCode);
+        }
+
+        // Buscar la materia en la BD usando el ID del catálogo
+        Subject subject = findById(catalogSubject.getSubjectId());
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject not found in database with code: " + subjectCode);
+        }
+
+        // Buscar el grupo específico
+        Group targetGroup = subject.getAvailableGroups().stream()
+                .filter(group -> group.getId() == groupId)
+                .findFirst()
+                .orElse(null);
+
+        if (targetGroup == null) {
+            throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectCode);
+        }
+
+        return targetGroup.getSessions();
+    }
+
+    /**
+     * Elimina una sesión específica de un grupo
+     */
+    public boolean removeSessionFromGroup(String subjectCode, int groupId, int sessionIndex) {
+        // Obtener la materia del catálogo usando la abreviatura
+        Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
+        if (catalogSubject == null) {
+            throw new IllegalArgumentException("Subject not found in catalog with code: " + subjectCode);
+        }
+
+        // Buscar la materia en la BD usando el ID del catálogo
+        Subject subject = findById(catalogSubject.getSubjectId());
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject not found in database with code: " + subjectCode);
+        }
+
+        // Buscar el grupo específico
+        Group targetGroup = subject.getAvailableGroups().stream()
+                .filter(group -> group.getId() == groupId)
+                .findFirst()
+                .orElse(null);
+
+        if (targetGroup == null) {
+            throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectCode);
+        }
+
+        if (sessionIndex < 0 || sessionIndex >= targetGroup.getSessions().size()) {
+            throw new IllegalArgumentException("Invalid session index: " + sessionIndex);
+        }
+
+        // Eliminar la sesión
+        targetGroup.getSessions().remove(sessionIndex);
+
+        // Guardar la materia actualizada
+        subjectRepository.save(subject);
+        return true;
     }
 }

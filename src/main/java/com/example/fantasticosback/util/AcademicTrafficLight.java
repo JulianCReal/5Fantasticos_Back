@@ -32,7 +32,7 @@ public class AcademicTrafficLight {
         this.approvedCredits = 0; // Reset counter
         for (Enrollment enrollment : subjects) {
             if (enrollment.getStatus().equals("approved")) {
-                approvedCredits += enrollment.getGroup().getSubject().getCredits();
+                approvedCredits += enrollment.getSubject().getCredits();
             }
         }
         calculateCumulativeAverage();
@@ -45,7 +45,7 @@ public class AcademicTrafficLight {
         int coursedCredits = 0;
 
         for (Enrollment enrollment : subjects) {
-            int credits = enrollment.getGroup().getSubject().getCredits();
+            int credits = enrollment.getSubject().getCredits();
             double grade = enrollment.getFinalGrade();
             gradeCreditsSum += grade * credits;
             coursedCredits += credits;

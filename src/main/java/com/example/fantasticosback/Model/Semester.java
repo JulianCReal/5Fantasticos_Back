@@ -87,7 +87,7 @@ public class Semester {
         int totalCredits = 0;
 
         for (Enrollment enrollment : subjects) {
-            int credits = enrollment.getGroup().getSubject().getCredits();
+            int credits = enrollment.getSubject().getCredits();
             double grade = enrollment.getFinalGrade();
 
             gradeCreditsSum += grade * credits;

@@ -1,3 +1,4 @@
+// Solo guardar el estudiante - la materia no cambia
 package com.example.fantasticosback.Server;
 
 import com.example.fantasticosback.Dtos.StudentDTO;
@@ -10,13 +11,15 @@ import com.example.fantasticosback.Model.Enrollment;
 import com.example.fantasticosback.util.SubjectCatalog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.logging.Logger;
 
 @Service
 public class StudentService {
+
+    private static final Logger log = Logger.getLogger(StudentService.class.getName());
 
     @Autowired
     private StudentRepository studentRepository;
@@ -90,7 +93,13 @@ public class StudentService {
             throw new IllegalArgumentException("Group not found with ID: " + groupId);
         }
 
-        boolean success = student.addSubject(targetGroup);
+        // Necesitamos encontrar la materia que contiene este grupo
+        Subject subject = findSubjectByGroupId(groupId);
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject not found for group ID: " + groupId);
+        }
+
+        boolean success = student.addSubject(targetGroup, subject);
         if (success) {
             studentRepository.save(student);
         }
@@ -136,17 +145,24 @@ public class StudentService {
             throw new IllegalArgumentException("Student not found with ID: " + studentId);
         }
 
-        // Usar el método real implementado en el modelo Student
         return student.getCurrentSchedule().stream()
                 .map(enrollment -> Map.of(
                     "enrollmentId", enrollment.getId(),
-                    "subjectName", enrollment.getGroup().getSubject().getName(),
-                    "subjectId", enrollment.getGroup().getSubject().getSubjectId(),
+                    "subjectName", enrollment.getSubject().getName(),
+                    "subjectId", enrollment.getSubject().getSubjectId(),
                     "groupNumber", enrollment.getGroup().getNumber(),
                     "status", enrollment.getStatus(),
-                    "credits", enrollment.getGroup().getSubject().getCredits(),
+                    "credits", enrollment.getSubject().getCredits(),
                     "teacherName", enrollment.getGroup().getTeacher() != null ?
-                        enrollment.getGroup().getTeacher().getName() + " " + enrollment.getGroup().getTeacher().getLastName() : "No asignado"
+                        enrollment.getGroup().getTeacher().getName() + " " + enrollment.getGroup().getTeacher().getLastName() : "No asignado",
+                    "classSessions", enrollment.getGroup().getSessions().stream()
+                        .map(session -> Map.of(
+                            "day", session.getDay(),
+                            "startTime", session.getStartTime(),
+                            "endTime", session.getEndTime(),
+                            "classroom", session.getClassroom()
+                        ))
+                        .collect(Collectors.toList())
                 ))
                 .collect(Collectors.toList());
     }
@@ -191,18 +207,21 @@ public class StudentService {
 
         return subject.getAvailableGroups().stream()
                 .filter(Group::isActive) // Solo grupos activos
-                .map(group -> Map.of(
-                    "groupId", group.getId(),
-                    "groupNumber", group.getNumber(),
-                    "capacity", group.getCapacity(),
-                    "enrolled", group.getGroupStudents().size(),
-                    "available", group.getCapacity() - group.getGroupStudents().size(),
-                    "teacherName", group.getTeacher() != null ?
-                        group.getTeacher().getName() + " " + group.getTeacher().getLastName() : "No asignado",
-                    "schedule", group.getSessions().stream()
-                        .map(session -> session.getDay() + " " + session.getStartTime() + "-" + session.getEndTime())
-                        .collect(Collectors.toList())
-                ))
+                .map(group -> {
+                    int enrolledCount = getAllStudentsInGroup(group.getId()).size();
+                    return Map.of(
+                        "groupId", group.getId(),
+                        "groupNumber", group.getNumber(),
+                        "capacity", group.getCapacity(),
+                        "enrolled", enrolledCount,
+                        "available", group.getCapacity() - enrolledCount,
+                        "teacherName", group.getTeacher() != null ?
+                            group.getTeacher().getName() + " " + group.getTeacher().getLastName() : "No asignado",
+                        "schedule", group.getSessions().stream()
+                            .map(session -> session.getDay() + " " + session.getStartTime() + "-" + session.getEndTime())
+                            .collect(Collectors.toList())
+                    );
+                })
                 .collect(Collectors.toList());
     }
 
@@ -230,8 +249,8 @@ public class StudentService {
             throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectId);
         }
 
-        // Usar el método real del modelo Student
-        boolean success = student.addSubject(targetGroup);
+        // Usar el método real del modelo Student con ambos parámetros
+        boolean success = student.addSubject(targetGroup, subject);
         if (success) {
             studentRepository.save(student);
         }
@@ -263,20 +282,23 @@ public class StudentService {
 
         return subject.getAvailableGroups().stream()
                 .filter(Group::isActive) // Solo grupos activos
-                .map(group -> Map.of(
-                    "groupId", group.getId(),
-                    "groupNumber", group.getNumber(),
-                    "capacity", group.getCapacity(),
-                    "enrolled", group.getGroupStudents().size(),
-                    "available", group.getCapacity() - group.getGroupStudents().size(),
-                    "teacherName", group.getTeacher() != null ?
-                        group.getTeacher().getName() + " " + group.getTeacher().getLastName() : "No asignado",
-                    "schedule", group.getSessions().stream()
-                        .map(session -> session.getDay() + " " + session.getStartTime() + "-" + session.getEndTime())
-                        .collect(Collectors.toList()),
-                    "subjectCode", subjectCode,
-                    "subjectName", subject.getName()
-                ))
+                .map(group -> {
+                    int enrolledCount = getAllStudentsInGroup(group.getId()).size();
+                    return Map.of(
+                        "groupId", group.getId(),
+                        "groupNumber", group.getNumber(),
+                        "capacity", group.getCapacity(),
+                        "enrolled", enrolledCount,
+                        "available", group.getCapacity() - enrolledCount,
+                        "teacherName", group.getTeacher() != null ?
+                            group.getTeacher().getName() + " " + group.getTeacher().getLastName() : "No asignado",
+                        "schedule", group.getSessions().stream()
+                            .map(session -> session.getDay() + " " + session.getStartTime() + "-" + session.getEndTime())
+                            .collect(Collectors.toList()),
+                        "subjectCode", subjectCode,
+                        "subjectName", subject.getName()
+                    );
+                })
                 .collect(Collectors.toList());
     }
 
@@ -311,12 +333,39 @@ public class StudentService {
             throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectCode);
         }
 
-        // Usar el método real del modelo Student
-        boolean success = student.addSubject(targetGroup);
+        // Verificar si el grupo tiene capacidad disponible
+        long enrolledCount = getAllStudentsInGroup(targetGroup.getId()).size();
+        if (enrolledCount >= targetGroup.getCapacity()) {
+            log.warning("Group " + groupId + " is at full capacity");
+            return false;
+        }
+
+        // Usar el método real del modelo Student with ambos parámetros
+        boolean success = student.addSubject(targetGroup, subject);
         if (success) {
+            // NO agregar el estudiante al grupo manualmente - esto causa la referencia circular
+            // La relación se mantiene a través del Enrollment
+
+            // Solo guardar el estudiante
             studentRepository.save(student);
+
+            log.info("Student " + studentId + " successfully enrolled in " + subjectCode + " group " + groupId);
+        } else {
+            log.warning("Failed to enroll student " + studentId + " in " + subjectCode + " group " + groupId);
         }
         return success;
+    }
+
+    /**
+     * Método auxiliar para obtener todos los estudiantes inscritos en un grupo específico
+     * Busca dinámicamente en lugar de usar la lista groupStudents
+     */
+    private List<Student> getAllStudentsInGroup(int groupId) {
+        List<Student> allStudents = studentRepository.findAll();
+        return allStudents.stream()
+                .filter(student -> student.getCurrentSchedule().stream()
+                        .anyMatch(enrollment -> enrollment.getGroup().getId() == groupId))
+                .collect(Collectors.toList());
     }
 
     // Métodos auxiliares
@@ -324,7 +373,7 @@ public class StudentService {
     private boolean isStudentAlreadyEnrolled(Student student, Subject subject) {
         return student.getCurrentSchedule().stream()
                 .anyMatch(enrollment ->
-                    enrollment.getGroup().getSubject().getSubjectId().equals(subject.getSubjectId()));
+                    enrollment.getSubject().getSubjectId().equals(subject.getSubjectId()));
     }
 
     private Group findGroupById(String groupId) {
@@ -349,5 +398,82 @@ public class StudentService {
             }
         }
         return null;
+    }
+
+    private Subject findSubjectByGroupId(String groupId) {
+        List<Subject> allSubjects = subjectRepository.findAll();
+        return allSubjects.stream()
+                .filter(subject -> subject.getAvailableGroups().stream()
+                        .anyMatch(group -> String.valueOf(group.getId()).equals(groupId)))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Obtiene el horario de un semestre específico del estudiante
+     */
+    public List<Object> getStudentScheduleBySemester(String studentId, int semesterIndex) {
+        Student student = findById(studentId);
+        if (student == null) {
+            throw new IllegalArgumentException("Student not found with ID: " + studentId);
+        }
+
+        return student.getScheduleBySemester(semesterIndex).stream()
+                .map(enrollment -> Map.of(
+                    "enrollmentId", enrollment.getId(),
+                    "subjectName", enrollment.getSubject().getName(),
+                    "subjectId", enrollment.getSubject().getSubjectId(),
+                    "groupNumber", enrollment.getGroup().getNumber(),
+                    "status", enrollment.getStatus(),
+                    "credits", enrollment.getSubject().getCredits(),
+                    "finalGrade", enrollment.getFinalGrade(),
+                    "teacherName", enrollment.getGroup().getTeacher() != null ?
+                        enrollment.getGroup().getTeacher().getName() + " " + enrollment.getGroup().getTeacher().getLastName() : "No asignado",
+                    "classSessions", enrollment.getGroup().getSessions().stream()
+                        .map(session -> Map.of(
+                            "day", session.getDay(),
+                            "startTime", session.getStartTime(),
+                            "endTime", session.getEndTime(),
+                            "classroom", session.getClassroom()
+                        ))
+                        .collect(Collectors.toList())
+                ))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Obtiene el historial completo de horarios del estudiante
+     */
+    public Object getStudentAllSchedules(String studentId) {
+        Student student = findById(studentId);
+        if (student == null) {
+            throw new IllegalArgumentException("Student not found with ID: " + studentId);
+        }
+
+        return student.getAllSchedules().entrySet().stream()
+                .collect(Collectors.toMap(
+                    entry -> "Semester " + entry.getKey(),
+                    entry -> entry.getValue().stream()
+                        .map(enrollment -> Map.of(
+                            "enrollmentId", enrollment.getId(),
+                            "subjectName", enrollment.getSubject().getName(),
+                            "subjectId", enrollment.getSubject().getSubjectId(),
+                            "groupNumber", enrollment.getGroup().getNumber(),
+                            "status", enrollment.getStatus(),
+                            "credits", enrollment.getSubject().getCredits(),
+                            "finalGrade", enrollment.getFinalGrade(),
+                            "teacherName", enrollment.getGroup().getTeacher() != null ?
+                                enrollment.getGroup().getTeacher().getName() + " " + enrollment.getGroup().getTeacher().getLastName() : "No asignado",
+                            "classSessions", enrollment.getGroup().getSessions().stream()
+                                .map(session -> Map.of(
+                                    "day", session.getDay(),
+                                    "startTime", session.getStartTime(),
+                                    "endTime", session.getEndTime(),
+                                    "classroom", session.getClassroom()
+                                ))
+                                .collect(Collectors.toList())
+                        ))
+                        .collect(Collectors.toList())
+                ));
     }
 }

@@ -21,7 +21,7 @@ public class GroupTest {
     void setUp() {
         subject = new Subject("1", "Calculus I", 4, 1);
         teacher = new Teacher("John", "Perez", 12345678, "Mathematics");
-        group = new Group(1, 101, 30, true, subject, teacher);
+        group = new Group(1, 101, 30, true, teacher); // Eliminado el parámetro subject
 
         session1 = new ClassSession("Monday", "08:00", "10:00", "A101");
         session2 = new ClassSession("Wednesday", "10:00", "12:00", "A102");
@@ -33,20 +33,20 @@ public class GroupTest {
         assertEquals(101, group.getNumber());
         assertEquals(30, group.getCapacity());
         assertTrue(group.isActive());
-        assertEquals(subject, group.getSubject());
+        assertEquals(teacher, group.getTeacher()); // Cambiado de getSubject() a getTeacher()
         assertNotNull(group.getSessions());
         assertTrue(group.getSessions().isEmpty());
     }
 
     @Test
     void testGroupCreationWithNulls() {
-        Group groupWithNulls = new Group(2, 102, 25, false, null, null);
+        Group groupWithNulls = new Group(2, 102, 25, false, null); // Eliminado el parámetro subject
 
         assertEquals(2, groupWithNulls.getId());
         assertEquals(102, groupWithNulls.getNumber());
         assertEquals(25, groupWithNulls.getCapacity());
         assertFalse(groupWithNulls.isActive());
-        assertNull(groupWithNulls.getSubject());
+        assertNull(groupWithNulls.getTeacher()); // Cambiado de getSubject() a getTeacher()
         assertNotNull(groupWithNulls.getSessions());
         assertTrue(groupWithNulls.getSessions().isEmpty());
     }
@@ -73,13 +73,13 @@ public class GroupTest {
     }
 
     @Test
-    void testSetSubject() {
-        Subject newSubject = new Subject("2", "Physics I", 3, 2);
-        group.setSubject(newSubject);
-        assertEquals(newSubject, group.getSubject());
+    void testSetTeacher() {
+        Teacher newTeacher = new Teacher("Maria", "Lopez", 87654321, "Physics");
+        group.setTeacher(newTeacher);
+        assertEquals(newTeacher, group.getTeacher());
 
-        group.setSubject(null);
-        assertNull(group.getSubject());
+        group.setTeacher(null);
+        assertNull(group.getTeacher());
     }
 
     @Test
@@ -136,33 +136,33 @@ public class GroupTest {
 
     @Test
     void testActiveState() {
-        Group activeGroup = new Group(1, 101, 30, true, subject, teacher);
+        Group activeGroup = new Group(1, 101, 30, true, teacher); // Eliminado el parámetro subject
         assertTrue(activeGroup.isActive());
-        Group inactiveGroup = new Group(2, 102, 25, false, subject, teacher);
+        Group inactiveGroup = new Group(2, 102, 25, false, teacher); // Eliminado el parámetro subject
         assertFalse(inactiveGroup.isActive());
     }
 
     @Test
     void testCapacityVariations() {
-        Group groupCapacity50 = new Group(1, 101, 50, true, subject, teacher);
+        Group groupCapacity50 = new Group(1, 101, 50, true, teacher); // Eliminado el parámetro subject
         assertEquals(50, groupCapacity50.getCapacity());
 
-        Group groupCapacity0 = new Group(2, 102, 0, true, subject, teacher);
+        Group groupCapacity0 = new Group(2, 102, 0, true, teacher); // Eliminado el parámetro subject
         assertEquals(0, groupCapacity0.getCapacity());
 
-        Group groupNegativeCapacity = new Group(3, 103, -5, true, subject, teacher);
+        Group groupNegativeCapacity = new Group(3, 103, -5, true, teacher); // Eliminado el parámetro subject
         assertEquals(-5, groupNegativeCapacity.getCapacity());
     }
 
     @Test
     void testNumberVariations() {
-        Group group1 = new Group(1, 101, 30, true, subject, teacher);
+        Group group1 = new Group(1, 101, 30, true, teacher); // Eliminado el parámetro subject
         assertEquals(101, group1.getNumber());
 
-        Group group2 = new Group(2, 999, 30, true, subject, teacher);
+        Group group2 = new Group(2, 999, 30, true, teacher); // Eliminado el parámetro subject
         assertEquals(999, group2.getNumber());
 
-        Group group3 = new Group(3, 0, 30, true, subject, teacher);
+        Group group3 = new Group(3, 0, 30, true, teacher); // Eliminado el parámetro subject
         assertEquals(0, group3.getNumber());
     }
 }

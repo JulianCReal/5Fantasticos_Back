@@ -23,17 +23,17 @@ public class SemesterTest {
     void setUp() {
         semester = new Semester();
 
-        // Create real objects for testing
+
         teacher = new Teacher("Juan", "Perez", 12345678, "Systems");
 
         subject1 = new Subject("101", "Mathematics", 3, 1);
         subject2 = new Subject("102", "Physics", 4, 2);
 
-        group1 = new Group(1, 1, 30, true, subject1, teacher);
-        group2 = new Group(2, 2, 25, true, subject2, teacher);
+        group1 = new Group(1, 1, 30, true, teacher);
+        group2 = new Group(2, 2, 25, true, teacher);
 
-        enrollment1 = new Enrollment(group1, 1, "active", 4.0);
-        enrollment2 = new Enrollment(group2, 2, "active", 3.5);
+        enrollment1 = new Enrollment(group1, subject1, 1, "active", 4.0);
+        enrollment2 = new Enrollment(group2, subject2, 2, "active", 3.5);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class SemesterTest {
         semester.addSubject(enrollment1);
         int initialSize = semester.getSubjects().size();
 
-        Enrollment nonExistentEnrollment = new Enrollment(group2, 99, "active", 3.0);
+        Enrollment nonExistentEnrollment = new Enrollment(group2, subject2, 99, "active", 3.0);
         semester.removeSubject(nonExistentEnrollment);
 
         assertEquals(initialSize, semester.getSubjects().size());
@@ -135,8 +135,8 @@ public class SemesterTest {
 
     @Test
     void testCalculateSemesterAverageWithExtremeGrades() {
-        Enrollment highGradeEnrollment = new Enrollment(group1, 3, "active", 5.0); // 3 credits
-        Enrollment lowGradeEnrollment = new Enrollment(group2, 4, "active", 1.0);  // 4 credits
+        Enrollment highGradeEnrollment = new Enrollment(group1, subject1, 3, "active", 5.0); // 3 credits
+        Enrollment lowGradeEnrollment = new Enrollment(group2, subject2, 4, "active", 1.0);  // 4 credits
 
         semester.addSubject(highGradeEnrollment);
         semester.addSubject(lowGradeEnrollment);

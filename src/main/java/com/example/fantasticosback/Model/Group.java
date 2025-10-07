@@ -9,17 +9,15 @@ public class Group {
     private int number;
     private int capacity;
     private boolean active;
-    private Subject subject;
     private Teacher teacher;
     private ArrayList<Student> groupStudents;
     private ArrayList<ClassSession> sessions = new ArrayList<>();
 
-    public Group(int id, int number, int capacity, boolean active, Subject subject, Teacher teacher) {
+    public Group(int id, int number, int capacity, boolean active, Teacher teacher) {
         this.id = id;
         this.number = number;
         this.capacity = capacity;
         this.active = active;
-        this.subject = subject;
         this.teacher = teacher;
         this.groupStudents = new ArrayList<>();
         this.sessions = new ArrayList<>();
@@ -44,14 +42,6 @@ public class Group {
 
     public boolean isActive() {
         return active;
-    }
-
-    public Subject getSubject() {
-        return subject;
-    }
-
-    public void setSubject(Subject subject) {
-        this.subject = subject;
     }
 
     public Teacher getTeacher() {
