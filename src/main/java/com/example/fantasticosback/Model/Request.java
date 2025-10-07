@@ -3,10 +3,19 @@ package com.example.fantasticosback.Model;
 import com.example.fantasticosback.Model.RequestStates.RequestState;
 import com.example.fantasticosback.Model.RequestStates.PendingState;
 import com.example.fantasticosback.util.States;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.Date;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+
+@Getter
+@Setter
 @Document(collection = "Requests")
 public class Request {
 
@@ -22,8 +31,11 @@ public class Request {
     private String stateName;
     private Date requestDate;
     private int priority;
+    private HashMap<LocalDateTime, String> historyResponses;
 
+    @Transient
     private transient RequestState state;
+    @Transient
     private transient boolean requestEvaluation;
 
     public Request(String id, Group sourceGroup, Group destinationGroup, String type, String observations, Date requestDate, String studentId) {
@@ -35,66 +47,8 @@ public class Request {
         this.requestDate = requestDate;
         this.studentId = studentId;
         this.priority = priorityCounter++;
-
+        this.historyResponses = new HashMap<>();
         setState(new PendingState());
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getRequestId() {
-        return id;
-    }
-    public void setRequestId(String id) {
-        this.id = id;
-    }
-
-    public Group getSourceGroup() {
-        return sourceGroup;
-    }
-
-    public void setSourceGroup(Group sourceGroup) {
-        this.sourceGroup = sourceGroup;
-    }
-
-    public Group getDestinationGroup() {
-        return destinationGroup;
-    }
-
-    public void setDestinationGroup(Group destinationGroup) {
-        this.destinationGroup = destinationGroup;
-    }
-
-    public String getType() {
-        return type;
-    }
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getObservations() {
-        return observations;
-    }
-    public void setObservations(String observations) {
-        this.observations = observations;
-    }
-
-    public Date getRequestDate() {
-        return requestDate;
-    }
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
-    }
-
-    public int getPriority() {
-        return priority;
-    }
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 
     public void recoverState() {
@@ -110,7 +64,6 @@ public class Request {
         }
         return state;
     }
-
     public void setState(RequestState state) {
         this.state = state;
         this.stateName = state.getStateName();
@@ -129,4 +82,10 @@ public class Request {
         return requestEvaluation;
     }
 
+    public String getRequestId() {
+        return id;
+    }
+    public void setHistoryResponses(String response, LocalDateTime time) {
+        this.historyResponses.put(time, response);
+    }
 }

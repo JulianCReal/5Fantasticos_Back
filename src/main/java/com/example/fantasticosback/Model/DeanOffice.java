@@ -1,12 +1,16 @@
 package com.example.fantasticosback.Model;
 
 import com.example.fantasticosback.Model.Observers.RequestObserver;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.logging.Logger;
-
+@Getter
+@Setter
 @Document(collection = "DeanOffices")
 public class DeanOffice {
 
@@ -21,21 +25,6 @@ public class DeanOffice {
     public DeanOffice(String id, String faculty) {
         this.id = id;
         this.faculty = faculty;
-    }
-
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public ArrayList<Student> getStudents() {
-        return students;
     }
 
     public void addObserver(RequestObserver observer){
@@ -73,15 +62,14 @@ public class DeanOffice {
     }
 
     private boolean evaluate(Student student, Request request) {
-        switch (request.getType()) {
-            case "group":
-                return evaluateChange(student, request, "group");
-            case "subject":
-                return evaluateChange(student, request, "subject");
-            default:
+        return switch (request.getType()) {
+            case "group" -> evaluateChange(student, request, "group");
+            case "subject" -> evaluateChange(student, request, "subject");
+            default -> {
                 log.warning("Unrecognized request type: " + request.getType());
-                return false;
-        }
+                yield false;
+            }
+        };
     }
 
     private boolean evaluateChange(Student student, Request request, String type) {
@@ -89,19 +77,27 @@ public class DeanOffice {
         Group destination = request.getDestinationGroup();
 
         if (!destination.isActive()) {
-            log.warning("Request rejected: Destination group " + destination.getNumber() + " is not active");
+            String message = "Request rejected: Destination group " + destination.getNumber() + " is not active";
+            log.warning(message);
+            request.setHistoryResponses(message, LocalDateTime.now());
             return false;
         }
         if (destination.getCapacity() <= 0) {
-            log.warning("Request rejected: Destination group " + destination.getNumber() + " has no available slots");
+            String message = "Request rejected: Destination group " + destination.getNumber() + " has no available slots";
+            request.setHistoryResponses(message, LocalDateTime.now());
+            log.warning(message);
             return false;
         }
         if (hasScheduleConflict(student, destination, source)) {
-            log.warning("Request rejected: Schedule conflict with destination group " + destination.getNumber());
+            String message = "Request rejected: Schedule conflict with destination group " + destination.getNumber();
+            request.setHistoryResponses(message, LocalDateTime.now());
+            log.warning(message);
             return false;
         }
 
-        log.info("Change request for " + type + " approved: from " + source.getNumber() + " to " + destination.getNumber());
+        String message = "Request approved: Change from group " + source.getNumber() + " to " + destination.getNumber();
+        request.setHistoryResponses(message, LocalDateTime.now());
+        log.info(message);
         return true;
     }
 
