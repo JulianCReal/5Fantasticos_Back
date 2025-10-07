@@ -6,6 +6,7 @@ com\example\fantasticosback\Controller\RequestController.class
 com\example\fantasticosback\Dtos\ResponseDTO.class
 com\example\fantasticosback\Model\DeanOffice.class
 com\example\fantasticosback\Server\DeanOfficeService.class
+com\example\fantasticosback\Dtos\CreateGroupDTO.class
 com\example\fantasticosback\Model\Observers\RequestObserver.class
 com\example\fantasticosback\Dtos\UserResponseDTO.class
 com\example\fantasticosback\Model\Career.class
@@ -49,6 +50,7 @@ com\example\fantasticosback\util\LoginResponse.class
 com\example\fantasticosback\Server\SubjectService.class
 com\example\fantasticosback\Model\Request.class
 com\example\fantasticosback\util\AcademicTrafficLight.class
+com\example\fantasticosback\Server\SubjectCatalogInitializer.class
 com\example\fantasticosback\Model\RequestStates\ProcessState.class
 com\example\fantasticosback\Dtos\RequestDTO.class
 com\example\fantasticosback\Dtos\SubjectDTO.class

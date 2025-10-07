@@ -10,16 +10,16 @@ public class SubjectCatalogTest {
     void testGetExistingSubject() {
         Subject subject = SubjectCatalog.getSubject("CALD");
         assertNotNull(subject);
-        assertEquals("Differential Calculus", subject.getName());
+        assertEquals("Cálculo Diferencial", subject.getName());
     }
 
     @Test
     void testAddAndRetrieveSubject() {
-        Subject newSubject = new Subject("600", "Database Systems", 4, 3);
+        Subject newSubject = new Subject("600", "Sistemas de Bases de Datos", 4, 3);
         SubjectCatalog.addSubject("BBDD", newSubject);
 
         Subject retrieved = SubjectCatalog.getSubject("BBDD");
-        assertEquals("Database Systems", retrieved.getName());
+        assertEquals("Sistemas de Bases de Datos", retrieved.getName());
     }
 
     @Test

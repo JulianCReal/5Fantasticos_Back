@@ -2,6 +2,7 @@ package com.example.fantasticosback.Dtos;
 
 
 import com.example.fantasticosback.Model.Group;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 
@@ -9,8 +10,20 @@ public class SubjectDTO extends BaseDTO {
     private String name;
     private int credits;
     private int semester;
+
+    @JsonIgnore // Ignorar completamente en Swagger para evitar referencias circulares
     private ArrayList<Group> availableGroups;
 
+    // Constructor para crear (sin grupos)
+    public SubjectDTO(String id, String name, int credits, int semester) {
+        super(id);
+        this.name = name;
+        this.credits = credits;
+        this.semester = semester;
+        this.availableGroups = null; // Null para creación
+    }
+
+    // Constructor para consultar (con grupos) - solo para uso interno
     public SubjectDTO(String id, String name, int credits, int semester, ArrayList<Group> availableGroups) {
         super(id);
         this.name = name;

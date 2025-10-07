@@ -78,4 +78,102 @@ public class StudentController {
         List<StudentDTO> students = studentService.convertList(studentService.findBySemester(semester));
         return ResponseEntity.ok(ResponseDTO.success(students, "Students by semester"));
     }
+
+    // Endpoints para gestión de materias del estudiante
+
+    // 1. Ver materias disponibles para inscribir
+    @GetMapping("/{studentId}/available-subjects")
+    public ResponseEntity<ResponseDTO<List<Object>>> getAvailableSubjects(@PathVariable String studentId) {
+        try {
+            List<Object> availableSubjects = studentService.getAvailableSubjectsForStudent(studentId);
+            return ResponseEntity.ok(ResponseDTO.success(availableSubjects, "Available subjects retrieved"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
+
+    // 2. Ver grupos disponibles de una materia específica usando abreviatura
+    @GetMapping("/{studentId}/subjects/{subjectCode}/groups")
+    public ResponseEntity<ResponseDTO<List<Object>>> getAvailableGroups(
+            @PathVariable String studentId,
+            @PathVariable String subjectCode) {
+        try {
+            List<Object> availableGroups = studentService.getAvailableGroupsForSubjectByCode(studentId, subjectCode);
+            return ResponseEntity.ok(ResponseDTO.success(availableGroups, "Available groups retrieved for " + subjectCode));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student or Subject not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
+
+    // 3. Inscribir materia por abreviatura y grupo (flujo mejorado)
+    @PostMapping("/{studentId}/subjects/{subjectCode}/groups/{groupId}/enroll")
+    public ResponseEntity<ResponseDTO<String>> enrollInSubject(
+            @PathVariable String studentId,
+            @PathVariable String subjectCode,
+            @PathVariable String groupId) {
+        try {
+            boolean success = studentService.enrollStudentInSubjectGroupByCode(studentId, subjectCode, groupId);
+            if (success) {
+                return ResponseEntity.ok(ResponseDTO.success("Subject enrolled successfully", "Student enrolled in " + subjectCode + " group " + groupId));
+            } else {
+                return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to enroll. Check for conflicts or inactive group."));
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student, Subject or Group not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
+
+    @DeleteMapping("/{studentId}/subjects/remove")
+    public ResponseEntity<ResponseDTO<String>> removeSubject(
+            @PathVariable String studentId,
+            @RequestParam String enrollmentId) {
+        try {
+            boolean success = studentService.removeSubjectFromStudent(studentId, enrollmentId);
+            if (success) {
+                return ResponseEntity.ok(ResponseDTO.success("Subject removed successfully", "Subject withdrawal completed"));
+            } else {
+                return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to remove subject. Enrollment not found."));
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
+
+    @PostMapping("/{studentId}/subjects/cancel")
+    public ResponseEntity<ResponseDTO<String>> cancelSubject(
+            @PathVariable String studentId,
+            @RequestParam String enrollmentId) {
+        try {
+            boolean success = studentService.cancelSubjectFromStudent(studentId, enrollmentId);
+            if (success) {
+                return ResponseEntity.ok(ResponseDTO.success("Subject cancelled successfully", "Subject cancellation completed"));
+            } else {
+                return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to cancel subject. Enrollment not found."));
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
+
+    @GetMapping("/{studentId}/current-subjects")
+    public ResponseEntity<ResponseDTO<List<Object>>> getCurrentSubjects(@PathVariable String studentId) {
+        try {
+            List<Object> currentSubjects = studentService.getCurrentSubjects(studentId);
+            return ResponseEntity.ok(ResponseDTO.success(currentSubjects, "Current subjects retrieved"));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
 }
