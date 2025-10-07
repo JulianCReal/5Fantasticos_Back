@@ -6,14 +6,12 @@ import com.example.fantasticosback.Dtos.UserResponseDTO;
 import com.example.fantasticosback.Model.User;
 import com.example.fantasticosback.Repository.UserRepository;
 import com.example.fantasticosback.Server.MatcherService;
+import com.example.fantasticosback.util.JwtTokenUtil;
 import com.example.fantasticosback.util.LoginRequest;
 import com.example.fantasticosback.util.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,13 +26,18 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             Object profile = matcherService.authenticateAndGetProfile(loginRequest.getEmail(), loginRequest.getPassword());
             User user = matcherService.getUser(loginRequest.getEmail());
 
-            LoginResponse response = new LoginResponse(profile, user.getRole());
+            String token = jwtTokenUtil.generateToken(user.getEmail(), user.getRole().toString());
+
+            LoginResponse response = new LoginResponse(profile, user.getRole(), token);
 
             return ResponseEntity.ok(ResponseDTO.success(response, "Login successful"));
         } catch (RuntimeException e) {

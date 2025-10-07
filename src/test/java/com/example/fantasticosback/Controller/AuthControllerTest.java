@@ -6,6 +6,7 @@ import com.example.fantasticosback.Dtos.UserResponseDTO;
 import com.example.fantasticosback.Model.User;
 import com.example.fantasticosback.Repository.UserRepository;
 import com.example.fantasticosback.Server.MatcherService;
+import com.example.fantasticosback.util.JwtTokenUtil;
 import com.example.fantasticosback.util.LoginRequest;
 import com.example.fantasticosback.util.LoginResponse;
 import com.example.fantasticosback.util.Role;
@@ -29,6 +30,8 @@ class AuthControllerTest {
     private UserRepository userRepository;
     @Mock
     private PasswordEncoder passwordEncoder;
+    @Mock
+    private JwtTokenUtil jwtTokenUtil;
     @InjectMocks
     private AuthController authController;
 
@@ -42,10 +45,11 @@ class AuthControllerTest {
         LoginRequest loginRequest = new LoginRequest("test@mail.com", "1234");
         Object profile = new Object();
         User user = new User("test@mail.com", "encoded", Role.STUDENT, "E001");
-        LoginResponse loginResponse = new LoginResponse(profile, user.getRole());
+        String mockToken = "mock.jwt.token";
 
         when(matcherService.authenticateAndGetProfile("test@mail.com", "1234")).thenReturn(profile);
         when(matcherService.getUser("test@mail.com")).thenReturn(user);
+        when(jwtTokenUtil.generateToken("test@mail.com", "STUDENT")).thenReturn(mockToken);
 
         ResponseEntity<?> response = authController.login(loginRequest);
         assertEquals(200, response.getStatusCode().value());
@@ -56,6 +60,8 @@ class AuthControllerTest {
         assertTrue(body.getData() instanceof LoginResponse);
         LoginResponse data = (LoginResponse) body.getData();
         assertEquals(user.getRole(), data.getRole());
+        assertEquals(mockToken, data.getToken());
+        assertEquals("Bearer", data.getTokenType());
     }
 
     @Test
