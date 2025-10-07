@@ -2,12 +2,8 @@ package com.example.fantasticosback.util;
 
 import com.example.fantasticosback.Model.*;
 import com.example.fantasticosback.Model.Observers.DeanObserver;
-import com.example.fantasticosback.Model.Observers.RequestObserver;
 import com.example.fantasticosback.Model.Observers.StudentObserver;
-import com.example.fantasticosback.util.SubjectCatalog;
-import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Date;
@@ -28,7 +24,6 @@ public class ObserverTest {
         AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
         Student student = new Student("Ana", "Garcia", 123456, "Engineering", "202301", "E01", 5, trafficLight);
 
-        // Make the addObserver method public in Student
         student.addObserver(deanObserver);
         Subject subject1 = SubjectCatalog.getSubject("AYSR");
         Subject subject2 = SubjectCatalog.getSubject("DOPO");

@@ -45,14 +45,14 @@ class ScheduleServiceTest {
         // Create test student
         Career career = new Career("Systems Engineering", 160);
         AcademicTrafficLight academicTrafficLight = new AcademicTrafficLight(1, 0, career);
-        student = new Student("John", "Doe", 123456789, "Engineering", "C001", "E001", 5, academicTrafficLight);
+        student = new Student("John", "Doe", 123456789, "Systems Engineering", "C001", "E001", 5, academicTrafficLight);
 
         // Create test teacher
         teacher = new Teacher("Mary", "Smith", 987654321, "Mathematics");
         teacher.setId("T001");
 
         // Create test dean office
-        deanOffice = new DeanOffice("D001", "Engineering");
+        deanOffice = new DeanOffice("D001", "Systems Engineering");
 
         // Set up realistic student data with semester and enrollments
         setupStudentData();
@@ -70,16 +70,9 @@ class ScheduleServiceTest {
         Group physicsGroup = new Group(2, 102, 25, true, teacher);
         physicsGroup.addSession(new ClassSession("Tuesday", "10:00", "12:00", "Room 102"));
 
-        Enrollment calculusEnrollment = new Enrollment(calculusGroup, calculus, 1, "active", 0.0);
-        Enrollment physicsEnrollment = new Enrollment(physicsGroup, physics, 2, "active", 0.0);
-
-        // Create active semester
-        Semester currentSemester = new Semester(1, 2024, 1, true);
-        currentSemester.addSubject(calculusEnrollment);
-        currentSemester.addSubject(physicsEnrollment);
-
-        // Add semester to student
-        student.getSemesters().add(currentSemester);
+        // Agregar las materias al semestre actual (último semestre)
+        student.addSubject(calculusGroup, calculus);
+        student.addSubject(physicsGroup, physics);
     }
 
     @Test
@@ -94,11 +87,11 @@ class ScheduleServiceTest {
         assertNotNull(result);
         assertEquals("E001", result.get("studentId"));
         assertEquals("John Doe", result.get("studentName"));
-        assertEquals("Engineering", result.get("career"));
+        assertEquals("Systems Engineering", result.get("career"));
         assertEquals(5, result.get("semester"));
         assertInstanceOf(ArrayList.class, result.get("classes"));
         ArrayList<?> classes = (ArrayList<?>) result.get("classes");
-        assertEquals(3, classes.size()); // Three sessions total: 2 calculus + 1 physics
+        assertEquals(3, classes.size());
 
         verify(studentRepository).findById("E001");
     }
@@ -130,7 +123,7 @@ class ScheduleServiceTest {
         assertEquals("E001", result.get("studentId"));
         assertInstanceOf(ArrayList.class, result.get("classes"));
         ArrayList<?> classes = (ArrayList<?>) result.get("classes");
-        assertEquals(3, classes.size()); // Should be 3 classes total: 2 calculus + 1 physics
+        assertEquals(3, classes.size());
 
         verify(studentRepository).findById("E001");
         verify(teacherRepository).findById("T001");

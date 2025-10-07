@@ -176,4 +176,51 @@ public class StudentController {
             return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
         }
     }
+
+
+    // Endpoint para visualizar el horario actual de un estudiante
+    @GetMapping("/{studentId}/schedule")
+    public ResponseEntity<ResponseDTO<List<Object>>> getStudentCurrentSchedule(@PathVariable String studentId) {
+        try {
+            List<Object> schedule = studentService.getCurrentSubjects(studentId);
+            return ResponseEntity.ok(ResponseDTO.success(schedule,
+                "Current schedule retrieved for student " + studentId));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
+
+    // Endpoint para visualizar el horario de un semestre específico del estudiante
+    @GetMapping("/{studentId}/schedule/semester/{semesterNumber}")
+    public ResponseEntity<ResponseDTO<List<Object>>> getStudentScheduleBySemester(
+            @PathVariable String studentId,
+            @PathVariable int semesterNumber) {
+        try {
+            // Convertir número de semestre a índice (semesterNumber - 1)
+            List<Object> schedule = studentService.getStudentScheduleBySemester(studentId, semesterNumber - 1);
+            return ResponseEntity.ok(ResponseDTO.success(schedule,
+                "Schedule retrieved for student " + studentId + " semester " + semesterNumber));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Error: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
+
+    // Endpoint para visualizar el historial completo de horarios del estudiante
+    @GetMapping("/{studentId}/schedule/history")
+    public ResponseEntity<ResponseDTO<Object>> getStudentAllSchedules(@PathVariable String studentId) {
+        try {
+            // Aquí necesitaremos agregar este método al StudentService
+            Object allSchedules = studentService.getStudentAllSchedules(studentId);
+            return ResponseEntity.ok(ResponseDTO.success(allSchedules,
+                "Complete schedule history retrieved for student " + studentId));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("Student not found: " + e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        }
+    }
 }

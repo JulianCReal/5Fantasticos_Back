@@ -48,11 +48,12 @@ public class DeanOfficeTest {
         inactiveGroup.addSession(new ClassSession("Wednesday", "10:00", "11:30", "C-203"));
         fullGroup.addSession(new ClassSession("Thursday", "16:00", "17:30", "D-307"));
 
-        Semester semester = new Semester(1, 2025, 2, true);
-        student.getSemesters().add(semester);
-        student.addSubject(originGroup, subject1); // Ahora requiere tanto Group como Subject
+        // Agregar la materia al semestre actual (último semestre)
+        student.addSubject(originGroup, subject1);
 
-        Enrollment originEnrollment = student.getSemesters().get(0).getSubjects().get(0);
+        // Obtener el enrollment recién creado del semestre actual
+        Enrollment originEnrollment = student.getCurrentSchedule().get(0);
+
         groupChangeRequest = student.createRequest("group", originEnrollment, destinationGroup, subject1, "Change due to work schedule");
         subjectChangeRequest = student.createRequest("subject", originEnrollment, fullGroup, subject2, "Career change");
     }
@@ -71,7 +72,7 @@ public class DeanOfficeTest {
     @DisplayName("Reject group change if group is inactive")
     void testGroupChangeInactiveGroup() {
         Request request = student.createRequest("group",
-                student.getSemesters().get(0).getSubjects().get(0), inactiveGroup, subject1, "Inactive destination");
+                student.getCurrentSchedule().get(0), inactiveGroup, subject1, "Inactive destination");
 
         deanOffice.manageRequest(student, request);
 
@@ -82,7 +83,7 @@ public class DeanOfficeTest {
     @DisplayName("Reject group change if no available spots")
     void testGroupChangeNoSpots() {
         Request request = student.createRequest("group",
-                student.getSemesters().get(0).getSubjects().get(0), fullGroup, subject2, "No spots");
+                student.getCurrentSchedule().get(0), fullGroup, subject2, "No spots");
 
         deanOffice.manageRequest(student, request);
 
@@ -97,7 +98,7 @@ public class DeanOfficeTest {
         student.addSubject(conflictGroup, subject2);
 
         Request request = student.createRequest("group",
-                student.getSemesters().get(0).getSubjects().get(0), destinationGroup, subject1, "Schedule conflict");
+                student.getCurrentSchedule().get(0), destinationGroup, subject1, "Schedule conflict");
 
         deanOffice.manageRequest(student, request);
 
@@ -114,7 +115,7 @@ public class DeanOfficeTest {
         catalogSubject.addGroup(validDestinationGroup);
 
         Request request = student.createRequest("subject",
-                student.getSemesters().get(0).getSubjects().get(0), validDestinationGroup, catalogSubject, "Valid change");
+                student.getCurrentSchedule().get(0), validDestinationGroup, catalogSubject, "Valid change");
 
         deanOffice.manageRequest(student, request);
 
@@ -128,7 +129,7 @@ public class DeanOfficeTest {
         inactiveSubject2Group.addSession(new ClassSession("Saturday", "08:30", "10:00", "H-808"));
 
         Request request = student.createRequest("subject",
-                student.getSemesters().get(0).getSubjects().get(0), inactiveSubject2Group, subject2, "Inactive");
+                student.getCurrentSchedule().get(0), inactiveSubject2Group, subject2, "Inactive");
 
         deanOffice.manageRequest(student, request);
 
@@ -147,26 +148,11 @@ public class DeanOfficeTest {
     @DisplayName("Invalid request type should be rejected")
     void testInvalidType() {
         Request request = student.createRequest("other",
-                student.getSemesters().get(0).getSubjects().get(0), destinationGroup, subject1, "Invalid type");
+                student.getCurrentSchedule().get(0), destinationGroup, subject1, "Invalid type");
 
         deanOffice.manageRequest(student, request);
 
         assertEquals("Rejected", request.getState().getStateName());
-    }
-
-    @Test
-    @DisplayName("No conflict if student has no semesters")
-    void testNoSemesters() {
-        Career tempCareer = new Career("Medicine", 200);
-        AcademicTrafficLight tempTrafficLight = new AcademicTrafficLight(1, 0, tempCareer);
-        Student newStudent = new Student("Ana", "Lopez", 54321, "Medicine", "2022001", "est002", 1, tempTrafficLight);
-
-        Enrollment originEnrollment = student.getSemesters().get(0).getSubjects().get(0);
-        Request request = newStudent.createRequest("group", originEnrollment, destinationGroup, subject1, "No semesters");
-
-        deanOffice.manageRequest(newStudent, request);
-
-        assertEquals("Accepted", request.getState().getStateName());
     }
 
     @Test
@@ -179,10 +165,12 @@ public class DeanOfficeTest {
                 "2021002", "est003", 3, tempTrafficLight
         );
         deanOffice.addStudent(student1);
-        student1.getSemesters().add(new Semester(1, 2025, 2, true));
+
+        // Ya no necesitamos agregar semestre manualmente, ya se creó automáticamente
         student1.addSubject(originGroup, subject1);
-        Enrollment enrollment1 = student1.getSemesters().get(0).getSubjects().get(0);
+        Enrollment enrollment1 = student1.getCurrentSchedule().get(0);
         student1.createRequest("group", enrollment1, destinationGroup, subject1, "Schedule change");
+
         assertEquals(3, deanOffice.getRequestsByFaculty().size());
     }
 }

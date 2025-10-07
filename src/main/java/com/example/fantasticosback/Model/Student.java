@@ -20,7 +20,6 @@ public class Student extends Person {
     private static final Logger log = Logger.getLogger(Student.class.getName());
     private ArrayList<Request> requests = new ArrayList<>();
     private AcademicTrafficLight academicTrafficLight;
-
     private ArrayList<RequestObserver> observers = new ArrayList<>();
 
     public Student(String name, String lastName, int document, String career, String code, String studentId, int semester, AcademicTrafficLight academicTrafficLight) {
@@ -32,6 +31,27 @@ public class Student extends Person {
         this.semesters = new ArrayList<>();
         this.requests = new ArrayList<>();
         this.academicTrafficLight = academicTrafficLight;
+
+        // Inicializar automáticamente los semestres hasta el semestre actual
+        initializeSemesters(semester);
+    }
+
+    /**
+     * Inicializa los semestres desde el primero hasta el semestre especificado
+     *
+     * @param currentSemester Semestre actual del estudiante
+     */
+    private void initializeSemesters(int currentSemester) {
+        int currentYear = java.time.Year.now().getValue();
+
+        for (int i = 1; i <= currentSemester; i++) {
+            boolean isCurrentSemester = (i == currentSemester);
+            int academicPeriod = ((i - 1) % 2) + 1;
+            int year = currentYear - ((currentSemester - i) / 2);
+            Semester newSemester = new Semester(i, year, academicPeriod, isCurrentSemester);
+            this.semesters.add(newSemester);
+        }
+        log.info("Initialized " + currentSemester + " semesters for student " + this.studentId);
     }
 
     // Getters y Setters
@@ -138,12 +158,17 @@ public class Student extends Person {
         }
     }
 
-    public void addObserver(RequestObserver observer){
+    // Observer pattern methods
+    public void addObserver(RequestObserver observer) {
         observers.add(observer);
     }
 
-    private void alertObserver(Request request){
-        for(RequestObserver observer: observers){
+    public void removeObserver(RequestObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers(Request request) {
+        for (RequestObserver observer : observers) {
             observer.notifyRequest(request);
         }
     }
@@ -170,8 +195,12 @@ public class Student extends Person {
                     " from subject " + currentSubject.getSubject().getName() +
                     " to subject " + destinationSubject.getName());
         }
-        alertObserver(request);
+
         requests.add(request);
+
+        // Notify observers about the new request
+        notifyObservers(request);
+
         return request;
     }
 
@@ -183,6 +212,7 @@ public class Student extends Person {
 
     /**
      * Obtiene el horario del semestre actual
+     *
      * @return Lista de materias inscritas en el semestre actual con sus horarios
      */
     public ArrayList<Enrollment> getCurrentSchedule() {
@@ -198,13 +228,14 @@ public class Student extends Person {
 
     /**
      * Obtiene el horario de un semestre específico
+     *
      * @param semesterIndex Índice del semestre (0 para el primer semestre)
      * @return Lista de materias del semestre especificado
      */
     public ArrayList<Enrollment> getScheduleBySemester(int semesterIndex) {
         if (semesterIndex < 0 || semesterIndex >= semesters.size()) {
             log.warning("Índice de semestre inválido: " + semesterIndex +
-                       ". Semestres disponibles: 0-" + (semesters.size() - 1));
+                    ". Semestres disponibles: 0-" + (semesters.size() - 1));
             return new ArrayList<>();
         }
 
@@ -215,6 +246,7 @@ public class Student extends Person {
 
     /**
      * Obtiene todos los horarios de semestres anteriores (excluyendo el actual)
+     *
      * @return Map con el número de semestre como clave y las materias como valor
      */
     public Map<Integer, ArrayList<Enrollment>> getPreviousSemestersSchedules() {
@@ -236,6 +268,7 @@ public class Student extends Person {
 
     /**
      * Obtiene un resumen completo de todos los horarios del estudiante
+     *
      * @return Map con todos los semestres y sus materias
      */
     public Map<Integer, ArrayList<Enrollment>> getAllSchedules() {
@@ -256,12 +289,13 @@ public class Student extends Person {
 
     /**
      * Verifica si el estudiante tiene materias activas en el semestre actual
+     *
      * @return true si tiene materias activas, false en caso contrario
      */
     public boolean hasActiveSchedule() {
         ArrayList<Enrollment> currentSchedule = getCurrentSchedule();
         return !currentSchedule.isEmpty() &&
-               currentSchedule.stream().anyMatch(enrollment -> "active".equals(enrollment.getStatus()));
+                currentSchedule.stream().anyMatch(enrollment -> "active".equals(enrollment.getStatus()));
     }
 
     @Override
