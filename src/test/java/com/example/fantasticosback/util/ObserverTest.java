@@ -34,12 +34,12 @@ public class ObserverTest {
         Subject subject2 = SubjectCatalog.getSubject("DOPO");
         Teacher teacher = new Teacher("Dr. Carlos", "Martinez", 123456, "Systems Engineering");
 
-        Group originGroup = new Group(1, 1, 25, true, subject1, teacher);
-        Group destinationGroup = new Group(2, 2, 30, true, subject2, teacher);
-        Enrollment currentEnrollment = new Enrollment(originGroup, 1, "enrolled", 0.0);
+        Group originGroup = new Group(1, 1, 25, true, teacher); // Eliminado el parámetro subject
+        Group destinationGroup = new Group(2, 2, 30, true, teacher); // Eliminado el parámetro subject
+        Enrollment currentEnrollment = new Enrollment(originGroup, subject1, 1, "enrolled", 0.0); // Agregado subject
 
         // Act
-        student.createRequest("group", currentEnrollment, destinationGroup, "Change due to schedule conflict");
+        student.createRequest("group", currentEnrollment, destinationGroup, subject2, "Change due to schedule conflict"); // Agregado destinationSubject
 
         // Restore standard output
         System.setOut(originalOut);
@@ -69,10 +69,10 @@ public class ObserverTest {
         Subject subject1 = SubjectCatalog.getSubject("AYSR");
         Subject subject2 = SubjectCatalog.getSubject("DOPO");
         Teacher teacher = new Teacher("Dr. Carlos", "Martinez", 123456, "Systems Engineering");
-        Group originGroup = new Group(1, 1, 25, true, subject1, teacher);
-        Group destinationGroup = new Group(2, 2, 30, true, subject2, teacher);
+        Group originGroup = new Group(1, 1, 25, true, teacher); // Eliminado el parámetro subject
+        Group destinationGroup = new Group(2, 2, 30, true, teacher); // Eliminado el parámetro subject
 
-        Enrollment enrollment = new Enrollment(originGroup, 1, "active", 0.0);
+        Enrollment enrollment = new Enrollment(originGroup, subject1, 1, "active", 0.0); // Agregado subject
 
         Request request = new Request(
                 "555",

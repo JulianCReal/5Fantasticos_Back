@@ -141,7 +141,7 @@ public class ScheduleService {
     private List<Map<String, Object>> generateEnrollmentClasses(Enrollment enrollment) {
         List<Map<String, Object>> classes = new ArrayList<>();
         Group group = enrollment.getGroup();
-        Subject subject = group.getSubject();
+        Subject subject = enrollment.getSubject();
         Teacher teacher = group.getTeacher();
 
         String teacherName = (teacher != null) ?

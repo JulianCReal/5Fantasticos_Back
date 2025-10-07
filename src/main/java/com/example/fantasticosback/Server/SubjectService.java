@@ -87,13 +87,12 @@ public class SubjectService {
         // Generar ID único para el grupo
         int newGroupId = generateGroupId(subject);
 
-        // Crear el nuevo grupo
+        // Crear el nuevo grupo (sin la referencia a subject)
         Group newGroup = new Group(
             newGroupId,
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
-            subject,
             teacher
         );
 
@@ -172,13 +171,12 @@ public class SubjectService {
         // Generar ID único para el grupo
         int newGroupId = generateGroupId(subject);
 
-        // Crear el nuevo grupo
+        // Crear el nuevo grupo (sin la referencia a subject)
         Group newGroup = new Group(
             newGroupId,
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
-            subject,
             teacher
         );
 

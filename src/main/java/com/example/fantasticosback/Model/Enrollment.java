@@ -4,13 +4,15 @@ import com.example.fantasticosback.util.ClassSession;
 
 public class Enrollment {
     private Group group;
+    private Subject subject;
     private int id;
     private String status;
     private double finalGrade;
 
 
-    public Enrollment(Group group, int id, String status, double finalGrade) {
+    public Enrollment(Group group, Subject subject, int id, String status, double finalGrade) {
         this.group = group;
+        this.subject = subject;
         this.id = id;
         this.status = status;
         this.finalGrade = finalGrade;
@@ -19,6 +21,14 @@ public class Enrollment {
     // Getters y Setters
     public Group getGroup() {
         return group;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public int getId() {

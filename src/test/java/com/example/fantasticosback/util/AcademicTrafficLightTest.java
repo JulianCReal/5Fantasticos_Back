@@ -16,15 +16,17 @@ public class AcademicTrafficLightTest {
         Career career = new Career("Systems Engineering", 160);
         trafficLight = new AcademicTrafficLight(1, 0, career);
 
-        // Create test semester
         semester1 = new Semester(1, 2024, 2, false);
 
-        Group group1 = new Group(1, 1, 30, true, SubjectCatalog.getSubject("AYSR"), new Teacher("Dr. Carlos", "Martinez", 123456, "Systems Engineering"));
-        Enrollment enrollment1 = new Enrollment(group1, 1, "approved", 4.0);
-        Group group2 = new Group(2, 1, 30, true, SubjectCatalog.getSubject("DOPO"), new Teacher("Dr. Ana", "Lopez", 654321, "Systems Engineering"));
-        Enrollment enrollment2 = new Enrollment(group2, 1, "approved", 3.5);
-        Group group3 = new Group(3, 1, 30, true, SubjectCatalog.getSubject("CALD"), new Teacher("Dr. Juan", "Perez", 112233, "Mathematics"));
-        Enrollment enrollment3 = new Enrollment(group3, 1, "failed", 2.7);
+        Group group1 = new Group(1, 1, 30, true, new Teacher("Dr. Carlos", "Martinez", 123456, "Systems Engineering"));
+        Enrollment enrollment1 = new Enrollment(group1, SubjectCatalog.getSubject("AYSR"), 1, "approved", 4.0);
+
+        Group group2 = new Group(2, 1, 30, true, new Teacher("Dr. Ana", "Lopez", 654321, "Systems Engineering"));
+        Enrollment enrollment2 = new Enrollment(group2, SubjectCatalog.getSubject("DOPO"), 2, "approved", 3.5);
+
+        Group group3 = new Group(3, 1, 30, true, new Teacher("Dr. Juan", "Perez", 112233, "Mathematics"));
+        Enrollment enrollment3 = new Enrollment(group3, SubjectCatalog.getSubject("CALD"), 3, "failed", 2.7);
+
         semester1.addSubject(enrollment1);
         semester1.addSubject(enrollment2);
         semester1.addSubject(enrollment3);

@@ -90,7 +90,13 @@ public class StudentService {
             throw new IllegalArgumentException("Group not found with ID: " + groupId);
         }
 
-        boolean success = student.addSubject(targetGroup);
+        // Necesitamos encontrar la materia que contiene este grupo
+        Subject subject = findSubjectByGroupId(groupId);
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject not found for group ID: " + groupId);
+        }
+
+        boolean success = student.addSubject(targetGroup, subject);
         if (success) {
             studentRepository.save(student);
         }
@@ -140,11 +146,11 @@ public class StudentService {
         return student.getCurrentSchedule().stream()
                 .map(enrollment -> Map.of(
                     "enrollmentId", enrollment.getId(),
-                    "subjectName", enrollment.getGroup().getSubject().getName(),
-                    "subjectId", enrollment.getGroup().getSubject().getSubjectId(),
+                    "subjectName", enrollment.getSubject().getName(),
+                    "subjectId", enrollment.getSubject().getSubjectId(),
                     "groupNumber", enrollment.getGroup().getNumber(),
                     "status", enrollment.getStatus(),
-                    "credits", enrollment.getGroup().getSubject().getCredits(),
+                    "credits", enrollment.getSubject().getCredits(),
                     "teacherName", enrollment.getGroup().getTeacher() != null ?
                         enrollment.getGroup().getTeacher().getName() + " " + enrollment.getGroup().getTeacher().getLastName() : "No asignado"
                 ))
@@ -230,8 +236,8 @@ public class StudentService {
             throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectId);
         }
 
-        // Usar el método real del modelo Student
-        boolean success = student.addSubject(targetGroup);
+        // Usar el método real del modelo Student con ambos parámetros
+        boolean success = student.addSubject(targetGroup, subject);
         if (success) {
             studentRepository.save(student);
         }
@@ -311,8 +317,8 @@ public class StudentService {
             throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectCode);
         }
 
-        // Usar el método real del modelo Student
-        boolean success = student.addSubject(targetGroup);
+        // Usar el método real del modelo Student con ambos parámetros
+        boolean success = student.addSubject(targetGroup, subject);
         if (success) {
             studentRepository.save(student);
         }
@@ -324,7 +330,7 @@ public class StudentService {
     private boolean isStudentAlreadyEnrolled(Student student, Subject subject) {
         return student.getCurrentSchedule().stream()
                 .anyMatch(enrollment ->
-                    enrollment.getGroup().getSubject().getSubjectId().equals(subject.getSubjectId()));
+                    enrollment.getSubject().getSubjectId().equals(subject.getSubjectId()));
     }
 
     private Group findGroupById(String groupId) {
@@ -349,5 +355,14 @@ public class StudentService {
             }
         }
         return null;
+    }
+
+    private Subject findSubjectByGroupId(String groupId) {
+        List<Subject> allSubjects = subjectRepository.findAll();
+        return allSubjects.stream()
+                .filter(subject -> subject.getAvailableGroups().stream()
+                        .anyMatch(group -> String.valueOf(group.getId()).equals(groupId)))
+                .findFirst()
+                .orElse(null);
     }
 }

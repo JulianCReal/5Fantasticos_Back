@@ -75,42 +75,42 @@ public class Student extends Person {
         this.studentId = _id;
     }
 
-    public boolean verifyScheduleConflict(Group desiredGroup) {
+    public boolean verifyScheduleConflict(Group desiredGroup, Subject desiredSubject) {
         if (semesters.isEmpty()) {
             return false;
         }
 
         Semester currentSemester = semesters.get(semesters.size() - 1);
-        Enrollment temporaryEnrollment = new Enrollment(desiredGroup, 0, "studying", 0.0);
+        Enrollment temporaryEnrollment = new Enrollment(desiredGroup, desiredSubject, 0, "studying", 0.0);
 
         for (Enrollment existingEnrollment : currentSemester.getSubjects()) {
             if (temporaryEnrollment.validateConflict(existingEnrollment)) {
                 log.warning("Group " + desiredGroup.getNumber() +
-                        " conflicts with " + existingEnrollment.getGroup().getSubject().getName());
+                        " conflicts with " + existingEnrollment.getSubject().getName());
                 return true;
             }
         }
         return false;
     }
 
-    public boolean addSubject(Group chosenGroup) {
+    public boolean addSubject(Group chosenGroup, Subject subject) {
         if (!chosenGroup.isActive()) {
             log.warning("Group " + chosenGroup.getNumber() + " is not active.");
             return false;
         }
 
-        if (verifyScheduleConflict(chosenGroup)) {
+        if (verifyScheduleConflict(chosenGroup, subject)) {
             log.warning("Cannot enroll: schedule conflict.");
             return false;
         }
 
         int enrollmentId = (int) (Math.random() * 100000);
-        Enrollment newEnrollment = new Enrollment(chosenGroup, enrollmentId, "active", 0.0);
+        Enrollment newEnrollment = new Enrollment(chosenGroup, subject, enrollmentId, "active", 0.0);
 
         if (!semesters.isEmpty()) {
             semesters.get(semesters.size() - 1).addSubject(newEnrollment);
             log.info("Successful enrollment in group " + chosenGroup.getNumber() +
-                    " of " + chosenGroup.getSubject().getName());
+                    " of " + subject.getName());
             return true;
         }
 
@@ -122,7 +122,7 @@ public class Student extends Person {
         if (!semesters.isEmpty()) {
             Semester currentSemester = semesters.get(semesters.size() - 1);
             currentSemester.removeSubject(enrollment);
-            log.info("Subject " + enrollment.getGroup().getSubject().getName() + " withdrawn successfully.");
+            log.info("Subject " + enrollment.getSubject().getName() + " withdrawn successfully.");
         } else {
             log.warning("No active semester to remove the subject.");
         }
@@ -132,7 +132,7 @@ public class Student extends Person {
         if (!semesters.isEmpty()) {
             Semester currentSemester = semesters.get(semesters.size() - 1);
             currentSemester.cancelSubject(enrollment);
-            log.info("Subject " + enrollment.getGroup().getSubject().getName() + " cancelled successfully.");
+            log.info("Subject " + enrollment.getSubject().getName() + " cancelled successfully.");
         } else {
             log.warning("No active semester to cancel the subject.");
         }
@@ -148,7 +148,7 @@ public class Student extends Person {
         }
     }
 
-    public Request createRequest(String type, Enrollment currentSubject, Group destinationGroup, String observations) {
+    public Request createRequest(String type, Enrollment currentSubject, Group destinationGroup, Subject destinationSubject, String observations) {
         String requestId = String.valueOf((int) (Math.random() * 100000));
         Date currentDate = new Date();
 
@@ -167,8 +167,8 @@ public class Student extends Person {
                     " from group " + currentSubject.getGroup().getNumber() + " to group " + destinationGroup.getNumber());
         } else if ("subject".equals(type)) {
             log.info("Subject change request created: ID " + requestId +
-                    " from subject " + currentSubject.getGroup().getSubject().getName() +
-                    " to subject " + destinationGroup.getSubject().getName());
+                    " from subject " + currentSubject.getSubject().getName() +
+                    " to subject " + destinationSubject.getName());
         }
         alertObserver(request);
         requests.add(request);

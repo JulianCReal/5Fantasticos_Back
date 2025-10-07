@@ -63,17 +63,15 @@ class ScheduleServiceTest {
         Subject calculus = new Subject("1001", "Calculus I", 4, 1);
         Subject physics = new Subject("1002", "Physics I", 3, 1);
 
-        // Create groups with sessions
-        Group calculusGroup = new Group(1, 101, 30, true, calculus, teacher);
+        Group calculusGroup = new Group(1, 101, 30, true, teacher);
         calculusGroup.addSession(new ClassSession("Monday", "08:00", "10:00", "Room 101"));
         calculusGroup.addSession(new ClassSession("Wednesday", "08:00", "10:00", "Room 101"));
 
-        Group physicsGroup = new Group(2, 102, 25, true, physics, teacher);
+        Group physicsGroup = new Group(2, 102, 25, true, teacher);
         physicsGroup.addSession(new ClassSession("Tuesday", "10:00", "12:00", "Room 102"));
 
-        // Create enrollments
-        Enrollment calculusEnrollment = new Enrollment(calculusGroup, 1, "active", 0.0);
-        Enrollment physicsEnrollment = new Enrollment(physicsGroup, 2, "active", 0.0);
+        Enrollment calculusEnrollment = new Enrollment(calculusGroup, calculus, 1, "active", 0.0);
+        Enrollment physicsEnrollment = new Enrollment(physicsGroup, physics, 2, "active", 0.0);
 
         // Create active semester
         Semester currentSemester = new Semester(1, 2024, 1, true);
