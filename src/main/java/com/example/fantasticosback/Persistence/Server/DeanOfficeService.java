@@ -41,15 +41,12 @@ public class DeanOfficeService {
     }
 
     public DeanOffice update(String id, DeanOffice deanOffice) {
-        // Verificar que el dean office existe antes de actualizar
         DeanOffice existing = findById(id);
 
-        // Validar que la facultad no esté vacía o nula
         if (deanOffice.getFaculty() == null || deanOffice.getFaculty().trim().isEmpty()) {
             throw new BusinessValidationException("Faculty name cannot be null or empty");
         }
 
-        // Validar que no se cambie a una facultad que ya tiene dean office (excepto si es la misma)
         if (!existing.getFaculty().equals(deanOffice.getFaculty())) {
             List<DeanOffice> existingByFaculty = deanOfficeRepository.findByFaculty(deanOffice.getFaculty());
             if (!existingByFaculty.isEmpty()) {
@@ -57,7 +54,6 @@ public class DeanOfficeService {
             }
         }
 
-        // Mantener el ID original
         deanOffice.setId(id);
 
         return deanOfficeRepository.save(deanOffice);

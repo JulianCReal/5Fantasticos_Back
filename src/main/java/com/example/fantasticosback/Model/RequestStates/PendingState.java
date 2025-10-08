@@ -16,4 +16,9 @@ public class PendingState implements RequestState {
     public String getStateName() {
         return "Pending";
     }
+
+    @Override
+    public boolean canBeDeleted() {
+        return true;
+    }
 }
