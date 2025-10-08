@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Dtos;
 
-import com.example.fantasticosback.Model.Group;
+import com.example.fantasticosback.Model.Entities.Group;
 
 import java.util.Date;
 

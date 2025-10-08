@@ -1,5 +1,5 @@
 package com.example.fantasticosback.util;
-import com.example.fantasticosback.Model.*;
+import com.example.fantasticosback.Model.Entities.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;

@@ -1,8 +1,9 @@
 package com.example.fantasticosback.Server;
 
-import com.example.fantasticosback.Model.Request;
-import com.example.fantasticosback.Model.Group;
-import com.example.fantasticosback.Repository.RequestRepository;
+import com.example.fantasticosback.Model.Entities.Request;
+import com.example.fantasticosback.Model.Entities.Group;
+import com.example.fantasticosback.Persistence.Repository.RequestRepository;
+import com.example.fantasticosback.Persistence.Server.RequestService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

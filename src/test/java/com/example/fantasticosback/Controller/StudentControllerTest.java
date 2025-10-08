@@ -2,9 +2,10 @@ package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.StudentDTO;
-import com.example.fantasticosback.Model.Career;
-import com.example.fantasticosback.Model.Student;
-import com.example.fantasticosback.Server.StudentService;
+import com.example.fantasticosback.Model.Entities.Career;
+import com.example.fantasticosback.Model.Entities.Student;
+import com.example.fantasticosback.Persistence.Controller.StudentController;
+import com.example.fantasticosback.Persistence.Server.StudentService;
 import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
