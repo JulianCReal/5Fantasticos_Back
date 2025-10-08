@@ -1,5 +1,6 @@
 package com.example.fantasticosback.Server;
 
+import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Model.Entities.Request;
 import com.example.fantasticosback.Model.Entities.Group;
 import com.example.fantasticosback.Persistence.Repository.RequestRepository;
@@ -52,19 +53,26 @@ class RequestServiceTest {
         when(requestRepository.findById("1")).thenReturn(Optional.of(request));
         assertEquals(request, requestService.findById("1"));
         when(requestRepository.findById("2")).thenReturn(Optional.empty());
-        assertNull(requestService.findById("2"));
+        assertThrows(ResourceNotFoundException.class, () -> requestService.findById("2"));
     }
 
     @Test
     void testUpdate() {
         Request request = getRequestDummy();
+        when(requestRepository.findById(request.getRequestId())).thenReturn(Optional.of(request));
         when(requestRepository.save(request)).thenReturn(request);
         assertEquals(request, requestService.update(request));
     }
 
     @Test
     void testDelete() {
+        // Caso exitoso: el Request existe
+        when(requestRepository.findById("1")).thenReturn(Optional.of(getRequestDummy()));
         requestService.delete("1");
         verify(requestRepository).deleteById("1");
+
+        // Caso de excepción: el Request no existe
+        when(requestRepository.findById("2")).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> requestService.delete("2"));
     }
 }

@@ -2,6 +2,7 @@ package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.StudentDTO;
+import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Model.Entities.Career;
 import com.example.fantasticosback.Model.Entities.Student;
 import com.example.fantasticosback.Persistence.Controller.StudentController;
@@ -96,15 +97,12 @@ class StudentControllerTest {
 
     @Test
     void testGetNotFound() {
-        when(studentService.findById("E001")).thenReturn(null);
-
-        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.get("E001");
-
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Student not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+        when(studentService.findById("E001")).thenThrow(new com.example.fantasticosback.Exception.ResourceNotFoundException("Student not found"));
+        ResourceNotFoundException ex = assertThrows(
+            ResourceNotFoundException.class,
+            () -> studentController.get("E001")
+        );
+        assertEquals("Student not found", ex.getMessage());
     }
 
     @Test
@@ -113,12 +111,10 @@ class StudentControllerTest {
         StudentDTO dto = new StudentDTO("E001", "Juan Updated", "Engineering", 2);
         Career career = new Career("Engineering", 160);
         AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
-        Student existingStudent = new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight);
         Student updatedStudent = new Student("Juan Updated", "Perez", 123, "Engineering", "C001", "E001", 2, trafficLight);
 
-        when(studentService.findById(id)).thenReturn(existingStudent);
         when(studentService.convertToDomain(dto)).thenReturn(updatedStudent);
-        when(studentService.update(updatedStudent)).thenReturn(updatedStudent);
+        when(studentService.update(id, updatedStudent)).thenReturn(updatedStudent);
         when(studentService.convertToStudentDTO(updatedStudent)).thenReturn(dto);
 
         ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.update(id, dto);
@@ -134,16 +130,17 @@ class StudentControllerTest {
     void testUpdateNotFound() {
         String id = "E001";
         StudentDTO dto = new StudentDTO("E001", "Juan", "Engineering", 1);
+        when(studentService.convertToDomain(dto)).thenReturn(
+            new Student("", "", 0, "", "", "", 0, new AcademicTrafficLight(0, 0, new Career("", 0)))
+        );
+        when(studentService.update(eq(id), any(Student.class)))
+            .thenThrow(new ResourceNotFoundException("Student not found"));
 
-        when(studentService.findById(id)).thenReturn(null);
-
-        ResponseEntity<ResponseDTO<StudentDTO>> response = studentController.update(id, dto);
-
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Student not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+        ResourceNotFoundException ex = assertThrows(
+            ResourceNotFoundException.class,
+            () -> studentController.update(id, dto)
+        );
+        assertEquals("Student not found", ex.getMessage());
     }
 
     @Test
@@ -153,7 +150,6 @@ class StudentControllerTest {
         AcademicTrafficLight trafficLight = new AcademicTrafficLight(1, 0, career);
         Student student = new Student("Juan", "Perez", 123, "Engineering", "C001", "E001", 1, trafficLight);
 
-        when(studentService.findById(id)).thenReturn(student);
 
         ResponseEntity<ResponseDTO<Void>> response = studentController.delete(id);
 
@@ -169,16 +165,14 @@ class StudentControllerTest {
     void testDeleteNotFound() {
         String id = "E001";
 
-        when(studentService.findById(id)).thenReturn(null);
+        doThrow(new ResourceNotFoundException("Student not found")).when(studentService).delete(id);
 
-        ResponseEntity<ResponseDTO<Void>> response = studentController.delete(id);
-
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Student not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
-        verify(studentService, never()).delete(id);
+        ResourceNotFoundException ex = assertThrows(
+            ResourceNotFoundException.class,
+            () -> studentController.delete(id)
+        );
+        assertEquals("Student not found", ex.getMessage());
+        verify(studentService).delete(id);
     }
 
     @Test

@@ -43,7 +43,7 @@ public class StudentController {
         Student updated = studentService.convertToDomain(dto);
         Student saved = studentService.update(id, updated);
         StudentDTO response = studentService.convertToStudentDTO(saved);
-        return ResponseEntity.ok(ResponseDTO.success(response, "Student updated successfully"));
+        return ResponseEntity.ok(ResponseDTO.success(response, "Student updated"));
     }
 
     @DeleteMapping("/{id}")

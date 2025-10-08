@@ -2,6 +2,7 @@ package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Dtos.RequestDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;
+import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Model.Entities.Request;
 import com.example.fantasticosback.Model.Entities.Group;
 import com.example.fantasticosback.Persistence.Controller.RequestController;
@@ -90,13 +91,9 @@ class RequestControllerTest {
     @Test
     void testGet_NotExists() {
         String id = "1";
-        when(requestService.findById(id)).thenReturn(null);
-        ResponseEntity<ResponseDTO<RequestDTO>> response = requestController.getById(id);
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Request not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+        // El servicio lanza la excepción si no existe
+        when(requestService.findById(id)).thenThrow(new com.example.fantasticosback.Exception.ResourceNotFoundException("Request", "id", id));
+        assertThrows(ResourceNotFoundException.class, () -> requestController.getById(id));
     }
 
     @Test
@@ -120,13 +117,10 @@ class RequestControllerTest {
     void testUpdate_NotExists() {
         String id = "1";
         RequestDTO dto = createRequestDTODummy();
-        when(requestService.findById(id)).thenReturn(null);
-        ResponseEntity<ResponseDTO<RequestDTO>> response = requestController.update(id, dto);
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Request not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+        Request request = createRequestDummy();
+        when(requestService.fromDTO(dto)).thenReturn(request);
+        when(requestService.update(request)).thenThrow(new com.example.fantasticosback.Exception.ResourceNotFoundException("Request", "id", id));
+        assertThrows(ResourceNotFoundException.class, () -> requestController.update(id, dto));
     }
 
     @Test
@@ -146,13 +140,8 @@ class RequestControllerTest {
     @Test
     void testDelete_NotExists() {
         String id = "1";
-        when(requestService.findById(id)).thenReturn(null);
-        ResponseEntity<ResponseDTO<Void>> response = requestController.delete(id);
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Request not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+        doThrow(new ResourceNotFoundException("Request", "id", id)).when(requestService).delete(id);
+        assertThrows(ResourceNotFoundException.class, () -> requestController.delete(id));
     }
 
     @Test

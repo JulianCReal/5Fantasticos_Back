@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
+import com.example.fantasticosback.Exception.ResourceNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -86,13 +87,8 @@ class DeanOfficeControllerTest {
     @Test
     void testGet_NotExists() {
         String id = "1";
-        when(deanOfficeService.findById(id)).thenReturn(null);
-        ResponseEntity<ResponseDTO<DeanOfficeDTO>> response = deanOfficeController.get(id);
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Dean office not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+        when(deanOfficeService.findById(id)).thenThrow(new com.example.fantasticosback.Exception.ResourceNotFoundException("DeanOffice", "id", id));
+        assertThrows(ResourceNotFoundException.class, () -> deanOfficeController.get(id));
     }
 
     @Test
@@ -102,7 +98,7 @@ class DeanOfficeControllerTest {
         DeanOffice deanOffice = createDeanOfficeDummy();
         when(deanOfficeService.findById(id)).thenReturn(deanOffice);
         when(deanOfficeService.fromDTO(dto)).thenReturn(deanOffice);
-        when(deanOfficeService.update(deanOffice)).thenReturn(deanOffice);
+        when(deanOfficeService.update(id, deanOffice)).thenReturn(deanOffice);
         when(deanOfficeService.toDTO(deanOffice)).thenReturn(dto);
         ResponseEntity<ResponseDTO<DeanOfficeDTO>> response = deanOfficeController.update(id, dto);
         assertEquals(200, response.getStatusCode().value());
@@ -116,12 +112,9 @@ class DeanOfficeControllerTest {
     void testUpdate_NotExists() {
         String id = "1";
         DeanOfficeDTO dto = createDeanOfficeDTODummy();
-        when(deanOfficeService.findById(id)).thenReturn(null);
-        ResponseEntity<ResponseDTO<DeanOfficeDTO>> response = deanOfficeController.update(id, dto);
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Dean office not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+        DeanOffice deanOffice = createDeanOfficeDummy();
+        when(deanOfficeService.fromDTO(dto)).thenReturn(deanOffice);
+        when(deanOfficeService.update(id, deanOffice)).thenThrow(new ResourceNotFoundException("DeanOffice", "id", id));
+        assertThrows(ResourceNotFoundException.class, () -> deanOfficeController.update(id, dto));
     }
 }

@@ -1,5 +1,6 @@
 package com.example.fantasticosback.Server;
 
+import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Model.Entities.Career;
 import com.example.fantasticosback.Model.Entities.Student;
 import com.example.fantasticosback.Persistence.Repository.StudentRepository;
@@ -50,18 +51,22 @@ class StudentServiceTest {
         when(studentRepository.findById("1")).thenReturn(Optional.of(student));
         assertEquals(student, studentService.findById("1"));
         when(studentRepository.findById("2")).thenReturn(Optional.empty());
-        assertNull(studentService.findById("2"));
+        assertThrows(ResourceNotFoundException.class, () -> studentService.findById("2"));
     }
 
     @Test
     void testUpdate() {
         Student student = getStudentDummy();
+        // Simular que el estudiante existe
+        when(studentRepository.findById(student.getStudentId())).thenReturn(Optional.of(student));
         when(studentRepository.save(student)).thenReturn(student);
-        assertEquals(student, studentService.update(student));
+        assertEquals(student, studentService.update(student.getStudentId(), student));
     }
 
     @Test
     void testDelete() {
+        // Caso exitoso: el estudiante existe
+        when(studentRepository.findById("1")).thenReturn(Optional.of(getStudentDummy()));
         studentService.delete("1");
         verify(studentRepository).deleteById("1");
     }
