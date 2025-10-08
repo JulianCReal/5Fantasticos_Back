@@ -32,31 +32,19 @@ public class DeanOfficeController {
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<DeanOfficeDTO>> get(@PathVariable String id) {
         DeanOffice deanOffice = deanOfficeService.findById(id);
-        if (deanOffice != null) {
-            return ResponseEntity.ok(ResponseDTO.success(deanOfficeService.toDTO(deanOffice), "Dean office found"));
-        }
-        return ResponseEntity.status(404).body(ResponseDTO.error("Dean office not found"));
+        return ResponseEntity.ok(ResponseDTO.success(deanOfficeService.toDTO(deanOffice), "Dean office found"));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDTO<DeanOfficeDTO>> update(@PathVariable String id, @RequestBody DeanOfficeDTO dto) {
-        DeanOffice existing = deanOfficeService.findById(id);
-        if (existing != null) {
-            DeanOffice updated = deanOfficeService.update(deanOfficeService.fromDTO(dto));
-            updated.setId(id);
-            return ResponseEntity.ok(ResponseDTO.success(deanOfficeService.toDTO(updated), "Dean office updated successfully"));
-        }
-        return ResponseEntity.status(404).body(ResponseDTO.error("Dean office not found"));
+        DeanOffice updated = deanOfficeService.update(id, deanOfficeService.fromDTO(dto));
+        return ResponseEntity.ok(ResponseDTO.success(deanOfficeService.toDTO(updated), "Dean office updated successfully"));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO<Void>> delete(@PathVariable String id) {
-        DeanOffice existing = deanOfficeService.findById(id);
-        if (existing != null) {
-            deanOfficeService.delete(id);
-            return ResponseEntity.ok(ResponseDTO.success(null, "Dean office deleted successfully"));
-        }
-        return ResponseEntity.status(404).body(ResponseDTO.error("Dean office not found"));
+        deanOfficeService.delete(id);
+        return ResponseEntity.ok(ResponseDTO.success(null, "Dean office deleted successfully"));
     }
 
     @GetMapping("/faculty/{faculty}")
