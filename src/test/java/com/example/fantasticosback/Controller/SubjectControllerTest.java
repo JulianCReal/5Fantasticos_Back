@@ -1,7 +1,8 @@
 package com.example.fantasticosback.Controller;
 
-import com.example.fantasticosback.Model.Subject;
-import com.example.fantasticosback.Server.SubjectService;
+import com.example.fantasticosback.Model.Entities.Subject;
+import com.example.fantasticosback.Persistence.Controller.SubjectController;
+import com.example.fantasticosback.Persistence.Server.SubjectService;
 import com.example.fantasticosback.Dtos.SubjectDTO;
 import com.example.fantasticosback.Dtos.CreateGroupDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;
@@ -12,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

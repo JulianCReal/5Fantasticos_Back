@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Model.Observers;
 
 
-import com.example.fantasticosback.Model.Request;
+import com.example.fantasticosback.Model.Entities.Request;
 
 public class StudentObserver implements RequestObserver {
     @Override

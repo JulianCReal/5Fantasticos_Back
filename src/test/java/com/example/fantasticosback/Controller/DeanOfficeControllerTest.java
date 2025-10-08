@@ -2,8 +2,9 @@ package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Dtos.DeanOfficeDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;
-import com.example.fantasticosback.Model.DeanOffice;
-import com.example.fantasticosback.Server.DeanOfficeService;
+import com.example.fantasticosback.Model.Entities.DeanOffice;
+import com.example.fantasticosback.Persistence.Controller.DeanOfficeController;
+import com.example.fantasticosback.Persistence.Server.DeanOfficeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

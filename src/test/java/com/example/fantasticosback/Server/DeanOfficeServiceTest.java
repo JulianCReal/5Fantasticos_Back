@@ -1,7 +1,8 @@
 package com.example.fantasticosback.Server;
 
-import com.example.fantasticosback.Model.DeanOffice;
-import com.example.fantasticosback.Repository.DeanOfficeRepository;
+import com.example.fantasticosback.Model.Entities.DeanOffice;
+import com.example.fantasticosback.Persistence.Repository.DeanOfficeRepository;
+import com.example.fantasticosback.Persistence.Server.DeanOfficeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

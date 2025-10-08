@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Dtos;
 
-import com.example.fantasticosback.Model.Student;
+import com.example.fantasticosback.Model.Entities.Student;
 
 import java.util.ArrayList;
 

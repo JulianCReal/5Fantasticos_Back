@@ -1,6 +1,6 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Model.Subject;
+import com.example.fantasticosback.Model.Entities.Subject;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

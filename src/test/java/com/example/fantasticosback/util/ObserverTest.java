@@ -1,11 +1,8 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Model.*;
+import com.example.fantasticosback.Model.Entities.*;
 import com.example.fantasticosback.Model.Observers.DeanObserver;
-import com.example.fantasticosback.Model.Observers.RequestObserver;
 import com.example.fantasticosback.Model.Observers.StudentObserver;
-import com.example.fantasticosback.util.SubjectCatalog;
-import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
