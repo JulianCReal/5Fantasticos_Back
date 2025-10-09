@@ -1,5 +1,7 @@
 package com.example.fantasticosback.Server;
 
+import com.example.fantasticosback.Exception.BusinessValidationException;
+import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Model.Entities.DeanOffice;
 import com.example.fantasticosback.Persistence.Repository.DeanOfficeRepository;
 import com.example.fantasticosback.Persistence.Server.DeanOfficeService;
@@ -41,26 +43,47 @@ class DeanOfficeServiceTest {
     }
 
     @Test
-    void testFindById() {
+    void testFindById_Exists() {
         DeanOffice deanOffice = getDeanOfficeDummy();
         when(deanOfficeRepository.findById("1")).thenReturn(Optional.of(deanOffice));
         assertEquals(deanOffice, deanOfficeService.findById("1"));
+    }
+
+    @Test
+    void testFindById_NotExists() {
         when(deanOfficeRepository.findById("2")).thenReturn(Optional.empty());
-        assertNull(deanOfficeService.findById("2"));
+        assertThrows(ResourceNotFoundException.class, () -> deanOfficeService.findById("2"));
     }
 
     @Test
-    void testUpdate() {
+    void testUpdate_Valid() {
         DeanOffice deanOffice = getDeanOfficeDummy();
+        when(deanOfficeRepository.findById(deanOffice.getId())).thenReturn(Optional.of(deanOffice));
         when(deanOfficeRepository.save(deanOffice)).thenReturn(deanOffice);
-        assertEquals(deanOffice, deanOfficeService.update(deanOffice));
+        assertEquals(deanOffice, deanOfficeService.update(deanOffice.getId(), deanOffice));
     }
 
     @Test
-    void testDelete() {
+    void testUpdate_NotExists() {
+        DeanOffice deanOffice = getDeanOfficeDummy();
+        when(deanOfficeRepository.findById(deanOffice.getId())).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> deanOfficeService.update(deanOffice.getId(), deanOffice));
+    }
+
+    @Test
+    void testDelete_Valid() {
+        DeanOffice deanOffice = getDeanOfficeDummy();
+        when(deanOfficeRepository.findById("1")).thenReturn(Optional.of(deanOffice));
         deanOfficeService.delete("1");
         verify(deanOfficeRepository).deleteById("1");
     }
+
+    @Test
+    void testDelete_NotExists() {
+        when(deanOfficeRepository.findById("2")).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> deanOfficeService.delete("2"));
+    }
+
 
     @Test
     void testFindByFaculty() {

@@ -33,19 +33,11 @@ public class RequestController {
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<RequestDTO>> getById(@PathVariable String id) {
         Request request = requestService.findById(id);
-        if (request == null) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Request not found"));
-        }
         return ResponseEntity.ok(ResponseDTO.success(requestService.toDTO(request), "Request found"));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ResponseDTO<RequestDTO>> update(@PathVariable String id, @RequestBody RequestDTO dto) {
-        Request existing = requestService.findById(id);
-        if (existing == null) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Request not found"));
-        }
-
         Request updatedRequest = requestService.fromDTO(dto);
         updatedRequest.setRequestId(id);  // Important: preserve original ID
         Request updated = requestService.update(updatedRequest);
@@ -54,10 +46,6 @@ public class RequestController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO<Void>> delete(@PathVariable String id) {
-        Request existing = requestService.findById(id);
-        if (existing == null) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Request not found"));
-        }
         requestService.delete(id);
         return ResponseEntity.ok(ResponseDTO.success(null, "Request deleted successfully"));
     }

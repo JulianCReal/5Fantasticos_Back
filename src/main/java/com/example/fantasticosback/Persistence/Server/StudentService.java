@@ -2,6 +2,8 @@
 package com.example.fantasticosback.Persistence.Server;
 
 import com.example.fantasticosback.Dtos.StudentDTO;
+import com.example.fantasticosback.Exception.ResourceNotFoundException;
+import com.example.fantasticosback.Exception.BusinessValidationException;
 import com.example.fantasticosback.Persistence.Repository.StudentRepository;
 import com.example.fantasticosback.Persistence.Repository.SubjectRepository;
 import com.example.fantasticosback.Model.Entities.Student;
@@ -36,22 +38,43 @@ public class StudentService {
     }
 
     public Student findById(String id) {
-        return studentRepository.findById(id).orElse(null);
+        return studentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Student", "id", id));
     }
 
-    public Student update(Student student) {
+    public Student update(String id, Student student) {
+        // Verificar que el student existe antes de actualizar
+        Student existing = findById(id);
+        student.setId(id);
+
         return studentRepository.save(student);
     }
 
     public void delete(String id) {
+        // Verificar que el student existe antes de eliminar
+        Student existing = findById(id);
+
+        // Validar que no tenga inscripciones activas antes de eliminar
+        if (existing.getCurrentSchedule() != null && !existing.getCurrentSchedule().isEmpty()) {
+            throw new BusinessValidationException("Cannot delete student with active enrollments. Please cancel all subjects first.");
+        }
+
         studentRepository.deleteById(id);
     }
 
     public List<Student> findByCareer(String career) {
+        // Validar que la carrera no esté vacía
+        if (career == null || career.trim().isEmpty()) {
+            throw new BusinessValidationException("Career cannot be null or empty");
+        }
         return studentRepository.findByCareer(career);
     }
 
     public List<Student> findBySemester(int semester) {
+        // Validar que el semestre sea válido
+        if (semester < 1 || semester > 10) {
+            throw new BusinessValidationException("Semester must be between 1 and 10");
+        }
         return studentRepository.findBySemester(semester);
     }
 
@@ -84,19 +107,16 @@ public class StudentService {
 
     public boolean addSubjectToStudent(String studentId, String groupId) {
         Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
 
         Group targetGroup = findGroupById(groupId);
         if (targetGroup == null) {
-            throw new IllegalArgumentException("Group not found with ID: " + groupId);
+            throw new ResourceNotFoundException("Group", "id", groupId);
         }
 
         // Necesitamos encontrar la materia que contiene este grupo
         Subject subject = findSubjectByGroupId(groupId);
         if (subject == null) {
-            throw new IllegalArgumentException("Subject not found for group ID: " + groupId);
+            throw new ResourceNotFoundException("Subject for group", "groupId", groupId);
         }
 
         boolean success = student.addSubject(targetGroup, subject);
@@ -107,15 +127,12 @@ public class StudentService {
     }
 
     public boolean removeSubjectFromStudent(String studentId, String enrollmentId) {
-        Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
+        Student student = findById(studentId); // Ya lanza ResourceNotFoundException si no existe
 
         // Buscar la matrícula por ID
         Enrollment enrollmentToRemove = findEnrollmentById(student, enrollmentId);
         if (enrollmentToRemove == null) {
-            throw new IllegalArgumentException("Enrollment not found with ID: " + enrollmentId);
+            throw new ResourceNotFoundException("Enrollment", "id", enrollmentId);
         }
 
         student.removeSubject(enrollmentToRemove);
@@ -124,14 +141,11 @@ public class StudentService {
     }
 
     public boolean cancelSubjectFromStudent(String studentId, String enrollmentId) {
-        Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
+        Student student = findById(studentId); // Ya lanza ResourceNotFoundException si no existe
 
         Enrollment enrollmentToCancel = findEnrollmentById(student, enrollmentId);
         if (enrollmentToCancel == null) {
-            throw new IllegalArgumentException("Enrollment not found with ID: " + enrollmentId);
+            throw new ResourceNotFoundException("Enrollment", "id", enrollmentId);
         }
 
         student.cancelSubject(enrollmentToCancel);
@@ -140,10 +154,7 @@ public class StudentService {
     }
 
     public List<Object> getCurrentSubjects(String studentId) {
-        Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
+        Student student = findById(studentId); // Ya lanza ResourceNotFoundException si no existe
 
         return student.getCurrentSchedule().stream()
                 .map(enrollment -> Map.of(
@@ -171,10 +182,7 @@ public class StudentService {
      * 1. Obtiene materias disponibles para que el estudiante se inscriba
      */
     public List<Object> getAvailableSubjectsForStudent(String studentId) {
-        Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
+        Student student = findById(studentId); // Ya lanza ResourceNotFoundException si no existe
 
         List<Subject> allSubjects = subjectRepository.findAll();
 
@@ -195,14 +203,11 @@ public class StudentService {
      * 2. Obtiene grupos disponibles de una materia específica
      */
     public List<Object> getAvailableGroupsForSubject(String studentId, String subjectId) {
-        Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
+        Student student = findById(studentId); // Ya lanza ResourceNotFoundException si no existe
 
         Subject subject = subjectRepository.findById(subjectId).orElse(null);
         if (subject == null) {
-            throw new IllegalArgumentException("Subject not found with ID: " + subjectId);
+            throw new ResourceNotFoundException("Subject", "id", subjectId);
         }
 
         return subject.getAvailableGroups().stream()
@@ -229,14 +234,11 @@ public class StudentService {
      * 3. Inscribir estudiante en materia específica y grupo específico
      */
     public boolean enrollStudentInSubjectGroup(String studentId, String subjectId, String groupId) {
-        Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
+        Student student = findById(studentId); // Ya lanza ResourceNotFoundException si no existe
 
         Subject subject = subjectRepository.findById(subjectId).orElse(null);
         if (subject == null) {
-            throw new IllegalArgumentException("Subject not found with ID: " + subjectId);
+            throw new ResourceNotFoundException("Subject", "id", subjectId);
         }
 
         // Buscar el grupo específico dentro de la materia
@@ -246,7 +248,7 @@ public class StudentService {
                 .orElse(null);
 
         if (targetGroup == null) {
-            throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectId);
+            throw new ResourceNotFoundException("Group in subject " + subjectId, "groupId", groupId);
         }
 
         // Usar el método real del modelo Student con ambos parámetros
@@ -264,20 +266,17 @@ public class StudentService {
      */
     public List<Object> getAvailableGroupsForSubjectByCode(String studentId, String subjectCode) {
         Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
 
         // Obtener la materia del catálogo usando la abreviatura
         Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
         if (catalogSubject == null) {
-            throw new IllegalArgumentException("Subject not found in catalog with code: " + subjectCode);
+            throw new ResourceNotFoundException("Subject in catalog", "code", subjectCode);
         }
 
         // Buscar la materia en la BD usando el ID del catálogo
         Subject subject = subjectRepository.findById(catalogSubject.getSubjectId()).orElse(null);
         if (subject == null) {
-            throw new IllegalArgumentException("Subject not found in database with code: " + subjectCode);
+            throw new ResourceNotFoundException("Subject in database", "code", subjectCode);
         }
 
         return subject.getAvailableGroups().stream()
@@ -307,20 +306,17 @@ public class StudentService {
      */
     public boolean enrollStudentInSubjectGroupByCode(String studentId, String subjectCode, String groupId) {
         Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
 
         // Obtener la materia del catálogo usando la abreviatura
         Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
         if (catalogSubject == null) {
-            throw new IllegalArgumentException("Subject not found in catalog with code: " + subjectCode);
+            throw new ResourceNotFoundException("Subject in catalog", "code", subjectCode);
         }
 
         // Buscar la materia en la BD usando el ID del catálogo
         Subject subject = subjectRepository.findById(catalogSubject.getSubjectId()).orElse(null);
         if (subject == null) {
-            throw new IllegalArgumentException("Subject not found in database with code: " + subjectCode);
+            throw new ResourceNotFoundException("Subject in database", "code", subjectCode);
         }
 
         // Buscar el grupo específico dentro de la materia
@@ -330,28 +326,22 @@ public class StudentService {
                 .orElse(null);
 
         if (targetGroup == null) {
-            throw new IllegalArgumentException("Group not found with ID: " + groupId + " in subject: " + subjectCode);
+            throw new ResourceNotFoundException("Group in subject " + subjectCode, "groupId", groupId);
         }
 
         // Verificar si el grupo tiene capacidad disponible
         long enrolledCount = getAllStudentsInGroup(targetGroup.getId()).size();
         if (enrolledCount >= targetGroup.getCapacity()) {
-            log.warning("Group " + groupId + " is at full capacity");
-            return false;
+            throw new BusinessValidationException("Group " + groupId + " is at full capacity");
         }
 
         // Usar el método real del modelo Student with ambos parámetros
         boolean success = student.addSubject(targetGroup, subject);
         if (success) {
-            // NO agregar el estudiante al grupo manualmente - esto causa la referencia circular
-            // La relación se mantiene a través del Enrollment
-
-            // Solo guardar el estudiante
             studentRepository.save(student);
-
             log.info("Student " + studentId + " successfully enrolled in " + subjectCode + " group " + groupId);
         } else {
-            log.warning("Failed to enroll student " + studentId + " in " + subjectCode + " group " + groupId);
+            throw new BusinessValidationException("Failed to enroll student. Check for schedule conflicts or prerequisites.");
         }
         return success;
     }
@@ -414,8 +404,9 @@ public class StudentService {
      */
     public List<Object> getStudentScheduleBySemester(String studentId, int semesterIndex) {
         Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
+
+        if (semesterIndex < 0 || semesterIndex >= 10) {
+            throw new BusinessValidationException("Semester index must be between 0 and 9");
         }
 
         return student.getScheduleBySemester(semesterIndex).stream()
@@ -445,10 +436,7 @@ public class StudentService {
      * Obtiene el historial completo de horarios del estudiante
      */
     public Object getStudentAllSchedules(String studentId) {
-        Student student = findById(studentId);
-        if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
-        }
+        Student student = findById(studentId); // Ya lanza ResourceNotFoundException si no existe
 
         return student.getAllSchedules().entrySet().stream()
                 .collect(Collectors.toMap(

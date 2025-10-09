@@ -13,4 +13,9 @@ public class AcceptedState implements RequestState {
     public String getStateName() {
         return "Accepted";
     }
+
+    @Override
+    public boolean canBeDeleted() {
+        return false;
+    }
 }

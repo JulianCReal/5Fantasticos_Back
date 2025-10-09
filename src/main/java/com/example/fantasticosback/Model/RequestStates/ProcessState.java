@@ -22,4 +22,9 @@ public class ProcessState implements RequestState {
     public String getStateName() {
         return "In Process";
     }
+
+    @Override
+    public boolean canBeDeleted() {
+        return false;
+    }
 }
