@@ -1,9 +1,11 @@
 package com.example.fantasticosback.Model.Entities;
 
 import com.example.fantasticosback.util.ClassSession;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
+@Document(collection = "Groups")
 public class Group {
     private int id;
     private int number;

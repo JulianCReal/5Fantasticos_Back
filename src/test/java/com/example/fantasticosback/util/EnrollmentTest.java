@@ -44,7 +44,7 @@ public class EnrollmentTest {
     @Test
     void testConstructor() {
         assertEquals(group, enrollment.getGroup());
-        assertEquals(1, enrollment.getId());
+        assertEquals(1, enrollment.getIdAsInt());
         assertEquals("enrolled", enrollment.getStatus());
         assertEquals(0.0, enrollment.getFinalGrade(), 0.001);
     }
@@ -54,7 +54,7 @@ public class EnrollmentTest {
         Enrollment enrollment2 = new Enrollment(otherGroup, subject, 999, "passed", 45.5);
 
         assertEquals(otherGroup, enrollment2.getGroup());
-        assertEquals(999, enrollment2.getId());
+        assertEquals(999, enrollment2.getIdAsInt());
         assertEquals("passed", enrollment2.getStatus());
         assertEquals(45.5, enrollment2.getFinalGrade(), 0.001);
     }
@@ -64,7 +64,7 @@ public class EnrollmentTest {
         Enrollment nullEnrollment = new Enrollment(null, subject, 2, "pending", 25.0);
 
         assertNull(nullEnrollment.getGroup());
-        assertEquals(2, nullEnrollment.getId());
+        assertEquals(2, nullEnrollment.getIdAsInt());
         assertEquals("pending", nullEnrollment.getStatus());
         assertEquals(25.0, nullEnrollment.getFinalGrade(), 0.001);
     }
@@ -72,7 +72,7 @@ public class EnrollmentTest {
     @Test
     void testGetters() {
         assertEquals(group, enrollment.getGroup());
-        assertEquals(1, enrollment.getId());
+        assertEquals(1, enrollment.getIdAsInt());
         assertEquals("enrolled", enrollment.getStatus());
         assertEquals(0.0, enrollment.getFinalGrade(), 0.001);
     }
@@ -81,13 +81,13 @@ public class EnrollmentTest {
     void testSetId() {
         // Test the ID setter
         enrollment.setId(999);
-        assertEquals(999, enrollment.getId());
+        assertEquals(999, enrollment.getIdAsInt());
 
         enrollment.setId(0);
-        assertEquals(0, enrollment.getId());
+        assertEquals(0, enrollment.getIdAsInt());
 
         enrollment.setId(-5);
-        assertEquals(-5, enrollment.getId());
+        assertEquals(-5, enrollment.getIdAsInt());
     }
 
     @Test
