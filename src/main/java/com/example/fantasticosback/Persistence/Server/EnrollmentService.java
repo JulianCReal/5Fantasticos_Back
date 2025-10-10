@@ -64,6 +64,16 @@ public class EnrollmentService {
         Student student = studentService.findById(studentId);
         Enrollment enrollment = findEnrollmentById(enrollmentId);
 
+        validateCancellation(enrollment);
+
+        enrollment.setStatus("CANCELLED");
+        Group group = enrollment.getGroup();
+        groupService.removeStudentFromGroup(group.getId(), student);
+
+        enrollmentRepository.save(enrollment);
+    }
+
+    private void validateCancellation(Enrollment enrollment) {
         if (!enrollment.getStatus().equals("ACTIVE")) {
             throw new BusinessValidationException("La inscripción ya está cancelada o finalizada");
         }
@@ -71,12 +81,6 @@ public class EnrollmentService {
         if (!isWithinEnrollmentPeriod()) {
             throw new BusinessValidationException("No se pueden cancelar inscripciones fuera del período establecido");
         }
-
-        enrollment.setStatus("CANCELLED");
-        Group group = enrollment.getGroup();
-        groupService.removeStudentFromGroup(group.getId(), student);
-
-        enrollmentRepository.save(enrollment);
     }
 
     private void validateEnrollment(Student student, Group group) {
@@ -110,13 +114,17 @@ public class EnrollmentService {
     }
 
     public Enrollment updateGrade(String enrollmentId, double grade) {
-        if (grade < 0.0 || grade > 5.0) {
-            throw new BusinessValidationException("La calificación debe estar entre 0.0 y 5.0");
-        }
+        validateGrade(grade);
 
         Enrollment enrollment = findEnrollmentById(enrollmentId);
         enrollment.setFinalGrade(grade);
         return enrollmentRepository.save(enrollment);
+    }
+
+    private void validateGrade(double grade) {
+        if (grade < 0.0 || grade > 5.0) {
+            throw new BusinessValidationException("La calificación debe estar entre 0.0 y 5.0");
+        }
     }
 
     private String generateEnrollmentId() {

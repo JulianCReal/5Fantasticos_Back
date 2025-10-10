@@ -2,7 +2,6 @@ package com.example.fantasticosback.Persistence.Controller;
 
 import com.example.fantasticosback.Model.Entities.Enrollment;
 import com.example.fantasticosback.Persistence.Server.EnrollmentService;
-import com.example.fantasticosback.Exception.BusinessValidationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,28 +19,22 @@ public class EnrollmentController {
     }
 
     @PostMapping("/students/{studentId}/groups/{groupId}")
-    public ResponseEntity<?> enrollStudent(
+    public ResponseEntity<Enrollment> enrollStudent(
             @PathVariable String studentId,
             @PathVariable int groupId,
             @RequestParam String semester) {
-        try {
-            Enrollment enrollment = enrollmentService.enrollStudentInGroup(studentId, groupId, semester);
-            return ResponseEntity.ok(enrollment);
-        } catch (BusinessValidationException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+
+        Enrollment enrollment = enrollmentService.enrollStudentInGroup(studentId, groupId, semester);
+        return ResponseEntity.ok(enrollment);
     }
 
     @DeleteMapping("/students/{studentId}/enrollments/{enrollmentId}")
-    public ResponseEntity<?> cancelEnrollment(
+    public ResponseEntity<Void> cancelEnrollment(
             @PathVariable String studentId,
             @PathVariable String enrollmentId) {
-        try {
-            enrollmentService.cancelEnrollment(studentId, enrollmentId);
-            return ResponseEntity.ok().build();
-        } catch (BusinessValidationException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+
+        enrollmentService.cancelEnrollment(studentId, enrollmentId);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/students/{studentId}")
@@ -57,14 +50,11 @@ public class EnrollmentController {
     }
 
     @PutMapping("/{enrollmentId}/grade")
-    public ResponseEntity<?> updateGrade(
+    public ResponseEntity<Enrollment> updateGrade(
             @PathVariable String enrollmentId,
             @RequestParam double grade) {
-        try {
-            Enrollment enrollment = enrollmentService.updateGrade(enrollmentId, grade);
-            return ResponseEntity.ok(enrollment);
-        } catch (BusinessValidationException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+
+        Enrollment enrollment = enrollmentService.updateGrade(enrollmentId, grade);
+        return ResponseEntity.ok(enrollment);
     }
 }
