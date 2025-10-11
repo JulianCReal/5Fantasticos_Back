@@ -1,8 +1,8 @@
 package com.example.fantasticosback.util;
-import com.example.fantasticosback.Model.Entities.Career;
-import com.example.fantasticosback.Model.Entities.Enrollment;
-import com.example.fantasticosback.Model.Entities.Subject;
-import com.example.fantasticosback.Model.Entities.Semester;
+import com.example.fantasticosback.Model.Document.Career;
+import com.example.fantasticosback.Model.Document.Enrollment;
+import com.example.fantasticosback.Model.Document.Subject;
+import com.example.fantasticosback.Model.Document.Semester;
 
 import java.util.ArrayList;
 

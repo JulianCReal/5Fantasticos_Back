@@ -1,15 +1,15 @@
 // Solo guardar el estudiante - la materia no cambia
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
 import com.example.fantasticosback.Dtos.StudentDTO;
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Exception.BusinessValidationException;
 import com.example.fantasticosback.Persistence.Repository.StudentRepository;
 import com.example.fantasticosback.Persistence.Repository.SubjectRepository;
-import com.example.fantasticosback.Model.Entities.Student;
-import com.example.fantasticosback.Model.Entities.Subject;
-import com.example.fantasticosback.Model.Entities.Group;
-import com.example.fantasticosback.Model.Entities.Enrollment;
+import com.example.fantasticosback.Model.Document.Student;
+import com.example.fantasticosback.Model.Document.Subject;
+import com.example.fantasticosback.Model.Document.Group;
+import com.example.fantasticosback.Model.Document.Enrollment;
 import com.example.fantasticosback.util.SubjectCatalog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

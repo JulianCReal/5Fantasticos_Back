@@ -1,4 +1,4 @@
-package com.example.fantasticosback.Model.Entities;
+package com.example.fantasticosback.Model.Document;
 
 public abstract class Person {
 

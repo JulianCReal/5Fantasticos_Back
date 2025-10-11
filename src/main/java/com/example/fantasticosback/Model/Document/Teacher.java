@@ -1,4 +1,4 @@
-package com.example.fantasticosback.Model.Entities;
+package com.example.fantasticosback.Model.Document;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

@@ -1,4 +1,4 @@
-package com.example.fantasticosback.Model.Entities;
+package com.example.fantasticosback.Model.Document;
 
 import com.example.fantasticosback.Model.Observers.RequestObserver;
 import com.example.fantasticosback.util.AcademicTrafficLight;

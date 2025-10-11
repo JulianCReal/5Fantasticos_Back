@@ -3,8 +3,8 @@ package com.example.fantasticosback.Persistence.Controller;
 
 import com.example.fantasticosback.Dtos.RequestDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;
-import com.example.fantasticosback.Model.Entities.Request;
-import com.example.fantasticosback.Persistence.Server.RequestService;
+import com.example.fantasticosback.Model.Document.Request;
+import com.example.fantasticosback.Persistence.Service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

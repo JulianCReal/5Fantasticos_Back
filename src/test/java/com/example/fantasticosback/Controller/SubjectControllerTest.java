@@ -1,8 +1,8 @@
 package com.example.fantasticosback.Controller;
 
-import com.example.fantasticosback.Model.Entities.Subject;
+import com.example.fantasticosback.Model.Document.Subject;
 import com.example.fantasticosback.Persistence.Controller.SubjectController;
-import com.example.fantasticosback.Persistence.Server.SubjectService;
+import com.example.fantasticosback.Persistence.Service.SubjectService;
 import com.example.fantasticosback.Dtos.SubjectDTO;
 import com.example.fantasticosback.Dtos.CreateGroupDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;

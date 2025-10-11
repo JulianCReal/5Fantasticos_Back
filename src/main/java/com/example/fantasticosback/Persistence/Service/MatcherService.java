@@ -1,8 +1,8 @@
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
 
 import com.example.fantasticosback.Persistence.Repository.UserRepository;
-import com.example.fantasticosback.Model.Entities.User;
+import com.example.fantasticosback.Model.Document.User;
 import com.example.fantasticosback.Model.Strategy.ProfileStrategy;
 import com.example.fantasticosback.Model.Factory.ProfileStrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;

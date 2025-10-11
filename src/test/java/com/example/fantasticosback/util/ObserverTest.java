@@ -1,6 +1,6 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Model.Entities.*;
+import com.example.fantasticosback.Model.Document.*;
 import com.example.fantasticosback.Model.Observers.DeanObserver;
 import com.example.fantasticosback.Model.Observers.StudentObserver;
 import org.junit.jupiter.api.Test;

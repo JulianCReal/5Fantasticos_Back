@@ -1,8 +1,8 @@
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
 import com.example.fantasticosback.Dtos.TeacherDTO;
 import com.example.fantasticosback.Persistence.Repository.TeacherRepository;
-import com.example.fantasticosback.Model.Entities.Teacher;
+import com.example.fantasticosback.Model.Document.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

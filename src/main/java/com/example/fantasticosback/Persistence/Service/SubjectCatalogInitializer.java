@@ -1,6 +1,6 @@
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
-import com.example.fantasticosback.Model.Entities.Subject;
+import com.example.fantasticosback.Model.Document.Subject;
 import com.example.fantasticosback.Persistence.Repository.SubjectRepository;
 import com.example.fantasticosback.util.SubjectCatalog;
 import org.springframework.beans.factory.annotation.Autowired;
