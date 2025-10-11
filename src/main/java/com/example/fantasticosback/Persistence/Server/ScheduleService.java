@@ -164,4 +164,27 @@ public class ScheduleService {
 
         return classes;
     }
+
+    public boolean hasTimeConflict(String studentId, ClassSession newSession) throws IllegalAccessException {
+        Map<String, Object> currentSchedule = this.getStudentSchedule(studentId, studentId, UserRole.STUDENT);
+        @SuppressWarnings("unchecked")
+        ArrayList<Map<String, Object>> classes = (ArrayList<Map<String, Object>>) currentSchedule.get("classes");
+        
+        for (Map<String, Object> classInfo : classes) {
+            @SuppressWarnings("unchecked")
+            Map<String, String> sessionInfo = (Map<String, String>) classInfo.get("session");
+            if (sessionInfo != null) {
+                ClassSession existingSession = new ClassSession(
+                    sessionInfo.get("day"),
+                    sessionInfo.get("startTime"),
+                    sessionInfo.get("endTime"),
+                    sessionInfo.get("classroom")
+                );
+                if (existingSession.verifyConflict(newSession)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
