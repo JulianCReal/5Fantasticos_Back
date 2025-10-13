@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Persistence.Repository;
 
-import com.example.fantasticosback.Model.Entities.Group;
+import com.example.fantasticosback.Model.Document.Group;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
