@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Persistence.Controller;
 
-import com.example.fantasticosback.Persistence.Server.ScheduleService;
+import com.example.fantasticosback.Persistence.Service.ScheduleService;
 import com.example.fantasticosback.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

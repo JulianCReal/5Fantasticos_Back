@@ -2,8 +2,8 @@ package com.example.fantasticosback.Persistence.Controller;
 
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import com.example.fantasticosback.Dtos.StudentDTO;
-import com.example.fantasticosback.Persistence.Server.StudentService;
-import com.example.fantasticosback.Model.Entities.Student;
+import com.example.fantasticosback.Persistence.Service.StudentService;
+import com.example.fantasticosback.Model.Document.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

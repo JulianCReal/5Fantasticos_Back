@@ -1,10 +1,10 @@
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
 import com.example.fantasticosback.Exception.BusinessValidationException;
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
-import com.example.fantasticosback.Model.Entities.Group;
-import com.example.fantasticosback.Model.Entities.Teacher;
-import com.example.fantasticosback.Model.Entities.Student;
+import com.example.fantasticosback.Model.Document.Group;
+import com.example.fantasticosback.Model.Document.Teacher;
+import com.example.fantasticosback.Model.Document.Student;
 import com.example.fantasticosback.util.ClassSession;
 import com.example.fantasticosback.Persistence.Repository.GroupRepository;
 import org.springframework.stereotype.Service;

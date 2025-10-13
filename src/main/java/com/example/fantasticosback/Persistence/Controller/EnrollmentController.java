@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Persistence.Controller;
 
-import com.example.fantasticosback.Model.Entities.Enrollment;
-import com.example.fantasticosback.Persistence.Server.EnrollmentService;
+import com.example.fantasticosback.Model.Document.Enrollment;
+import com.example.fantasticosback.Persistence.Service.EnrollmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,4 +1,4 @@
-package com.example.fantasticosback.Model.Entities;
+package com.example.fantasticosback.Model.Document;
 
 import com.example.fantasticosback.util.ClassSession;
 import org.springframework.data.annotation.Id;

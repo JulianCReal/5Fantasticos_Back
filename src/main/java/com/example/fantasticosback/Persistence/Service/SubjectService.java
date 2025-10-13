@@ -1,12 +1,12 @@
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
 import com.example.fantasticosback.Dtos.CreateGroupDTO;
 import com.example.fantasticosback.Dtos.SubjectDTO;
 import com.example.fantasticosback.Persistence.Repository.SubjectRepository;
 import com.example.fantasticosback.Persistence.Repository.TeacherRepository;
-import com.example.fantasticosback.Model.Entities.Subject;
-import com.example.fantasticosback.Model.Entities.Group;
-import com.example.fantasticosback.Model.Entities.Teacher;
+import com.example.fantasticosback.Model.Document.Subject;
+import com.example.fantasticosback.Model.Document.Group;
+import com.example.fantasticosback.Model.Document.Teacher;
 import com.example.fantasticosback.util.SubjectCatalog;
 import com.example.fantasticosback.util.ClassSession;
 import org.springframework.beans.factory.annotation.Autowired;

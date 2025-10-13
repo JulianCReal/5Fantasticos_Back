@@ -1,9 +1,9 @@
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
 import com.example.fantasticosback.Dtos.RequestDTO;
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Exception.BusinessValidationException;
-import com.example.fantasticosback.Model.Entities.Request;
+import com.example.fantasticosback.Model.Document.Request;
 import com.example.fantasticosback.Persistence.Repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,10 +1,10 @@
 package com.example.fantasticosback.Server;
 
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
-import com.example.fantasticosback.Model.Entities.Request;
-import com.example.fantasticosback.Model.Entities.Group;
+import com.example.fantasticosback.Model.Document.Request;
+import com.example.fantasticosback.Model.Document.Group;
 import com.example.fantasticosback.Persistence.Repository.RequestRepository;
-import com.example.fantasticosback.Persistence.Server.RequestService;
+import com.example.fantasticosback.Persistence.Service.RequestService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,8 +1,8 @@
 package com.example.fantasticosback.Controller;
 
-import com.example.fantasticosback.Model.Entities.Teacher;
+import com.example.fantasticosback.Model.Document.Teacher;
 import com.example.fantasticosback.Persistence.Controller.TeacherController;
-import com.example.fantasticosback.Persistence.Server.TeacherService;
+import com.example.fantasticosback.Persistence.Service.TeacherService;
 import com.example.fantasticosback.Dtos.TeacherDTO;
 import com.example.fantasticosback.Dtos.ResponseDTO;
 import org.junit.jupiter.api.BeforeEach;

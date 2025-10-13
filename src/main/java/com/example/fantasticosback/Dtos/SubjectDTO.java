@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Dtos;
 
 
-import com.example.fantasticosback.Model.Entities.Group;
+import com.example.fantasticosback.Model.Document.Group;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;

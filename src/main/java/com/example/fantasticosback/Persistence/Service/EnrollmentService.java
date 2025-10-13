@@ -1,8 +1,8 @@
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
 import com.example.fantasticosback.Exception.BusinessValidationException;
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
-import com.example.fantasticosback.Model.Entities.*;
+import com.example.fantasticosback.Model.Document.*;
 import com.example.fantasticosback.Persistence.Repository.EnrollmentRepository;
 import com.example.fantasticosback.enums.UserRole;
 import com.example.fantasticosback.util.ClassSession;

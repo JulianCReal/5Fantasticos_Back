@@ -1,6 +1,6 @@
-package com.example.fantasticosback.Persistence.Server;
+package com.example.fantasticosback.Persistence.Service;
 
-import com.example.fantasticosback.Model.Entities.*;
+import com.example.fantasticosback.Model.Document.*;
 import com.example.fantasticosback.Persistence.Repository.DeanOfficeRepository;
 import com.example.fantasticosback.Persistence.Repository.StudentRepository;
 import com.example.fantasticosback.Persistence.Repository.TeacherRepository;

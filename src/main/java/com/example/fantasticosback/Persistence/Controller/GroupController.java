@@ -1,9 +1,9 @@
 package com.example.fantasticosback.Persistence.Controller;
 
-import com.example.fantasticosback.Model.Entities.Group;
-import com.example.fantasticosback.Model.Entities.Student;
-import com.example.fantasticosback.Persistence.Server.GroupService;
-import com.example.fantasticosback.Persistence.Server.StudentService;
+import com.example.fantasticosback.Model.Document.Group;
+import com.example.fantasticosback.Model.Document.Student;
+import com.example.fantasticosback.Persistence.Service.GroupService;
+import com.example.fantasticosback.Persistence.Service.StudentService;
 import com.example.fantasticosback.util.ClassSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

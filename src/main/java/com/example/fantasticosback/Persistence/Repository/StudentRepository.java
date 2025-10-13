@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Persistence.Repository;
 
-import com.example.fantasticosback.Model.Entities.Student;
+import com.example.fantasticosback.Model.Document.Student;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

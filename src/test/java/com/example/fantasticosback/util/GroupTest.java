@@ -1,8 +1,8 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Model.Entities.Group;
-import com.example.fantasticosback.Model.Entities.Subject;
-import com.example.fantasticosback.Model.Entities.Teacher;
+import com.example.fantasticosback.Model.Document.Group;
+import com.example.fantasticosback.Model.Document.Subject;
+import com.example.fantasticosback.Model.Document.Teacher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
