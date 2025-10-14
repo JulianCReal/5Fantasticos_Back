@@ -10,7 +10,7 @@ import com.example.fantasticosback.Persistence.Service.MatcherService;
 import com.example.fantasticosback.util.JwtTokenUtil;
 import com.example.fantasticosback.util.LoginRequest;
 import com.example.fantasticosback.util.LoginResponse;
-import com.example.fantasticosback.util.Role;
+import com.example.fantasticosback.util.Enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

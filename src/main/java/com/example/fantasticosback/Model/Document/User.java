@@ -1,5 +1,5 @@
 package com.example.fantasticosback.Model.Document;
-import com.example.fantasticosback.util.Role;
+import com.example.fantasticosback.util.Enums.Role;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

@@ -1,13 +1,18 @@
 package com.example.fantasticosback.Persistence.Service;
 
-import com.example.fantasticosback.Dtos.RequestDTO;
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Exception.BusinessValidationException;
 import com.example.fantasticosback.Model.Document.Request;
 import com.example.fantasticosback.Persistence.Repository.RequestRepository;
+import com.example.fantasticosback.util.Enums.RequestPriority;
+import com.example.fantasticosback.util.Enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +21,8 @@ public class RequestService {
 
     @Autowired
     private RequestRepository requestRepository;
+    @Autowired
+    private DeanOfficeService deanOfficeService;
 
     public Request save(Request request) {
         return requestRepository.save(request);
@@ -51,48 +58,72 @@ public class RequestService {
         return requestRepository.save(request);
     }
 
+    public List<Request> findByUserId(String userId) {
+        if (userId == null || userId.trim().isEmpty()) {
+            throw new BusinessValidationException("User ID cannot be null or empty");
+        }
+        return requestRepository.findByUserId(userId);
+    }
     public List<Request> findByStateName(String stateName) {
-        // Validar que el nombre del estado no esté vacío
         if (stateName == null || stateName.trim().isEmpty()) {
             throw new BusinessValidationException("State name cannot be null or empty");
         }
         return requestRepository.findByStateName(stateName);
     }
+    public List<Request> findByRequestPriority(String requestPriority) {
+        if (requestPriority == null || requestPriority.trim().isEmpty()) {
+            throw new BusinessValidationException("Request priority cannot be null or empty");
+        }
 
-
-    public RequestDTO toDTO(Request request) {
-        return new RequestDTO(
-                request.getRequestId(),
-                request.getStudentId(),
-                request.getSourceGroup(),
-                request.getDestinationGroup(),
-                request.getType(),
-                request.getObservations(),
-                request.getState().getStateName(),
-                request.getRequestDate(),
-                request.getPriority(),
-                request.getEvaluationApproved()
-        );
+        RequestPriority priority;
+        try {
+            priority = RequestPriority.valueOf(requestPriority.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new BusinessValidationException("Invalid request priority: " + requestPriority);
+        }
+        return requestRepository.findByRequestPriority(priority);
+    }
+    public List<Request> findByCreatorRole(String creatorRole) {
+        if (creatorRole == null || creatorRole.trim().isEmpty()) {
+            throw new BusinessValidationException("Creator role cannot be null or empty");
+        }
+        Role role;
+        try{
+            role = Role.valueOf(creatorRole.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new BusinessValidationException("Invalid creator role: " + creatorRole);
+        }
+        return requestRepository.findByCreatorRole(role);
+    }
+    public List<Request> findByDeanOffice(String deanOffice) {
+        if (deanOffice == null || deanOffice.trim().isEmpty()) {
+            throw new BusinessValidationException("Dean office cannot be null or empty");
+        }
+        return requestRepository.findByDeanOffice(deanOffice);
+    }
+    public List<Request> findRequestsByOneStudent(String studentId) {
+        if (studentId == null || studentId.trim().isEmpty()) {
+            throw new BusinessValidationException("Student ID cannot be null or empty");
+        }
+        List<Request> byRole = requestRepository.findByCreatorRole(Role.STUDENT);
+        return byRole.stream().filter(r -> r.getUserId().equals(studentId)).collect(Collectors.toList());
     }
 
-    public Request fromDTO(RequestDTO dto) {
-        Request request = new Request(
-                dto.getId(),
-                dto.getSourceGroup(),
-                dto.getDestinationGroup(),
-                dto.getType(),
-                dto.getObservations(),
-                dto.getRequestDate(),
-                dto.getStudentId()
-        );
-
-        request.setEvaluationApproved(dto.getEvaluationApproved());
-        request.setPriority(dto.getPriority());
-
-        return request;
+    public List<Request> findStudentsRequestByDeanOffice(String deanOffice, String userId) {
+        if (deanOffice == null || deanOffice.trim().isEmpty()) {
+            throw new BusinessValidationException("Dean office cannot be null or empty");
+        }
+        List<String> students = deanOfficeService.getStudentsByFaculty(deanOffice);
+        if(students.contains(userId)){
+            return requestRepository.findStudentsRequestByDeanOffice(deanOffice, userId);
+        }else{
+            throw new BusinessValidationException("The student with id: " + userId + " is not registered in the dean office: " + deanOffice);
+        }
     }
 
-    public List<RequestDTO> toDTOList(List<Request> requests) {
-        return requests.stream().map(this::toDTO).collect(Collectors.toList());
+    public List<Request> findByRequestDate(LocalDate requestDate) {
+        LocalDateTime startOfDay = requestDate.atStartOfDay();
+        LocalDateTime endOfDay = requestDate.atTime(LocalTime.MAX);
+        return requestRepository.findAllByRequestDateBetween(startOfDay, endOfDay);
     }
 }

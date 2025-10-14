@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Model.Factory;
 
 import com.example.fantasticosback.Model.Strategy.ProfileStrategy;
-import com.example.fantasticosback.util.Role;
+import com.example.fantasticosback.util.Enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

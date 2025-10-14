@@ -134,6 +134,7 @@ public class DeanOfficeService {
     }
 
 
+
     public DeanOfficeDTO addStudent(String deanOfficeId, Student student) {
         DeanOffice deanOffice = deanOfficeRepository.findById(deanOfficeId)
                 .orElseThrow(() -> new ResourceNotFoundException("DeanOffice", "id", deanOfficeId));
@@ -147,6 +148,13 @@ public class DeanOfficeService {
     public List<String> getStudents(String deanOfficeId) {
         DeanOffice deanOffice = deanOfficeRepository.findById(deanOfficeId)
                 .orElseThrow(() -> new ResourceNotFoundException("DeanOffice", "id", deanOfficeId));
+        return deanOffice.getStudents();
+    }
+    public List<String> getStudentsByFaculty(String faculty) {
+        DeanOffice deanOffice = deanOfficeRepository.findByFaculty(faculty);
+        if (deanOffice == null) {
+            throw new ResourceNotFoundException("DeanOffice", "faculty", faculty);
+        }
         return deanOffice.getStudents();
     }
 
