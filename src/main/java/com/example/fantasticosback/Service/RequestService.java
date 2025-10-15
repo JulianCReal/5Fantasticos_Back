@@ -3,28 +3,42 @@ package com.example.fantasticosback.Service;
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Exception.BusinessValidationException;
 import com.example.fantasticosback.Model.Document.Request;
+import com.example.fantasticosback.Model.Handlers.RequestHandlers.*;
+import com.example.fantasticosback.Model.Observers.RequestCreationObserver;
 import com.example.fantasticosback.Repository.RequestRepository;
 import com.example.fantasticosback.util.Enums.RequestPriority;
+import com.example.fantasticosback.util.Enums.RequestType;
 import com.example.fantasticosback.util.Enums.Role;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class RequestService {
+    private final RequestRepository requestRepository;
+    private final DeanOfficeService deanOfficeService;
+    private final ArrayList<RequestCreationObserver> observerForCreation;
+    private final HashMap<RequestType, RequestHandler> handlersForRequest;
 
-    @Autowired
-    private RequestRepository requestRepository;
-    @Autowired
-    private DeanOfficeService deanOfficeService;
+    public RequestService(RequestRepository requestRepository, DeanOfficeService deanOfficeService, ArrayList<RequestCreationObserver> observerForCreation) {
+        this.requestRepository = requestRepository;
+        this.deanOfficeService = deanOfficeService;
+        this.observerForCreation = observerForCreation;
+        this.handlersForRequest = addHandlers();
+    }
 
     public Request save(Request request) {
-        return requestRepository.save(request);
+        Request saved = requestRepository.save(request);
+        for(RequestCreationObserver observer : observerForCreation){
+            observer.notifyCreation(request);
+        }
+        return saved;
     }
 
     public List<Request> findAll() {
@@ -124,5 +138,24 @@ public class RequestService {
         LocalDateTime startOfDay = requestDate.atStartOfDay();
         LocalDateTime endOfDay = requestDate.atTime(LocalTime.MAX);
         return requestRepository.findAllByRequestDateBetween(startOfDay, endOfDay);
+    }
+
+    private HashMap<RequestType, RequestHandler> addHandlers(){
+        HashMap<RequestType, RequestHandler> handlersForRequest = new HashMap<>();
+        handlersForRequest.put(RequestType.CHANGE_GROUP, new ChangeGroupHandler());
+        handlersForRequest.put(RequestType.JOIN_GROUP, new JoinGroupHandler());
+        handlersForRequest.put(RequestType.LEAVE_GROUP, new LeaveGroupHandler());
+        handlersForRequest.put(RequestType.SPECIAL, new SpecialHandler());
+        return handlersForRequest;
+    }
+    public boolean processRequest(Request request) {
+        RequestType type = request.getType();
+        switch (type) {
+            case CHANGE_GROUP, JOIN_GROUP, LEAVE_GROUP, SPECIAL -> {
+                handlersForRequest.get(type).response(request);
+                return true;
+            }
+            default -> throw new BusinessValidationException("Unsupported request type: " + type);
+        }
     }
 }

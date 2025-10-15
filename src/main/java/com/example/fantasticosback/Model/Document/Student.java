@@ -1,6 +1,5 @@
 package com.example.fantasticosback.Model.Document;
 
-import com.example.fantasticosback.Model.Observers.RequestObserver;
 import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,7 +19,6 @@ public class Student extends Person {
     private static final Logger log = Logger.getLogger(Student.class.getName());
     private ArrayList<Request> requests = new ArrayList<>();
     private AcademicTrafficLight academicTrafficLight;
-    private ArrayList<RequestObserver> observers = new ArrayList<>();
 
     public Student(String name, String lastName, int document, String career, String code, String studentId, int semester, AcademicTrafficLight academicTrafficLight) {
         super(name, lastName, document);
@@ -155,21 +153,6 @@ public class Student extends Person {
             log.info("Subject " + enrollment.getSubject().getName() + " cancelled successfully.");
         } else {
             log.warning("No active semester to cancel the subject.");
-        }
-    }
-
-    // Observer pattern methods
-    public void addObserver(RequestObserver observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(RequestObserver observer) {
-        observers.remove(observer);
-    }
-
-    private void notifyObservers(Request request) {
-        for (RequestObserver observer : observers) {
-            observer.notifyRequest(request);
         }
     }
 

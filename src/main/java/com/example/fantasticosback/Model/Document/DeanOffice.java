@@ -1,6 +1,5 @@
 package com.example.fantasticosback.Model.Document;
 
-import com.example.fantasticosback.Model.Observers.RequestObserver;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,9 +22,6 @@ public class DeanOffice {
     private List<String> professors = new ArrayList<>();
     private List<String> subjects = new ArrayList<>();
     private String deanName;
-
-    @Transient
-    private ArrayList<RequestObserver> observers = new ArrayList<>();
 
     public DeanOffice(String id, String faculty) {
         this.id = id;
