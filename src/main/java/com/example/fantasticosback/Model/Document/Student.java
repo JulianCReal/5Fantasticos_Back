@@ -173,7 +173,7 @@ public class Student extends Person {
         }
     }
 
-    public Request createRequest(String type, Enrollment currentSubject, Group destinationGroup, Subject destinationSubject, String observations) {
+    /*public Request createRequest(String type, Enrollment currentSubject, Group destinationGroup, Subject destinationSubject, String observations) {
         String requestId = String.valueOf((int) (Math.random() * 100000));
         Date currentDate = new Date();
 
@@ -202,7 +202,7 @@ public class Student extends Person {
         notifyObservers(request);
 
         return request;
-    }
+    }*/
 
     public AcademicTrafficLight getAcademicTrafficLight() {
         return academicTrafficLight;
