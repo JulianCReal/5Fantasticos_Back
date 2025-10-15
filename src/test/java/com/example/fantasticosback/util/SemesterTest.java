@@ -1,6 +1,6 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Model.Document.*;
+import com.example.fantasticosback.model.Document.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,13 +1,5 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Model.Document.*;
-import org.junit.jupiter.api.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 /*
 public class ObserverTest {
     @Test

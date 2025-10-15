@@ -1,7 +1,7 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Model.Document.Group;
-import com.example.fantasticosback.Model.Document.Subject;
+import com.example.fantasticosback.model.Document.Group;
+import com.example.fantasticosback.model.Document.Subject;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

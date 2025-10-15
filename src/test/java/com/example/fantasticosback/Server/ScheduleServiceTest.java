@@ -1,10 +1,10 @@
 package com.example.fantasticosback.Server;
 
-import com.example.fantasticosback.Model.Document.*;
-import com.example.fantasticosback.Repository.DeanOfficeRepository;
-import com.example.fantasticosback.Repository.StudentRepository;
-import com.example.fantasticosback.Repository.TeacherRepository;
-import com.example.fantasticosback.Service.ScheduleService;
+import com.example.fantasticosback.model.Document.*;
+import com.example.fantasticosback.repository.DeanOfficeRepository;
+import com.example.fantasticosback.repository.StudentRepository;
+import com.example.fantasticosback.repository.TeacherRepository;
+import com.example.fantasticosback.service.ScheduleService;
 import com.example.fantasticosback.enums.UserRole;
 import com.example.fantasticosback.util.AcademicTrafficLight;
 import com.example.fantasticosback.util.ClassSession;

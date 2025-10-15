@@ -1,8 +1,8 @@
 package com.example.fantasticosback.Server;
 
-import com.example.fantasticosback.Model.Document.Subject;
-import com.example.fantasticosback.Repository.SubjectRepository;
-import com.example.fantasticosback.Service.SubjectService;
+import com.example.fantasticosback.model.Document.Subject;
+import com.example.fantasticosback.repository.SubjectRepository;
+import com.example.fantasticosback.service.SubjectService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

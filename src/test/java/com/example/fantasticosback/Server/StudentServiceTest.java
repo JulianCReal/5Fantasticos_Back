@@ -1,10 +1,10 @@
 package com.example.fantasticosback.Server;
 
-import com.example.fantasticosback.Exception.ResourceNotFoundException;
-import com.example.fantasticosback.Model.Document.Career;
-import com.example.fantasticosback.Model.Document.Student;
-import com.example.fantasticosback.Repository.StudentRepository;
-import com.example.fantasticosback.Service.StudentService;
+import com.example.fantasticosback.exception.ResourceNotFoundException;
+import com.example.fantasticosback.model.Document.Career;
+import com.example.fantasticosback.model.Document.Student;
+import com.example.fantasticosback.repository.StudentRepository;
+import com.example.fantasticosback.service.StudentService;
 import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
