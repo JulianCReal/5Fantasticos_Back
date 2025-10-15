@@ -1,11 +1,12 @@
 package com.example.fantasticosback.model.RequestStates;
 
+import com.example.fantasticosback.enums.Role;
 import com.example.fantasticosback.model.Document.Request;
 
 public class RejectedState implements RequestState {
 
     @Override
-    public void changeState(Request request, String userRole) {
+    public void changeState(Request request, Role userRole) {
         throw new IllegalStateException("The request was rejected. It cannot change state.");
     }
 

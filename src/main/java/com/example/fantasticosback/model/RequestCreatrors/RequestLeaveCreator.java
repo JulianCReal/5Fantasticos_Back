@@ -14,7 +14,7 @@ public class RequestLeaveCreator extends RequestCreator {
     @Override
     public Request createRequest(RequestDTO requestDTO) {
         Request request = new Request();
-        request.setRequestId(UUID.randomUUID().toString());
+        request.setId(UUID.randomUUID().toString());
         request.setUserId(requestDTO.getUserId());
         request.setType(requestDTO.getRequestType());
         request.setSourceGroup((Group) requestDTO.getDetails().get("sourceGroup"));

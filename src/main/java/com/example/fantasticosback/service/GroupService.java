@@ -28,9 +28,9 @@ public class GroupService {
         return groupRepository.save(group);
     }
 
-    public Group getGroupById(int groupId) {
-        return groupRepository.findById(groupId)
-            .orElseThrow(() -> new ResourceNotFoundException("Group", "id", groupId));
+    public Group getGroupById(String id) {
+        return groupRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Group", "id", id));
     }
 
     public Group assignTeacher(int groupId, String teacherId) {
@@ -94,11 +94,13 @@ public class GroupService {
     /**
      * Obtiene todos los estudiantes inscritos en un grupo específico
      */
-    public List<Student> getAllStudentsInGroup(int groupId, List<Student> allStudents) {
+    public List<Student> getAllStudentsInGroup(String groupId, List<Student> allStudents) {
         return allStudents.stream()
                 .filter(student -> {
                     List<Semester> semesters = student.getSemesters();
-                    if (semesters.isEmpty()) return false;
+                    if (semesters.isEmpty()) {
+                        return false;
+                    }
                     Semester currentSemester = semesters.get(semesters.size() - 1);
                     return currentSemester.getSubjects().stream()
                             .anyMatch(enrollment -> enrollment.getGroup().getId() == groupId);

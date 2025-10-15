@@ -65,27 +65,13 @@ public class Request {
         this.stateName = state.getStateName();
     }
 
-    public void process(String userRole) {
-        if (state == null) {
-            recoverState();
-        }
-        state.changeState(this, userRole);
-    }
     public void setEvaluationApproved(Boolean evaluationApproved) {
         this.requestEvaluation = evaluationApproved;
     }
     public Boolean getEvaluationApproved() {
         return requestEvaluation;
     }
-
-    public String getRequestId() {
-        return id;
-    }
     public void setHistoryResponses(String response) {
         this.historyResponses.put(requestResponseTime, response);
-    }
-
-    public void setRequestId(String id) {
-        this.id = id;
     }
 }

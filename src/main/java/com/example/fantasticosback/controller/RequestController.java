@@ -132,7 +132,7 @@ public class RequestController {
 
     private RequestResponseDTO convertToResponseDTO(Request request) {
         RequestResponseDTO responseDTO = new RequestResponseDTO();
-        responseDTO.setRequestId(request.getRequestId());
+        responseDTO.setRequestId(request.getId());
         responseDTO.setUserId(request.getUserId());
         responseDTO.setRequestType(request.getType());
         responseDTO.setHistoryResponses(request.getHistoryResponses());

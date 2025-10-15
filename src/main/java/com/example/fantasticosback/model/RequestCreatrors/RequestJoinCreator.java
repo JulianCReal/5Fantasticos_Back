@@ -14,7 +14,7 @@ public class RequestJoinCreator extends RequestCreator {
     @Override
     public Request createRequest(RequestDTO requestDTO) {
         Request request = new Request();
-        request.setRequestId(UUID.randomUUID().toString());
+        request.setId(UUID.randomUUID().toString());
         request.setUserId(requestDTO.getUserId());
         request.setType(requestDTO.getRequestType());
         request.setDestinationGroup((Group) requestDTO.getDetails().get("destinationGroup"));
