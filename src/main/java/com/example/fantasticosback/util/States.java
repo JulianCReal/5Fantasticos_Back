@@ -1,10 +1,10 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Model.RequestStates.RequestState;
-import com.example.fantasticosback.Model.RequestStates.PendingState;
-import com.example.fantasticosback.Model.RequestStates.ProcessState;
-import com.example.fantasticosback.Model.RequestStates.AcceptedState;
-import com.example.fantasticosback.Model.RequestStates.RejectedState;
+import com.example.fantasticosback.model.RequestStates.RequestState;
+import com.example.fantasticosback.model.RequestStates.PendingState;
+import com.example.fantasticosback.model.RequestStates.ProcessState;
+import com.example.fantasticosback.model.RequestStates.AcceptedState;
+import com.example.fantasticosback.model.RequestStates.RejectedState;
 
 import java.util.HashMap;
 import java.util.Map;
