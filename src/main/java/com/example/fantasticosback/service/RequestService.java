@@ -3,8 +3,8 @@ package com.example.fantasticosback.service;
 import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.model.Document.Request;
-import com.example.fantasticosback.model.Handlers.RequestHandlers.*;
 import com.example.fantasticosback.model.Observers.RequestCreationObserver;
+import com.example.fantasticosback.model.Validators.RequestValidators.*;
 import com.example.fantasticosback.repository.RequestRepository;
 import com.example.fantasticosback.enums.RequestPriority;
 import com.example.fantasticosback.enums.RequestType;
@@ -24,13 +24,13 @@ public class RequestService {
     private final RequestRepository requestRepository;
     private final DeanOfficeService deanOfficeService;
     private final ArrayList<RequestCreationObserver> observerForCreation;
-    private final HashMap<RequestType, RequestHandler> handlersForRequest;
+    private final HashMap<RequestType, RequestValidator> validatorsForRequest;
 
     public RequestService(RequestRepository requestRepository, DeanOfficeService deanOfficeService, ArrayList<RequestCreationObserver> observerForCreation) {
         this.requestRepository = requestRepository;
         this.deanOfficeService = deanOfficeService;
         this.observerForCreation = observerForCreation;
-        this.handlersForRequest = addHandlers();
+        this.validatorsForRequest = addValidators();
     }
 
     public Request save(Request request) {
@@ -67,7 +67,7 @@ public class RequestService {
 
     public Request update(Request request) {
         // Verificar que el request existe
-        findById(request.getRequestId());
+        findById(request.getId());
         return requestRepository.save(request);
     }
 
@@ -140,22 +140,38 @@ public class RequestService {
         return requestRepository.findAllByRequestDateBetween(startOfDay, endOfDay);
     }
 
-    private HashMap<RequestType, RequestHandler> addHandlers(){
-        HashMap<RequestType, RequestHandler> handlersForRequest = new HashMap<>();
-        handlersForRequest.put(RequestType.CHANGE_GROUP, new ChangeGroupHandler());
-        handlersForRequest.put(RequestType.JOIN_GROUP, new JoinGroupHandler());
-        handlersForRequest.put(RequestType.LEAVE_GROUP, new LeaveGroupHandler());
-        handlersForRequest.put(RequestType.SPECIAL, new SpecialHandler());
+    private HashMap<RequestType, RequestValidator> addValidators(){
+        HashMap<RequestType, RequestValidator> handlersForRequest = new HashMap<>();
+        handlersForRequest.put(RequestType.CHANGE_GROUP, new ChangeGroupValidator());
+        handlersForRequest.put(RequestType.JOIN_GROUP, new JoinGroupValidator());
+        handlersForRequest.put(RequestType.LEAVE_GROUP, new LeaveGroupValidator());
+        handlersForRequest.put(RequestType.SPECIAL, new SpecialValidator());
         return handlersForRequest;
     }
-    public boolean processRequest(Request request) {
+    private boolean processRequest(Request request, Role role) {
         RequestType type = request.getType();
+        request.getState().changeState(request, role);
+        request.setRequestResponseTime(LocalDateTime.now());
+        request.setHistoryResponses("Request moved to " + request.getState().getStateName() + " by " + role + " on " + request.getRequestResponseTime());
         switch (type) {
             case CHANGE_GROUP, JOIN_GROUP, LEAVE_GROUP, SPECIAL -> {
-                handlersForRequest.get(type).response(request);
-                return true;
+                return validatorsForRequest.get(type).response(request);
             }
             default -> throw new BusinessValidationException("Unsupported request type: " + type);
         }
+    }
+
+    public void answerRequest(Request request, Role role){
+        request.setRequestResponseTime(LocalDateTime.now());
+        if (processRequest(request, role)) {
+            request.setEvaluationApproved(true);
+            request.getState().changeState(request, role);
+            request.setHistoryResponses("Request moved to " + request.getState().getStateName() + " by " + role + " on " + request.getRequestResponseTime());
+        }else{
+            request.setEvaluationApproved(false);
+            request.getState().changeState(request, role);
+            request.setHistoryResponses("Request moved to " + request.getState().getStateName() + " by " + role + " on " + request.getRequestResponseTime());
+        }
+        requestRepository.save(request);
     }
 }

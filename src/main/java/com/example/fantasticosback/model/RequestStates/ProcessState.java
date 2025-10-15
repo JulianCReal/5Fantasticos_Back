@@ -1,21 +1,22 @@
 package com.example.fantasticosback.model.RequestStates;
 
+import com.example.fantasticosback.enums.Role;
+import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.model.Document.Request;
 
 public class ProcessState implements RequestState {
 
     @Override
-    public void changeState(Request request, String userRole) {
-        if (!userRole.equals("DeanOffice") && !userRole.equals("Administrative")) {
-            throw new IllegalStateException("Only dean office or administrative staff can accept or reject requests.");
+    public void changeState(Request request, Role userRole) {
+        if (userRole.equals(Role.DEAN) || userRole.equals(Role.DEAN_OFFICE)) {
+            boolean evaluation = request.getEvaluationApproved();
+            if (evaluation) {
+                request.setState(new AcceptedState());
+            } else {
+                request.setState(new RejectedState());
+            }
         }
-        boolean evaluation = request.getEvaluationApproved();
-
-        if (evaluation) {
-            request.setState(new AcceptedState());
-        } else {
-            request.setState(new RejectedState());
-        }
+        throw new BusinessValidationException("Only dean office or administrative staff can move a request from 'In Process' to 'Accepted' or 'Rejected'");
     }
 
     @Override

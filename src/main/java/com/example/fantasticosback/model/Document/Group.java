@@ -1,13 +1,20 @@
 package com.example.fantasticosback.model.Document;
 
 import com.example.fantasticosback.util.ClassSession;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 
+
+@Data
 @Document(collection = "Groups")
 public class Group {
-    private int id;
+    @Id
+    private String id;
+
+    private String subjectId;
     private int number;
     private int capacity;
     private boolean active;
@@ -15,7 +22,7 @@ public class Group {
     private ArrayList<Student> groupStudents;
     private ArrayList<ClassSession> sessions = new ArrayList<>();
 
-    public Group(int id, int number, int capacity, boolean active, Teacher teacher) {
+    public Group(String id, int number, int capacity, boolean active, Teacher teacher) {
         this.id = id;
         this.number = number;
         this.capacity = capacity;
@@ -25,50 +32,6 @@ public class Group {
         this.sessions = new ArrayList<>();
     }
 
-    // Getters y Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }
-
-    public ArrayList<Student> getGroupStudents() {
-        return groupStudents;
-    }
-
-    public void setGroupStudents(ArrayList<Student> groupStudents) {
-        this.groupStudents = groupStudents;
-    }
-
-    public ArrayList<ClassSession> getSessions() {
-        return sessions;
-    }
-
-    public void setSessions(ArrayList<ClassSession> sessions) {
-        this.sessions = sessions;
-    }
 
     public void addSession(ClassSession session) {
         this.sessions.add(session);

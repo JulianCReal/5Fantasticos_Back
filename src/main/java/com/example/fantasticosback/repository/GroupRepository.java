@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GroupRepository extends MongoRepository<Group, Integer> {
+public interface GroupRepository extends MongoRepository<Group, String> {
     List<Group> findByTeacherId(String teacherId);
 
     @Query("{'number': ?0}")
