@@ -7,6 +7,7 @@ import com.example.fantasticosback.Repository.TeacherRepository;
 import com.example.fantasticosback.Model.Document.Subject;
 import com.example.fantasticosback.Model.Document.Group;
 import com.example.fantasticosback.Model.Document.Teacher;
+import com.example.fantasticosback.Model.Document.Student;
 import com.example.fantasticosback.util.SubjectCatalog;
 import com.example.fantasticosback.util.ClassSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class SubjectService {
 
     @Autowired
     private TeacherRepository teacherRepository;
+
+    @Autowired
+    private StudentService studentService;
 
     public Subject save(Subject subject) { return subjectRepository.save(subject);}
 
@@ -330,4 +334,5 @@ public class SubjectService {
         subjectRepository.save(subject);
         return true;
     }
+
 }

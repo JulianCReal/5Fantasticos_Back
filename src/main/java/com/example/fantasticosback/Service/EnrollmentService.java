@@ -4,7 +4,10 @@ import com.example.fantasticosback.Exception.BusinessValidationException;
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Model.Document.*;
 import com.example.fantasticosback.Repository.EnrollmentRepository;
+import com.example.fantasticosback.Repository.SubjectRepository;
 import com.example.fantasticosback.util.ClassSession;
+import com.example.fantasticosback.util.SubjectCatalog;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,16 +19,20 @@ public class EnrollmentService {
     private final GroupService groupService;
     private final StudentService studentService;
     private final ScheduleService scheduleService;
+    private final SubjectRepository subjectRepository;
+    private static final Logger log = Logger.getLogger(EnrollmentService.class.getName());
 
     public EnrollmentService(
             EnrollmentRepository enrollmentRepository,
             GroupService groupService,
             StudentService studentService,
-            ScheduleService scheduleService) {
+            ScheduleService scheduleService,
+            SubjectRepository subjectRepository) {
         this.enrollmentRepository = enrollmentRepository;
         this.groupService = groupService;
         this.studentService = studentService;
         this.scheduleService = scheduleService;
+        this.subjectRepository = subjectRepository;
     }
 
     public Enrollment enrollStudentInGroup(String studentId, int groupId, String semester) {
@@ -137,5 +144,68 @@ public class EnrollmentService {
 
     private boolean isWithinEnrollmentPeriod() {
         return true; // Por ahora retorna true para pruebas
+    }
+
+    /**
+     * Inscribir estudiante en materia específica y grupo específico usando abreviatura
+     */
+    // PENDIENTE DE REVISIÓN
+    public boolean enrollStudentInSubjectGroupByCode(String studentId, String subjectCode, String groupId) {
+        Student student = studentService.findById(studentId);
+        Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
+        if (catalogSubject == null) {
+            throw new ResourceNotFoundException("Subject in catalog", "code", subjectCode);
+        }
+        Subject subject = subjectRepository.findById(catalogSubject.getSubjectId()).orElse(null);
+        if (subject == null) {
+            throw new ResourceNotFoundException("Subject in database", "code", subjectCode);
+        }
+        Group targetGroup = subject.getAvailableGroups().stream()
+                .filter(group -> String.valueOf(group.getId()).equals(groupId))
+                .findFirst()
+                .orElse(null);
+        if (targetGroup == null) {
+            throw new ResourceNotFoundException("Group in subject " + subjectCode, "groupId", groupId);
+        }
+        long enrolledCount = groupService.getAllStudentsInGroup(targetGroup.getId(), studentService.findAll()).size();
+        if (enrolledCount >= targetGroup.getCapacity()) {
+            throw new BusinessValidationException("Group " + groupId + " is at full capacity");
+        }
+        if (!targetGroup.isActive()) {
+            throw new BusinessValidationException("El grupo no está activo");
+        }
+        // Usar verifyScheduleConflict para validar conflicto de horario
+        if (verifyScheduleConflict(student, targetGroup, subject)) {
+            throw new BusinessValidationException("Conflicto de horario con otra materia");
+        }
+        List<Semester> semesters = student.getSemesters();
+        if (semesters.isEmpty()) {
+            throw new BusinessValidationException("El estudiante no tiene semestre activo");
+        }
+        Semester currentSemester = semesters.get(semesters.size() - 1);
+        int enrollmentId = (int) (Math.random() * 100000);
+        Enrollment newEnrollment = new Enrollment(targetGroup, subject, enrollmentId, "active", 0.0);
+        currentSemester.addSubject(newEnrollment);
+        studentService.save(student);
+        log.info("Student " + studentId + " successfully enrolled in " + subjectCode + " group " + groupId);
+        return true;
+    }
+
+    /**
+     * Verifica si existe conflicto de horario para el estudiante
+     */
+    public boolean verifyScheduleConflict(Student student, Group desiredGroup, Subject desiredSubject) {
+        if (student.getSemesters().isEmpty()) {
+            return false;
+        }
+        Semester currentSemester = student.getSemesters().get(student.getSemesters().size() - 1);
+        Enrollment temporaryEnrollment = new Enrollment(desiredGroup, desiredSubject, 0, "studying", 0.0);
+        for (Enrollment existingEnrollment : currentSemester.getSubjects()) {
+            if (temporaryEnrollment.validateConflict(existingEnrollment)) {
+                log.warning("Group " + desiredGroup.getNumber() + " conflicts with " + existingEnrollment.getSubject().getName());
+                return true;
+            }
+        }
+        return false;
     }
 }
