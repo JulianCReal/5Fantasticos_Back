@@ -2,7 +2,7 @@ package com.example.fantasticosback.util;
 
 
 
-import com.example.fantasticosback.Dtos.DeanOfficeDTO;
+import com.example.fantasticosback.Dto.Response.DeanOfficeDTO;
 import com.example.fantasticosback.Model.Document.DeanOffice;
 import org.springframework.stereotype.Component;
 

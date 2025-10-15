@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Model.RequestCreatrors;
 
-import com.example.fantasticosback.Dtos.RequestDTOs.RequestDTO;
+import com.example.fantasticosback.Dto.Request.RequestDTO;
 import com.example.fantasticosback.Model.Document.Group;
 import com.example.fantasticosback.Model.Document.Request;
 import com.example.fantasticosback.util.Enums.RequestType;

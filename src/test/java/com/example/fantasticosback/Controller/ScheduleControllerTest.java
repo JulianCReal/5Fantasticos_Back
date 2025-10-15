@@ -1,7 +1,6 @@
 package com.example.fantasticosback.Controller;
 
-import com.example.fantasticosback.Persistence.Controller.ScheduleController;
-import com.example.fantasticosback.Persistence.Service.ScheduleService;
+import com.example.fantasticosback.Service.ScheduleService;
 import com.example.fantasticosback.enums.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

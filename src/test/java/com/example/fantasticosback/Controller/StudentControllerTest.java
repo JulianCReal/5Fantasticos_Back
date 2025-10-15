@@ -1,12 +1,11 @@
 package com.example.fantasticosback.Controller;
 
-import com.example.fantasticosback.Dtos.ResponseDTO;
-import com.example.fantasticosback.Dtos.StudentDTO;
+import com.example.fantasticosback.Dto.Response.ResponseDTO;
+import com.example.fantasticosback.Dto.Response.StudentDTO;
 import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Model.Document.Career;
 import com.example.fantasticosback.Model.Document.Student;
-import com.example.fantasticosback.Persistence.Controller.StudentController;
-import com.example.fantasticosback.Persistence.Service.StudentService;
+import com.example.fantasticosback.Service.StudentService;
 import com.example.fantasticosback.util.AcademicTrafficLight;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
