@@ -1,5 +1,5 @@
 package com.example.fantasticosback.Exception;
-import com.example.fantasticosback.Dtos.ResponseDTO;
+import com.example.fantasticosback.Dto.Response.ResponseDTO;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

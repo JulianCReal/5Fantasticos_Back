@@ -1,12 +1,11 @@
 package com.example.fantasticosback.Controller;
 
-import com.example.fantasticosback.Dtos.RegisterRequestDTO;
-import com.example.fantasticosback.Dtos.ResponseDTO;
-import com.example.fantasticosback.Dtos.UserResponseDTO;
+import com.example.fantasticosback.Dto.Request.RegisterRequestDTO;
+import com.example.fantasticosback.Dto.Response.ResponseDTO;
+import com.example.fantasticosback.Dto.Response.UserResponseDTO;
 import com.example.fantasticosback.Model.Document.User;
-import com.example.fantasticosback.Persistence.Controller.AuthController;
-import com.example.fantasticosback.Persistence.Repository.UserRepository;
-import com.example.fantasticosback.Persistence.Service.MatcherService;
+import com.example.fantasticosback.Repository.UserRepository;
+import com.example.fantasticosback.Service.MatcherService;
 import com.example.fantasticosback.util.JwtTokenUtil;
 import com.example.fantasticosback.util.LoginRequest;
 import com.example.fantasticosback.util.LoginResponse;

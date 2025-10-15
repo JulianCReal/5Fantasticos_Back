@@ -1,11 +1,10 @@
 package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Model.Document.Subject;
-import com.example.fantasticosback.Persistence.Controller.SubjectController;
-import com.example.fantasticosback.Persistence.Service.SubjectService;
-import com.example.fantasticosback.Dtos.SubjectDTO;
-import com.example.fantasticosback.Dtos.CreateGroupDTO;
-import com.example.fantasticosback.Dtos.ResponseDTO;
+import com.example.fantasticosback.Service.SubjectService;
+import com.example.fantasticosback.Dto.Response.SubjectDTO;
+import com.example.fantasticosback.Dto.Response.CreateGroupDTO;
+import com.example.fantasticosback.Dto.Response.ResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

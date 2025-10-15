@@ -1,6 +1,6 @@
 package com.example.fantasticosback.util;
 
-import com.example.fantasticosback.Dtos.DeanDTO;
+import com.example.fantasticosback.Dto.Response.DeanDTO;
 import com.example.fantasticosback.Model.Document.Dean;
 import org.springframework.stereotype.Component;
 

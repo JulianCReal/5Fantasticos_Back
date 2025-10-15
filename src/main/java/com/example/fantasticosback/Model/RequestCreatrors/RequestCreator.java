@@ -1,10 +1,10 @@
 package com.example.fantasticosback.Model.RequestCreatrors;
 
-import com.example.fantasticosback.Dtos.RequestDTOs.RequestDTO;
+import com.example.fantasticosback.Dto.Request.RequestDTO;
 import com.example.fantasticosback.Model.Document.Request;
-import com.example.fantasticosback.Persistence.Service.DeanService;
-import com.example.fantasticosback.Persistence.Service.StudentService;
-import com.example.fantasticosback.Persistence.Service.TeacherService;
+import com.example.fantasticosback.Service.DeanService;
+import com.example.fantasticosback.Service.StudentService;
+import com.example.fantasticosback.Service.TeacherService;
 import com.example.fantasticosback.util.Enums.RequestPriority;
 import com.example.fantasticosback.util.Enums.RequestType;
 import com.example.fantasticosback.util.Enums.Role;

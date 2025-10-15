@@ -1,10 +1,9 @@
 package com.example.fantasticosback.Controller;
 
 import com.example.fantasticosback.Model.Document.Teacher;
-import com.example.fantasticosback.Persistence.Controller.TeacherController;
-import com.example.fantasticosback.Persistence.Service.TeacherService;
-import com.example.fantasticosback.Dtos.TeacherDTO;
-import com.example.fantasticosback.Dtos.ResponseDTO;
+import com.example.fantasticosback.Service.TeacherService;
+import com.example.fantasticosback.Dto.Response.TeacherDTO;
+import com.example.fantasticosback.Dto.Response.ResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
