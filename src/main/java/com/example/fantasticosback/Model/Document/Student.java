@@ -1,12 +1,13 @@
 package com.example.fantasticosback.Model.Document;
 
 import com.example.fantasticosback.util.AcademicTrafficLight;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
 import java.util.logging.Logger;
-
+@Data
 @Document(collection = "Students")
 public class Student extends Person {
 
@@ -52,110 +53,6 @@ public class Student extends Person {
         log.info("Initialized " + currentSemester + " semesters for student " + this.studentId);
     }
 
-    // Getters y Setters
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public String getCareer() {
-        return career;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public int getSemester() {
-        return semester;
-    }
-
-    public ArrayList<Semester> getSemesters() {
-        return semesters;
-    }
-
-    public void setSemesters(ArrayList<Semester> semesters) {
-        this.semesters = semesters;
-    }
-
-    public void addSemester(Semester semester) {
-        this.semesters.add(semester);
-    }
-
-    public ArrayList<Request> getRequests() {
-        return requests;
-    }
-
-    public void setRequests(ArrayList<Request> requests) {
-        this.requests = requests;
-    }
-
-    public void setId(String _id) {
-        this.studentId = _id;
-    }
-
-    public boolean verifyScheduleConflict(Group desiredGroup, Subject desiredSubject) {
-        if (semesters.isEmpty()) {
-            return false;
-        }
-
-        Semester currentSemester = semesters.get(semesters.size() - 1);
-        Enrollment temporaryEnrollment = new Enrollment(desiredGroup, desiredSubject, 0, "studying", 0.0);
-
-        for (Enrollment existingEnrollment : currentSemester.getSubjects()) {
-            if (temporaryEnrollment.validateConflict(existingEnrollment)) {
-                log.warning("Group " + desiredGroup.getNumber() +
-                        " conflicts with " + existingEnrollment.getSubject().getName());
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean addSubject(Group chosenGroup, Subject subject) {
-        if (!chosenGroup.isActive()) {
-            log.warning("Group " + chosenGroup.getNumber() + " is not active.");
-            return false;
-        }
-
-        if (verifyScheduleConflict(chosenGroup, subject)) {
-            log.warning("Cannot enroll: schedule conflict.");
-            return false;
-        }
-
-        int enrollmentId = (int) (Math.random() * 100000);
-        Enrollment newEnrollment = new Enrollment(chosenGroup, subject, enrollmentId, "active", 0.0);
-
-        if (!semesters.isEmpty()) {
-            semesters.get(semesters.size() - 1).addSubject(newEnrollment);
-            log.info("Successful enrollment in group " + chosenGroup.getNumber() +
-                    " of " + subject.getName());
-            return true;
-        }
-
-        log.warning("No active semester to add the subject.");
-        return false;
-    }
-
-    public void removeSubject(Enrollment enrollment) {
-        if (!semesters.isEmpty()) {
-            Semester currentSemester = semesters.get(semesters.size() - 1);
-            currentSemester.removeSubject(enrollment);
-            log.info("Subject " + enrollment.getSubject().getName() + " withdrawn successfully.");
-        } else {
-            log.warning("No active semester to remove the subject.");
-        }
-    }
-
-    public void cancelSubject(Enrollment enrollment) {
-        if (!semesters.isEmpty()) {
-            Semester currentSemester = semesters.get(semesters.size() - 1);
-            currentSemester.cancelSubject(enrollment);
-            log.info("Subject " + enrollment.getSubject().getName() + " cancelled successfully.");
-        } else {
-            log.warning("No active semester to cancel the subject.");
-        }
-    }
-
     /*public Request createRequest(String type, Enrollment currentSubject, Group destinationGroup, Subject destinationSubject, String observations) {
         String requestId = String.valueOf((int) (Math.random() * 100000));
         Date currentDate = new Date();
@@ -186,100 +83,6 @@ public class Student extends Person {
 
         return request;
     }*/
-
-    public AcademicTrafficLight getAcademicTrafficLight() {
-        return academicTrafficLight;
-    }
-
-    // Métodos para consulta de horarios
-
-    /**
-     * Obtiene el horario del semestre actual
-     *
-     * @return Lista de materias inscritas en el semestre actual con sus horarios
-     */
-    public ArrayList<Enrollment> getCurrentSchedule() {
-        if (semesters.isEmpty()) {
-            log.info("No hay semestres registrados para el estudiante.");
-            return new ArrayList<>();
-        }
-
-        Semester currentSemester = semesters.get(semesters.size() - 1);
-        log.info("Consultando horario actual - Semestre: " + (semesters.size()));
-        return currentSemester.getSubjects();
-    }
-
-    /**
-     * Obtiene el horario de un semestre específico
-     *
-     * @param semesterIndex Índice del semestre (0 para el primer semestre)
-     * @return Lista de materias del semestre especificado
-     */
-    public ArrayList<Enrollment> getScheduleBySemester(int semesterIndex) {
-        if (semesterIndex < 0 || semesterIndex >= semesters.size()) {
-            log.warning("Índice de semestre inválido: " + semesterIndex +
-                    ". Semestres disponibles: 0-" + (semesters.size() - 1));
-            return new ArrayList<>();
-        }
-
-        Semester targetSemester = semesters.get(semesterIndex);
-        log.info("Consultando horario del semestre " + (semesterIndex + 1));
-        return targetSemester.getSubjects();
-    }
-
-    /**
-     * Obtiene todos los horarios de semestres anteriores (excluyendo el actual)
-     *
-     * @return Map con el número de semestre como clave y las materias como valor
-     */
-    public Map<Integer, ArrayList<Enrollment>> getPreviousSemestersSchedules() {
-        Map<Integer, ArrayList<Enrollment>> previousSchedules = new HashMap<>();
-
-        if (semesters.size() <= 1) {
-            log.info("No hay semestres anteriores para consultar.");
-            return previousSchedules;
-        }
-
-        // Obtener todos los semestres excepto el último (actual)
-        for (int i = 0; i < semesters.size() - 1; i++) {
-            previousSchedules.put(i + 1, semesters.get(i).getSubjects());
-        }
-
-        log.info("Consultando horarios de " + (semesters.size() - 1) + " semestres anteriores.");
-        return previousSchedules;
-    }
-
-    /**
-     * Obtiene un resumen completo de todos los horarios del estudiante
-     *
-     * @return Map con todos los semestres y sus materias
-     */
-    public Map<Integer, ArrayList<Enrollment>> getAllSchedules() {
-        Map<Integer, ArrayList<Enrollment>> allSchedules = new HashMap<>();
-
-        if (semesters.isEmpty()) {
-            log.info("No hay semestres registrados.");
-            return allSchedules;
-        }
-
-        for (int i = 0; i < semesters.size(); i++) {
-            allSchedules.put(i + 1, semesters.get(i).getSubjects());
-        }
-
-        log.info("Consultando todos los horarios - Total semestres: " + semesters.size());
-        return allSchedules;
-    }
-
-    /**
-     * Verifica si el estudiante tiene materias activas en el semestre actual
-     *
-     * @return true si tiene materias activas, false en caso contrario
-     */
-    public boolean hasActiveSchedule() {
-        ArrayList<Enrollment> currentSchedule = getCurrentSchedule();
-        return !currentSchedule.isEmpty() &&
-                currentSchedule.stream().anyMatch(enrollment -> "active".equals(enrollment.getStatus()));
-    }
 
     @Override
     public void showInformation() {

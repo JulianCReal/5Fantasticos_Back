@@ -5,6 +5,7 @@ import com.example.fantasticosback.Exception.ResourceNotFoundException;
 import com.example.fantasticosback.Model.Document.Group;
 import com.example.fantasticosback.Model.Document.Teacher;
 import com.example.fantasticosback.Model.Document.Student;
+import com.example.fantasticosback.Model.Document.Semester;
 import com.example.fantasticosback.util.ClassSession;
 import com.example.fantasticosback.Repository.GroupRepository;
 import org.springframework.stereotype.Service;
@@ -88,6 +89,21 @@ public class GroupService {
     public List<ClassSession> getGroupSchedule(int groupId) {
         Group group = getGroupById(groupId);
         return group.getSessions();
+    }
+
+    /**
+     * Obtiene todos los estudiantes inscritos en un grupo específico
+     */
+    public List<Student> getAllStudentsInGroup(int groupId, List<Student> allStudents) {
+        return allStudents.stream()
+                .filter(student -> {
+                    List<Semester> semesters = student.getSemesters();
+                    if (semesters.isEmpty()) return false;
+                    Semester currentSemester = semesters.get(semesters.size() - 1);
+                    return currentSemester.getSubjects().stream()
+                            .anyMatch(enrollment -> enrollment.getGroup().getId() == groupId);
+                })
+                .toList();
     }
 
     private void validateGroupCreation(Group group) {
