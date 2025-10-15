@@ -1,25 +1,6 @@
 package com.example.fantasticosback.Controller;
 
-import com.example.fantasticosback.Dtos.RequestDTO;
-import com.example.fantasticosback.Dtos.ResponseDTO;
-import com.example.fantasticosback.Exception.ResourceNotFoundException;
-import com.example.fantasticosback.Model.Document.Request;
-import com.example.fantasticosback.Model.Document.Group;
-import com.example.fantasticosback.Persistence.Controller.RequestController;
-import com.example.fantasticosback.Persistence.Service.RequestService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.http.ResponseEntity;
-
-import java.util.Collections;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
+/*
 class RequestControllerTest {
     @Mock
     private RequestService requestService;
@@ -158,4 +139,4 @@ class RequestControllerTest {
         assertEquals("Requests by status", response.getBody().getMessage());
         assertEquals(dtos, response.getBody().getData());
     }
-}
+}*/

@@ -2,6 +2,9 @@ package com.example.fantasticosback.Model.Document;
 
 import com.example.fantasticosback.Model.RequestStates.RequestState;
 import com.example.fantasticosback.Model.RequestStates.PendingState;
+import com.example.fantasticosback.util.Enums.RequestPriority;
+import com.example.fantasticosback.util.Enums.RequestType;
+import com.example.fantasticosback.util.Enums.Role;
 import com.example.fantasticosback.util.States;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,15 +24,18 @@ public class Request {
     @Id
     private String id;
 
-    private String studentId;
-    private static int priorityCounter = 0;
+    private String userId;
     private Group sourceGroup;
     private Group destinationGroup;
-    private String type;
     private String observations;
     private String stateName;
-    private Date requestDate;
-    private int priority;
+    private LocalDateTime requestDate;
+    private String deanOffice;
+
+    private RequestType type;
+    private Role creatorRole;
+    private LocalDateTime requestResponseTime;
+    private RequestPriority requestPriority;
     private HashMap<LocalDateTime, String> historyResponses;
 
     @Transient
@@ -37,17 +43,9 @@ public class Request {
     @Transient
     private transient boolean requestEvaluation;
 
-    public Request(String id, Group sourceGroup, Group destinationGroup, String type, String observations, Date requestDate, String studentId) {
-        this.id = id;
-        this.sourceGroup = sourceGroup;
-        this.destinationGroup = destinationGroup;
-        this.type = type;
-        this.observations = observations;
-        this.requestDate = requestDate;
-        this.studentId = studentId;
-        this.priority = priorityCounter++;
-        this.historyResponses = new HashMap<>();
+    public Request() {
         setState(new PendingState());
+        this.historyResponses = new HashMap<>();
     }
 
     public void recoverState() {
@@ -84,8 +82,8 @@ public class Request {
     public String getRequestId() {
         return id;
     }
-    public void setHistoryResponses(String response, LocalDateTime time) {
-        this.historyResponses.put(time, response);
+    public void setHistoryResponses(String response) {
+        this.historyResponses.put(requestResponseTime, response);
     }
 
     public void setRequestId(String id) {

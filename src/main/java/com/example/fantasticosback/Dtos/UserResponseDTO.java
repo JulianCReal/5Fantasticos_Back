@@ -1,6 +1,6 @@
 package com.example.fantasticosback.Dtos;
 
-import com.example.fantasticosback.util.Role;
+import com.example.fantasticosback.util.Enums.Role;
 
 public class UserResponseDTO {
     private String email;

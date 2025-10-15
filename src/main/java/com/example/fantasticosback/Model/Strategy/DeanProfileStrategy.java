@@ -1,7 +1,7 @@
 package com.example.fantasticosback.Model.Strategy;
 
 import com.example.fantasticosback.Persistence.Service.DeanOfficeService;
-import com.example.fantasticosback.util.Role;
+import com.example.fantasticosback.util.Enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

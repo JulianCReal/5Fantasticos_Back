@@ -1,5 +1,7 @@
 package com.example.fantasticosback.util;
 
+import com.example.fantasticosback.util.Enums.Role;
+
 public class LoginResponse {
     private Object profile;
     private Role role;
