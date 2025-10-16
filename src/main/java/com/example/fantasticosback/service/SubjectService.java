@@ -93,7 +93,7 @@ public class SubjectService {
 
         // Crear el nuevo grupo (sin la referencia a subject)
         Group newGroup = new Group(
-            newGroupId,
+            Integer.toString(newGroupId),
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
@@ -140,7 +140,7 @@ public class SubjectService {
             return 1;
         }
         return subject.getAvailableGroups().stream()
-                .mapToInt(Group::getId)
+                .mapToInt(g -> Integer.parseInt(g.getId()))
                 .max()
                 .orElse(0) + 1;
     }
@@ -177,7 +177,7 @@ public class SubjectService {
 
         // Crear el nuevo grupo (sin la referencia a subject)
         Group newGroup = new Group(
-            newGroupId,
+            Integer.toString(newGroupId),
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
@@ -243,7 +243,7 @@ public class SubjectService {
 
         // Buscar el grupo específico
         Group targetGroup = subject.getAvailableGroups().stream()
-                .filter(group -> group.getId() == groupId)
+                .filter(group -> group.getId().equals(groupId))
                 .findFirst()
                 .orElse(null);
 
@@ -285,7 +285,7 @@ public class SubjectService {
 
         // Buscar el grupo específico
         Group targetGroup = subject.getAvailableGroups().stream()
-                .filter(group -> group.getId() == groupId)
+                .filter(group -> group.getId().equals(groupId))
                 .findFirst()
                 .orElse(null);
 
@@ -314,7 +314,7 @@ public class SubjectService {
 
         // Buscar el grupo específico
         Group targetGroup = subject.getAvailableGroups().stream()
-                .filter(group -> group.getId() == groupId)
+                .filter(group -> group.getId().equals(groupId))
                 .findFirst()
                 .orElse(null);
 

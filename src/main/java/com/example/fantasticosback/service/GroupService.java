@@ -33,7 +33,7 @@ public class GroupService {
             .orElseThrow(() -> new ResourceNotFoundException("Group", "id", id));
     }
 
-    public Group assignTeacher(int groupId, String teacherId) {
+    public Group assignTeacher(String groupId, String teacherId) {
         Group group = getGroupById(groupId);
         Teacher teacher = teacherService.findById(teacherId);
         
@@ -45,7 +45,7 @@ public class GroupService {
         return groupRepository.save(group);
     }
 
-    public Group addSession(int groupId, ClassSession session) {
+    public Group addSession(String groupId, ClassSession session) {
         Group group = getGroupById(groupId);
         
         if (group.getTeacher() == null) {
@@ -61,7 +61,7 @@ public class GroupService {
         return groupRepository.save(group);
     }
 
-    public void addStudentToGroup(int groupId, Student student) {
+    public void addStudentToGroup(String groupId, Student student) {
         Group group = getGroupById(groupId);
         
         if (group.getTeacher() == null) {
@@ -80,13 +80,13 @@ public class GroupService {
         groupRepository.save(group);
     }
 
-    public void removeStudentFromGroup(int groupId, Student student) {
+    public void removeStudentFromGroup(String groupId, Student student) {
         Group group = getGroupById(groupId);
         group.getGroupStudents().remove(student);
         groupRepository.save(group);
     }
 
-    public List<ClassSession> getGroupSchedule(int groupId) {
+    public List<ClassSession> getGroupSchedule(String groupId) {
         Group group = getGroupById(groupId);
         return group.getSessions();
     }

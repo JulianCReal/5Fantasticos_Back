@@ -30,26 +30,26 @@ public class GroupController {
 
     @PutMapping("/{groupId}/teacher/{teacherId}")
     public ResponseEntity<Group> assignTeacher(
-            @PathVariable int groupId,
+            @PathVariable String groupId,
             @PathVariable String teacherId) {
         return ResponseEntity.ok(groupService.assignTeacher(groupId, teacherId));
     }
 
     @PostMapping("/{groupId}/sessions")
     public ResponseEntity<Group> addSession(
-            @PathVariable int groupId,
+            @PathVariable String groupId,
             @RequestBody ClassSession session) {
         return ResponseEntity.ok(groupService.addSession(groupId, session));
     }
 
     @GetMapping("/{groupId}/schedule")
-    public ResponseEntity<List<ClassSession>> getGroupSchedule(@PathVariable int groupId) {
+    public ResponseEntity<List<ClassSession>> getGroupSchedule(@PathVariable String groupId) {
         return ResponseEntity.ok(groupService.getGroupSchedule(groupId));
     }
 
     @PutMapping("/{groupId}/students")
     public ResponseEntity<?> addStudent(
-            @PathVariable int groupId,
+            @PathVariable String groupId,
             @RequestBody Student student) {
         groupService.addStudentToGroup(groupId, student);
         return ResponseEntity.ok().build();
@@ -57,7 +57,7 @@ public class GroupController {
 
     @DeleteMapping("/{groupId}/students/{studentId}")
     public ResponseEntity<?> removeStudent(
-            @PathVariable int groupId,
+            @PathVariable String groupId,
             @PathVariable String studentId) {
         Student student = studentService.findById(studentId);
         groupService.removeStudentFromGroup(groupId, student);

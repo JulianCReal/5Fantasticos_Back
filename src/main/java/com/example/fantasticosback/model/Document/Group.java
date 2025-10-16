@@ -36,4 +36,8 @@ public class Group {
     public void addSession(ClassSession session) {
         this.sessions.add(session);
     }
+
+    public String getId() {
+        return id;
+    }
 }

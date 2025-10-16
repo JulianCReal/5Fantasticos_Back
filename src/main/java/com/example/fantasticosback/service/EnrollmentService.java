@@ -35,7 +35,7 @@ public class EnrollmentService {
         this.subjectRepository = subjectRepository;
     }
 
-    public Enrollment enrollStudentInGroup(String studentId, int groupId, String semester) {
+    public Enrollment enrollStudentInGroup(String studentId, String groupId, String semester) {
         Student student = studentService.findById(studentId);
         Group group = groupService.getGroupById(groupId);
 
@@ -106,8 +106,8 @@ public class EnrollmentService {
             throw new BusinessValidationException("El grupo no tiene profesor asignado");
         }
 
-        if (enrollmentRepository.existsByStudentIdAndGroupId(student.getStudentId(), group.getId())) {
-            throw new BusinessValidationException("El estudiante ya está inscrito en este grupo");
+        if (enrollmentRepository.existsByStudentIdAndGroupId(student.getStudentId(), Integer.parseInt(group.getId()))) {
+            throw new BusinessValidationException("El estudiante ya está inscrito en este group");
         }
     }
 
