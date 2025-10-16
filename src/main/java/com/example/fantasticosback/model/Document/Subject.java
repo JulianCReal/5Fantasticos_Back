@@ -36,6 +36,15 @@ public class Subject {
         this.requirements = requirements;
     }
 
+    public Subject (String subjectId, String name, int credits, int semester) {
+        this.subjectId = subjectId;
+        this.name = name;
+        this.credits = credits;
+        this.semester = semester;
+        this.availableGroups = new ArrayList<>();
+        this.requirements = new LinkedList<>();
+    }
+
     public void addGroup(Group group) {
         this.availableGroups.add(group);
     }

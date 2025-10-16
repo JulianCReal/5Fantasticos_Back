@@ -21,7 +21,7 @@ public class EnrollmentController {
     @PostMapping("/students/{studentId}/groups/{groupId}")
     public ResponseEntity<Enrollment> enrollStudent(
             @PathVariable String studentId,
-            @PathVariable int groupId,
+            @PathVariable String groupId,
             @RequestParam String semester) {
 
         Enrollment enrollment = enrollmentService.enrollStudentInGroup(studentId, groupId, semester);
