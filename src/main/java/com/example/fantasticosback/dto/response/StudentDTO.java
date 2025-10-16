@@ -1,5 +1,9 @@
 package com.example.fantasticosback.dto.response;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class StudentDTO extends BaseDTO {
     private String name;
     private String career;
@@ -11,17 +15,4 @@ public class StudentDTO extends BaseDTO {
         this.career = career;
         this.semester = semester;
     }
-
-    // Getters y Setters
-    public String getName() { return name; }
-
-    public void setName(String name) { this.name = name; }
-
-    public String getCareer() { return career; }
-
-    public void setCareer(String career) { this.career = career; }
-
-    public int getSemester() { return semester; }
-
-    public void setSemester(int semester) { this.semester = semester; }
 }

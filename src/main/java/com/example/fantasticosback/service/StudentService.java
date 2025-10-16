@@ -8,7 +8,7 @@ import com.example.fantasticosback.mapper.StudentMapper;
 import com.example.fantasticosback.model.Document.*;
 import com.example.fantasticosback.repository.StudentRepository;
 import com.example.fantasticosback.util.AcademicTrafficLight;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,13 +17,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.logging.Logger;
 
+@RequiredArgsConstructor
 @Service
 public class StudentService {
 
     private static final Logger log = Logger.getLogger(StudentService.class.getName());
-
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public Student save(Student student) {
         return studentRepository.save(student);
@@ -222,4 +221,19 @@ public class StudentService {
         return !currentSchedule.isEmpty() &&
                 currentSchedule.stream().anyMatch(enrollment -> "active".equals(enrollment.getStatus()));
     }
+
+    /**
+     * Actualiza parcialmente los campos de un estudiante existente
+     */
+    public Student partialUpdate(String id, StudentDTO dto) {
+        Student student = findById(id);
+        if (dto.getName() != null) student.setName(dto.getName());
+        if (dto.getCareer() != null) student.setCareer(dto.getCareer());
+        if (dto.getSemester() != 0) student.setSemester(dto.getSemester());
+        return studentRepository.save(student);
+    }
+
+
+
+
 }

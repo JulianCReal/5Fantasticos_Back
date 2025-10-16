@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,10 @@ import java.util.List;
 @Tag(name = "Student", description = "Gestión de Estudiantes y sus operaciones")
 @RestController
 @RequestMapping("/api/students")
+@RequiredArgsConstructor
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    private final StudentService studentService;
 
     @Operation(summary = "Crear un nuevo estudiante",
             description = "Registra un nuevo estudiante en el sistema")
@@ -133,5 +134,22 @@ public class StudentController {
             @Parameter(description = "Número de semestre") @PathVariable int semesterNumber) {
         List<Object> schedule = studentService.getStudentScheduleBySemester(studentId, semesterNumber - 1);
         return ResponseEntity.ok(ResponseDTO.success(schedule, "Schedule retrieved for student " + studentId + " semester " + semesterNumber));
+    }
+
+    @Operation(summary = "Actualizar parcialmente un estudiante",
+            description = "Actualiza solo los campos proporcionados de un estudiante existente")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Estudiante actualizado parcialmente exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Estudiante no encontrado"),
+        @ApiResponse(responseCode = "400", description = "Datos inválidos")
+    })
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ResponseDTO<StudentDTO>> partialUpdate(
+            @Parameter(description = "ID del estudiante") @PathVariable String id,
+            @RequestBody StudentDTO dto) {
+        Student updated = studentService.partialUpdate(id, dto);
+        StudentDTO response = studentService.convertToStudentDTO(updated);
+        return ResponseEntity.ok(ResponseDTO.success(response, "Student partially updated"));
     }
 }
