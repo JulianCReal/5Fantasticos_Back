@@ -154,6 +154,20 @@ public class StudentController {
         return ResponseEntity.ok(ResponseDTO.success(result, "Subject enrolled successfully"));
     }
 
+    @Operation(summary = "Actualizar parcialmente un estudiante",
+            description = "Actualiza solo los campos proporcionados de un estudiante existente")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Estudiante actualizado parcialmente exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Estudiante no encontrado"),
+        @ApiResponse(responseCode = "400", description = "Datos inválidos")
+    })
 
-
+    @PatchMapping("/{id}")
+    public ResponseEntity<ResponseDTO<StudentDTO>> partialUpdate(
+            @Parameter(description = "ID del estudiante") @PathVariable String id,
+            @RequestBody StudentDTO dto) {
+        Student updated = studentService.partialUpdate(id, dto);
+        StudentDTO response = studentService.convertToStudentDTO(updated);
+        return ResponseEntity.ok(ResponseDTO.success(response, "Student partially updated"));
+    }
 }

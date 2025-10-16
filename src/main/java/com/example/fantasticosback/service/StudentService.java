@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.logging.Logger;
 
+@RequiredArgsConstructor
 @Service
 @RequiredArgsConstructor
 public class StudentService {
@@ -168,6 +169,17 @@ public class StudentService {
         schedule.getEnrollments().add(tempEnrollment);
         save(student);
         return tempEnrollment;
+    }
+
+    /**
+     * Actualiza parcialmente los campos de un estudiante existente
+     */
+    public Student partialUpdate(String id, StudentDTO dto) {
+        Student student = findById(id);
+        if (dto.getName() != null) student.setName(dto.getName());
+        if (dto.getCareer() != null) student.setCareer(dto.getCareer());
+        if (dto.getSemester() != 0) student.setSemester(dto.getSemester());
+        return studentRepository.save(student);
     }
 
 
