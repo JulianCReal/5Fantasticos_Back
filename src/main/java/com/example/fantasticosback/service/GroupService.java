@@ -102,7 +102,7 @@ public class GroupService {
                         return false;
                     }
                     Semester currentSemester = semesters.get(semesters.size() - 1);
-                    return currentSemester.getSubjects().stream()
+                    return currentSemester.getSchedule().getEnrollments().stream()
                             .anyMatch(enrollment -> enrollment.getGroup().getId() == groupId);
                 })
                 .toList();

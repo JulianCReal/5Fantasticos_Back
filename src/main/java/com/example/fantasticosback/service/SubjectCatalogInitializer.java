@@ -3,6 +3,7 @@ package com.example.fantasticosback.service;
 import com.example.fantasticosback.model.Document.Subject;
 import com.example.fantasticosback.repository.SubjectRepository;
 import com.example.fantasticosback.util.SubjectCatalog;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
@@ -10,10 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class SubjectCatalogInitializer implements CommandLineRunner {
 
-    @Autowired
-    private SubjectRepository subjectRepository;
+
+    private final SubjectRepository subjectRepository;
 
     @Override
     public void run(String... args) throws Exception {

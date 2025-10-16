@@ -1,5 +1,6 @@
 package com.example.fantasticosback.service;
 
+import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.model.Document.*;
 import com.example.fantasticosback.repository.DeanOfficeRepository;
 import com.example.fantasticosback.repository.StudentRepository;
@@ -73,7 +74,7 @@ public class ScheduleService {
         boolean hasStudent = false;
 
         for (Semester semester : student.getSemesters()) {
-            for (Enrollment enrollment : semester.getSubjects()) {
+            for (Enrollment enrollment : semester.getSchedule().getEnrollments()) {
                 Group group = enrollment.getGroup();
                 if (group.getTeacher() != null && teacherId.equals(group.getTeacher().getId())) {
                     hasStudent = true;
@@ -120,7 +121,7 @@ public class ScheduleService {
         }
 
         if (currentSemester != null) {
-            for (Enrollment enrollment : currentSemester.getSubjects()) {
+            for (Enrollment enrollment : currentSemester.getSchedule().getEnrollments()) {
                 if (!"cancelled".equals(enrollment.getStatus())) {
                     classes.addAll(generateEnrollmentClasses(enrollment));
                 }

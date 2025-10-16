@@ -10,13 +10,13 @@ public class SubjectDTO extends BaseDTO {
     private String name;
     private int credits;
     private int semester;
-
-    @JsonIgnore // Ignorar completamente en Swagger para evitar referencias circulares
+    private String code;
     private ArrayList<Group> availableGroups;
 
     // Constructor para crear (sin grupos)
-    public SubjectDTO(String id, String name, int credits, int semester) {
+    public SubjectDTO(String id, String code, String name, int credits, int semester) {
         super(id);
+        this.code = code;
         this.name = name;
         this.credits = credits;
         this.semester = semester;
@@ -40,6 +40,9 @@ public class SubjectDTO extends BaseDTO {
 
     public int getSemester() { return semester; }
     public void setSemester(int semester) { this.semester = semester; }
+
+    public String getCode() { return code; }
+    public void setCode(String code) { this.code = code; }
 
     public ArrayList<Group> getAvailableGroups() { return availableGroups; }
     public void setAvailableGroups(ArrayList<Group> availableGroups) { this.availableGroups = availableGroups; }

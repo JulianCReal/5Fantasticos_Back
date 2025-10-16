@@ -58,7 +58,6 @@ public class Student extends Person {
     }
 
 
-
     @Override
     public void showInformation() {
         log.info(() -> "Student: " + name + " " + lastName + ", " +

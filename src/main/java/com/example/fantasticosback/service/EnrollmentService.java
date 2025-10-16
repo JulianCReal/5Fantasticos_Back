@@ -185,7 +185,7 @@ public class EnrollmentService {
         Semester currentSemester = semesters.get(semesters.size() - 1);
         int enrollmentId = (int) (Math.random() * 100000);
         Enrollment newEnrollment = new Enrollment(targetGroup, subject, enrollmentId, "active", 0.0);
-        currentSemester.addSubject(newEnrollment);
+        currentSemester.getSchedule().addEnrollment(newEnrollment);
         studentService.save(student);
         log.info("Student " + studentId + " successfully enrolled in " + subjectCode + " group " + groupId);
         return true;
@@ -200,7 +200,7 @@ public class EnrollmentService {
         }
         Semester currentSemester = student.getSemesters().get(student.getSemesters().size() - 1);
         Enrollment temporaryEnrollment = new Enrollment(desiredGroup, desiredSubject, 0, "studying", 0.0);
-        for (Enrollment existingEnrollment : currentSemester.getSubjects()) {
+        for (Enrollment existingEnrollment : currentSemester.getSchedule().getEnrollments()) {
             if (temporaryEnrollment.validateConflict(existingEnrollment)) {
                 log.warning("Group " + desiredGroup.getNumber() + " conflicts with " + existingEnrollment.getSubject().getName());
                 return true;
