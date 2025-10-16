@@ -4,6 +4,8 @@ import com.example.fantasticosback.dto.request.CreateGroupRequestDTO;
 import com.example.fantasticosback.dto.request.CreateSessionRequestDTO;
 import com.example.fantasticosback.dto.response.GroupResponseDTO;
 import com.example.fantasticosback.dto.response.SessionResponseDTO;
+import com.example.fantasticosback.dto.response.GroupCapacityDTO;
+import com.example.fantasticosback.dto.response.ResponseDTO;
 import com.example.fantasticosback.mapper.GroupMapper;
 import com.example.fantasticosback.model.Document.Group;
 import com.example.fantasticosback.model.Document.Student;
@@ -12,11 +14,17 @@ import com.example.fantasticosback.service.GroupService;
 import com.example.fantasticosback.service.StudentService;
 import com.example.fantasticosback.service.TeacherService;
 import com.example.fantasticosback.util.ClassSession;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "group-controller", description = "Gestión de Grupos y sus operaciones")
 @RestController
 @RequestMapping("/api/groups")
 @CrossOrigin(origins = "*")
@@ -87,5 +95,19 @@ public class GroupController {
     public ResponseEntity<GroupResponseDTO> getGroupById(@PathVariable String groupId) {
         Group group = groupService.getGroupById(groupId);
         return ResponseEntity.ok(GroupMapper.toDTO(group));
+    }
+
+    @Operation(summary = "Consultar capacidad de grupos por código de materia",
+            description = "Obtiene información de capacidad (cupo máximo, estudiantes inscritos y porcentaje de ocupación) de todos los grupos de una materia específica")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Información de capacidad obtenida exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Materia no encontrada o sin grupos")
+    })
+    @GetMapping("/capacity/subject/{subjectCode}")
+    public ResponseEntity<ResponseDTO<List<GroupCapacityDTO>>> getGroupCapacityBySubjectCode(
+            @Parameter(description = "Código de la materia (ej: CALD)") @PathVariable String subjectCode) {
+        List<GroupCapacityDTO> capacityInfo = groupService.getGroupCapacityBySubjectCode(subjectCode);
+        return ResponseEntity.ok(ResponseDTO.success(capacityInfo,
+            "Información de capacidad para la materia " + subjectCode + " obtenida exitosamente"));
     }
 }
