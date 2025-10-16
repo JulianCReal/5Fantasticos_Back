@@ -4,8 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-import com.example.fantasticosback.enums.AcademicDay;
-import com.example.fantasticosback.enums.TimeSlot;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Document(collation = "Schedules")
@@ -14,44 +14,41 @@ public class Schedule {
 
     @Id
     private String id;
-    private AcademicDay academicDay;
-    private TimeSlot timeSlot;
-    private String classroom;
 
     @DBRef
-    private Group group;
+    private Student student;
+    private int year;
+    private int academicPeriod;
+    private int semesterNumber;
     @DBRef
-    private Teacher teacher;
-
+    private List<Enrollment> enrollments = new ArrayList<>();
     private boolean active;
-
 
     public Schedule() {}
 
-    public Schedule(String id, AcademicDay academicDay, TimeSlot timeSlot, String classroom, Group group, Teacher teacher) {
+    public Schedule(String id, Student student, int semesterNumber, int year, int academicPeriod) {
         this.id = id;
-        this.academicDay = academicDay;
-        this.timeSlot = timeSlot;
-        this.classroom = classroom;
-        this.group = group;
-        this.teacher = teacher;
+        this.student = student;
+        this.semesterNumber = semesterNumber;
+        this.year = year;
+        this.academicPeriod = academicPeriod;
         this.active = true;
-
-        if (!timeSlot.isAvailableForDay(academicDay)) {
-            throw new IllegalArgumentException(
-                "TimeSlot " + timeSlot.getDisplayName() +
-                " is not available for " + academicDay.getDisplayName()
-            );
-        }
     }
 
-    public boolean overlaps(Schedule otherSchedule) {
-        if (!this.academicDay.equals(otherSchedule.academicDay)) {
-            return false; // No se solapan si son en días diferentes
-        }
-
-        return this.timeSlot.overlaps(otherSchedule.timeSlot);
+    public void addEnrollment(Enrollment enrollment) {
+        this.enrollments.add(enrollment);
     }
+
+    public void removeEnrollment(Enrollment enrollment) {
+        enrollment.cancel();
+        this.enrollments.remove(enrollment);
+    }
+
+    public boolean isEmpty() {
+        return this.enrollments.isEmpty();
+    }
+
+
 
 
 }

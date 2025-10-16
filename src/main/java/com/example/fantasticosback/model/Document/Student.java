@@ -57,36 +57,6 @@ public class Student extends Person {
         log.info("Initialized " + currentSemester + " semesters for student " + this.studentId);
     }
 
-    /*public Request createRequest(String type, Enrollment currentSubject, Group destinationGroup, Subject destinationSubject, String observations) {
-        String requestId = String.valueOf((int) (Math.random() * 100000));
-        Date currentDate = new Date();
-
-        Request request = new Request(
-                requestId,
-                currentSubject.getGroup(),
-                destinationGroup,
-                type,
-                observations,
-                currentDate,
-                this.studentId
-        );
-
-        if ("group".equals(type)) {
-            log.info("Group change request created: ID " + requestId +
-                    " from group " + currentSubject.getGroup().getNumber() + " to group " + destinationGroup.getNumber());
-        } else if ("subject".equals(type)) {
-            log.info("Subject change request created: ID " + requestId +
-                    " from subject " + currentSubject.getSubject().getName() +
-                    " to subject " + destinationSubject.getName());
-        }
-
-        requests.add(request);
-
-        // Notify observers about the new request
-        notifyObservers(request);
-
-        return request;
-    }*/
 
     @Override
     public void showInformation() {

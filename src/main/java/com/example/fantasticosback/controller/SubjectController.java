@@ -49,31 +49,19 @@ public class SubjectController {
     public ResponseEntity<ResponseDTO<String>> addGroupToSubject(
             @PathVariable String subjectCode,
             @RequestBody CreateGroupDTO groupDto) {
-        try {
-            boolean success = subjectService.addGroupToSubjectByCode(subjectCode, groupDto);
-            if (success) {
-                return ResponseEntity.ok(ResponseDTO.success("Group added successfully", "Group added to subject " + subjectCode));
-            } else {
-                return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to add group to subject"));
-            }
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Subject not found: " + e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        boolean success = subjectService.addGroupToSubjectByCode(subjectCode, groupDto);
+        if (success) {
+            return ResponseEntity.ok(ResponseDTO.success("Group added successfully", "Group added to subject " + subjectCode));
+        } else {
+            return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to add group to subject"));
         }
     }
 
     // Endpoint para ver grupos de una materia específica usando abreviatura
     @GetMapping("/{subjectCode}/groups")
     public ResponseEntity<ResponseDTO<List<Object>>> getSubjectGroups(@PathVariable String subjectCode) {
-        try {
-            List<Object> groups = subjectService.getGroupsBySubjectCode(subjectCode);
-            return ResponseEntity.ok(ResponseDTO.success(groups, "Groups retrieved for " + subjectCode));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Subject not found: " + e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
-        }
+        List<Object> groups = subjectService.getGroupsBySubjectCode(subjectCode);
+        return ResponseEntity.ok(ResponseDTO.success(groups, "Groups retrieved for " + subjectCode));
     }
 
     // Endpoint para añadir una sesión de clase a un grupo específico
@@ -82,18 +70,12 @@ public class SubjectController {
             @PathVariable String subjectCode,
             @PathVariable int groupId,
             @RequestBody ClassSession session) {
-        try {
-            boolean success = subjectService.addSessionToGroup(subjectCode, groupId, session);
-            if (success) {
-                return ResponseEntity.ok(ResponseDTO.success("Session added successfully",
-                        "Session added to group " + groupId + " in subject " + subjectCode));
-            } else {
-                return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to add session to group"));
-            }
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Error: " + e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        boolean success = subjectService.addSessionToGroup(subjectCode, groupId, session);
+        if (success) {
+            return ResponseEntity.ok(ResponseDTO.success("Session added successfully",
+                    "Session added to group " + groupId + " in subject " + subjectCode));
+        } else {
+            return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to add session to group"));
         }
     }
 
@@ -101,16 +83,10 @@ public class SubjectController {
     @GetMapping("/{subjectCode}/groups/{groupId}/sessions")
     public ResponseEntity<ResponseDTO<List<ClassSession>>> getGroupSessions(
             @PathVariable String subjectCode,
-            @PathVariable int groupId) {
-        try {
-            List<ClassSession> sessions = subjectService.getGroupSessions(subjectCode, groupId);
-            return ResponseEntity.ok(ResponseDTO.success(sessions,
-                    "Sessions retrieved for group " + groupId + " in subject " + subjectCode));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Error: " + e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
-        }
+            @PathVariable String groupId) {
+        List<ClassSession> sessions = subjectService.getGroupSessions(subjectCode, groupId);
+        return ResponseEntity.ok(ResponseDTO.success(sessions,
+                "Sessions retrieved for group " + groupId + " in subject " + subjectCode));
     }
 
     // Endpoint para eliminar una sesión específica de un grupo
@@ -119,18 +95,12 @@ public class SubjectController {
             @PathVariable String subjectCode,
             @PathVariable int groupId,
             @PathVariable int sessionIndex) {
-        try {
-            boolean success = subjectService.removeSessionFromGroup(subjectCode, groupId, sessionIndex);
-            if (success) {
-                return ResponseEntity.ok(ResponseDTO.success("Session removed successfully",
-                        "Session " + sessionIndex + " removed from group " + groupId + " in subject " + subjectCode));
-            } else {
-                return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to remove session from group"));
-            }
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(404).body(ResponseDTO.error("Error: " + e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(ResponseDTO.error("Internal error: " + e.getMessage()));
+        boolean success = subjectService.removeSessionFromGroup(subjectCode, groupId, sessionIndex);
+        if (success) {
+            return ResponseEntity.ok(ResponseDTO.success("Session removed successfully",
+                    "Session " + sessionIndex + " removed from group " + groupId + " in subject " + subjectCode));
+        } else {
+            return ResponseEntity.badRequest().body(ResponseDTO.error("Failed to remove session from group"));
         }
     }
 }

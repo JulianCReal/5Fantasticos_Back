@@ -1,17 +1,15 @@
 package com.example.fantasticosback.model.Document;
 
-import java.util.ArrayList;
-
 public class Semester {
     private int id;
     private int year;
     private int academicPeriod;
     private boolean active;
     private int semesterAverage;
-    private ArrayList<Enrollment> subjects = new ArrayList<>();
+    private Schedule schedule;
 
     public Semester() {
-        this.subjects = new ArrayList<>();
+        this.schedule = new Schedule();
     }
 
     public Semester(int id, int year, int academicPeriod, boolean active) {
@@ -19,7 +17,7 @@ public class Semester {
         this.year = year;
         this.academicPeriod = academicPeriod;
         this.active = active;
-        this.subjects = new ArrayList<>();
+        this.schedule = new Schedule();
     }
 
     public int getId() {
@@ -62,31 +60,19 @@ public class Semester {
         this.semesterAverage = semesterAverage;
     }
 
-    public ArrayList<Enrollment> getSubjects() {
-        return subjects;
+    public Schedule getSchedule() {
+        return schedule;
     }
 
-    public void setSubjects(ArrayList<Enrollment> subjects) {
-        this.subjects = subjects;
-    }
-
-    public void addSubject(Enrollment subject) {
-        this.subjects.add(subject);
-    }
-
-    public void removeSubject(Enrollment subject) {
-        this.subjects.remove(subject);
-    }
-
-    public void cancelSubject(Enrollment subject) {
-        subject.cancel();
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 
     public void calculateSemesterAverage() {
         double gradeCreditsSum = 0.0;
         int totalCredits = 0;
 
-        for (Enrollment enrollment : subjects) {
+        for (Enrollment enrollment : schedule.getEnrollments()) {
             int credits = enrollment.getSubject().getCredits();
             double grade = enrollment.getFinalGrade();
 

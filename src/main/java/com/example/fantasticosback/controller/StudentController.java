@@ -4,23 +4,28 @@ import com.example.fantasticosback.dto.response.ResponseDTO;
 import com.example.fantasticosback.dto.response.StudentDTO;
 import com.example.fantasticosback.service.StudentService;
 import com.example.fantasticosback.model.Document.Student;
+import com.example.fantasticosback.model.Document.Schedule;
+import com.example.fantasticosback.model.Document.Enrollment;
+import com.example.fantasticosback.dto.request.EnrollmentRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@Tag(name = "Student", description = "Gestión de Estudiantes y sus operaciones")
+@Tag(name = "student-controller", description = "Gestión de Estudiantes y sus operaciones")
 @RestController
 @RequestMapping("/api/students")
+@RequiredArgsConstructor
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+
+    private final StudentService studentService;
 
     @Operation(summary = "Crear un nuevo estudiante",
             description = "Registra un nuevo estudiante en el sistema")
@@ -108,30 +113,47 @@ public class StudentController {
         return ResponseEntity.ok(ResponseDTO.success(students, "Students by semester"));
     }
 
-
-    @Operation(summary = "Obtener horario actual de un estudiante",
-            description = "Devuelve el horario actual del estudiante incluyendo materias y grupos inscritos")
+    @Operation(summary = "Obtener el horario actual del estudiante",
+            description = "Devuelve el horario (Schedule) del semestre activo del estudiante")
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "Horario actual obtenido exitosamente"),
-        @ApiResponse(responseCode = "404", description = "Estudiante no encontrado")
+        @ApiResponse(responseCode = "404", description = "Estudiante o semestre activo no encontrado")
     })
-    @GetMapping("/{studentId}/schedule")
-    public ResponseEntity<ResponseDTO<List<Object>>> getStudentCurrentSchedule(@Parameter(description = "ID del estudiante") @PathVariable String studentId) {
-        List<Object> schedule = studentService.getCurrentSubjects(studentId);
-        return ResponseEntity.ok(ResponseDTO.success(schedule, "Current schedule retrieved for student " + studentId));
+    @GetMapping("/{id}/schedule/current")
+    public ResponseEntity<ResponseDTO<Schedule>> getCurrentSchedule(@Parameter(description = "ID del estudiante") @PathVariable String id) {
+        Schedule schedule = studentService.getCurrentSchedule(id);
+        return ResponseEntity.ok(ResponseDTO.success(schedule, "Current schedule retrieved successfully"));
     }
 
-    @Operation(summary = "Obtener horario de un semestre específico",
-            description = "Devuelve el horario de un estudiante para un semestre concreto")
+    @Operation(summary = "Obtener el horario de un semestre específico",
+            description = "Devuelve el horario (Schedule) de un semestre específico del estudiante")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", description = "Horario de semestre obtenido exitosamente"),
-        @ApiResponse(responseCode = "404", description = "Estudiante no encontrado")
+        @ApiResponse(responseCode = "200", description = "Horario del semestre obtenido exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Estudiante o semestre no encontrado")
     })
-    @GetMapping("/{studentId}/schedule/semester/{semesterNumber}")
-    public ResponseEntity<ResponseDTO<List<Object>>> getStudentScheduleBySemester(
-            @Parameter(description = "ID del estudiante") @PathVariable String studentId,
+    @GetMapping("/{id}/schedule/semester/{semesterNumber}")
+    public ResponseEntity<ResponseDTO<Schedule>> getScheduleBySemesterNumber(
+            @Parameter(description = "ID del estudiante") @PathVariable String id,
             @Parameter(description = "Número de semestre") @PathVariable int semesterNumber) {
-        List<Object> schedule = studentService.getStudentScheduleBySemester(studentId, semesterNumber - 1);
-        return ResponseEntity.ok(ResponseDTO.success(schedule, "Schedule retrieved for student " + studentId + " semester " + semesterNumber));
+        Schedule schedule = studentService.getScheduleBySemesterNumber(id, semesterNumber);
+        return ResponseEntity.ok(ResponseDTO.success(schedule, "Schedule for semester " + semesterNumber + " retrieved successfully"));
     }
+
+    @Operation(summary = "Matricular materia al estudiante",
+            description = "Inscribe una materia (Enrollment) al semestre activo del estudiante")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Materia matriculada exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Estudiante, materia o grupo no encontrado"),
+        @ApiResponse(responseCode = "400", description = "Datos inválidos o conflicto de horario")
+    })
+    @PostMapping("/{id}/enrollments")
+    public ResponseEntity<ResponseDTO<Enrollment>> enrollSubject(
+            @Parameter(description = "ID del estudiante") @PathVariable String id,
+            @RequestBody EnrollmentRequestDTO request) {
+        Enrollment result = studentService.enrollSubject(id, request);
+        return ResponseEntity.ok(ResponseDTO.success(result, "Subject enrolled successfully"));
+    }
+
+
+
 }

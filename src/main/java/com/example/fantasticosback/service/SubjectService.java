@@ -57,6 +57,7 @@ public class SubjectService {
     public Subject fromDTO(SubjectDTO dto) {
         Subject subject = new Subject(
                 dto.getId(),
+                dto.getCode(),
                 dto.getName(),
                 dto.getCredits(),
                 dto.getSemester()
@@ -243,7 +244,7 @@ public class SubjectService {
 
         // Buscar el grupo específico
         Group targetGroup = subject.getAvailableGroups().stream()
-                .filter(group -> group.getId().equals(groupId))
+                .filter(group -> group.getId().equals(String.valueOf(groupId)))
                 .findFirst()
                 .orElse(null);
 
@@ -270,7 +271,7 @@ public class SubjectService {
     /**
      * Obtiene las sesiones de un grupo específico
      */
-    public List<ClassSession> getGroupSessions(String subjectCode, int groupId) {
+    public List<ClassSession> getGroupSessions(String subjectCode, String groupId) {
         // Obtener la materia del catálogo usando la abreviatura
         Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
         if (catalogSubject == null) {

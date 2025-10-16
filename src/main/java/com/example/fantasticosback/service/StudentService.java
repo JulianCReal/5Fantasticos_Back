@@ -1,29 +1,29 @@
 // Solo guardar el estudiante - la materia no cambia
 package com.example.fantasticosback.service;
 
+import com.example.fantasticosback.dto.request.EnrollmentRequestDTO;
 import com.example.fantasticosback.dto.response.StudentDTO;
 import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.mapper.StudentMapper;
 import com.example.fantasticosback.model.Document.*;
 import com.example.fantasticosback.repository.StudentRepository;
+import com.example.fantasticosback.repository.SubjectRepository;
 import com.example.fantasticosback.util.AcademicTrafficLight;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService {
 
     private static final Logger log = Logger.getLogger(StudentService.class.getName());
 
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+    private final SubjectRepository subjectRepository;
+
 
     public Student save(Student student) {
         return studentRepository.save(student);
@@ -47,11 +47,10 @@ public class StudentService {
     }
 
     public void delete(String id) {
-        // Verificar que el student existe antes de eliminar
-        Student existing = findById(id);
+
 
         // Validar que no tenga inscripciones activas antes de eliminar
-        if (this.getCurrentSchedule(existing) != null && !this.getCurrentSchedule(existing).isEmpty()) {
+        if (this.getCurrentSchedule(id) != null && !this.getCurrentSchedule(id).isEmpty()) {
             throw new BusinessValidationException("Cannot delete student with active enrollments. Please cancel all subjects first.");
         }
 
@@ -86,79 +85,6 @@ public class StudentService {
         return StudentMapper.toDomain(dto);
     }
 
-    public List<Object> getCurrentSubjects(String studentId) {
-        Student student = findById(studentId); // Ya lanza ResourceNotFoundException si no existe
-
-        return this.getCurrentSchedule(student).stream()
-                .map(enrollment -> Map.of(
-                        "enrollmentId", enrollment.getId(),
-                        "subjectName", enrollment.getSubject().getName(),
-                        "subjectId", enrollment.getSubject().getSubjectId(),
-                        "groupNumber", enrollment.getGroup().getNumber(),
-                        "status", enrollment.getStatus(),
-                        "credits", enrollment.getSubject().getCredits(),
-                        "teacherName", enrollment.getGroup().getTeacher() != null ?
-                                enrollment.getGroup().getTeacher().getName() + " " + enrollment.getGroup().getTeacher().getLastName() : "No asignado",
-                        "classSessions", enrollment.getGroup().getSessions().stream()
-                                .map(session -> Map.of(
-                                        "day", session.getDay(),
-                                        "startTime", session.getStartTime(),
-                                        "endTime", session.getEndTime(),
-                                        "classroom", session.getClassroom()
-                                ))
-                                .collect(Collectors.toList())
-                ))
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Obtiene el horario de un semestre específico del estudiante
-     */
-    public List<Object> getStudentScheduleBySemester(String studentId, int semesterIndex) {
-        Student student = findById(studentId);
-
-        if (semesterIndex < 0 || semesterIndex >= 10) {
-            throw new BusinessValidationException("Semester index must be between 0 and 9");
-        }
-
-        return this.getScheduleBySemester(student, semesterIndex).stream()
-                .map(enrollment -> Map.of(
-                    "enrollmentId", enrollment.getId(),
-                    "subjectName", enrollment.getSubject().getName(),
-                    "subjectId", enrollment.getSubject().getSubjectId(),
-                    "groupNumber", enrollment.getGroup().getNumber(),
-                    "status", enrollment.getStatus(),
-                    "credits", enrollment.getSubject().getCredits(),
-                    "finalGrade", enrollment.getFinalGrade(),
-                    "teacherName", enrollment.getGroup().getTeacher() != null ?
-                        enrollment.getGroup().getTeacher().getName() + " " + enrollment.getGroup().getTeacher().getLastName() : "No asignado",
-                    "classSessions", enrollment.getGroup().getSessions().stream()
-                        .map(session -> Map.of(
-                            "day", session.getDay(),
-                            "startTime", session.getStartTime(),
-                            "endTime", session.getEndTime(),
-                            "classroom", session.getClassroom()
-                        ))
-                        .collect(Collectors.toList())
-                ))
-                .collect(Collectors.toList());
-    }
-
-
-    /**
-     * Elimina una materia del semestre actual del estudiante
-     */
-    public void removeSubject(String studentId, Enrollment enrollment) {
-        Student student = findById(studentId);
-        if (!student.getSemesters().isEmpty()) {
-            Semester currentSemester = student.getSemesters().get(student.getSemesters().size() - 1);
-            currentSemester.removeSubject(enrollment);
-            studentRepository.save(student);
-            log.info("Subject " + enrollment.getSubject().getName() + " withdrawn successfully.");
-        } else {
-            log.warning("No active semester to remove the subject.");
-        }
-    }
 
     /**
      * Cancela una inscripción del semestre actual del estudiante
@@ -167,7 +93,7 @@ public class StudentService {
         Student student = findById(studentId);
         if (!student.getSemesters().isEmpty()) {
             Semester currentSemester = student.getSemesters().get(student.getSemesters().size() - 1);
-            currentSemester.cancelSubject(enrollment);
+            currentSemester.getSchedule().removeEnrollment(enrollment);
             studentRepository.save(student);
             log.info("Subject " + enrollment.getSubject().getName() + " cancelled successfully.");
         } else {
@@ -175,51 +101,76 @@ public class StudentService {
         }
     }
 
-    /**
-     * Obtiene el horario del semestre actual de un estudiante
-     * @param student Estudiante
-     * @return Lista de materias inscritas en el semestre actual
-     */
-    public ArrayList<Enrollment> getCurrentSchedule(Student student) {
-        List<Semester> semesters = student.getSemesters();
-        if (semesters.isEmpty()) {
-            log.info("No hay semestres registrados para el estudiante.");
-            return new ArrayList<>();
-        }
-        Semester currentSemester = semesters.get(semesters.size() - 1);
-        log.info("Consultando horario actual - Semestre: " + (semesters.size()));
-        return currentSemester.getSubjects();
-    }
-
-    /**
-     * Obtiene el horario de un semestre específico de un estudiante
-     * @param student Estudiante
-     * @param semesterIndex Índice del semestre (0 para el primer semestre)
-     * @return Lista de materias del semestre especificado
-     */
-    public ArrayList<Enrollment> getScheduleBySemester(Student student, int semesterIndex) {
-        List<Semester> semesters = student.getSemesters();
-        if (semesterIndex < 0 || semesterIndex >= semesters.size()) {
-            log.warning("Índice de semestre inválido: " + semesterIndex + ". Semestres disponibles: 0-" + (semesters.size() - 1));
-            return new ArrayList<>();
-        }
-        Semester targetSemester = semesters.get(semesterIndex);
-        log.info("Consultando horario del semestre " + (semesterIndex + 1));
-        return targetSemester.getSubjects();
-    }
-
     public AcademicTrafficLight getAcademicTrafficLight(Student student) {
         return student.getAcademicTrafficLight();
     }
 
     /**
-     * Verifica si el estudiante tiene materias activas en el semestre actual
-     *
-     * @return true si tiene materias activas, false en caso contrario
+     * Retorna el horario actual del estudiante (del semestre activo)
      */
-    public boolean hasActiveSchedule(Student student) {
-        ArrayList<Enrollment> currentSchedule = getCurrentSchedule(student);
-        return !currentSchedule.isEmpty() &&
-                currentSchedule.stream().anyMatch(enrollment -> "active".equals(enrollment.getStatus()));
+    public Schedule getCurrentSchedule(String studentId) {
+        Student student = findById(studentId);
+        return student.getSemesters().stream()
+            .filter(Semester::isActive)
+            .findFirst()
+            .map(Semester::getSchedule)
+            .orElseThrow(() -> new ResourceNotFoundException("Active semester not found for student", "studentId", studentId));
     }
+
+    /**
+     * Retorna el horario de un semestre específico del estudiante
+     */
+    public Schedule getScheduleBySemesterNumber(String studentId, int semesterNumber) {
+        Student student = findById(studentId);
+        return student.getSemesters().stream()
+            .filter(s -> s.getId() == semesterNumber)
+            .findFirst()
+            .map(Semester::getSchedule)
+            .orElseThrow(() -> new ResourceNotFoundException("Semester not found for student", "semesterNumber", String.valueOf(semesterNumber)));
+    }
+
+    /**
+     * Matricula una materia (Enrollment) al semestre activo del estudiante usando DTO
+     */
+    public Enrollment enrollSubject(String studentId, EnrollmentRequestDTO request) {
+        Student student = findById(studentId);
+        Semester activeSemester = student.getSemesters().stream()
+            .filter(Semester::isActive)
+            .findFirst()
+            .orElseThrow(() -> new ResourceNotFoundException("Active semester not found for student", "studentId", studentId));
+        Schedule schedule = activeSemester.getSchedule();
+
+        Subject subject = subjectRepository.findByCode(request.getSubjectCode())
+            .orElseThrow(() -> new ResourceNotFoundException("Subject", "code", request.getSubjectCode()));
+
+        // Buscar el grupo por ID y validar que pertenece a la materia
+        Group group = subject.getAvailableGroups().stream()
+            .filter(g -> g.getId().equals(request.getGroupId()))
+            .findFirst()
+            .orElseThrow(() -> new ResourceNotFoundException("Group", "id", request.getGroupId()));
+
+        if (!group.isActive()) {
+            throw new BusinessValidationException("El grupo no está activo para inscripciones");
+        }
+        if (group.getGroupStudents().size() >= group.getCapacity()) {
+            throw new BusinessValidationException("El grupo ha alcanzado su capacidad máxima");
+        }
+
+        // Validar conflicto de horario
+        Enrollment tempEnrollment = new Enrollment(group, subject, 1, "ACTIVE", 0.0);
+        for (Enrollment existing : schedule.getEnrollments()) {
+            if (tempEnrollment.validateConflict(existing)) {
+                throw new BusinessValidationException("Conflicto de horario con otra materia ya inscrita");
+            }
+        }
+
+        // Crear y agregar la inscripción
+        schedule.getEnrollments().add(tempEnrollment);
+        save(student);
+        return tempEnrollment;
+    }
+
+
+
+
 }

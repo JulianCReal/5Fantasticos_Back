@@ -32,11 +32,11 @@ class SubjectControllerTest {
     }
 
     private SubjectDTO createSubjectDTODummy() {
-        return new SubjectDTO("101", "Cálculo Diferencial", 3, 1);
+        return new SubjectDTO("101", "CALD", "Cálculo Diferencial", 3, 1);
     }
 
     private Subject createSubjectDummy() {
-        Subject subject = new Subject("101", "Cálculo Diferencial", 3, 1);
+        Subject subject = new Subject("101", "CALD","Cálculo Diferencial", 3, 1);
         return subject;
     }
 

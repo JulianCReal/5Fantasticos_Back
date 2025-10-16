@@ -15,6 +15,7 @@ public class Subject {
     @Id
     private String subjectId;
     private String name;
+    private String code;
     private int credits;
     private int semester;
     private LinkedList<ClassRequirement> requirements;
@@ -27,8 +28,9 @@ public class Subject {
         this.availableGroups = new ArrayList<>();
     }
 
-    public Subject(String subjectId, String name, int credits, int semester, LinkedList<ClassRequirement> requirements) {
+    public Subject(String subjectId, String code, String name, int credits, int semester, LinkedList<ClassRequirement> requirements) {
         this.subjectId = subjectId;
+        this.code = code;
         this.name = name;
         this.credits = credits;
         this.semester = semester;
@@ -36,9 +38,10 @@ public class Subject {
         this.requirements = requirements;
     }
 
-    public Subject (String subjectId, String name, int credits, int semester) {
+    public Subject (String subjectId, String code, String name, int credits, int semester) {
         this.subjectId = subjectId;
         this.name = name;
+        this.code = code;
         this.credits = credits;
         this.semester = semester;
         this.availableGroups = new ArrayList<>();
