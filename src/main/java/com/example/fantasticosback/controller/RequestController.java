@@ -4,6 +4,7 @@ package com.example.fantasticosback.controller;
 import com.example.fantasticosback.dto.request.RequestDTO;
 import com.example.fantasticosback.dto.request.RequestResponseDTO;
 import com.example.fantasticosback.dto.response.ResponseDTO;
+import com.example.fantasticosback.mapper.RequestResponseMapper;
 import com.example.fantasticosback.model.Document.Request;
 import com.example.fantasticosback.model.RequestCreatrors.RequestCreator;
 import com.example.fantasticosback.service.RequestService;
@@ -22,11 +23,13 @@ import java.util.stream.Collectors;
 public class RequestController {
     private final RequestService requestService;
     private final ArrayList<RequestCreator> requestCreators;
+    private final RequestResponseMapper requestMapper;
 
     @Autowired
-    public RequestController(RequestService requestService, ArrayList<RequestCreator> requestCreators) {
+    public RequestController(RequestService requestService, ArrayList<RequestCreator> requestCreators, RequestResponseMapper requestMapper) {
         this.requestService = requestService;
         this.requestCreators = requestCreators;
+        this.requestMapper = requestMapper;
     }
 
     @PostMapping
@@ -35,14 +38,14 @@ public class RequestController {
         Request request = creator.createRequest(dto);
         Request saved = requestService.save(request);
 
-        RequestResponseDTO responseDTO = convertToResponseDTO(saved);
+        RequestResponseDTO responseDTO = requestMapper.convertToResponseDTO(saved);
         return ResponseEntity.ok(ResponseDTO.success(responseDTO, "Request created successfully"));
     }
 
     @GetMapping
     public ResponseEntity<List<RequestResponseDTO>> listAllRequests() {
         List<Request> list = requestService.findAll();
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
 
         return ResponseEntity.ok(listResponse);
     }
@@ -50,7 +53,7 @@ public class RequestController {
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<RequestResponseDTO>> getById(@PathVariable String id) {
         Request request = requestService.findById(id);
-        RequestResponseDTO responseDTO = convertToResponseDTO(request);
+        RequestResponseDTO responseDTO = requestMapper.convertToResponseDTO(request);
         return ResponseEntity.ok(ResponseDTO.success(responseDTO, "Request found"));
     }
     /*
@@ -71,56 +74,56 @@ public class RequestController {
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<RequestResponseDTO>> getByUserId(@PathVariable String userId) {
         List<Request> list = requestService.findByUserId(userId);
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/status/{statusName}")
     public ResponseEntity<List<RequestResponseDTO>> getByStatus(@PathVariable String statusName) {
         List<Request> list = requestService.findByStateName(statusName);
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/priority/{requestPriority}")
     public ResponseEntity<List<RequestResponseDTO>> getByRequestPriority(@PathVariable String requestPriority) {
         List<Request> list = requestService.findByRequestPriority(requestPriority);
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/creatorRole/{creatorRole}")
     public ResponseEntity<List<RequestResponseDTO>> getByCreatorRole(@PathVariable String creatorRole) {
         List<Request> list = requestService.findByCreatorRole(creatorRole);
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/deanOffice/{deanOffice}")
     public ResponseEntity<List<RequestResponseDTO>> getByDeanOffice(@PathVariable String deanOffice) {
         List<Request> list = requestService.findByDeanOffice(deanOffice);
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/RequestByOnestudent/{studentId}")
     public ResponseEntity<List<RequestResponseDTO>> getRequestsByOneStudent(@PathVariable String studentId) {
         List<Request> list = requestService.findRequestsByOneStudent(studentId);
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/studentsByOffice")
     public ResponseEntity<List<RequestResponseDTO>> getStudentsRequestByDeanOffice(@RequestParam String deanOffice, @RequestParam String userId) {
         List<Request> list = requestService.findStudentsRequestByDeanOffice(deanOffice, userId);
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
         return ResponseEntity.ok(listResponse);
     }
 
     @GetMapping("/date/{requestDate}")
     public ResponseEntity<List<RequestResponseDTO>> getByRequestDate(@RequestParam("requestDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate requestDate) {
         List<Request> list = requestService.findByRequestDate(requestDate);
-        List<RequestResponseDTO> listResponse = list.stream().map(this::convertToResponseDTO).collect(Collectors.toList());
+        List<RequestResponseDTO> listResponse = list.stream().map(requestMapper::convertToResponseDTO).collect(Collectors.toList());
         return ResponseEntity.ok(listResponse);
     }
 
@@ -128,17 +131,5 @@ public class RequestController {
         return requestCreators.stream().filter(creator -> creator.getRequestType(dto.getRequestType()) == dto.getRequestType())
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No RequestCreator found for type: " + dto.getRequestType()));
-    }
-
-    private RequestResponseDTO convertToResponseDTO(Request request) {
-        RequestResponseDTO responseDTO = new RequestResponseDTO();
-        responseDTO.setRequestId(request.getId());
-        responseDTO.setUserId(request.getUserId());
-        responseDTO.setRequestType(request.getType());
-        responseDTO.setHistoryResponses(request.getHistoryResponses());
-        responseDTO.setRequestStateName(request.getStateName());
-        responseDTO.setDeanOffice(request.getDeanOffice());
-        responseDTO.setObservations(request.getObservations());
-        return responseDTO;
     }
 }

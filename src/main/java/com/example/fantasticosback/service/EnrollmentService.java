@@ -115,7 +115,7 @@ public class EnrollmentService {
         return enrollmentRepository.findByStudentId(studentId);
     }
 
-    public List<Enrollment> getEnrollmentsByGroupId(int groupId) {
+    public List<Enrollment> getEnrollmentsByGroupId(String groupId) {
         return enrollmentRepository.findByGroupId(groupId);
     }
 

@@ -1,6 +1,7 @@
 package com.example.fantasticosback.model.Document;
 
 import com.example.fantasticosback.util.AcademicTrafficLight;
+import com.example.fantasticosback.util.ClassRequirement;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -16,6 +17,9 @@ public class Student extends Person {
     private String career;
     private String code;
     private int semester;
+    private ArrayList<ClassRequirement> approvedSubjects;
+    private ArrayList<Group> enrolledGroups;
+
     private ArrayList<Semester> semesters = new ArrayList<>();
     private static final Logger log = Logger.getLogger(Student.class.getName());
     private ArrayList<Request> requests = new ArrayList<>();

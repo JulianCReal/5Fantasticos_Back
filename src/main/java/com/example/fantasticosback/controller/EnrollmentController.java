@@ -45,7 +45,7 @@ public class EnrollmentController {
 
     @GetMapping("/groups/{groupId}")
     public ResponseEntity<List<Enrollment>> getGroupEnrollments(
-            @PathVariable int groupId) {
+            @PathVariable String groupId) {
         return ResponseEntity.ok(enrollmentService.getEnrollmentsByGroupId(groupId));
     }
 

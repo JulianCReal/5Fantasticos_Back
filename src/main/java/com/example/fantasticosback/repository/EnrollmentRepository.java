@@ -13,7 +13,7 @@ public interface EnrollmentRepository extends MongoRepository<Enrollment, String
     List<Enrollment> findByStudentId(String studentId);
 
     @Query("{'group.id': ?0}")
-    List<Enrollment> findByGroupId(int groupId);
+    List<Enrollment> findByGroupId(String groupId);
 
     @Query(value = "{'student._id': ?0, 'group.id': ?1}", exists = true)
     boolean existsByStudentIdAndGroupId(String studentId, int groupId);
