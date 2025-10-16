@@ -18,6 +18,7 @@ com\example\fantasticosback\model\Strategy\DeanProfileStrategy.class
 com\example\fantasticosback\util\JwtTokenUtil.class
 com\example\fantasticosback\service\DeanService.class
 com\example\fantasticosback\exception\GlobalExceptionHandler.class
+com\example\fantasticosback\mapper\GroupMapper.class
 com\example\fantasticosback\enums\RequestType.class
 com\example\fantasticosback\dto\response\DeanOfficeDTO.class
 com\example\fantasticosback\model\Document\Request.class
@@ -33,6 +34,7 @@ com\example\fantasticosback\service\TeacherService.class
 com\example\fantasticosback\repository\DeanRepository.class
 com\example\fantasticosback\controller\DeanOfficeController.class
 com\example\fantasticosback\model\Observers\StatusChangeObserver.class
+com\example\fantasticosback\dto\request\CreateSessionRequestDTO.class
 com\example\fantasticosback\controller\AuthController.class
 com\example\fantasticosback\service\DeanOfficeService.class
 com\example\fantasticosback\enums\RequestPriority.class
@@ -41,6 +43,7 @@ com\example\fantasticosback\repository\EnrollmentRepository.class
 com\example\fantasticosback\model\Document\Schedule.class
 com\example\fantasticosback\model\Document\Dean.class
 com\example\fantasticosback\service\ScheduleService.class
+com\example\fantasticosback\dto\response\GroupResponseDTO.class
 com\example\fantasticosback\controller\RequestController.class
 com\example\fantasticosback\exception\BusinessValidationException.class
 com\example\fantasticosback\model\RequestStates\AcceptedState.class
@@ -59,6 +62,7 @@ com\example\fantasticosback\mapper\StudentMapper.class
 com\example\fantasticosback\util\LoginRequest.class
 com\example\fantasticosback\model\Strategy\StudentProfileStrategy.class
 com\example\fantasticosback\model\Validators\RequestValidators\RequestValidator.class
+com\example\fantasticosback\dto\response\SessionResponseDTO.class
 com\example\fantasticosback\model\RequestStates\RequestState.class
 com\example\fantasticosback\model\Validators\RequestValidators\LeaveGroupValidator.class
 com\example\fantasticosback\model\RequestCreatrors\RequestCreator.class
@@ -72,6 +76,7 @@ com\example\fantasticosback\mapper\DeanOfficeMapper.class
 com\example\fantasticosback\model\Observers\RequestStatusChangeObserver.class
 com\example\fantasticosback\model\Strategy\TeacherProfileStrategy.class
 com\example\fantasticosback\model\Document\Career.class
+com\example\fantasticosback\dto\request\CreateGroupRequestDTO.class
 com\example\fantasticosback\mapper\DeanMapper.class
 com\example\fantasticosback\model\Strategy\ProfileStrategy.class
 com\example\fantasticosback\util\SubjectCatalog.class

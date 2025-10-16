@@ -10,6 +10,8 @@ D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\exampl
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\StudentController.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\SubjectController.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\TeacherController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\CreateGroupRequestDTO.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\CreateSessionRequestDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RegisterRequestDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestResponseDTO.java
@@ -17,7 +19,9 @@ D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\exampl
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\CreateGroupDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanOfficeDTO.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\GroupResponseDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\ResponseDTO.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\SessionResponseDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\StudentDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\SubjectDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\TeacherDTO.java
@@ -33,6 +37,7 @@ D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\exampl
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\exception\ResourceNotFoundException.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\DeanMapper.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\DeanOfficeMapper.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\GroupMapper.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\StudentMapper.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Career.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Dean.java
