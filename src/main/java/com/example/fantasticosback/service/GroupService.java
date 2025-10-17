@@ -1,5 +1,6 @@
 package com.example.fantasticosback.service;
 
+import com.example.fantasticosback.dto.response.TeacherDTO;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.model.Document.Group;

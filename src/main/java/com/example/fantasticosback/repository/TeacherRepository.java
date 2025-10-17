@@ -11,4 +11,5 @@ public interface TeacherRepository extends MongoRepository<Teacher, String> {
     List<Teacher> findByDepartment(String department);
     List<Teacher> findByName(String name);
     List<Teacher> findByLastName(String lastName);
+    Teacher findByDocument(String document);
 }
