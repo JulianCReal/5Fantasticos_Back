@@ -7,13 +7,17 @@ import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.model.Document.Dean;
 import com.example.fantasticosback.model.Document.DeanOffice;
 import com.example.fantasticosback.model.Document.Request;
+import com.example.fantasticosback.model.Document.Student;
 import com.example.fantasticosback.repository.DeanOfficeRepository;
 import com.example.fantasticosback.repository.DeanRepository;
 import com.example.fantasticosback.mapper.DeanMapper;
+import com.example.fantasticosback.repository.StudentRepository;
 import org.springframework.data.mongodb.repository.support.SimpleMongoRepository;
 import org.springframework.stereotype.Service;
 import com.example.fantasticosback.service.RequestService;
 import com.example.fantasticosback.repository.RequestRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,14 +29,16 @@ public class DeanService {
     private final DeanMapper deanMapper;
     private final RequestService requestService;
     private final RequestRepository requestRepository;
+    private final StudentRepository studentRepository;
     public DeanService(DeanRepository deanRepository,
                        DeanOfficeRepository deanOfficeRepository,
-                       DeanMapper deanMapper, RequestService requestService, RequestRepository requestRepository) {
+                       DeanMapper deanMapper, RequestService requestService, RequestRepository requestRepository, StudentRepository studentRepository) {
         this.deanRepository = deanRepository;
         this.deanOfficeRepository = deanOfficeRepository;
         this.deanMapper = deanMapper;
         this.requestService = requestService;
         this.requestRepository = requestRepository;
+        this.studentRepository = studentRepository;
     }
 
     public List<DeanDTO> getAll() {
@@ -97,6 +103,23 @@ public class DeanService {
 
         return deanOffice.getRequests();
     }
+    public List<Student> getStudentsByDean(String deanId) {
+        DeanOffice deanOffice = deanOfficeRepository.findByDeanId(deanId);
+        if (deanOffice == null) {
+            throw new BusinessValidationException("Dean not assigned to any DeanOffice");
+        }
+
+        List<String> studentIds = deanOffice.getStudents();
+        List<Student> students = new ArrayList<>();
+
+        for (String id : studentIds) {
+            studentRepository.findById(id).ifPresent(students::add);
+        }
+
+        return students;
+    }
+
+
 
 
 
