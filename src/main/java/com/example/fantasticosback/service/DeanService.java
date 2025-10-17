@@ -1,6 +1,7 @@
 package com.example.fantasticosback.service;
 
 import com.example.fantasticosback.dto.response.DeanDTO;
+import com.example.fantasticosback.enums.RequestPriority;
 import com.example.fantasticosback.enums.Role;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.exception.ResourceNotFoundException;
@@ -118,6 +119,30 @@ public class DeanService {
 
         return students;
     }
+    public List<Request> getRequestsByDeanAndPriority(String deanId, String priority) {
+
+        DeanOffice deanOffice = deanOfficeRepository.findByDeanId(deanId);
+       
+
+
+        RequestPriority requestPriority = null;
+       
+
+
+        List<String> requestIds = deanOffice.getRequests();
+        List<Request> filteredRequests = new ArrayList<>();
+
+        for (String requestId : requestIds) {
+            requestRepository.findById(requestId).ifPresent(req -> {
+                if (req.getRequestPriority() == requestPriority) {
+                    filteredRequests.add(req);
+                }
+            });
+        }
+
+        return filteredRequests;
+    }
+
 
 
 
