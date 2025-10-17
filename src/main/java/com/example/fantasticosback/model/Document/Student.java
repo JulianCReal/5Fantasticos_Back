@@ -25,7 +25,7 @@ public class Student extends Person {
     private ArrayList<Request> requests = new ArrayList<>();
     private AcademicTrafficLight academicTrafficLight;
 
-    public Student(String name, String lastName, String document, String career, String code, String studentId, int semester, AcademicTrafficLight academicTrafficLight) {
+    public Student(String name, String lastName, int document, String career, String code, String studentId, int semester, AcademicTrafficLight academicTrafficLight) {
         super(name, lastName, document);
         this.career = career;
         this.code = code;

@@ -62,7 +62,7 @@ public class SubjectController {
         Subject subject = subjectService.fromDTO(subjectDTO);
         Subject createdSubject = subjectService.createSubject(subject);
         if (createdSubject != null) {
-            return ResponseEntity.ok(ResponseDTO.success("Materia creada existosamente", "Materia creada con id: " + createdSubject.getSubjectId()));
+            return ResponseEntity.ok(ResponseDTO.success("Materia creada existosamente", "Materia creada con id: " + createdSubject.getSubjectId());
         } else {
             return ResponseEntity.badRequest().body(ResponseDTO.error("Fallo al crear la materia"));
         }
