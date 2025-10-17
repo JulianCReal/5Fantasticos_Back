@@ -1,0 +1,64 @@
+# .dockerignore para proyecto Maven / Spring Boot
+# Evita copiar artefactos de build, archivos de IDE, logs y otros ficheros innecesarios
+
+# Build outputs
+target/
+**/target/
+
+# Maven auxiliares
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Maven wrapper y scripts (no se usan cuando se usa imagen maven)
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE y archivos del sistema
+.idea/
+.vscode/
+*.iml
+*.class
+*.log
+logs/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Artefactos binarios que no necesitamos en el contexto
+*.jar
+*.war
+*.ear
+
+# Git
+.git
+.gitignore
+
+# Pruebas y cobertura
+src/test/
+test/
+
+# Docker / entorno
+.dockerignore
+Dockerfile
+.env
+
+# Node / frontend (si existiera)
+node_modules/
+npm-debug.log
+
+# OneDrive/Windows temporales
+~$*
+
+# Otros archivos temporales
+*.tmp
+*.bak
+*.swp
+
+# Fin
+
