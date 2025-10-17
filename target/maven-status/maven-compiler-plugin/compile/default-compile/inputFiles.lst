@@ -4,6 +4,7 @@ D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\exampl
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\DeanController.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\DeanOfficeController.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\EnrollmentController.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\GroupCapacityMonitoringController.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\GroupController.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\RequestController.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\ScheduleController.java
@@ -20,6 +21,8 @@ D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\exampl
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\CreateGroupDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanOfficeDTO.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\GroupCapacityAlertDTO.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\GroupCapacityDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\GroupResponseDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\ResponseDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\SessionResponseDTO.java
@@ -56,6 +59,9 @@ D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\exampl
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\User.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Factory\ProfileStrategyFactory.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\CreationObserver.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\GroupCapacityAlertManager.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\GroupCapacityObserver.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\GroupCapacitySubject.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\RequestCreationObserver.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\RequestStatusChangeObserver.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\StatusChangeObserver.java
@@ -86,9 +92,11 @@ D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\exampl
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\SubjectRepository.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\TeacherRepository.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\UserRepository.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\scheduler\GroupCapacityScheduler.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\DeanOfficeService.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\DeanService.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\EnrollmentService.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\GroupCapacityMonitoringService.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\GroupService.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\MatcherService.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\RequestService.java

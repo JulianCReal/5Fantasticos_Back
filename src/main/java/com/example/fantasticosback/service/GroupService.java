@@ -21,11 +21,14 @@ public class GroupService {
     private final GroupRepository groupRepository;
     private final TeacherService teacherService;
     private final SubjectService subjectService;
+    private final GroupCapacityMonitoringService monitoringService;
 
-    public GroupService(GroupRepository groupRepository, TeacherService teacherService, SubjectService subjectService) {
+    public GroupService(GroupRepository groupRepository, TeacherService teacherService,
+                       SubjectService subjectService, GroupCapacityMonitoringService monitoringService) {
         this.groupRepository = groupRepository;
         this.teacherService = teacherService;
         this.subjectService = subjectService;
+        this.monitoringService = monitoringService;
     }
 
     public Group createGroup(Group group) {
@@ -83,6 +86,9 @@ public class GroupService {
         
         group.getGroupStudents().add(student);
         groupRepository.save(group);
+
+        // ✨ NUEVO: Ejecutar monitoreo automático después de inscribir estudiante
+        monitoringService.checkGroupCapacity(groupId);
     }
 
     public void removeStudentFromGroup(String groupId, Student student) {
@@ -136,7 +142,7 @@ public class GroupService {
         return groups.stream()
                 .map(group -> {
                     int enrolledStudents = group.getGroupStudents() != null ? group.getGroupStudents().size() : 0;
-                    double occupancyPercentage = group.getCapacity() > 0 ?
+                    double occupancyPercentage = group.getCapacity() > 0 ? 
                         (double) enrolledStudents / group.getCapacity() * 100 : 0;
 
                     return new GroupCapacityDTO(
@@ -145,7 +151,8 @@ public class GroupService {
                             group.getNumber(),
                             group.getCapacity(),
                             enrolledStudents,
-                            Math.round(occupancyPercentage * 100.0) / 100.0);
+                            Math.round(occupancyPercentage * 100.0) / 100.0 // Redondear a 2 decimales
+                    );
                 })
                 .collect(Collectors.toList());
     }

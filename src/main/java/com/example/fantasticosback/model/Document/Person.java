@@ -4,12 +4,12 @@ public abstract class Person {
 
     protected String name;
     protected String lastName;
-    protected String document;
+    protected int document;
 
     public Person() {
     }
 
-    public Person(String name, String lastName, String document) {
+    public Person(String name, String lastName, int document) {
         this.name = name;
         this.lastName = lastName;
         this.document = document;
@@ -31,11 +31,11 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
-    public String getDocument() {
+    public int getDocument() {
         return document;
     }
 
-    public void setDocument(String document) {
+    public void setDocument(int document) {
         this.document = document;
     }
 
