@@ -86,6 +86,7 @@ com\example\fantasticosback\dto\request\RegisterRequestDTO.class
 com\example\fantasticosback\model\Document\Person.class
 com\example\fantasticosback\model\Observers\RequestCreationObserver.class
 com\example\fantasticosback\service\StudentService.class
+com\example\fantasticosback\dto\request\RequestAddDataDTO.class
 com\example\fantasticosback\model\RequestCreatrors\RequestCreator$1.class
 com\example\fantasticosback\mapper\TeacherMapper.class
 com\example\fantasticosback\util\LoginResponse.class

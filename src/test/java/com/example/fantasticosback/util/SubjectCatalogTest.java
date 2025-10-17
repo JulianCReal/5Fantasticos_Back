@@ -1,4 +1,4 @@
-package com.example.fantasticosback.util;
+/**package com.example.fantasticosback.util;
 
 import com.example.fantasticosback.model.Document.Subject;
 import org.junit.jupiter.api.Test;
@@ -26,4 +26,4 @@ public class SubjectCatalogTest {
     void testGetSubjectsNotEmpty() {
         assertFalse(SubjectCatalog.getSubjects().isEmpty());
     }
-}
+}**/

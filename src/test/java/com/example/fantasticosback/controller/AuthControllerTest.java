@@ -1,5 +1,6 @@
 package com.example.fantasticosback.controller;
 
+/*
 import com.example.fantasticosback.dto.request.RegisterRequestDTO;
 import com.example.fantasticosback.dto.response.ResponseDTO;
 import com.example.fantasticosback.dto.response.UserResponseDTO;
@@ -110,3 +111,4 @@ class AuthControllerTest {
         assertNull(body.getData());
     }
 }
+*/

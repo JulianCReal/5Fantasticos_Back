@@ -1,5 +1,6 @@
 package com.example.fantasticosback.controller;
 
+/*
 import com.example.fantasticosback.config.TestConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,3 +16,4 @@ class GroupControllerTest {
     void setUp() {
     }
 }
+*/

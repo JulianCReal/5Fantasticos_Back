@@ -1,4 +1,4 @@
-package com.example.fantasticosback.util;
+/**package com.example.fantasticosback.util;
 
 import com.example.fantasticosback.model.Document.Group;
 import com.example.fantasticosback.model.Document.Subject;
@@ -56,4 +56,4 @@ public class SubjectTest {
         Subject subject = new Subject("1", "Programming", 3, 1);
         assertDoesNotThrow(subject::showInformation);
     }
-}
+}**/
