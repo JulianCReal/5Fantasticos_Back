@@ -133,4 +133,21 @@ public class DeanController {
         return ResponseEntity.ok(ResponseDTO.success(resolved, "Request resolved successfully by Dean"));
     }
 
+    @Operation(
+            summary = "Get all requests from Dean's DeanOffice",
+            description = "Returns all requests belonging to the Dean's DeanOffice",
+            parameters = {
+                    @Parameter(name = "deanId", description = "ID of the Dean", required = true)
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "List of requests retrieved successfully"),
+                    @ApiResponse(responseCode = "404", description = "Dean not found or not assigned to any DeanOffice")
+            }
+    )
+    @GetMapping("/{deanId}/requests")
+    public ResponseEntity<ResponseDTO<List<String>>> getRequestsByDean(@PathVariable String deanId) {
+        List<String> requests = deanService.getRequestsByDean(deanId);
+        return ResponseEntity.ok(ResponseDTO.success(requests, "Requests retrieved successfully"));
+    }
+
 }

@@ -10,8 +10,10 @@ import com.example.fantasticosback.model.Document.Request;
 import com.example.fantasticosback.repository.DeanOfficeRepository;
 import com.example.fantasticosback.repository.DeanRepository;
 import com.example.fantasticosback.mapper.DeanMapper;
+import org.springframework.data.mongodb.repository.support.SimpleMongoRepository;
 import org.springframework.stereotype.Service;
 import com.example.fantasticosback.service.RequestService;
+import com.example.fantasticosback.repository.RequestRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,13 +24,15 @@ public class DeanService {
     private final DeanOfficeRepository deanOfficeRepository;
     private final DeanMapper deanMapper;
     private final RequestService requestService;
+    private final RequestRepository requestRepository;
     public DeanService(DeanRepository deanRepository,
                        DeanOfficeRepository deanOfficeRepository,
-                       DeanMapper deanMapper, RequestService requestService) {
+                       DeanMapper deanMapper, RequestService requestService, RequestRepository requestRepository) {
         this.deanRepository = deanRepository;
         this.deanOfficeRepository = deanOfficeRepository;
         this.deanMapper = deanMapper;
         this.requestService = requestService;
+        this.requestRepository = requestRepository;
     }
 
     public List<DeanDTO> getAll() {
@@ -83,6 +87,15 @@ public class DeanService {
         requestService.answerRequest(request, responseMessage, status, Role.DEAN);
 
         return request;
+    }
+    public List<String> getRequestsByDean(String deanId) {
+        DeanOffice deanOffice = deanOfficeRepository.findByDeanId(deanId);
+        if (deanOffice == null) {
+            throw new RuntimeException("Dean not assigned to any DeanOffice");
+        }
+
+
+        return deanOffice.getRequests();
     }
 
 
