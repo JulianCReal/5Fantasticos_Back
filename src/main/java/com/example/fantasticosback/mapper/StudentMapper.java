@@ -23,7 +23,7 @@ public class StudentMapper {
         return new Student(
                 dto.getName(),
                 "",
-                0,
+                "0",
                 dto.getCareer(),
                 "",
                 dto.getId(),
