@@ -5,6 +5,7 @@ package com.example.fantasticosback.controller;
 import com.example.fantasticosback.dto.response.DeanDTO;
 import com.example.fantasticosback.dto.response.ResponseDTO;
 import com.example.fantasticosback.model.Document.Request;
+import com.example.fantasticosback.model.Document.Student;
 import com.example.fantasticosback.service.DeanService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -149,5 +150,23 @@ public class DeanController {
         List<String> requests = deanService.getRequestsByDean(deanId);
         return ResponseEntity.ok(ResponseDTO.success(requests, "Requests retrieved successfully"));
     }
+
+    @Operation(
+            summary = "Get all students from Dean's DeanOffice",
+            description = "Allows a dean to view all students belonging to their assigned DeanOffice.",
+            parameters = {
+                    @Parameter(name = "deanId", description = "ID of the Dean", required = true)
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "List of students retrieved successfully"),
+                    @ApiResponse(responseCode = "404", description = "Dean not assigned to any DeanOffice")
+            }
+    )
+    @GetMapping("/{deanId}/students")
+    public ResponseEntity<ResponseDTO<List<Student>>> getStudentsByDean(@PathVariable String deanId) {
+        List<Student> students = deanService.getStudentsByDean(deanId);
+        return ResponseEntity.ok(ResponseDTO.success(students, "Students retrieved successfully"));
+    }
+
 
 }
