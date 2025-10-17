@@ -168,5 +168,28 @@ public class DeanController {
         return ResponseEntity.ok(ResponseDTO.success(students, "Students retrieved successfully"));
     }
 
+    @Operation(
+            summary = "Get DeanOffice requests by priority",
+            description = "Allows a Dean to view all requests belonging to their DeanOffice filtered by priority.",
+            parameters = {
+                    @Parameter(name = "deanId", description = "ID of the Dean", required = true),
+                    @Parameter(name = "priority", description = "Priority level (LOW, MEDIUM, HIGH)", required = true)
+            },
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Requests retrieved successfully"),
+                    @ApiResponse(responseCode = "400", description = "Invalid priority value"),
+                    @ApiResponse(responseCode = "404", description = "Dean not assigned to any DeanOffice")
+            }
+    )
+    @GetMapping("/{deanId}/requests/by-priority")
+    public ResponseEntity<ResponseDTO<List<Request>>> getRequestsByPriority(
+            @PathVariable String deanId,
+            @RequestParam String priority) {
+
+        List<Request> requests = deanService.getRequestsByDeanAndPriority(deanId, priority);
+        return ResponseEntity.ok(ResponseDTO.success(requests, "Requests retrieved successfully"));
+    }
+
+
 
 }
