@@ -1,3 +1,4 @@
+
 package com.example.fantasticosback.service;
 
 import com.example.fantasticosback.dto.response.DeanOfficeDTO;
@@ -9,6 +10,7 @@ import com.example.fantasticosback.model.Document.DeanOffice;
 import com.example.fantasticosback.mapper.DeanOfficeMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,8 +53,8 @@ public class DeanOfficeService {
             existing.setFaculty(deanOfficeDTO.getFaculty());
         }
 
-        if (deanOfficeDTO.getDeanName() != null) {
-            existing.setDeanName(deanOfficeDTO.getDeanName());
+        if (deanOfficeDTO.getDeanId() != null) {
+            existing.setDeanId(deanOfficeDTO.getDeanId());
         }
 
         if (deanOfficeDTO.getStudents() != null) {
@@ -113,7 +115,7 @@ public class DeanOfficeService {
         }
 
         existing.setFaculty(updated.getFaculty());
-        existing.setDeanName(updated.getDeanName());
+        existing.setDeanId(updated.getDeanId());
         existing.setStudents(updated.getStudents());
         existing.setProfessors(updated.getProfessors());
         existing.setSubjects(updated.getSubjects());
@@ -164,4 +166,24 @@ public class DeanOfficeService {
             throw new BusinessValidationException("Faculty name cannot be null or empty");
         }
     }
+
+    public DeanOfficeDTO addRequest(String deanOfficeId, String requestId) {
+        DeanOffice deanOffice = deanOfficeRepository.findById(deanOfficeId)
+                .orElseThrow(() -> new ResourceNotFoundException("DeanOffice", "id", deanOfficeId));
+
+        if (deanOffice.getRequests() == null) {
+            deanOffice.setRequests(new ArrayList<>());
+        }
+
+
+        if (deanOffice.getRequests().contains(requestId)) {
+            throw new BusinessValidationException("This request is already associated with the DeanOffice.");
+        }
+
+        deanOffice.getRequests().add(requestId);
+        DeanOffice updated = deanOfficeRepository.save(deanOffice);
+
+        return deanOfficeMapper.fromDocument(updated);
+    }
+
 }

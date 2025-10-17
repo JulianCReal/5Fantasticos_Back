@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DeanOfficeRepository extends MongoRepository<DeanOffice, String> {
     DeanOffice findByFaculty(String faculty);
+    DeanOffice findByDeanId(String deanId);
 }
