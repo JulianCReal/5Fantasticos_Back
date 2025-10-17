@@ -165,4 +165,18 @@ public class GroupController {
         return ResponseEntity.ok(ResponseDTO.success(capacityInfo,
             "Información de capacidad para la materia " + subjectCode + " obtenida exitosamente"));
     }
+
+    @Operation(summary = "Consultar capacidad de grupos por código de materia",
+            description = "Obtiene información de capacidad (cupo máximo, estudiantes inscritos y porcentaje de ocupación) de todos los grupos de una materia específica")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Información de capacidad obtenida exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Materia no encontrada o sin grupos")
+    })
+    @GetMapping("/capacity/subject/{subjectCode}")
+    public ResponseEntity<ResponseDTO<List<GroupCapacityDTO>>> getGroupCapacityBySubjectCode(
+            @Parameter(description = "Código de la materia (ej: CALD)") @PathVariable String subjectCode) {
+        List<GroupCapacityDTO> capacityInfo = groupService.getGroupCapacityBySubjectCode(subjectCode);
+        return ResponseEntity.ok(ResponseDTO.success(capacityInfo,
+            "Información de capacidad para la materia " + subjectCode + " obtenida exitosamente"));
+    }
 }
