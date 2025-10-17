@@ -71,6 +71,12 @@ public class RequestService {
         return requestRepository.save(request);
     }
 
+    public Request updateAditionalData(String requestId, Object aditionalData) {
+        Request existing = findById(requestId);
+        existing.setAditionalData(aditionalData);
+        return requestRepository.save(existing);
+    }
+
     public List<Request> findByUserId(String userId) {
         if (userId == null || userId.trim().isEmpty()) {
             throw new BusinessValidationException("User ID cannot be null or empty");
@@ -153,6 +159,7 @@ public class RequestService {
         request.getState().changeState(request, role);
         request.setRequestResponseTime(LocalDateTime.now());
         request.setHistoryResponses("Request moved to " + request.getState().getStateName() + " by " + role + " on " + request.getRequestResponseTime());
+        requestRepository.save(request);
         switch (type) {
             case CHANGE_GROUP, JOIN_GROUP, LEAVE_GROUP, SPECIAL -> {
                 return validatorsForRequest.get(type).response(request);
@@ -160,19 +167,18 @@ public class RequestService {
             default -> throw new BusinessValidationException("Unsupported request type: " + type);
         }
     }
-
     public void answerRequest(Request request,String message,Boolean answer, Role role){
         request.setRequestResponseTime(LocalDateTime.now());
-        if (processRequest(request, role)) {
-            request.setEvaluationApproved(true);
-            request.getState().changeState(request, role);
-            request.setHistoryResponses("Request moved to " + request.getState().getStateName() + " by " + role + " on " + request.getRequestResponseTime());
-        }else{
-            request.setEvaluationApproved(false);
-            request.getState().changeState(request, role);
-            request.setHistoryResponses("Request moved to " + request.getState().getStateName() + " by " + role + " on " + request.getRequestResponseTime());
-        }
+        boolean approved = processRequest(request, role) && answer;
+        request.setEvaluationApproved(approved);
+        request.getState().changeState(request, role);
+        request.setResponseMessage(message);
+        request.setHistoryResponses("Request moved to " + request.getState().getStateName() + " by " + role + " on " + request.getRequestResponseTime());
         requestRepository.save(request);
     }
 
+    public HashMap<LocalDateTime, String> getRequestHistoryResponses(String requestId) {
+        Request request = findById(requestId);
+        return request.getHistoryResponses();
+    }
 }

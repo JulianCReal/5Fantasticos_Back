@@ -30,6 +30,8 @@ public class Request {
     private String stateName;
     private LocalDateTime requestDate;
     private String deanOffice;
+    private String responseMessage;
+    private Object aditionalData;
 
     private RequestType type;
     private Role creatorRole;
