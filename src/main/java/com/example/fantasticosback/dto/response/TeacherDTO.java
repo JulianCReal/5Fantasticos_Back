@@ -10,12 +10,12 @@ public class TeacherDTO {
     private String id;
     private String name;
     private String lastName;
-    private int document;
+    private String document;
     private String department;
 
     public TeacherDTO() {}
 
-    public TeacherDTO(String id, String name, String lastName, int document, String department) {
+    public TeacherDTO(String id, String name, String lastName, String document, String department) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
