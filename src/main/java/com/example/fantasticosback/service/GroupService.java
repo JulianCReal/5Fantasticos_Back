@@ -1,8 +1,10 @@
 package com.example.fantasticosback.service;
 
+import com.example.fantasticosback.dto.response.GroupCapacityDTO;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.model.Document.Group;
+import com.example.fantasticosback.model.Document.Subject;
 import com.example.fantasticosback.model.Document.Teacher;
 import com.example.fantasticosback.model.Document.Student;
 import com.example.fantasticosback.model.Document.Semester;
@@ -11,16 +13,22 @@ import com.example.fantasticosback.repository.GroupRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GroupService {
     
     private final GroupRepository groupRepository;
     private final TeacherService teacherService;
+    private final SubjectService subjectService;
+    private final GroupCapacityMonitoringService monitoringService;
 
-    public GroupService(GroupRepository groupRepository, TeacherService teacherService) {
+    public GroupService(GroupRepository groupRepository, TeacherService teacherService,
+                       SubjectService subjectService, GroupCapacityMonitoringService monitoringService) {
         this.groupRepository = groupRepository;
         this.teacherService = teacherService;
+        this.subjectService = subjectService;
+        this.monitoringService = monitoringService;
     }
 
     public Group createGroup(Group group) {
@@ -78,6 +86,9 @@ public class GroupService {
         
         group.getGroupStudents().add(student);
         groupRepository.save(group);
+
+        // ✨ NUEVO: Ejecutar monitoreo automático después de inscribir estudiante
+        monitoringService.checkGroupCapacity(groupId);
     }
 
     public void removeStudentFromGroup(String groupId, Student student) {
@@ -106,6 +117,44 @@ public class GroupService {
                             .anyMatch(enrollment -> enrollment.getGroup().getId() == groupId);
                 })
                 .toList();
+    }
+
+    /**
+     * Obtiene la información de capacidad de todos los grupos de una materia específica
+     * @param subjectCode Código de la materia (ej: "CALD")
+     * @return Lista con información de capacidad de cada grupo
+     */
+    public List<GroupCapacityDTO> getGroupCapacityBySubjectCode(String subjectCode) {
+        // Buscar la materia por código
+        Subject subject = subjectService.findAll().stream()
+                .filter(s -> s.getCode().equalsIgnoreCase(subjectCode))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Subject", "code", subjectCode));
+
+        // Buscar todos los grupos de esta materia
+        List<Group> groups = groupRepository.findBySubjectId(subject.getSubjectId());
+
+        if (groups.isEmpty()) {
+            throw new ResourceNotFoundException("No se encontraron grupos para la materia con código: " + subjectCode);
+        }
+
+        // Convertir a DTOs con información de capacidad
+        return groups.stream()
+                .map(group -> {
+                    int enrolledStudents = group.getGroupStudents() != null ? group.getGroupStudents().size() : 0;
+                    double occupancyPercentage = group.getCapacity() > 0 ? 
+                        (double) enrolledStudents / group.getCapacity() * 100 : 0;
+
+                    return new GroupCapacityDTO(
+                            subject.getCode(),
+                            subject.getName(),
+                            group.getNumber(),
+                            group.getCapacity(),
+                            enrolledStudents,
+                            Math.round(occupancyPercentage * 100.0) / 100.0 // Redondear a 2 decimales
+                    );
+                })
+                .collect(Collectors.toList());
     }
 
     private void validateGroupCreation(Group group) {
