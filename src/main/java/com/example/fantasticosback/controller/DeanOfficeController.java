@@ -2,12 +2,18 @@ package com.example.fantasticosback.controller;
 
 import com.example.fantasticosback.dto.response.DeanOfficeDTO;
 import com.example.fantasticosback.dto.response.ResponseDTO;
+import com.example.fantasticosback.exception.BusinessValidationException;
+import com.example.fantasticosback.exception.ResourceNotFoundException;
+import com.example.fantasticosback.mapper.DeanMapper;
+import com.example.fantasticosback.model.Document.Student;
+import com.example.fantasticosback.repository.DeanOfficeRepository;
 import com.example.fantasticosback.service.DeanOfficeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +22,7 @@ import java.util.List;
         name = "Dean Office",
         description = "Gestión de Decanaturas: registro, consulta, actualización y eliminación"
 )
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/dean-offices")
 public class DeanOfficeController {
@@ -23,9 +30,7 @@ public class DeanOfficeController {
     private final DeanOfficeService deanOfficeService;
 
 
-    public DeanOfficeController(DeanOfficeService deanOfficeService) {
-        this.deanOfficeService = deanOfficeService;
-    }
+
 
     @Operation(
             summary = "Crear una decanatura",
@@ -140,4 +145,38 @@ public class DeanOfficeController {
         DeanOfficeDTO patched = deanOfficeService.patch(id, dto);
         return ResponseEntity.ok(ResponseDTO.success(patched, "Dean office partially updated"));
     }
+
+    @Operation(
+            summary = "Agregar estudiante a una decanatura",
+            description = "Asocia un estudiante existente a una decanatura específica mediante su ID. " +
+                    "Valida que el estudiante tenga un ID válido y que no esté previamente asignado a esa decanatura."
+    )
+    @ApiResponse(
+            responseCode = "200",
+            description = "Estudiante agregado correctamente a la decanatura",
+            content = @Content(schema = @Schema(implementation = DeanOfficeDTO.class))
+    )
+    @ApiResponse(
+            responseCode = "400",
+            description = "Error de validación: el ID del estudiante es inválido o ya está asignado"
+    )
+    @ApiResponse(
+            responseCode = "404",
+            description = "No se encontró la decanatura con el ID especificado"
+    )
+
+    @PostMapping("/{id}/students")
+    public ResponseEntity<ResponseDTO<DeanOfficeDTO>> addStudent(
+            @PathVariable("id") String deanOfficeId,
+            @RequestBody Student student) {
+
+        DeanOfficeDTO updatedDeanOffice = deanOfficeService.addStudent(deanOfficeId, student);
+        return ResponseEntity.ok(ResponseDTO.success(updatedDeanOffice, "Student added successfully"));
+    }
+
+
+
 }
+
+
+

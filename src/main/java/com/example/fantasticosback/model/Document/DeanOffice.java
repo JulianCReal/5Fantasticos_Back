@@ -20,7 +20,8 @@ public class DeanOffice {
     private List<String> students = new ArrayList<>();
     private List<String> professors = new ArrayList<>();
     private List<String> subjects = new ArrayList<>();
-    private String deanName;
+    private List<String> requests =new ArrayList<>();
+    private String deanId;
 
     public DeanOffice(String id, String faculty) {
         this.id = id;
@@ -35,6 +36,7 @@ public class DeanOffice {
     public void addSubjectId(String id) {
         subjects.add(id);
     }
+    public void addRequestId(String id){requests.add(id);}
 
 
 }
