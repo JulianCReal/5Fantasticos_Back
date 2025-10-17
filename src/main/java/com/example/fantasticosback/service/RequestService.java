@@ -161,7 +161,7 @@ public class RequestService {
         }
     }
 
-    public void answerRequest(Request request, Role role){
+    public void answerRequest(Request request,String message,Boolean answer, Role role){
         request.setRequestResponseTime(LocalDateTime.now());
         if (processRequest(request, role)) {
             request.setEvaluationApproved(true);
