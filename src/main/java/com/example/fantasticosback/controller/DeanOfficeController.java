@@ -145,6 +145,7 @@ public class DeanOfficeController {
         DeanOfficeDTO patched = deanOfficeService.patch(id, dto);
         return ResponseEntity.ok(ResponseDTO.success(patched, "Dean office partially updated"));
     }
+
     @Operation(
             summary = "Agregar estudiante a una decanatura",
             description = "Asocia un estudiante existente a una decanatura específica mediante su ID. " +
@@ -176,3 +177,6 @@ public class DeanOfficeController {
 
 
 }
+
+
+
