@@ -19,7 +19,7 @@ public class Teacher extends Person {
         this.assignedSubjects = new HashMap<>();
     }
 
-    public Teacher(String name, String lastName, int document, String department) {
+    public Teacher(String name, String lastName, String document, String department) {
         super(name, lastName, document);
         this.department = department;
         this.assignedSubjects = new HashMap<>();
