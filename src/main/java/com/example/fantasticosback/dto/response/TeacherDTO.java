@@ -1,26 +1,29 @@
 package com.example.fantasticosback.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
-public class TeacherDTO {
-
-    private String id;
+public class TeacherDTO extends BaseDTO {
     private String name;
     private String lastName;
-    private String document;
+    private int document;
     private String department;
 
-    public TeacherDTO() {}
-
-    public TeacherDTO(String id, String name, String lastName, String document, String department) {
-        this.id = id;
+    public TeacherDTO(String id, String name, String lastName, int document, String department) {
+        super(id);
         this.name = name;
         this.lastName = lastName;
         this.document = document;
         this.department = department;
     }
-}
 
+    // Getters & Setters
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public int getDocument() { return document; }
+    public void setDocument(int document) { this.document = document; }
+
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
+}
