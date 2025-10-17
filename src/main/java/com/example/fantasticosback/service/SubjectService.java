@@ -71,6 +71,13 @@ public class SubjectService {
     }
     // Métodos para manejar grupos de materias
 
+    public Subject createSubject(Subject subject) {
+        // Validar que la materia no exista ya por ID
+        if (subjectRepository.findById(subject.getSubjectId()).isPresent()) {
+            throw new IllegalArgumentException("La materia ya existe con id: " + subject.getSubjectId());
+        }
+        return subjectRepository.save(subject);
+    }
     /**
      * Agrega un grupo a una materia existente
      */

@@ -57,6 +57,17 @@ public class SubjectController {
         }
     }
 
+    @PostMapping("/api/subjects")
+    public ResponseEntity <ResponseDTO<String>> createSubject(@RequestBody SubjectDTO subjectDTO) {
+        Subject subject = subjectService.fromDTO(subjectDTO);
+        Subject createdSubject = subjectService.createSubject(subject);
+        if (createdSubject != null) {
+            return ResponseEntity.ok(ResponseDTO.success("Materia creada existosamente", "Materia creada con id: " + createdSubject.getSubjectId());
+        } else {
+            return ResponseEntity.badRequest().body(ResponseDTO.error("Fallo al crear la materia"));
+        }
+    }
+
     // Endpoint para ver grupos de una materia específica usando abreviatura
     @GetMapping("/{subjectCode}/groups")
     public ResponseEntity<ResponseDTO<List<Object>>> getSubjectGroups(@PathVariable String subjectCode) {

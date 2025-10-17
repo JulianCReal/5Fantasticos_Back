@@ -14,6 +14,8 @@ public interface GroupRepository extends MongoRepository<Group, String> {
     @Query("{'number': ?0}")
     List<Group> findAllByNumber(int number);
 
+    List<Group> findBySubjectId(String subjectId);
+
     default boolean existsByNumber(int number) {
         return !findAllByNumber(number).isEmpty();
     }
