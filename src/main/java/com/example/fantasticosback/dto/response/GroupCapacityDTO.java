@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * DTO para mostrar información de capacidad de grupos por materia
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

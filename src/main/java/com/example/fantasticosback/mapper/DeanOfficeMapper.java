@@ -21,7 +21,7 @@ public class DeanOfficeMapper {
         DeanOffice deanOffice = new DeanOffice();
         deanOffice.setId(dto.getId());
         deanOffice.setFaculty(dto.getFaculty());
-        deanOffice.setDeanName(dto.getDeanName());
+        deanOffice.setDeanId(dto.getDeanId());
 
         if (dto.getStudents() != null) {
             deanOffice.setStudents(dto.getStudents().stream().collect(Collectors.toList()));
@@ -45,7 +45,7 @@ public class DeanOfficeMapper {
         DeanOfficeDTO dto = new DeanOfficeDTO();
         dto.setId(document.getId());
         dto.setFaculty(document.getFaculty());
-        dto.setDeanName(document.getDeanName());
+        dto.setDeanId(document.getDeanId());
 
         if (document.getStudents() != null) {
             dto.setStudents(document.getStudents().stream().collect(Collectors.toList()));

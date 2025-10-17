@@ -57,8 +57,8 @@ public class RequestService {
         // Usar el patrón State para determinar si se puede eliminar
         if (!existing.getState().canBeDeleted()) {
             throw new BusinessValidationException(
-                "Cannot delete request in '" + existing.getState().getStateName() +
-                "' status. Only requests in 'Pending' status can be deleted."
+                    "Cannot delete request in '" + existing.getState().getStateName() +
+                            "' status. Only requests in 'Pending' status can be deleted."
             );
         }
 
@@ -161,7 +161,7 @@ public class RequestService {
         }
     }
 
-    public void answerRequest(Request request, Role role){
+    public void answerRequest(Request request,String message,Boolean answer, Role role){
         request.setRequestResponseTime(LocalDateTime.now());
         if (processRequest(request, role)) {
             request.setEvaluationApproved(true);
