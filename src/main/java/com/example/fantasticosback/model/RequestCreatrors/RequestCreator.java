@@ -20,6 +20,7 @@ public abstract class RequestCreator {
 
     public abstract Request createRequest(RequestDTO requestDTO);
     public abstract RequestType getRequestType(RequestType requestType);
+    public abstract boolean canHandle(RequestDTO requestDTO);
 
     public RequestPriority assignPriority(RequestDTO requestDTO) {
         switch (requestDTO.getRequestType()) {

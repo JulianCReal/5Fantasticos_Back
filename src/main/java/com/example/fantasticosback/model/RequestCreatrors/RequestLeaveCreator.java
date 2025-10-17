@@ -29,4 +29,8 @@ public class RequestLeaveCreator extends RequestCreator {
     public RequestType getRequestType(RequestType requestType) {
         return RequestType.LEAVE_GROUP;
     }
+    @Override
+    public boolean canHandle(RequestDTO requestDTO) {
+        return requestDTO.getRequestType() == RequestType.LEAVE_GROUP;
+    }
 }

@@ -17,6 +17,7 @@ D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\exampl
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestAddDataDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestResponseDTO.java
+D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\UpdateCapacityRequestDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\BaseDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\CreateGroupDTO.java
 D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanDTO.java

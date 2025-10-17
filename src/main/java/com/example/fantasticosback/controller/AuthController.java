@@ -9,12 +9,22 @@ import com.example.fantasticosback.service.MatcherService;
 import com.example.fantasticosback.util.JwtTokenUtil;
 import com.example.fantasticosback.util.LoginRequest;
 import com.example.fantasticosback.util.LoginResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(
+    name = "Autenticación",
+    description = "Endpoints para autenticación y registro de usuarios en el sistema"
+)
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -25,6 +35,22 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
 
+    @Operation(
+        summary = "Iniciar sesión",
+        description = "Permite a un usuario autenticarse en el sistema con su email y contraseña. " +
+                     "Retorna el perfil del usuario, su rol y un token JWT para autenticación en endpoints protegidos."
+    )
+    @ApiResponses({
+        @ApiResponse(
+            responseCode = "200",
+            description = "Login exitoso",
+            content = @Content(schema = @Schema(implementation = LoginResponse.class))
+        ),
+        @ApiResponse(
+            responseCode = "401",
+            description = "Credenciales inválidas - Email o contraseña incorrectos"
+        )
+    })
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
@@ -41,6 +67,22 @@ public class AuthController {
         }
     }
 
+    @Operation(
+        summary = "Registrar nuevo usuario",
+        description = "Permite registrar un nuevo usuario en el sistema. " +
+                     "Se debe especificar el email, contraseña, rol (STUDENT, TEACHER, DEAN_OFFICE) y el ID del perfil asociado."
+    )
+    @ApiResponses({
+        @ApiResponse(
+            responseCode = "200",
+            description = "Usuario registrado exitosamente",
+            content = @Content(schema = @Schema(implementation = UserResponseDTO.class))
+        ),
+        @ApiResponse(
+            responseCode = "400",
+            description = "Email ya está en uso o datos inválidos"
+        )
+    })
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequestDTO registerRequest) {
         if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) {

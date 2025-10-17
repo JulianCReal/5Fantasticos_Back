@@ -29,7 +29,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Tag(name = "Requests", description = "Management of student, teacher, and administrative requests")
+@Tag(
+    name = "Solicitudes",
+    description = "Gestión completa de solicitudes académicas y administrativas: creación, consulta, filtrado por estado, prioridad, usuario y decanatura"
+)
 @RestController
 @RequestMapping("/api/requests")
 public class RequestController {
@@ -202,8 +205,11 @@ public class RequestController {
     }
 
     private RequestCreator selectCreatorForUse(RequestDTO dto) {
-        return requestCreators.stream().filter(creator -> creator.getRequestType(dto.getRequestType()) == dto.getRequestType())
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("No RequestCreator found for type: " + dto.getRequestType()));
+        for (RequestCreator creator : requestCreators) {
+            if (creator.canHandle(dto)) {
+                return creator;
+            }
+        }
+        throw new IllegalArgumentException("No suitable creator found for the request type");
     }
 }
