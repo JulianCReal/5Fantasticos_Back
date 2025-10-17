@@ -30,4 +30,8 @@ public class RequestChangeCreator extends RequestCreator {
     public RequestType getRequestType(RequestType requestType) {
         return RequestType.CHANGE_GROUP;
     }
+    @Override
+    public boolean canHandle(RequestDTO requestDTO) {
+        return requestDTO.getRequestType() == RequestType.CHANGE_GROUP;
+    }
 }
