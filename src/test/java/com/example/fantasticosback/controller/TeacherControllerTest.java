@@ -1,188 +1,126 @@
 package com.example.fantasticosback.controller;
 
-import com.example.fantasticosback.model.Document.Teacher;
-import com.example.fantasticosback.service.TeacherService;
 import com.example.fantasticosback.dto.response.TeacherDTO;
-import com.example.fantasticosback.dto.response.ResponseDTO;
+import com.example.fantasticosback.exception.BusinessValidationException;
+import com.example.fantasticosback.exception.ResourceNotFoundException;
+import com.example.fantasticosback.mapper.TeacherMapper;
+import com.example.fantasticosback.model.Document.Teacher;
+import com.example.fantasticosback.repository.TeacherRepository;
+import com.example.fantasticosback.service.TeacherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.ResponseEntity;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class TeacherControllerTest {
+class TeacherServiceTest {
+
     @Mock
-    private TeacherService teacherService;
+    private TeacherRepository teacherRepository;
+
+    @Mock
+    private TeacherMapper teacherMapper;
 
     @InjectMocks
-    private TeacherController teacherController;
+    private TeacherService teacherService;
+
+    private Teacher teacher;
+    private TeacherDTO teacherDTO;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        teacher = new Teacher();
+        teacher.setId("1");
+        teacher.setName("Juan");
+        teacher.setLastName("Pérez");
+        teacher.setDocument("12345");
+        teacher.setDepartment("Math");
+
+        teacherDTO = new TeacherDTO();
+        teacherDTO.setId("1");
+        teacherDTO.setName("Juan");
+        teacherDTO.setLastName("Pérez");
+        teacherDTO.setDocument("12345");
+        teacherDTO.setDepartment("Math");
     }
 
     @Test
-    void testCreate() {
-        TeacherDTO dto = new TeacherDTO("T1", "Ana", "Gomez", 123, "Math");
-        Teacher teacher = new Teacher();
-        when(teacherService.fromDTO(dto)).thenReturn(teacher);
-        when(teacherService.save(teacher)).thenReturn(teacher);
-        when(teacherService.toDTO(teacher)).thenReturn(dto);
-        ResponseEntity<ResponseDTO<TeacherDTO>> response = teacherController.create(dto);
-        assertEquals(200, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Teacher created", response.getBody().getMessage());
-        assertEquals(dto, response.getBody().getData());
+    void save_ShouldSaveTeacher_WhenValid() {
+        when(teacherMapper.fromDTO(any(TeacherDTO.class))).thenReturn(teacher);
+        when(teacherRepository.findByDocument("12345")).thenReturn(null);
+        when(teacherRepository.save(any(Teacher.class))).thenReturn(teacher);
+        when(teacherMapper.fromDocument(any(Teacher.class))).thenReturn(teacherDTO);
+
+        TeacherDTO result = teacherService.save(teacherDTO);
+
+        assertNotNull(result);
+        assertEquals("Juan", result.getName());
+        verify(teacherRepository, times(1)).save(any(Teacher.class));
     }
 
     @Test
-    void testList() {
-        TeacherDTO dto = new TeacherDTO("T1", "Ana", "Gomez", 123, "Math");
-        List<TeacherDTO> dtos = Collections.singletonList(dto);
-        when(teacherService.findAll()).thenReturn(Collections.emptyList());
-        when(teacherService.toDTOList(any())).thenReturn(dtos);
-        ResponseEntity<ResponseDTO<List<TeacherDTO>>> response = teacherController.list();
-        assertEquals(200, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Success", response.getBody().getStatus());
-        assertEquals("List of teachers", response.getBody().getMessage());
-        assertEquals(dtos, response.getBody().getData());
+    void save_ShouldThrow_WhenDuplicateDocument() {
+        when(teacherMapper.fromDTO(any(TeacherDTO.class))).thenReturn(teacher);
+        when(teacherRepository.findByDocument("12345")).thenReturn(teacher);
+
+        assertThrows(BusinessValidationException.class, () -> teacherService.save(teacherDTO));
     }
 
     @Test
-    void testGet_Exists() {
-        String id = "T1";
-        TeacherDTO dto = new TeacherDTO(id, "Ana", "Gomez", 123, "Math");
-        Teacher teacher = new Teacher();
-        when(teacherService.findById(id)).thenReturn(teacher);
-        when(teacherService.toDTO(teacher)).thenReturn(dto);
-        ResponseEntity<ResponseDTO<TeacherDTO>> response = teacherController.get(id);
-        assertEquals(200, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Teacher found", response.getBody().getMessage());
-        assertEquals(dto, response.getBody().getData());
+    void findById_ShouldReturnTeacher_WhenExists() {
+        when(teacherRepository.findById("1")).thenReturn(Optional.of(teacher));
+        when(teacherMapper.fromDocument(teacher)).thenReturn(teacherDTO);
+
+        TeacherDTO result = teacherService.findById("1");
+
+        assertEquals("Juan", result.getName());
+        verify(teacherRepository).findById("1");
     }
 
     @Test
-    void testGet_NotExists() {
-        String id = "T1";
-        when(teacherService.findById(id)).thenReturn(null);
-        ResponseEntity<ResponseDTO<TeacherDTO>> response = teacherController.get(id);
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Teacher not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+    void findById_ShouldThrow_WhenNotFound() {
+        when(teacherRepository.findById("1")).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> teacherService.findById("1"));
     }
 
     @Test
-    void testUpdate_Exists() {
-        String id = "T1";
-        TeacherDTO dto = new TeacherDTO(id, "Ana", "Gomez", 123, "Math");
-        Teacher teacher = new Teacher();
-        when(teacherService.findById(id)).thenReturn(teacher);
-        when(teacherService.fromDTO(dto)).thenReturn(teacher);
-        when(teacherService.update(teacher)).thenReturn(teacher);
-        when(teacherService.toDTO(teacher)).thenReturn(dto);
-        ResponseEntity<ResponseDTO<TeacherDTO>> response = teacherController.update(id, dto);
-        assertEquals(200, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Teacher updated", response.getBody().getMessage());
-        assertEquals(dto, response.getBody().getData());
+    void findByDepartment_ShouldReturnList_WhenExists() {
+        when(teacherRepository.findByDepartment("Math")).thenReturn(List.of(teacher));
+        when(teacherMapper.fromDocument(teacher)).thenReturn(teacherDTO);
+
+        List<TeacherDTO> result = teacherService.findByDepartment("Math");
+
+        assertEquals(1, result.size());
+        verify(teacherRepository).findByDepartment("Math");
     }
 
     @Test
-    void testUpdate_NotExists() {
-        String id = "T1";
-        TeacherDTO dto = new TeacherDTO(id, "Ana", "Gomez", 123, "Math");
-        when(teacherService.findById(id)).thenReturn(null);
-        ResponseEntity<ResponseDTO<TeacherDTO>> response = teacherController.update(id, dto);
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Teacher not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+    void findByDepartment_ShouldThrow_WhenEmpty() {
+        when(teacherRepository.findByDepartment("History")).thenReturn(List.of());
+        assertThrows(ResourceNotFoundException.class, () -> teacherService.findByDepartment("History"));
     }
 
     @Test
-    void testDelete_Exists() {
-        String id = "T1";
-        Teacher teacher = new Teacher();
-        when(teacherService.findById(id)).thenReturn(teacher);
-        doNothing().when(teacherService).delete(id);
-        ResponseEntity<ResponseDTO<Void>> response = teacherController.delete(id);
-        assertEquals(200, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Teacher deleted", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
+    void delete_ShouldDeleteTeacher_WhenExists() {
+        when(teacherRepository.findById("1")).thenReturn(Optional.of(teacher));
+        doNothing().when(teacherRepository).deleteById("1");
+
+        teacherService.delete("1");
+
+        verify(teacherRepository).deleteById("1");
     }
 
     @Test
-    void testDelete_NotExists() {
-        String id = "T1";
-        when(teacherService.findById(id)).thenReturn(null);
-        ResponseEntity<ResponseDTO<Void>> response = teacherController.delete(id);
-        assertEquals(404, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Error", response.getBody().getStatus());
-        assertEquals("Teacher not found", response.getBody().getMessage());
-        assertNull(response.getBody().getData());
-    }
-
-    @Test
-    void testByDepartment() {
-        String department = "Math";
-        TeacherDTO dto = new TeacherDTO("T1", "Ana", "Gomez", 123, department);
-        List<TeacherDTO> dtos = Collections.singletonList(dto);
-        when(teacherService.findByDepartment(department)).thenReturn(Collections.emptyList());
-        when(teacherService.toDTOList(any())).thenReturn(dtos);
-        ResponseEntity<ResponseDTO<List<TeacherDTO>>> response = teacherController.getByDepartment(department);
-        assertEquals(200, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Teachers by department", response.getBody().getMessage());
-        assertEquals(dtos, response.getBody().getData());
-    }
-
-    @Test
-    void testByName() {
-        String name = "Ana";
-        TeacherDTO dto = new TeacherDTO("T1", name, "Gomez", 123, "Math");
-        List<TeacherDTO> dtos = Collections.singletonList(dto);
-        when(teacherService.findByName(name)).thenReturn(Collections.emptyList());
-        when(teacherService.toDTOList(any())).thenReturn(dtos);
-        ResponseEntity<ResponseDTO<List<TeacherDTO>>> response = teacherController.getByName(name);
-        assertEquals(200, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Teachers by name", response.getBody().getMessage());
-        assertEquals(dtos, response.getBody().getData());
-    }
-
-    @Test
-    void testByLastName() {
-        String lastName = "Gomez";
-        TeacherDTO dto = new TeacherDTO("T1", "Ana", lastName, 123, "Math");
-        List<TeacherDTO> dtos = Collections.singletonList(dto);
-        when(teacherService.findByLastName(lastName)).thenReturn(Collections.emptyList());
-        when(teacherService.toDTOList(any())).thenReturn(dtos);
-        ResponseEntity<ResponseDTO<List<TeacherDTO>>> response = teacherController.getByLastName(lastName);
-        assertEquals(200, response.getStatusCode().value());
-        assertNotNull(response.getBody());
-        assertEquals("Success", response.getBody().getStatus());
-        assertEquals("Teachers by last name", response.getBody().getMessage());
-        assertEquals(dtos, response.getBody().getData());
+    void delete_ShouldThrow_WhenNotFound() {
+        when(teacherRepository.findById("1")).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> teacherService.delete("1"));
     }
 }
