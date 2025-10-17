@@ -1,17 +1,12 @@
 package com.example.fantasticosback.service;
 
 import com.example.fantasticosback.dto.response.DeanDTO;
-import com.example.fantasticosback.enums.Role;
-import com.example.fantasticosback.exception.BusinessValidationException;
-import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.model.Document.Dean;
-import com.example.fantasticosback.model.Document.DeanOffice;
-import com.example.fantasticosback.model.Document.Request;
 import com.example.fantasticosback.repository.DeanOfficeRepository;
 import com.example.fantasticosback.repository.DeanRepository;
 import com.example.fantasticosback.mapper.DeanMapper;
 import org.springframework.stereotype.Service;
-import com.example.fantasticosback.service.RequestService;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,14 +16,13 @@ public class DeanService {
     private final DeanRepository deanRepository;
     private final DeanOfficeRepository deanOfficeRepository;
     private final DeanMapper deanMapper;
-    private final RequestService requestService;
+
     public DeanService(DeanRepository deanRepository,
                        DeanOfficeRepository deanOfficeRepository,
-                       DeanMapper deanMapper, RequestService requestService) {
+                       DeanMapper deanMapper) {
         this.deanRepository = deanRepository;
         this.deanOfficeRepository = deanOfficeRepository;
         this.deanMapper = deanMapper;
-        this.requestService = requestService;
     }
 
     public List<DeanDTO> getAll() {
@@ -64,27 +58,11 @@ public class DeanService {
     }
 
 
+    /*public void respondRequest(String faculty, String requestId, String response) {
+        DeanOffice deanOffice = deanOfficeRepository.findByFaculty(faculty)
+                .orElseThrow(() -> new RuntimeException("Dean Office not found"));
 
-
-    public Request resolveRequest(String deanId, String requestId, String responseMessage, Boolean status) {
-
-        Request request = requestService.findById(requestId);
-
-
-        DeanOffice deanOffice = deanOfficeRepository.findByDeanId(deanId);
-        if (deanOffice == null) {
-            throw new BusinessValidationException("This dean does not manage any DeanOffice.");
-        }
-
-        if (!request.getDeanOffice().equals(deanOffice.getId())) {
-            throw new BusinessValidationException("Dean cannot resolve requests from another DeanOffice.");
-        }
-
-        requestService.answerRequest(request, responseMessage, status, Role.DEAN);
-
-        return request;
-    }
-
-
-
+        deanOffice.respondRequest(requestId, response);
+        deanOfficeRepository.save(deanOffice);
+    }*/
 }

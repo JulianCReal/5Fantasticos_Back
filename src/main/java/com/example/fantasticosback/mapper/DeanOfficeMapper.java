@@ -21,7 +21,7 @@ public class DeanOfficeMapper {
         DeanOffice deanOffice = new DeanOffice();
         deanOffice.setId(dto.getId());
         deanOffice.setFaculty(dto.getFaculty());
-        deanOffice.setDeanId(dto.getDeanId());
+        deanOffice.setDeanName(dto.getDeanName());
 
         if (dto.getStudents() != null) {
             deanOffice.setStudents(dto.getStudents().stream().collect(Collectors.toList()));
@@ -31,9 +31,6 @@ public class DeanOfficeMapper {
         }
         if (dto.getSubjects() != null) {
             deanOffice.setSubjects(dto.getSubjects().stream().collect(Collectors.toList()));
-        }
-        if (dto.getRequests() != null) {
-            deanOffice.setRequests(dto.getRequests().stream().collect(Collectors.toList()));
         }
 
         return deanOffice;
@@ -48,7 +45,7 @@ public class DeanOfficeMapper {
         DeanOfficeDTO dto = new DeanOfficeDTO();
         dto.setId(document.getId());
         dto.setFaculty(document.getFaculty());
-        dto.setDeanId(document.getDeanId());
+        dto.setDeanName(document.getDeanName());
 
         if (document.getStudents() != null) {
             dto.setStudents(document.getStudents().stream().collect(Collectors.toList()));
@@ -58,9 +55,6 @@ public class DeanOfficeMapper {
         }
         if (document.getSubjects() != null) {
             dto.setSubjects(document.getSubjects().stream().collect(Collectors.toList()));
-        }
-        if (document.getRequests() != null ){
-            dto.setRequests(document.getRequests().stream().collect(Collectors.toList()));
         }
 
         return dto;
