@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(
-    name = "Matrículas",
+    name = "Enrollment",
     description = "Gestión de matrículas: inscripción de estudiantes en grupos, cancelación, consulta y actualización de calificaciones"
 )
 @RestController

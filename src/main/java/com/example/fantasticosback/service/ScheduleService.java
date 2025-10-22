@@ -1,42 +1,40 @@
 package com.example.fantasticosback.service;
 
-import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.model.Document.*;
-import com.example.fantasticosback.repository.DeanOfficeRepository;
-import com.example.fantasticosback.repository.StudentRepository;
-import com.example.fantasticosback.repository.TeacherRepository;
+import com.example.fantasticosback.repository.*;
 import com.example.fantasticosback.enums.UserRole;
 import com.example.fantasticosback.util.ClassSession;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.fantasticosback.exception.ResourceNotFoundException;
+import com.example.fantasticosback.exception.BusinessValidationException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.logging.Logger;
 
+
 @Service
+@RequiredArgsConstructor
 public class ScheduleService {
 
     private static final Logger log = Logger.getLogger(ScheduleService.class.getName());
-
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private TeacherRepository teacherRepository;
-
-    @Autowired
-    private DeanOfficeRepository deanOfficeRepository;
+    private final StudentRepository studentRepository;
+    private final TeacherRepository teacherRepository;
+    private final DeanOfficeRepository deanOfficeRepository;
+    private final ScheduleRepository scheduleRepository;
+    private final EnrollmentRepository enrollmentRepository;
+    private final GroupService groupService;
+    private final SubjectRepository subjectRepository;
 
 
-    public Map<String, Object> getStudentSchedule(String studentId, String userId, UserRole userRole)
-            throws IllegalAccessException, IllegalArgumentException {
-        
+    public Map<String, Object> getStudentSchedule(String studentId, String userId, UserRole userRole) {
+
         log.info("Querying schedule for student: " + studentId + " by user: " + userId + " with role: " + userRole);
 
 
         Student student = studentRepository.findById(studentId).orElse(null);
         if (student == null) {
-            throw new IllegalArgumentException("Student not found with ID: " + studentId);
+            throw new ResourceNotFoundException("Student", "id", studentId);
         }
 
         switch (userRole) {
@@ -50,35 +48,58 @@ public class ScheduleService {
                 validateDeanOfficeAccess(student, userId);
                 break;
             default:
-                throw new IllegalAccessException("Invalid user role");
+                throw new BusinessValidationException("Invalid user role");
         }
 
         return generateSchedule(student);
     }
 
+    public Map<String, Object> getStudentSchedule(String studentId, String userId, String userRoleStr) {
+        if (userRoleStr == null || userRoleStr.trim().isEmpty()) {
+            throw new BusinessValidationException("Missing user role header");
+        }
+        UserRole userRole;
+        try {
+            userRole = UserRole.valueOf(userRoleStr.trim().toUpperCase());
+        } catch (IllegalArgumentException ex) {
+            throw new BusinessValidationException("Invalid user role. Valid roles: STUDENT, TEACHER, DEAN_OFFICE");
+        }
+        return getStudentSchedule(studentId, userId, userRole);
+    }
 
-    private void validateStudentAccess(String studentId, String userId) throws IllegalAccessException {
+
+    private void validateStudentAccess(String studentId, String userId) {
         if (!studentId.equals(userId)) {
             log.warning("Access denied: Student " + userId + " tried to query schedule of " + studentId);
-            throw new IllegalAccessException("Students can only query their own schedule");
+            throw new BusinessValidationException("Students can only query their own schedule");
         }
     }
 
 
-    private void validateTeacherAccess(Student student, String teacherId) throws IllegalAccessException {
+    private void validateTeacherAccess(Student student, String teacherId) {
         Teacher teacher = teacherRepository.findById(teacherId).orElse(null);
         if (teacher == null) {
-            throw new IllegalArgumentException("Teacher not found with ID: " + teacherId);
+            throw new ResourceNotFoundException("Teacher", "id", teacherId);
         }
 
         boolean hasStudent = false;
 
-        for (Semester semester : student.getSemesters()) {
-            for (Enrollment enrollment : semester.getSchedule().getEnrollments()) {
-                Group group = enrollment.getGroup();
-                if (group.getTeacher() != null && teacherId.equals(group.getTeacher().getId())) {
-                    hasStudent = true;
-                    break;
+        // Buscar en todas las schedules del estudiante
+        List<Schedule> schedules = scheduleRepository.findByStudentId(student.getStudentId());
+        for (Schedule schedule : schedules) {
+            if (schedule.getEnrollmentIds() == null) continue;
+            for (String enrollmentId : schedule.getEnrollmentIds()) {
+                Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
+                if (enrollment == null) continue;
+                try {
+                    Group group = groupService.getGroupById(enrollment.getGroupId());
+                    if (group.getTeacher() != null && teacherId.equals(group.getTeacher().getId())) {
+                        hasStudent = true;
+                        break;
+                    }
+                } catch (Exception ex) {
+                    // si el grupo no existe o hay error, continuar
+                    log.fine("Skipping enrollment " + enrollmentId + " while validating teacher access: " + ex.getMessage());
                 }
             }
             if (hasStudent) break;
@@ -86,21 +107,21 @@ public class ScheduleService {
 
         if (!hasStudent) {
             log.warning("Access denied: Teacher " + teacherId + " is not assigned to student " + student.getStudentId());
-            throw new IllegalAccessException("Teachers can only query schedules of their assigned students");
+            throw new BusinessValidationException("Teachers can only query schedules of their assigned students");
         }
     }
 
 
-    private void validateDeanOfficeAccess(Student student, String deanOfficeId) throws IllegalAccessException {
+    private void validateDeanOfficeAccess(Student student, String deanOfficeId) {
         DeanOffice deanOffice = deanOfficeRepository.findById(deanOfficeId).orElse(null);
         if (deanOffice == null) {
-            throw new IllegalArgumentException("Dean office not found with ID: " + deanOfficeId);
+            throw new ResourceNotFoundException("DeanOffice", "id", deanOfficeId);
         }
 
 
         if (!student.getCareer().equals(deanOffice.getFaculty())) {
             log.warning("Access denied: Dean office " + deanOfficeId + " tried to query student from another faculty");
-            throw new IllegalAccessException("Dean office can only query students from their faculty");
+            throw new BusinessValidationException("Dean office can only query students from their faculty");
         }
     }
 
@@ -108,21 +129,22 @@ public class ScheduleService {
     private Map<String, Object> generateSchedule(Student student) {
         List<Map<String, Object>> classes = new ArrayList<>();
 
-        Semester currentSemester = null;
-        for (Semester semester : student.getSemesters()) {
-            if (semester.isActive()) {
-                currentSemester = semester;
-                break;
-            }
+        // Buscar schedule activo
+        List<Schedule> schedules = scheduleRepository.findByStudentId(student.getStudentId());
+        Schedule currentSchedule = schedules.stream()
+                .filter(s -> s.getSemester() != null && s.getSemester().isActive())
+                .findFirst()
+                .orElse(null);
+
+        if (currentSchedule == null && !schedules.isEmpty()) {
+            currentSchedule = schedules.get(schedules.size() - 1);
         }
 
-        if (currentSemester == null && !student.getSemesters().isEmpty()) {
-            currentSemester = student.getSemesters().get(student.getSemesters().size() - 1);
-        }
-
-        if (currentSemester != null) {
-            for (Enrollment enrollment : currentSemester.getSchedule().getEnrollments()) {
-                if (!"cancelled".equals(enrollment.getStatus())) {
+        if (currentSchedule != null && currentSchedule.getEnrollmentIds() != null) {
+            for (String enrollmentId : currentSchedule.getEnrollmentIds()) {
+                Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
+                if (enrollment == null) continue;
+                if (!"CANCELLED".equalsIgnoreCase(enrollment.getStatus())) {
                     classes.addAll(generateEnrollmentClasses(enrollment));
                 }
             }
@@ -132,7 +154,7 @@ public class ScheduleService {
         schedule.put("studentId", student.getStudentId());
         schedule.put("studentName", student.getName() + " " + student.getLastName());
         schedule.put("career", student.getCareer());
-        schedule.put("semester", student.getSemester());
+        schedule.put("semester", student.getCurrentSemester());
         schedule.put("classes", classes);
 
         return schedule;
@@ -141,51 +163,80 @@ public class ScheduleService {
 
     private List<Map<String, Object>> generateEnrollmentClasses(Enrollment enrollment) {
         List<Map<String, Object>> classes = new ArrayList<>();
-        Group group = enrollment.getGroup();
-        Subject subject = enrollment.getSubject();
-        Teacher teacher = group.getTeacher();
+        Group group = null;
+        Subject subject = null;
 
-        String teacherName = (teacher != null) ?
-            teacher.getName() + " " + teacher.getLastName() : "Unassigned";
+        try {
+            group = groupService.getGroupById(enrollment.getGroupId());
+        } catch (Exception ex) {
+            log.warning("Group not found for enrollment " + enrollment.getId() + ": " + ex.getMessage());
+        }
+        if (enrollment.getSubjectId() != null) {
+            subject = subjectRepository.findById(enrollment.getSubjectId()).orElse(null);
+        }
 
-        for (ClassSession session : group.getSessions()) {
-            Map<String, Object> classInfo = new HashMap<>();
-            classInfo.put("subject", subject.getName());
-            classInfo.put("subjectCode", String.valueOf(subject.getSubjectId()));
-            classInfo.put("credits", subject.getCredits());
-            classInfo.put("groupNumber", group.getNumber());
-            classInfo.put("teacherName", teacherName);
-            classInfo.put("day", session.getDay());
-            classInfo.put("startTime", session.getStartTime());
-            classInfo.put("endTime", session.getEndTime());
-            classInfo.put("classroom", session.getClassroom());
+        String teacherName = "Unassigned";
+        if (group != null && group.getTeacher() != null) {
+            teacherName = group.getTeacher().getName() + " " + group.getTeacher().getLastName();
+        }
 
-            classes.add(classInfo);
+        if (group != null && group.getSessions() != null) {
+            for (ClassSession session : group.getSessions()) {
+                Map<String, Object> classInfo = new HashMap<>();
+                classInfo.put("subject", subject != null ? subject.getName() : "Unknown");
+                classInfo.put("subjectCode", subject != null ? String.valueOf(subject.getSubjectId()) : "");
+                classInfo.put("credits", subject != null ? subject.getCredits() : 0);
+                classInfo.put("groupNumber", group.getNumber());
+                classInfo.put("teacherName", teacherName);
+                classInfo.put("day", session.getDay());
+                classInfo.put("startTime", session.getStartTime());
+                classInfo.put("endTime", session.getEndTime());
+                classInfo.put("classroom", session.getClassroom());
+
+                classes.add(classInfo);
+            }
         }
 
         return classes;
     }
 
-    public boolean hasTimeConflict(String studentId, ClassSession newSession) throws IllegalAccessException {
-        Map<String, Object> currentSchedule = this.getStudentSchedule(studentId, studentId, UserRole.STUDENT);
-        @SuppressWarnings("unchecked")
-        ArrayList<Map<String, Object>> classes = (ArrayList<Map<String, Object>>) currentSchedule.get("classes");
-        
-        for (Map<String, Object> classInfo : classes) {
-            @SuppressWarnings("unchecked")
-            Map<String, String> sessionInfo = (Map<String, String>) classInfo.get("session");
-            if (sessionInfo != null) {
-                ClassSession existingSession = new ClassSession(
-                    sessionInfo.get("day"),
-                    sessionInfo.get("startTime"),
-                    sessionInfo.get("endTime"),
-                    sessionInfo.get("classroom")
-                );
-                if (existingSession.verifyConflict(newSession)) {
-                    return true;
+    public boolean hasTimeConflict(String studentId, ClassSession newSession) {
+        // Buscar schedule activo
+        List<Schedule> schedules = scheduleRepository.findByStudentId(studentId);
+        Schedule activeSchedule = schedules.stream()
+                .filter(s -> s.getSemester() != null && s.getSemester().isActive())
+                .findFirst()
+                .orElse(null);
+
+        if (activeSchedule == null || activeSchedule.getEnrollmentIds() == null) return false;
+
+        for (String enrollmentId : activeSchedule.getEnrollmentIds()) {
+            Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
+            if (enrollment == null) continue;
+            try {
+                Group group = groupService.getGroupById(enrollment.getGroupId());
+                for (ClassSession existingSession : group.getSessions()) {
+                    if (existingSession.verifyConflict(newSession)) {
+                        return true;
+                    }
                 }
+            } catch (Exception ex) {
+                // ignorar grupos faltantes
             }
         }
         return false;
+    }
+
+
+    /**
+     * Elimina una inscripción (Enrollment) de un horario (Schedule) por ID y guarda el cambio
+     */
+    public void removeEnrollment(Schedule schedule, String enrollmentId) {
+        if (schedule == null || enrollmentId == null) return;
+        if (schedule.getEnrollmentIds() != null) {
+            schedule.getEnrollmentIds().remove(enrollmentId);
+            scheduleRepository.save(schedule);
+            log.info("Enrollment ID " + enrollmentId + " removido correctamente del horario.");
+        }
     }
 }

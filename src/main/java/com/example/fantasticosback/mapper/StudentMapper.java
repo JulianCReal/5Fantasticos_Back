@@ -10,8 +10,10 @@ public class StudentMapper {
         return new StudentDTO(
                 student.getStudentId(),
                 student.getName(),
+                student.getLastName(),
+                student.getDocument(),
                 student.getCareer(),
-                student.getSemester()
+                student.getCurrentSemester()
         );
     }
 
@@ -20,16 +22,18 @@ public class StudentMapper {
     }
 
     public static Student toDomain(StudentDTO dto) {
-        return new Student(
-                dto.getName(),
-                "",
-                "0",
-                dto.getCareer(),
-                "",
-                dto.getId(),
-                dto.getSemester(),
-                null
-        );
+        if (dto == null) return null;
+        Student student = new Student();
+        student.setStudentId(dto.getId());
+        student.setName(dto.getName());
+        student.setCareer(dto.getCareer());
+        student.setCurrentSemester(dto.getSemester());
+        student.setLastName(dto.getLastName());
+        student.setDocument(dto.getDocument());
+        student.setApprovedSubjectIds(new java.util.ArrayList<>());
+        student.setScheduleIds(new java.util.ArrayList<>());
+        student.setRequestIds(new java.util.ArrayList<>());
+        student.setAcademicTrafficLight(null);
+        return student;
     }
 }
-

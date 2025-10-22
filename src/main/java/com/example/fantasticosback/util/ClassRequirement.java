@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class ClassRequirement {
-    private String subjetcId;
+    // corregido typo: subjetcId -> subjectId
+    private String subjectId;
     private String name;
 }
