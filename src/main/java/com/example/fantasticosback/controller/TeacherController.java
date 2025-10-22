@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Tag(
-    name = "Profesores",
+    name = "Teacher",
     description = "Gestión completa de profesores: creación, consulta, actualización, eliminación y búsquedas por filtros"
 )
 @RestController

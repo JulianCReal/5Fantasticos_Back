@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +25,6 @@ public class SubjectService {
 
     @Autowired
     private TeacherRepository teacherRepository;
-
-    @Autowired
-    private StudentService studentService;
 
     public Subject save(Subject subject) { return subjectRepository.save(subject);}
 
@@ -55,13 +53,12 @@ public class SubjectService {
     }
 
     public Subject fromDTO(SubjectDTO dto) {
-        Subject subject = new Subject(
-                dto.getId(),
-                dto.getCode(),
-                dto.getName(),
-                dto.getCredits(),
-                dto.getSemester()
-        );
+        Subject subject = new Subject();
+        subject.setSubjectId(dto.getId());
+        subject.setCode(dto.getCode());
+        subject.setName(dto.getName());
+        subject.setCredits(dto.getCredits());
+        subject.setSemester(dto.getSemester());
         subject.setAvailableGroups(dto.getAvailableGroups());
         return subject;
     }
@@ -89,16 +86,19 @@ public class SubjectService {
             }
         }
 
-        // Generar ID único para el grupo
-        int newGroupId = generateGroupId(subject);
+        // Generar ID único para el grupo usando UUID (IDs deben ser Strings)
+        String newGroupId = UUID.randomUUID().toString();
 
         // Crear el nuevo grupo (sin la referencia a subject)
         Group newGroup = new Group(
-            Integer.toString(newGroupId),
+            newGroupId,
+            subject.getSubjectId(),
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
-            teacher
+            teacher,
+            new java.util.ArrayList<>(),
+            new java.util.ArrayList<>()
         );
 
         // Agregar el grupo a la materia
@@ -134,21 +134,6 @@ public class SubjectService {
     }
 
     /**
-     * Genera un ID único para un nuevo grupo dentro de una materia
-     */
-    private int generateGroupId(Subject subject) {
-        if (subject.getAvailableGroups().isEmpty()) {
-            return 1;
-        }
-        return subject.getAvailableGroups().stream()
-                .mapToInt(g -> Integer.parseInt(g.getId()))
-                .max()
-                .orElse(0) + 1;
-    }
-
-    // Métodos para manejar grupos de materias usando abreviaturas del catálogo
-
-    /**
      * Agrega un grupo a una materia existente usando la abreviatura del catálogo
      */
     public boolean addGroupToSubjectByCode(String subjectCode, CreateGroupDTO groupDto) {
@@ -173,16 +158,19 @@ public class SubjectService {
             }
         }
 
-        // Generar ID único para el grupo
-        int newGroupId = generateGroupId(subject);
+        // Generar ID único para el grupo usando UUID
+        String newGroupId = UUID.randomUUID().toString();
 
         // Crear el nuevo grupo (sin la referencia a subject)
         Group newGroup = new Group(
-            Integer.toString(newGroupId),
+            newGroupId,
+            subject.getSubjectId(),
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
-            teacher
+            teacher,
+            new java.util.ArrayList<>(),
+            new java.util.ArrayList<>()
         );
 
         // Agregar el grupo a la materia
@@ -229,7 +217,7 @@ public class SubjectService {
     /**
      * Añade una sesión de clase a un grupo específico de una materia
      */
-    public boolean addSessionToGroup(String subjectCode, int groupId, ClassSession session) {
+    public boolean addSessionToGroup(String subjectCode, String groupId, ClassSession session) {
         // Obtener la materia del catálogo usando la abreviatura
         Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
         if (catalogSubject == null) {
@@ -244,7 +232,7 @@ public class SubjectService {
 
         // Buscar el grupo específico
         Group targetGroup = subject.getAvailableGroups().stream()
-                .filter(group -> group.getId().equals(String.valueOf(groupId)))
+                .filter(group -> group.getId().equals(groupId))
                 .findFirst()
                 .orElse(null);
 
@@ -260,8 +248,8 @@ public class SubjectService {
             }
         }
 
-        // Añadir la sesión al grupo
-        targetGroup.addSession(session);
+        // Añadir la sesión al grupo (Group no expone addSession, accedemos a la lista)
+        targetGroup.getSessions().add(session);
 
         // Guardar la materia actualizada
         subjectRepository.save(subject);
@@ -300,7 +288,7 @@ public class SubjectService {
     /**
      * Elimina una sesión específica de un grupo
      */
-    public boolean removeSessionFromGroup(String subjectCode, int groupId, int sessionIndex) {
+    public boolean removeSessionFromGroup(String subjectCode, String groupId, int sessionIndex) {
         // Obtener la materia del catálogo usando la abreviatura
         Subject catalogSubject = SubjectCatalog.getSubject(subjectCode);
         if (catalogSubject == null) {

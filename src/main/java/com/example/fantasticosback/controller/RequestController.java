@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Tag(
-    name = "Solicitudes",
+    name = "Request",
     description = "Gestión completa de solicitudes académicas y administrativas: creación, consulta, filtrado por estado, prioridad, usuario y decanatura"
 )
 @RestController

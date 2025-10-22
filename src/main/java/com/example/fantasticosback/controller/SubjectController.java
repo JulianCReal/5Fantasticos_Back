@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(
-    name = "Materias",
+    name = "Subject",
     description = "Gestión de materias académicas: consulta, grupos, sesiones y horarios"
 )
 @RestController
@@ -170,7 +170,7 @@ public class SubjectController {
     @PostMapping("/{subjectCode}/groups/{groupId}/sessions")
     public ResponseEntity<ResponseDTO<String>> addSessionToGroup(
             @Parameter(description = "Código de la materia", required = true) @PathVariable String subjectCode,
-            @Parameter(description = "ID del grupo", required = true) @PathVariable int groupId,
+            @Parameter(description = "ID del grupo", required = true) @PathVariable String groupId,
             @RequestBody ClassSession session) {
         boolean success = subjectService.addSessionToGroup(subjectCode, groupId, session);
         if (success) {
@@ -225,7 +225,7 @@ public class SubjectController {
     @DeleteMapping("/{subjectCode}/groups/{groupId}/sessions/{sessionIndex}")
     public ResponseEntity<ResponseDTO<String>> removeSessionFromGroup(
             @Parameter(description = "Código de la materia", required = true) @PathVariable String subjectCode,
-            @Parameter(description = "ID del grupo", required = true) @PathVariable int groupId,
+            @Parameter(description = "ID del grupo", required = true) @PathVariable String groupId,
             @Parameter(description = "Índice de la sesión a eliminar", required = true) @PathVariable int sessionIndex) {
         boolean success = subjectService.removeSessionFromGroup(subjectCode, groupId, sessionIndex);
         if (success) {

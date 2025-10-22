@@ -54,15 +54,16 @@ public class GroupMapper {
     }
 
     public static Group toDomain(CreateGroupRequestDTO dto, Teacher teacher) {
-        Group group = new Group(
+        return new Group(
             null,
+            dto.getSubjectId(),
             dto.getNumber(),
             dto.getCapacity(),
             dto.isActive(),
-            teacher
+            teacher,
+            new ArrayList<>(),
+            new ArrayList<>()
         );
-        group.setSubjectId(dto.getSubjectId());
-        return group;
     }
 
     public static SessionResponseDTO sessionToDTO(ClassSession session) {
@@ -89,4 +90,3 @@ public class GroupMapper {
             .toList();
     }
 }
-

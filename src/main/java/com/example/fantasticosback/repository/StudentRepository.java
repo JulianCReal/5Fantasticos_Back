@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends MongoRepository<Student, String> {
     List<Student> findByCareer(String career);
-    List<Student> findBySemester(int semester);
+    List<Student> findByCurrentSemester(int currentSemester);
 }

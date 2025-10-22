@@ -3,10 +3,9 @@ package com.example.fantasticosback.service;
 import com.example.fantasticosback.dto.response.TeacherDTO;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.exception.ResourceNotFoundException;
-import com.example.fantasticosback.model.Document.Group;
-import com.example.fantasticosback.model.Document.Teacher;
-import com.example.fantasticosback.model.Document.Student;
-import com.example.fantasticosback.model.Document.Semester;
+import com.example.fantasticosback.model.Document.*;
+import com.example.fantasticosback.repository.EnrollmentRepository;
+import com.example.fantasticosback.repository.StudentRepository;
 import com.example.fantasticosback.util.ClassSession;
 import com.example.fantasticosback.repository.GroupRepository;
 import org.springframework.stereotype.Service;
@@ -93,21 +92,22 @@ public class GroupService {
     }
 
     /**
-     * Obtiene todos los estudiantes inscritos en un grupo específico
+     * Obtiene todos los estudiantes inscritos en un grupo específico.
+     * Basado en la colección Enrollment.
      */
-    public List<Student> getAllStudentsInGroup(String groupId, List<Student> allStudents) {
-        return allStudents.stream()
-                .filter(student -> {
-                    List<Semester> semesters = student.getSemesters();
-                    if (semesters.isEmpty()) {
-                        return false;
-                    }
-                    Semester currentSemester = semesters.get(semesters.size() - 1);
-                    return currentSemester.getSchedule().getEnrollments().stream()
-                            .anyMatch(enrollment -> enrollment.getGroup().getId() == groupId);
-                })
+    public List<Student> getAllStudentsInGroup(String groupId,
+                                               EnrollmentRepository enrollmentRepository,
+                                               StudentRepository studentRepository) {
+        List<Enrollment> enrollments = enrollmentRepository.findByGroupId(groupId);
+
+        List<String> studentIds = enrollments.stream()
+                .map(Enrollment::getStudentId)
+                .distinct()
                 .toList();
+
+        return studentRepository.findAllById(studentIds);
     }
+
 
     private void validateGroupCreation(Group group) {
         if (group.getCapacity() <= 0) {

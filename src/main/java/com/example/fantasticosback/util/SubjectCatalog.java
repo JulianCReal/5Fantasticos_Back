@@ -9,11 +9,46 @@ public class SubjectCatalog {
     private static Map<String, Subject> subjects = new HashMap<>();
 
     static {
-        subjects.put("CALD", new Subject("101", "CALD", "Cálculo Diferencial", 3, 1));
-        subjects.put("DDYA", new Subject("201", "DDYA", "Diseño de Datos y Algoritmos", 4, 2));
-        subjects.put("AYSR", new Subject("301", "AYSR", "Arquitectura y Servicios de Red", 4, 5));
-        subjects.put("IPRO", new Subject("401", "IPRO", "Introducción a la Programación", 3, 1));
-        subjects.put("DOPO", new Subject("501", "DOPO", "Desarrollo Orientado a Objetos", 4, 5));
+        // Construir Subjects usando el constructor por defecto y setters
+        Subject s = new Subject();
+        s.setSubjectId("101");
+        s.setCode("CALD");
+        s.setName("Cálculo Diferencial");
+        s.setCredits(3);
+        s.setSemester(1);
+        subjects.put("CALD", s);
+
+        s = new Subject();
+        s.setSubjectId("201");
+        s.setCode("DDYA");
+        s.setName("Diseño de Datos y Algoritmos");
+        s.setCredits(4);
+        s.setSemester(2);
+        subjects.put("DDYA", s);
+
+        s = new Subject();
+        s.setSubjectId("301");
+        s.setCode("AYSR");
+        s.setName("Arquitectura y Servicios de Red");
+        s.setCredits(4);
+        s.setSemester(5);
+        subjects.put("AYSR", s);
+
+        s = new Subject();
+        s.setSubjectId("401");
+        s.setCode("IPRO");
+        s.setName("Introducción a la Programación");
+        s.setCredits(3);
+        s.setSemester(1);
+        subjects.put("IPRO", s);
+
+        s = new Subject();
+        s.setSubjectId("501");
+        s.setCode("DOPO");
+        s.setName("Desarrollo Orientado a Objetos");
+        s.setCredits(4);
+        s.setSemester(5);
+        subjects.put("DOPO", s);
     }
 
     public static Subject getSubject(String code) {

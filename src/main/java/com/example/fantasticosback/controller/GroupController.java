@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(
-    name = "Grupos",
+    name = "Group",
     description = "Gestión de grupos de clases: creación, asignación de profesores, gestión de sesiones y estudiantes"
 )
 @RestController
