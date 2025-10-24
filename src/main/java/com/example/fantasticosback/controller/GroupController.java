@@ -4,13 +4,16 @@ import com.example.fantasticosback.dto.request.CreateGroupRequestDTO;
 import com.example.fantasticosback.dto.request.CreateSessionRequestDTO;
 import com.example.fantasticosback.dto.response.GroupResponseDTO;
 import com.example.fantasticosback.dto.response.SessionResponseDTO;
+import com.example.fantasticosback.exception.BusinessValidationException;
+import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.mapper.GroupMapper;
 import com.example.fantasticosback.model.Document.Group;
 import com.example.fantasticosback.model.Document.Student;
 import com.example.fantasticosback.model.Document.Teacher;
 import com.example.fantasticosback.service.GroupService;
-import com.example.fantasticosback.service.StudentService;
+import com.example.fantasticosback.service.EnrollmentService;
 import com.example.fantasticosback.service.TeacherService;
+import com.example.fantasticosback.service.SubjectService;
 import com.example.fantasticosback.util.ClassSession;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -34,13 +37,15 @@ import java.util.List;
 public class GroupController {
 
     private final GroupService groupService;
-    private final StudentService studentService;
+    private final EnrollmentService enrollmentService;
     private final TeacherService teacherService;
+    private final SubjectService subjectService;
 
-    public GroupController(GroupService groupService, StudentService studentService, TeacherService teacherService) {
+    public GroupController(GroupService groupService, EnrollmentService enrollmentService, TeacherService teacherService, SubjectService subjectService) {
         this.groupService = groupService;
-        this.studentService = studentService;
+        this.enrollmentService = enrollmentService;
         this.teacherService = teacherService;
+        this.subjectService = subjectService;
     }
 
     @Operation(
@@ -60,6 +65,14 @@ public class GroupController {
     })
     @PostMapping
     public ResponseEntity<GroupResponseDTO> createGroup(@RequestBody CreateGroupRequestDTO dto) {
+        // Validar que el subjectId sea válido
+        if (dto.getSubjectId() == null || dto.getSubjectId().isEmpty()) {
+            throw new BusinessValidationException("Subject ID is required");
+        }
+        if (subjectService.findById(dto.getSubjectId()) == null) {
+            throw new ResourceNotFoundException("Subject", "id", dto.getSubjectId());
+        }
+
         Teacher teacher = null;
         if (dto.getTeacherId() != null && !dto.getTeacherId().isEmpty()) {
             teacher = teacherService.findById(dto.getTeacherId());
@@ -189,8 +202,22 @@ public class GroupController {
     public ResponseEntity<?> removeStudent(
             @Parameter(description = "ID del grupo", required = true) @PathVariable String groupId,
             @Parameter(description = "ID del estudiante", required = true) @PathVariable String studentId) {
-        Student student = studentService.findById(studentId);
-        groupService.removeStudentFromGroup(groupId, student);
+
+        // Buscar enrollments activas del estudiante y cancelar las que pertenezcan a este grupo
+        List<com.example.fantasticosback.model.Document.Enrollment> enrollments = enrollmentService.getEnrollmentsByStudentId(studentId);
+        boolean canceledAny = false;
+        for (com.example.fantasticosback.model.Document.Enrollment e : enrollments) {
+            if (e.getGroupId() != null && e.getGroupId().equals(groupId)) {
+                enrollmentService.cancelEnrollment(studentId, e.getId());
+                canceledAny = true;
+            }
+        }
+
+        // Si no había enrollment registrada, intentar eliminar directamente del grupo por studentId
+        if (!canceledAny) {
+            groupService.removeStudentFromGroup(groupId, studentId);
+        }
+
         return ResponseEntity.ok().build();
     }
 

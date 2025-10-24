@@ -1,17 +1,13 @@
 package com.example.fantasticosback.dto.response;
-
-
-import com.example.fantasticosback.model.Document.Group;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import java.util.ArrayList;
-
 public class SubjectDTO extends BaseDTO {
     private String name;
     private int credits;
     private int semester;
     private String code;
-    private ArrayList<Group> availableGroups;
+
+    public SubjectDTO() {
+        super("");
+    }
 
     // Constructor para crear (sin grupos)
     public SubjectDTO(String id, String code, String name, int credits, int semester) {
@@ -20,17 +16,8 @@ public class SubjectDTO extends BaseDTO {
         this.name = name;
         this.credits = credits;
         this.semester = semester;
-        this.availableGroups = null; // Null para creación
     }
 
-    // Constructor para consultar (con grupos) - solo para uso interno
-    public SubjectDTO(String id, String name, int credits, int semester, ArrayList<Group> availableGroups) {
-        super(id);
-        this.name = name;
-        this.credits = credits;
-        this.semester = semester;
-        this.availableGroups = availableGroups;
-    }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -43,7 +30,4 @@ public class SubjectDTO extends BaseDTO {
 
     public String getCode() { return code; }
     public void setCode(String code) { this.code = code; }
-
-    public ArrayList<Group> getAvailableGroups() { return availableGroups; }
-    public void setAvailableGroups(ArrayList<Group> availableGroups) { this.availableGroups = availableGroups; }
 }

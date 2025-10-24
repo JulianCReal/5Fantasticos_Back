@@ -23,6 +23,5 @@ public class Subject {
     private int credits;
     private int semester;
     private LinkedList<ClassRequirement> requirements;
-    private ArrayList<Group> availableGroups;
     private static final Logger logger = Logger.getLogger(Subject.class.getName());
 }

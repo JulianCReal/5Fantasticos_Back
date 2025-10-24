@@ -22,6 +22,6 @@ public class Group {
     private boolean active;
     private Teacher teacher;
     private ArrayList<Student> groupStudents;
-    private ArrayList<ClassSession> sessions = new ArrayList<>();
+    private ArrayList<ClassSession> sessions;
 
 }

@@ -80,9 +80,18 @@ public class GroupService {
         groupRepository.save(group);
     }
 
-    public void removeStudentFromGroup(String groupId, Student student) {
+    // Nuevo método: remover estudiante por studentId (busca por studentId en la lista)
+    public void removeStudentFromGroup(String groupId, String studentId) {
         Group group = getGroupById(groupId);
-        group.getGroupStudents().remove(student);
+        if (group.getGroupStudents() == null || group.getGroupStudents().isEmpty()) {
+            throw new ResourceNotFoundException("Student", "id", studentId);
+        }
+
+        boolean removed = group.getGroupStudents().removeIf(s -> studentId != null && studentId.equals(s.getStudentId()));
+        if (!removed) {
+            throw new ResourceNotFoundException("Student", "id", studentId);
+        }
+
         groupRepository.save(group);
     }
 
@@ -112,9 +121,6 @@ public class GroupService {
     private void validateGroupCreation(Group group) {
         if (group.getCapacity() <= 0) {
             throw new BusinessValidationException("La capacidad del grupo debe ser mayor a 0");
-        }
-        if (groupRepository.existsByNumber(group.getNumber())) {
-            throw new BusinessValidationException("Ya existe un grupo con este número");
         }
     }
 
