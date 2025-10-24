@@ -129,23 +129,17 @@ public class ScheduleService {
     private Map<String, Object> generateSchedule(Student student) {
         List<Map<String, Object>> classes = new ArrayList<>();
 
-        // Buscar schedule activo
+        // Buscar todos los schedules del estudiante
         List<Schedule> schedules = scheduleRepository.findByStudentId(student.getStudentId());
-        Schedule currentSchedule = schedules.stream()
-                .filter(s -> s.getSemester() != null && s.getSemester().isActive())
-                .findFirst()
-                .orElse(null);
 
-        if (currentSchedule == null && !schedules.isEmpty()) {
-            currentSchedule = schedules.get(schedules.size() - 1);
-        }
-
-        if (currentSchedule != null && currentSchedule.getEnrollmentIds() != null) {
-            for (String enrollmentId : currentSchedule.getEnrollmentIds()) {
-                Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
-                if (enrollment == null) continue;
-                if (!"CANCELLED".equalsIgnoreCase(enrollment.getStatus())) {
-                    classes.addAll(generateEnrollmentClasses(enrollment));
+        for (Schedule currentSchedule : schedules) {
+            if (currentSchedule.getEnrollmentIds() != null) {
+                for (String enrollmentId : currentSchedule.getEnrollmentIds()) {
+                    Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
+                    if (enrollment == null) continue;
+                    if (!"CANCELLED".equalsIgnoreCase(enrollment.getStatus())) {
+                        classes.addAll(generateEnrollmentClasses(enrollment));
+                    }
                 }
             }
         }
@@ -201,27 +195,24 @@ public class ScheduleService {
     }
 
     public boolean hasTimeConflict(String studentId, ClassSession newSession) {
-        // Buscar schedule activo
+        // Buscar todos los schedules del estudiante
         List<Schedule> schedules = scheduleRepository.findByStudentId(studentId);
-        Schedule activeSchedule = schedules.stream()
-                .filter(s -> s.getSemester() != null && s.getSemester().isActive())
-                .findFirst()
-                .orElse(null);
 
-        if (activeSchedule == null || activeSchedule.getEnrollmentIds() == null) return false;
-
-        for (String enrollmentId : activeSchedule.getEnrollmentIds()) {
-            Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
-            if (enrollment == null) continue;
-            try {
-                Group group = groupService.getGroupById(enrollment.getGroupId());
-                for (ClassSession existingSession : group.getSessions()) {
-                    if (existingSession.verifyConflict(newSession)) {
-                        return true;
+        for (Schedule activeSchedule : schedules) {
+            if (activeSchedule.getEnrollmentIds() == null) continue;
+            for (String enrollmentId : activeSchedule.getEnrollmentIds()) {
+                Enrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
+                if (enrollment == null) continue;
+                try {
+                    Group group = groupService.getGroupById(enrollment.getGroupId());
+                    for (ClassSession existingSession : group.getSessions()) {
+                        if (existingSession.verifyConflict(newSession)) {
+                            return true;
+                        }
                     }
+                } catch (Exception ex) {
+                    // ignorar grupos faltantes
                 }
-            } catch (Exception ex) {
-                // ignorar grupos faltantes
             }
         }
         return false;

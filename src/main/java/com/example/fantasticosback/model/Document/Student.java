@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.*;
 import java.util.logging.Logger;
 @Data
-@Document(collection = "students")
+@Document(collection = "Students")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Student extends Person {

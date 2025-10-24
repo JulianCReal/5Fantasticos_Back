@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Tag(
-    name = "Subject",
-    description = "Gestión de materias académicas: consulta, grupos, sesiones y horarios"
+        name = "Subject",
+        description = "Gestión de materias académicas: consulta, grupos, sesiones y horarios"
 )
 @RestController
 @RequestMapping("/api/subjects")
@@ -30,12 +30,12 @@ public class SubjectController {
     private SubjectService subjectService;
 
     @Operation(
-        summary = "Listar todas las materias",
-        description = "Obtiene la lista completa de materias predefinidas en el sistema"
+            summary = "Listar todas las materias",
+            description = "Obtiene la lista completa de materias predefinidas en el sistema"
     )
     @ApiResponse(
-        responseCode = "200",
-        description = "Lista de materias obtenida exitosamente"
+            responseCode = "200",
+            description = "Lista de materias obtenida exitosamente"
     )
     @GetMapping
     public ResponseEntity<ResponseDTO<List<SubjectDTO>>> list() {
@@ -44,19 +44,19 @@ public class SubjectController {
     }
 
     @Operation(
-        summary = "Obtener materia por ID",
-        description = "Obtiene los detalles de una materia específica por su identificador único"
+            summary = "Obtener materia por ID",
+            description = "Obtiene los detalles de una materia específica por su identificador único"
     )
     @ApiResponses({
-        @ApiResponse(
-            responseCode = "200",
-            description = "Materia encontrada",
-            content = @Content(schema = @Schema(implementation = SubjectDTO.class))
-        ),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Materia no encontrada"
-        )
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Materia encontrada",
+                    content = @Content(schema = @Schema(implementation = SubjectDTO.class))
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Materia no encontrada"
+            )
     })
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO<SubjectDTO>> get(
@@ -69,12 +69,12 @@ public class SubjectController {
     }
 
     @Operation(
-        summary = "Buscar materias por semestre",
-        description = "Obtiene todas las materias correspondientes a un semestre académico específico (1-10)"
+            summary = "Buscar materias por semestre",
+            description = "Obtiene todas las materias correspondientes a un semestre académico específico (1-10)"
     )
     @ApiResponse(
-        responseCode = "200",
-        description = "Materias del semestre obtenidas exitosamente"
+            responseCode = "200",
+            description = "Materias del semestre obtenidas exitosamente"
     )
     @GetMapping("/semester/{semester}")
     public ResponseEntity<ResponseDTO<List<SubjectDTO>>> getBySemester(
@@ -84,12 +84,12 @@ public class SubjectController {
     }
 
     @Operation(
-        summary = "Buscar materias por nombre",
-        description = "Busca materias que coincidan con el nombre especificado (búsqueda parcial)"
+            summary = "Buscar materias por nombre",
+            description = "Busca materias que coincidan con el nombre especificado (búsqueda parcial)"
     )
     @ApiResponse(
-        responseCode = "200",
-        description = "Materias encontradas"
+            responseCode = "200",
+            description = "Materias encontradas"
     )
     @GetMapping("/name/{name}")
     public ResponseEntity<ResponseDTO<List<SubjectDTO>>> getByName(
@@ -99,22 +99,37 @@ public class SubjectController {
     }
 
     @Operation(
-        summary = "Agregar grupo a una materia",
-        description = "Crea y asocia un nuevo grupo a una materia existente usando su código/abreviatura"
+            summary = "Crear nueva materia",
+            description = "Crea y almacena una nueva materia en la base de datos"
     )
     @ApiResponses({
-        @ApiResponse(
-            responseCode = "200",
-            description = "Grupo agregado exitosamente a la materia"
-        ),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Error al agregar el grupo o código de materia inválido"
-        ),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Materia no encontrada"
-        )
+            @ApiResponse(responseCode = "201", description = "Materia creada",
+                    content = @Content(schema = @Schema(implementation = SubjectDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Petición inválida")
+    })
+    @PostMapping
+    public ResponseEntity<ResponseDTO<SubjectDTO>> createSubject(@RequestBody SubjectDTO subjectDto) {
+        SubjectDTO created = subjectService.createSubject(subjectDto);
+        return ResponseEntity.status(201).body(ResponseDTO.success(created, "Subject created"));
+    }
+
+    @Operation(
+            summary = "Agregar grupo a una materia",
+            description = "Crea y asocia un nuevo grupo a una materia existente usando su código/abreviatura"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Grupo agregado exitosamente a la materia"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Error al agregar el grupo o código de materia inválido"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Materia no encontrada"
+            )
     })
     @PostMapping("/{subjectCode}/groups")
     public ResponseEntity<ResponseDTO<String>> addGroupToSubject(
@@ -129,18 +144,18 @@ public class SubjectController {
     }
 
     @Operation(
-        summary = "Obtener grupos de una materia",
-        description = "Retorna todos los grupos asociados a una materia específica mediante su código"
+            summary = "Obtener grupos de una materia",
+            description = "Retorna todos los grupos asociados a una materia específica mediante su código"
     )
     @ApiResponses({
-        @ApiResponse(
-            responseCode = "200",
-            description = "Grupos obtenidos exitosamente"
-        ),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Materia no encontrada"
-        )
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Grupos obtenidos exitosamente"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Materia no encontrada"
+            )
     })
     @GetMapping("/{subjectCode}/groups")
     public ResponseEntity<ResponseDTO<List<Object>>> getSubjectGroups(
@@ -150,23 +165,25 @@ public class SubjectController {
     }
 
     @Operation(
-        summary = "Agregar sesión de clase a un grupo",
-        description = "Añade una nueva sesión de clase (horario) a un grupo específico de una materia"
+            summary = "Agregar sesión de clase a un grupo",
+            description = "Añade una nueva sesión de clase (horario) a un grupo específico de una materia"
     )
     @ApiResponses({
-        @ApiResponse(
-            responseCode = "200",
-            description = "Sesión agregada exitosamente"
-        ),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Error al agregar la sesión o conflicto de horarios"
-        ),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Materia o grupo no encontrado"
-        )
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Sesión agregada exitosamente"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Error al agregar la sesión o conflicto de horarios"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Materia o grupo no encontrado"
+            )
     })
+
+
     @PostMapping("/{subjectCode}/groups/{groupId}/sessions")
     public ResponseEntity<ResponseDTO<String>> addSessionToGroup(
             @Parameter(description = "Código de la materia", required = true) @PathVariable String subjectCode,
@@ -182,18 +199,18 @@ public class SubjectController {
     }
 
     @Operation(
-        summary = "Obtener sesiones de un grupo",
-        description = "Retorna todas las sesiones de clase (horarios) configuradas para un grupo específico"
+            summary = "Obtener sesiones de un grupo",
+            description = "Retorna todas las sesiones de clase (horarios) configuradas para un grupo específico"
     )
     @ApiResponses({
-        @ApiResponse(
-            responseCode = "200",
-            description = "Sesiones obtenidas exitosamente"
-        ),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Materia o grupo no encontrado"
-        )
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Sesiones obtenidas exitosamente"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Materia o grupo no encontrado"
+            )
     })
     @GetMapping("/{subjectCode}/groups/{groupId}/sessions")
     public ResponseEntity<ResponseDTO<List<ClassSession>>> getGroupSessions(
@@ -205,22 +222,22 @@ public class SubjectController {
     }
 
     @Operation(
-        summary = "Eliminar sesión de un grupo",
-        description = "Elimina una sesión específica de clase de un grupo por su índice"
+            summary = "Eliminar sesión de un grupo",
+            description = "Elimina una sesión específica de clase de un grupo por su índice"
     )
     @ApiResponses({
-        @ApiResponse(
-            responseCode = "200",
-            description = "Sesión eliminada exitosamente"
-        ),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Error al eliminar la sesión"
-        ),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Materia, grupo o sesión no encontrada"
-        )
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Sesión eliminada exitosamente"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Error al eliminar la sesión"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Materia, grupo o sesión no encontrada"
+            )
     })
     @DeleteMapping("/{subjectCode}/groups/{groupId}/sessions/{sessionIndex}")
     public ResponseEntity<ResponseDTO<String>> removeSessionFromGroup(

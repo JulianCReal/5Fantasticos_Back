@@ -124,46 +124,28 @@ public class StudentService {
      * Retorna el horario current del estudiante (del semestre activo)
      */
     public Schedule getCurrentSchedule(String studentId) {
-        return scheduleRepository.findByStudentId(studentId).stream()
+        List<Schedule> schedules = scheduleRepository.findByStudentId(studentId);
+        if (schedules == null || schedules.isEmpty()) {
+            throw new ResourceNotFoundException("Active schedule not found for student", "studentId", studentId);
+        }
+
+        // Preferir schedule cuyo semester.active == true, si no existe devolver el último schedule disponible
+        Schedule activeSchedule = schedules.stream()
                 .filter(s -> s.getSemester() != null && s.getSemester().isActive())
                 .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Active schedule not found for student", "studentId", studentId));
+                .orElse(schedules.get(schedules.size() - 1));
+
+        return activeSchedule;
     }
 
 
 
-    // Busca un Schedule por el campo Semester.id (número de semestre)
-    public Schedule getScheduleBySemesterNumber(String studentId, int semesterNumber) {
+    // Busca un Schedule por el campo Semester.id (string como "2025-1")
+    public Schedule getScheduleBySemester(String studentId, String semester) {
         return scheduleRepository.findByStudentId(studentId).stream()
-                .filter(s -> s.getSemester() != null && s.getSemester().getId() == semesterNumber)
+                .filter(s -> s.getSemester() != null && semester.equals(s.getSemester().getId()))
                 .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("Schedule", "semesterId", String.valueOf(semesterNumber)));
-    }
-
-
-    /**
-     * Matricula una materia (Enrollment) al semestre activo del estudiante usando DTO
-     */
-    public Enrollment enrollSubject(String studentId, EnrollmentRequestDTO request) {
-        // Delegar la creación y validación de la inscripción a EnrollmentService
-        Enrollment enrollment = enrollmentService.enrollStudentInGroup(studentId, request.getGroupId(), "CURRENT");
-
-        // Obtener o crear el horario activo y agregar la referencia al enrollment
-        Schedule activeSchedule = scheduleRepository.findByStudentId(studentId).stream()
-                .filter(s -> s.getSemester() != null && s.getSemester().isActive())
-                .findFirst()
-                .orElse(null);
-        if (activeSchedule == null) {
-            activeSchedule = new Schedule();
-            activeSchedule.setStudentId(studentId);
-        }
-        if (activeSchedule.getEnrollmentIds() == null) {
-            activeSchedule.setEnrollmentIds(new java.util.ArrayList<>());
-        }
-        activeSchedule.getEnrollmentIds().add(enrollment.getId());
-        scheduleRepository.save(activeSchedule);
-
-        return enrollment;
+                .orElseThrow(() -> new ResourceNotFoundException("Schedule", "semesterId", semester));
     }
 
     /**

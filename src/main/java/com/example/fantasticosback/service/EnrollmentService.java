@@ -5,6 +5,7 @@ import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.model.Document.*;
 import com.example.fantasticosback.repository.EnrollmentRepository;
 import com.example.fantasticosback.repository.StudentRepository;
+import com.example.fantasticosback.repository.ScheduleRepository;
 import com.example.fantasticosback.util.ClassSession;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -18,17 +19,20 @@ public class EnrollmentService {
     private final GroupService groupService;
     private final StudentRepository studentRepository;
     private final ScheduleService scheduleService;
+    private final ScheduleRepository scheduleRepository;
     private static final Logger log = Logger.getLogger(EnrollmentService.class.getName());
 
     public EnrollmentService(
             EnrollmentRepository enrollmentRepository,
             GroupService groupService,
             StudentRepository studentRepository,
-            ScheduleService scheduleService) {
+            ScheduleService scheduleService,
+            ScheduleRepository scheduleRepository) {
         this.enrollmentRepository = enrollmentRepository;
         this.groupService = groupService;
         this.studentRepository = studentRepository;
         this.scheduleService = scheduleService;
+        this.scheduleRepository = scheduleRepository;
     }
 
     public Enrollment enrollStudentInGroup(String studentId, String groupId, String semester) {
@@ -60,7 +64,30 @@ public class EnrollmentService {
         // Agregar estudiante al grupo
         groupService.addStudentToGroup(groupId, student);
 
-        return enrollmentRepository.save(enrollment);
+        // Guardar la enrollment
+        Enrollment saved = enrollmentRepository.save(enrollment);
+
+        // Agregar la referencia de la enrollment al Schedule activo del estudiante (o crear uno nuevo)
+        List<Schedule> schedules = scheduleRepository.findByStudentId(studentId);
+        Schedule activeSchedule = schedules.stream()
+                .filter(s -> s.getSemester() != null && s.getSemester().isActive())
+                .findFirst()
+                .orElse(null);
+
+        if (activeSchedule == null) {
+            activeSchedule = new Schedule();
+            activeSchedule.setStudentId(studentId);
+            // Set the semester
+            Semester sem = parseSemester(semester);
+            activeSchedule.setSemester(sem);
+        }
+        if (activeSchedule.getEnrollmentIds() == null) {
+            activeSchedule.setEnrollmentIds(new java.util.ArrayList<>());
+        }
+        activeSchedule.getEnrollmentIds().add(saved.getId());
+        scheduleRepository.save(activeSchedule);
+
+        return saved;
     }
 
     public void cancelEnrollment(String studentId, String enrollmentId) {
@@ -72,7 +99,18 @@ public class EnrollmentService {
 
         enrollment.setStatus("CANCELLED");
         Group group = groupService.getGroupById(enrollment.getGroupId());
-        groupService.removeStudentFromGroup(group.getId(), student);
+        groupService.removeStudentFromGroup(group.getId(), student.getStudentId());
+
+        // Remover referencia de la enrollment del schedule si existe
+        List<Schedule> schedules = scheduleRepository.findByStudentId(studentId);
+        Schedule activeSchedule = schedules.stream()
+                .filter(s -> s.getEnrollmentIds() != null && s.getEnrollmentIds().contains(enrollmentId))
+                .findFirst()
+                .orElse(null);
+        if (activeSchedule != null && activeSchedule.getEnrollmentIds() != null) {
+            activeSchedule.getEnrollmentIds().remove(enrollmentId);
+            scheduleRepository.save(activeSchedule);
+        }
 
         enrollmentRepository.save(enrollment);
     }
@@ -189,5 +227,15 @@ public class EnrollmentService {
         // Convierte "HH:mm" a minutos desde medianoche
         String[] parts = hour.split(":");
         return Integer.parseInt(parts[0]) * 60 + Integer.parseInt(parts[1]);
+    }
+
+    private Semester parseSemester(String semesterStr) {
+        String[] parts = semesterStr.split("-");
+        if (parts.length != 2) {
+            throw new BusinessValidationException("Invalid semester format. Expected 'YYYY-P'");
+        }
+        int year = Integer.parseInt(parts[0]);
+        int period = Integer.parseInt(parts[1]);
+        return new Semester(semesterStr, year, period, true, 0, null);
     }
 }

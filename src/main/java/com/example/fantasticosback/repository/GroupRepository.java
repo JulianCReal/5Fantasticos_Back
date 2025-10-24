@@ -9,9 +9,7 @@ import java.util.List;
 
 @Repository
 public interface GroupRepository extends MongoRepository<Group, String> {
-    List<Group> findByTeacherId(String teacherId);
-
-    @Query("{'number': ?0}")
+    List<Group> findBySubjectId(String subjectId);
     List<Group> findAllByNumber(int number);
 
     default boolean existsByNumber(int number) {
