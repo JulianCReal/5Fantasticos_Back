@@ -1,24 +1,24 @@
 package com.example.fantasticosback.controller;
 
+import com.example.fantasticosback.dto.request.AcademicTrafficLightDTO;
 import com.example.fantasticosback.service.AcademicTrafficLightService;
-import com.example.fantasticosback.util.AcademicTrafficLight;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/academic-traffic-light")
+@RequestMapping("/api/trafficlight")
+@CrossOrigin(origins = "*")
 public class AcademicTrafficLightController {
 
-    @Autowired
-    private AcademicTrafficLightService service;
+    private final AcademicTrafficLightService service;
 
-    /**
-     * 🔹 Visualizar el semáforo académico por estudiante
-     */
-    @GetMapping("/student/{studentId}")
-    public ResponseEntity<AcademicTrafficLight> getTrafficLight(@PathVariable String studentId) {
-        AcademicTrafficLight result = service.getAcademicTrafficLightByStudent(studentId);
-        return ResponseEntity.ok(result);
+    public AcademicTrafficLightController(AcademicTrafficLightService service) {
+        this.service = service;
+    }
+
+    @GetMapping("/{studentId}")
+    public ResponseEntity<AcademicTrafficLightDTO> getTrafficLight(@PathVariable String studentId) {
+        AcademicTrafficLightDTO dto = service.getAcademicTrafficLight(studentId);
+        return ResponseEntity.ok(dto);
     }
 }

@@ -2,6 +2,7 @@ D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\config\CorsConfig.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\config\JwtAuthenticationFilter.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\config\SecurityConfig.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\AcademicTrafficLightController.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\AuthController.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\DeanController.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\DeanOfficeController.java
@@ -12,6 +13,7 @@ D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\StudentController.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\SubjectController.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\TeacherController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\AcademicTrafficLightDTO.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\CreateGroupRequestDTO.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\CreateSessionRequestDTO.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\EnrollmentRequestDTO.java
@@ -81,16 +83,20 @@ D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\LeaveGroupValidator.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\RequestValidator.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\SpecialValidator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\AcademicTrafficLightRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\CareerRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\DeanOfficeRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\DeanRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\EnrollmentRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\GroupRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\RequestRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\ScheduleRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\SemesterRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\StudentRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\SubjectRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\TeacherRepository.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\UserRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\AcademicTrafficLightService.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\DeanOfficeService.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\DeanService.java
 D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\EnrollmentService.java
