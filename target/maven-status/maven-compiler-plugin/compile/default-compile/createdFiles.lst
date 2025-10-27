@@ -1,3 +1,4 @@
+com\example\fantasticosback\repository\SemesterRepository.class
 com\example\fantasticosback\dto\response\SubjectDTO.class
 com\example\fantasticosback\service\MatcherService.class
 com\example\fantasticosback\repository\DeanOfficeRepository.class
@@ -43,6 +44,8 @@ com\example\fantasticosback\enums\UserRole.class
 com\example\fantasticosback\repository\EnrollmentRepository.class
 com\example\fantasticosback\model\Document\Schedule.class
 com\example\fantasticosback\model\Document\Dean.class
+com\example\fantasticosback\config\CorsConfig.class
+com\example\fantasticosback\config\JwtAuthenticationFilter.class
 com\example\fantasticosback\service\ScheduleService.class
 com\example\fantasticosback\dto\response\GroupResponseDTO.class
 com\example\fantasticosback\controller\RequestController.class
@@ -52,15 +55,18 @@ com\example\fantasticosback\dto\response\UserResponseDTO.class
 com\example\fantasticosback\controller\SubjectController.class
 com\example\fantasticosback\model\Observers\CreationObserver.class
 com\example\fantasticosback\model\Document\Student.class
+com\example\fantasticosback\service\AcademicTrafficLightService$1.class
 com\example\fantasticosback\model\Document\Semester.class
 com\example\fantasticosback\controller\EnrollmentController.class
 com\example\fantasticosback\model\RequestStates\ProcessState.class
+com\example\fantasticosback\repository\CareerRepository.class
 com\example\fantasticosback\model\Document\Enrollment.class
 com\example\fantasticosback\dto\response\StudentDTO.class
 com\example\fantasticosback\service\GroupService.class
 com\example\fantasticosback\util\ClassRequirement.class
 com\example\fantasticosback\mapper\StudentMapper.class
 com\example\fantasticosback\util\LoginRequest.class
+com\example\fantasticosback\util\AcademicTrafficLight$AcademicStatus.class
 com\example\fantasticosback\model\Strategy\StudentProfileStrategy.class
 com\example\fantasticosback\model\Validators\RequestValidators\RequestValidator.class
 com\example\fantasticosback\dto\response\SessionResponseDTO.class
@@ -68,8 +74,8 @@ com\example\fantasticosback\model\RequestStates\RequestState.class
 com\example\fantasticosback\model\Validators\RequestValidators\LeaveGroupValidator.class
 com\example\fantasticosback\model\RequestCreatrors\RequestCreator.class
 com\example\fantasticosback\dto\request\EnrollmentRequestDTO.class
-com\example\fantasticosback\service\SubjectCatalogInitializer.class
 com\example\fantasticosback\service\SubjectService.class
+com\example\fantasticosback\controller\AcademicTrafficLightController.class
 com\example\fantasticosback\repository\TeacherRepository.class
 com\example\fantasticosback\model\RequestCreatrors\RequestJoinCreator.class
 com\example\fantasticosback\model\RequestStates\RejectedState.class
@@ -81,7 +87,6 @@ com\example\fantasticosback\model\Document\Career.class
 com\example\fantasticosback\dto\request\CreateGroupRequestDTO.class
 com\example\fantasticosback\mapper\DeanMapper.class
 com\example\fantasticosback\model\Strategy\ProfileStrategy.class
-com\example\fantasticosback\util\SubjectCatalog.class
 com\example\fantasticosback\dto\request\RegisterRequestDTO.class
 com\example\fantasticosback\model\Document\Person.class
 com\example\fantasticosback\model\Observers\RequestCreationObserver.class
@@ -89,15 +94,18 @@ com\example\fantasticosback\service\StudentService.class
 com\example\fantasticosback\dto\request\RequestAddDataDTO.class
 com\example\fantasticosback\model\RequestCreatrors\RequestCreator$1.class
 com\example\fantasticosback\mapper\TeacherMapper.class
+com\example\fantasticosback\repository\ScheduleRepository.class
 com\example\fantasticosback\util\LoginResponse.class
 com\example\fantasticosback\dto\response\CreateGroupDTO.class
 com\example\fantasticosback\exception\ResourceNotFoundException.class
 com\example\fantasticosback\repository\GroupRepository.class
 com\example\fantasticosback\util\AcademicTrafficLight.class
+com\example\fantasticosback\dto\request\AcademicTrafficLightDTO.class
 com\example\fantasticosback\model\Validators\RequestValidators\ChangeGroupValidator.class
 com\example\fantasticosback\dto\response\TeacherDTO.class
 com\example\fantasticosback\dto\response\ResponseDTO.class
 com\example\fantasticosback\enums\TimeSlot.class
+com\example\fantasticosback\service\AcademicTrafficLightService.class
 com\example\fantasticosback\util\ClassSession.class
 com\example\fantasticosback\controller\GroupController.class
 com\example\fantasticosback\service\RequestService.class
@@ -109,4 +117,5 @@ com\example\fantasticosback\dto\request\RequestDTO.class
 com\example\fantasticosback\controller\StudentController.class
 com\example\fantasticosback\controller\TeacherController.class
 com\example\fantasticosback\enums\AcademicDay.class
+com\example\fantasticosback\repository\AcademicTrafficLightRepository.class
 com\example\fantasticosback\config\SecurityConfig.class

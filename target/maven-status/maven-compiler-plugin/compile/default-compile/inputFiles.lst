@@ -1,110 +1,116 @@
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Application.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\config\SecurityConfig.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\AuthController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\DeanController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\DeanOfficeController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\EnrollmentController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\GroupController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\RequestController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\ScheduleController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\StudentController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\SubjectController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\TeacherController.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\CreateGroupRequestDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\CreateSessionRequestDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\EnrollmentRequestDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RegisterRequestDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestAddDataDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestResponseDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\UpdateCapacityRequestDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\BaseDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\CreateGroupDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanOfficeDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\GroupResponseDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\ResponseDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\SessionResponseDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\StudentDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\SubjectDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\TeacherDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\UserResponseDTO.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\AcademicDay.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\RequestPriority.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\RequestType.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\Role.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\TimeSlot.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\UserRole.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\exception\BusinessValidationException.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\exception\GlobalExceptionHandler.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\exception\ResourceNotFoundException.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\DeanMapper.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\DeanOfficeMapper.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\GroupMapper.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\RequestResponseMapper.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\StudentMapper.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\TeacherMapper.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Career.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Dean.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\DeanOffice.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Enrollment.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Group.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Person.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Request.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Schedule.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Semester.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Student.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Subject.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Teacher.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\User.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Factory\ProfileStrategyFactory.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\CreationObserver.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\RequestCreationObserver.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\RequestStatusChangeObserver.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\StatusChangeObserver.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestCreatrors\RequestChangeCreator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestCreatrors\RequestCreator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestCreatrors\RequestJoinCreator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestCreatrors\RequestLeaveCreator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\AcceptedState.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\PendingState.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\ProcessState.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\RejectedState.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\RequestState.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Strategy\DeanProfileStrategy.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Strategy\ProfileStrategy.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Strategy\StudentProfileStrategy.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Strategy\TeacherProfileStrategy.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\ChangeGroupValidator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\JoinGroupValidator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\LeaveGroupValidator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\RequestValidator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\SpecialValidator.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\DeanOfficeRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\DeanRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\EnrollmentRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\GroupRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\RequestRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\StudentRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\SubjectRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\TeacherRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\UserRepository.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\DeanOfficeService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\DeanService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\EnrollmentService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\GroupService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\MatcherService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\RequestService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\ScheduleService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\StudentService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\SubjectCatalogInitializer.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\SubjectService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\TeacherService.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\AcademicTrafficLight.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\ClassRequirement.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\ClassSession.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\JwtTokenUtil.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\LoginRequest.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\LoginResponse.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\States.java
-D:\Trabajos ECI\DOSW\Proyecto\Backend\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\SubjectCatalog.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\Application.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\config\CorsConfig.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\config\JwtAuthenticationFilter.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\config\SecurityConfig.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\AcademicTrafficLightController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\AuthController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\DeanController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\DeanOfficeController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\EnrollmentController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\GroupController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\RequestController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\ScheduleController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\StudentController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\SubjectController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\controller\TeacherController.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\AcademicTrafficLightDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\CreateGroupRequestDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\CreateSessionRequestDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\EnrollmentRequestDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RegisterRequestDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestAddDataDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\request\RequestResponseDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\BaseDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\CreateGroupDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\DeanOfficeDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\GroupResponseDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\ResponseDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\SessionResponseDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\StudentDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\SubjectDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\TeacherDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\dto\response\UserResponseDTO.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\AcademicDay.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\RequestPriority.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\RequestType.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\Role.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\TimeSlot.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\enums\UserRole.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\exception\BusinessValidationException.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\exception\GlobalExceptionHandler.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\exception\ResourceNotFoundException.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\DeanMapper.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\DeanOfficeMapper.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\GroupMapper.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\RequestResponseMapper.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\StudentMapper.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\mapper\TeacherMapper.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Career.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Dean.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\DeanOffice.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Enrollment.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Group.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Person.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Request.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Schedule.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Semester.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Student.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Subject.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\Teacher.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Document\User.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Factory\ProfileStrategyFactory.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\CreationObserver.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\RequestCreationObserver.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\RequestStatusChangeObserver.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Observers\StatusChangeObserver.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestCreatrors\RequestChangeCreator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestCreatrors\RequestCreator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestCreatrors\RequestJoinCreator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestCreatrors\RequestLeaveCreator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\AcceptedState.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\PendingState.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\ProcessState.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\RejectedState.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\RequestStates\RequestState.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Strategy\DeanProfileStrategy.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Strategy\ProfileStrategy.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Strategy\StudentProfileStrategy.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Strategy\TeacherProfileStrategy.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\ChangeGroupValidator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\JoinGroupValidator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\LeaveGroupValidator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\RequestValidator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\model\Validators\RequestValidators\SpecialValidator.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\AcademicTrafficLightRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\CareerRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\DeanOfficeRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\DeanRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\EnrollmentRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\GroupRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\RequestRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\ScheduleRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\SemesterRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\StudentRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\SubjectRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\TeacherRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\repository\UserRepository.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\AcademicTrafficLightService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\DeanOfficeService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\DeanService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\EnrollmentService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\GroupService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\MatcherService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\RequestService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\ScheduleService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\StudentService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\SubjectService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\service\TeacherService.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\AcademicTrafficLight.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\ClassRequirement.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\ClassSession.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\JwtTokenUtil.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\LoginRequest.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\LoginResponse.java
+D:\Users\david\Documentos\SextoSemestre\DOSWProyecto\5Fantasticos_Back\src\main\java\com\example\fantasticosback\util\States.java
