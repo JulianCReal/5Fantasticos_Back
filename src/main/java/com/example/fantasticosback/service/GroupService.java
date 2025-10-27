@@ -117,6 +117,17 @@ public class GroupService {
         return studentRepository.findAllById(studentIds);
     }
 
+    /**
+     * Obtiene todos los grupos asignados a un profesor específico.
+     * @param teacherId ID del profesor
+     * @return Lista de grupos del profesor
+     */
+    public List<Group> getGroupsByTeacherId(String teacherId) {
+        // Validar que el profesor existe
+        teacherService.findById(teacherId);
+        return groupRepository.findByTeacherId(teacherId);
+    }
+
 
     private void validateGroupCreation(Group group) {
         if (group.getCapacity() <= 0) {

@@ -12,6 +12,9 @@ public interface GroupRepository extends MongoRepository<Group, String> {
     List<Group> findBySubjectId(String subjectId);
     List<Group> findAllByNumber(int number);
 
+    @Query("{ 'teacher._id': ?0 }")
+    List<Group> findByTeacherId(String teacherId);
+
     default boolean existsByNumber(int number) {
         return !findAllByNumber(number).isEmpty();
     }

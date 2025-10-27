@@ -184,6 +184,66 @@ public class AdminController {
         return ResponseEntity.ok(ResponseDTO.success(null, "User deleted by admin"));
     }
 
+    @Operation(
+        summary = "Actualizar rol de usuario",
+        description = "Admin actualiza el rol y/o profileId de un usuario existente"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Rol actualizado exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
+    @PatchMapping("/users/{email}/role")
+    public ResponseEntity<ResponseDTO<UserResponseDTO>> updateUserRole(
+            @Parameter(description = "Email del usuario") @PathVariable String email,
+            @Parameter(description = "Nuevo rol") @RequestParam(required = false) com.example.fantasticosback.enums.Role role,
+            @Parameter(description = "Nuevo profileId") @RequestParam(required = false) String profileId) {
+        
+        User user = userRepository.findByEmail(email).orElseThrow(
+            () -> new RuntimeException("User not found with email: " + email)
+        );
+
+        if (role != null) {
+            user.setRole(role);
+        }
+        
+        if (profileId != null) {
+            user.setProfileId(profileId);
+        }
+
+        User updated = userRepository.save(user);
+
+        UserResponseDTO response = new UserResponseDTO(
+                updated.getEmail(),
+                updated.getRole(),
+                updated.getProfileId()
+        );
+
+        return ResponseEntity.ok(ResponseDTO.success(response, "User role/profile updated by admin"));
+    }
+
+    @Operation(
+        summary = "Actualizar contraseña de usuario",
+        description = "Admin actualiza la contraseña de un usuario (será hasheada automáticamente)"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Contraseña actualizada exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
+    @PatchMapping("/users/{email}/password")
+    public ResponseEntity<ResponseDTO<String>> updateUserPassword(
+            @Parameter(description = "Email del usuario") @PathVariable String email,
+            @Parameter(description = "Nueva contraseña") @RequestParam String newPassword) {
+        
+        User user = userRepository.findByEmail(email).orElseThrow(
+            () -> new RuntimeException("User not found with email: " + email)
+        );
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return ResponseEntity.ok(ResponseDTO.success("Password updated", "Password updated successfully for user: " + email));
+    }
+
     // ========== GESTIÓN DE DECANOS ==========
 
     @Operation(summary = "Crear decano", description = "Admin crea nuevo decano")
