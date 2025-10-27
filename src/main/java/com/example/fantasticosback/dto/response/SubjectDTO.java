@@ -1,17 +1,14 @@
 package com.example.fantasticosback.dto.response;
-public class SubjectDTO extends BaseDTO {
+public class SubjectDTO  {
     private String name;
     private int credits;
     private int semester;
     private String code;
 
-    public SubjectDTO() {
-        super("");
-    }
+
 
     // Constructor para crear (sin grupos)
-    public SubjectDTO(String id, String code, String name, int credits, int semester) {
-        super(id);
+    public SubjectDTO(String code, String name, int credits, int semester) {
         this.code = code;
         this.name = name;
         this.credits = credits;

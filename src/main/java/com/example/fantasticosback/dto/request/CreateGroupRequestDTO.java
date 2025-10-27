@@ -1,6 +1,12 @@
 package com.example.fantasticosback.dto.request;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class CreateGroupRequestDTO {
+    private String id;
     private String subjectId;
     private int number;
     private int capacity;
@@ -17,44 +23,6 @@ public class CreateGroupRequestDTO {
         this.teacherId = teacherId;
     }
 
-    public String getSubjectId() {
-        return subjectId;
-    }
 
-    public void setSubjectId(String subjectId) {
-        this.subjectId = subjectId;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
 }
 
