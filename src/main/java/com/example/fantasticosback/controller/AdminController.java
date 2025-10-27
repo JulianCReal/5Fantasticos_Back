@@ -5,15 +5,10 @@ import com.example.fantasticosback.dto.response.ResponseDTO;
 import com.example.fantasticosback.dto.response.StudentDTO;
 import com.example.fantasticosback.dto.response.TeacherDTO;
 import com.example.fantasticosback.dto.response.UserResponseDTO;
+import com.example.fantasticosback.model.Document.Admin;
 import com.example.fantasticosback.model.Document.User;
 import com.example.fantasticosback.repository.UserRepository;
-import com.example.fantasticosback.service.StudentService;
-import com.example.fantasticosback.service.TeacherService;
-import com.example.fantasticosback.service.DeanService;
-import com.example.fantasticosback.service.DeanOfficeService;
-import com.example.fantasticosback.service.SubjectService;
-import com.example.fantasticosback.service.GroupService;
-import com.example.fantasticosback.service.EnrollmentService;
+import com.example.fantasticosback.service.*;
 import com.example.fantasticosback.model.Document.Enrollment;
 import com.example.fantasticosback.dto.response.DeanDTO;
 import com.example.fantasticosback.dto.response.DeanOfficeDTO;
@@ -47,6 +42,7 @@ public class AdminController {
     private final EnrollmentService enrollmentService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AdminService adminService;
 
     // ========== GESTIÓN DE ESTUDIANTES ==========
 
@@ -417,6 +413,13 @@ public class AdminController {
         boolean hasConflict = enrollmentService.verifyScheduleConflict(studentId, groupId);
         String message = hasConflict ? "Schedule conflict detected" : "No schedule conflict";
         return ResponseEntity.ok(ResponseDTO.success(hasConflict, message));
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDTO<Admin>> getById(
+            @io.swagger.v3.oas.annotations.Parameter(description = "ID único del admin", required = true)
+            @PathVariable String id) {
+        Admin teacher = adminService.findById(id);
+        return ResponseEntity.ok(ResponseDTO.success(teacher, "Admin Found"));
     }
 
 }
