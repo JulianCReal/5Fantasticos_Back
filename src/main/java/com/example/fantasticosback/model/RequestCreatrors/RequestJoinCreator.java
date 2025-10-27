@@ -4,6 +4,8 @@ import com.example.fantasticosback.dto.request.RequestDTO;
 import com.example.fantasticosback.model.Document.Group;
 import com.example.fantasticosback.model.Document.Request;
 import com.example.fantasticosback.enums.RequestType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -11,13 +13,20 @@ import java.util.UUID;
 
 @Component
 public class RequestJoinCreator extends RequestCreator {
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     public Request createRequest(RequestDTO requestDTO) {
         Request request = new Request();
         request.setId(UUID.randomUUID().toString());
         request.setUserId(requestDTO.getUserId());
         request.setType(requestDTO.getRequestType());
-        request.setDestinationGroup((Group) requestDTO.getDetails().get("destinationGroup"));
+
+        Object destinationGroupObj = requestDTO.getDetails().get("destinationGroup");
+        Group destinationGroup = objectMapper.convertValue(destinationGroupObj, Group.class);
+
+        request.setDestinationGroup(destinationGroup);
         request.setObservations(requestDTO.getObservations());
         request.setRequestDate(LocalDateTime.now());
         request.setRequestPriority(assignPriority(requestDTO));

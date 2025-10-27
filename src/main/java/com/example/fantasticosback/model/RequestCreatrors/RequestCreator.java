@@ -1,6 +1,7 @@
 package com.example.fantasticosback.model.RequestCreatrors;
 
 import com.example.fantasticosback.dto.request.RequestDTO;
+import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.model.Document.Request;
 import com.example.fantasticosback.service.DeanService;
 import com.example.fantasticosback.service.StudentService;
@@ -35,13 +36,31 @@ public abstract class RequestCreator {
         }
     }
     public Role assignCreationRole(RequestDTO requestDTO) {
-        if(studentService.findById(requestDTO.getUserId()) != null){
-            return Role.STUDENT;
-        } else if(teacherService.findById(requestDTO.getUserId()) != null){
-            return Role.TEACHER;
-        } else if (deanService.getById(requestDTO.getUserId()) != null){
-            return Role.DEAN;
+        try {
+            if (studentService.findById(requestDTO.getUserId()) != null) {
+                return Role.STUDENT;
+            }
+        } catch (ResourceNotFoundException e) {
+            // No es estudiante, continuar buscando
         }
-        return null;
+
+        try {
+            if (teacherService.findById(requestDTO.getUserId()) != null) {
+                return Role.TEACHER;
+            }
+        } catch (ResourceNotFoundException e) {
+            // No es profesor, continuar buscando
+        }
+
+        try {
+            if (deanService.getById(requestDTO.getUserId()) != null) {
+                return Role.DEAN;
+            }
+        } catch (ResourceNotFoundException e) {
+            // No es decano
+        }
+
+        throw new IllegalArgumentException("User with id " + requestDTO.getUserId() + " not found in any role");
     }
+
 }

@@ -37,11 +37,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/requests")
 public class RequestController {
     private final RequestService requestService;
-    private final ArrayList<RequestCreator> requestCreators;
+    private final List<RequestCreator> requestCreators;
     private final RequestResponseMapper requestMapper;
 
     @Autowired
-    public RequestController(RequestService requestService, ArrayList<RequestCreator> requestCreators, RequestResponseMapper requestMapper) {
+    public RequestController(RequestService requestService, List<RequestCreator> requestCreators, RequestResponseMapper requestMapper) {
         this.requestService = requestService;
         this.requestCreators = requestCreators;
         this.requestMapper = requestMapper;
