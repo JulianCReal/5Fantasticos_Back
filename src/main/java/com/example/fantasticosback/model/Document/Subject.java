@@ -20,6 +20,7 @@ public class Subject {
     private String code;
     private String name;
     private int credits;
+    private String deparment;
     private int semester;
     private LinkedList<ClassRequirement> requirements;
     private static final Logger logger = Logger.getLogger(Subject.class.getName());
