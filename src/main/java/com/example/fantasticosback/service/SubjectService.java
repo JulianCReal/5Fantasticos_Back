@@ -50,7 +50,8 @@ public class SubjectService {
                 subject.getCode(),
                 subject.getName(),
                 subject.getCredits(),
-                subject.getSemester()
+                subject.getSemester(),
+                subject.getDeparment()
         );
     }
 
@@ -60,6 +61,7 @@ public class SubjectService {
         subject.setName(dto.getName());
         subject.setCredits(dto.getCredits());
         subject.setSemester(dto.getSemester());
+        subject.setDeparment(dto.getDeparment());
         return subject;
     }
 
@@ -102,7 +104,7 @@ public class SubjectService {
 
         Group newGroup = new Group(
             newGroupId,
-            subject.getCode(), // Usar code en lugar de subjectId
+            subject.getCode(),
             groupDto.getNumber(),
             groupDto.getCapacity(),
             groupDto.isActive(),
