@@ -17,6 +17,6 @@ public class DeanProfileStrategy implements ProfileStrategy {
 
     @Override
     public Role getRole() {
-        return Role.DEAN_OFFICE;
+        return Role.DEAN;
     }
 }
