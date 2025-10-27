@@ -1,7 +1,11 @@
 package com.example.fantasticosback.controller;
 
+import com.example.fantasticosback.dto.response.GroupResponseDTO;
 import com.example.fantasticosback.dto.response.ResponseDTO;
 import com.example.fantasticosback.dto.response.TeacherDTO;
+import com.example.fantasticosback.mapper.GroupMapper;
+import com.example.fantasticosback.model.Document.Group;
+import com.example.fantasticosback.service.GroupService;
 import com.example.fantasticosback.service.TeacherService;
 import com.example.fantasticosback.model.Document.Teacher;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Tag(
     name = "Teacher",
     description = "Gestión completa de profesores: creación, consulta, actualización, eliminación y búsquedas por filtros"
@@ -22,10 +28,12 @@ import java.util.List;
 @RequestMapping("/api/teachers")
 public class TeacherController {
 
-    private TeacherService teacherService;
+    private final TeacherService teacherService;
+    private final GroupService groupService;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, GroupService groupService) {
         this.teacherService = teacherService;
+        this.groupService = groupService;
     }
 
     @Operation(
@@ -194,5 +202,28 @@ public class TeacherController {
         @PathVariable String lastName) {
         List<TeacherDTO> teachers = teacherService.findByLastName(lastName);
         return ResponseEntity.ok(ResponseDTO.success(teachers, "Teachers by last name"));
+    }
+
+    @Operation(
+        summary = "Obtener grupos asignados a un profesor",
+        description = "Devuelve todos los grupos que tiene asignados un profesor específico. Este endpoint es útil para que un profesor pueda ver sus grupos activos."
+    )
+    @ApiResponse(
+        responseCode = "200",
+        description = "Grupos del profesor obtenidos exitosamente"
+    )
+    @ApiResponse(
+        responseCode = "404",
+        description = "Profesor no encontrado"
+    )
+    @GetMapping("/{teacherId}/groups")
+    public ResponseEntity<ResponseDTO<List<GroupResponseDTO>>> getTeacherGroups(
+        @io.swagger.v3.oas.annotations.Parameter(description = "ID del profesor", required = true)
+        @PathVariable String teacherId) {
+        List<Group> groups = groupService.getGroupsByTeacherId(teacherId);
+        List<GroupResponseDTO> groupDTOs = groups.stream()
+                .map(GroupMapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(ResponseDTO.success(groupDTOs, "Teacher groups retrieved successfully"));
     }
 }
