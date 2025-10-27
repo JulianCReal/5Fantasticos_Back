@@ -55,7 +55,6 @@ com\example\fantasticosback\dto\response\UserResponseDTO.class
 com\example\fantasticosback\controller\SubjectController.class
 com\example\fantasticosback\model\Observers\CreationObserver.class
 com\example\fantasticosback\model\Document\Student.class
-com\example\fantasticosback\service\AcademicTrafficLightService$1.class
 com\example\fantasticosback\model\Document\Semester.class
 com\example\fantasticosback\controller\EnrollmentController.class
 com\example\fantasticosback\model\RequestStates\ProcessState.class

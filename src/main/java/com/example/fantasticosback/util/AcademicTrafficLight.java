@@ -42,7 +42,6 @@ public class AcademicTrafficLight {
     @Field("overall_status")
     private AcademicStatus overallStatus;
 
-    // Cambiar nombre a enrollments para coincidir con el service
     @DocumentReference
     private List<Enrollment> enrollments = new ArrayList<>();
 
@@ -74,7 +73,6 @@ public class AcademicTrafficLight {
         this.lastUpdated = LocalDateTime.now();
     }
 
-    // Método para actualizar la fecha de modificación
     public void updateLastUpdated() {
         this.lastUpdated = LocalDateTime.now();
     }
