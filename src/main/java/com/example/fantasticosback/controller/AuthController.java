@@ -107,4 +107,28 @@ public class AuthController {
 
         return ResponseEntity.ok(ResponseDTO.success(response, "User registered successfully"));
     }
+
+    @Operation(
+        summary = "Eliminar usuario por correo",
+        description = "Elimina un usuario del sistema utilizando su dirección de correo electrónico"
+    )
+    @ApiResponses({
+        @ApiResponse(
+            responseCode = "200",
+            description = "Usuario eliminado exitosamente"
+        ),
+        @ApiResponse(
+            responseCode = "404",
+            description = "Usuario no encontrado"
+        )
+    })
+    @DeleteMapping("/delete/{email}")
+    public ResponseEntity<ResponseDTO<Void>> deleteUserByEmail(@PathVariable String email) {
+        if (userRepository.findByEmail(email).isEmpty()) {
+            return ResponseEntity.status(404).body(ResponseDTO.error("User not found"));
+        }
+        
+        userRepository.deleteByEmail(email);
+        return ResponseEntity.ok(ResponseDTO.success(null, "User deleted successfully"));
+    }
 }
