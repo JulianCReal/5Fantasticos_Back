@@ -1,18 +1,18 @@
 package com.example.fantasticosback.model.Strategy;
 
-import com.example.fantasticosback.service.DeanOfficeService;
 import com.example.fantasticosback.enums.Role;
+import com.example.fantasticosback.service.DeanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DeanProfileStrategy implements ProfileStrategy {
     @Autowired
-    private DeanOfficeService deanOfficeService;
+    private DeanService deanService;
 
     @Override
     public Object getProfile(String profileId) {
-        return deanOfficeService.findById(profileId);
+        return deanService.getById(profileId);
     }
 
     @Override
