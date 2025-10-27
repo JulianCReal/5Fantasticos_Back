@@ -17,11 +17,19 @@ import java.util.logging.Logger;
 public class Subject {
 
     @Id
-    private String subjectId;
-    private String name;
     private String code;
+    private String name;
     private int credits;
     private int semester;
     private LinkedList<ClassRequirement> requirements;
     private static final Logger logger = Logger.getLogger(Subject.class.getName());
+    
+    // Métodos para compatibilidad con código existente
+    public String getSubjectId() {
+        return this.code;
+    }
+    
+    public void setSubjectId(String code) {
+        this.code = code;
+    }
 }

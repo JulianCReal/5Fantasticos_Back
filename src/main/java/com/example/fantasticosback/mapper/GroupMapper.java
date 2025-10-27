@@ -55,7 +55,7 @@ public class GroupMapper {
 
     public static Group toDomain(CreateGroupRequestDTO dto, Teacher teacher) {
         return new Group(
-            null,
+            dto.getId(),
             dto.getSubjectId(),
             dto.getNumber(),
             dto.getCapacity(),
