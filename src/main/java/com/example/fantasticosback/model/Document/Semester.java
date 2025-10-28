@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Semester {
     private String id;
+    private String studentId;
     private int year;
     private int academicPeriod;
     private boolean active;

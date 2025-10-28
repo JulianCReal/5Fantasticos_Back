@@ -77,10 +77,10 @@ public class EnrollmentService {
         if (activeSchedule == null) {
             activeSchedule = new Schedule();
             activeSchedule.setStudentId(studentId);
-            // Set the semester
-            Semester sem = parseSemester(semester);
+            Semester sem = parseSemester(semester, studentId);
             activeSchedule.setSemester(sem);
         }
+
         if (activeSchedule.getEnrollmentIds() == null) {
             activeSchedule.setEnrollmentIds(new java.util.ArrayList<>());
         }
@@ -229,13 +229,13 @@ public class EnrollmentService {
         return Integer.parseInt(parts[0]) * 60 + Integer.parseInt(parts[1]);
     }
 
-    private Semester parseSemester(String semesterStr) {
+    private Semester parseSemester(String semesterStr, String studentId) {
         String[] parts = semesterStr.split("-");
         if (parts.length != 2) {
             throw new BusinessValidationException("Invalid semester format. Expected 'YYYY-P'");
         }
         int year = Integer.parseInt(parts[0]);
         int period = Integer.parseInt(parts[1]);
-        return new Semester(semesterStr, year, period, true, 0, null);
+        return new Semester(semesterStr, studentId, year, period, true, 0, null);
     }
 }

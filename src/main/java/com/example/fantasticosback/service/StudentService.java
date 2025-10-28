@@ -2,6 +2,7 @@ package com.example.fantasticosback.service;
 
 import com.example.fantasticosback.dto.request.EnrollmentRequestDTO;
 import com.example.fantasticosback.dto.response.StudentDTO;
+import com.example.fantasticosback.dto.response.GroupResponseDTO;
 import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.mapper.StudentMapper;
@@ -24,6 +25,7 @@ public class StudentService {
     private final ScheduleRepository scheduleRepository;
     private final ScheduleService scheduleService;
     private final EnrollmentService enrollmentService;
+    private final GroupService groupService;
 
 
     public Student save(Student student) {
@@ -159,7 +161,33 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
+    /**
+     * Obtiene todos los grupos en los que está inscrito un estudiante
+     */
+    public List<GroupResponseDTO> getStudentGroups(String studentId) {
+        findById(studentId); // Validar que el estudiante existe
+        List<Enrollment> enrollments = enrollmentService.getEnrollmentsByStudentId(studentId);
+        return enrollments.stream()
+            .filter(e -> "ACTIVE".equals(e.getStatus()))
+            .map(e -> {
+                Group group = groupService.getGroupById(e.getGroupId());
+                return convertToGroupResponseDTO(group);
+            })
+            .toList();
+    }
 
-
+    private GroupResponseDTO convertToGroupResponseDTO(Group group) {
+        GroupResponseDTO dto = new GroupResponseDTO();
+        dto.setId(group.getId());
+        dto.setSubjectId(group.getSubjectId());
+        dto.setNumber(group.getNumber());
+        dto.setCapacity(group.getCapacity());
+        dto.setActive(group.isActive());
+        if (group.getTeacher() != null) {
+            dto.setTeacherId(group.getTeacher().getId());
+            dto.setTeacherName(group.getTeacher().getName());
+        }
+        return dto;
+    }
 
 }

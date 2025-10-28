@@ -1,8 +1,12 @@
 package com.example.fantasticosback.model.Document;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 
+@Getter
 public class Career {
+    private String id;
     private String name;
     private ArrayList<Subject> subjects;
     private int totalCredits;
@@ -23,5 +27,4 @@ public class Career {
     public int getTotalCredits() {
         return totalCredits;
     }
-
 }

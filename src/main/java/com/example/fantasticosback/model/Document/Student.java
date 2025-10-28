@@ -19,7 +19,7 @@ public class Student extends Person {
     @Id
     private String studentId;
     private String career;
-    //private String code;
+
     private int currentSemester;
     private List<String> approvedSubjectIds;
     private List<String> scheduleIds;

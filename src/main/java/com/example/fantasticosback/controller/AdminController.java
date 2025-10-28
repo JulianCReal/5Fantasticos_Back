@@ -5,15 +5,10 @@ import com.example.fantasticosback.dto.response.ResponseDTO;
 import com.example.fantasticosback.dto.response.StudentDTO;
 import com.example.fantasticosback.dto.response.TeacherDTO;
 import com.example.fantasticosback.dto.response.UserResponseDTO;
+import com.example.fantasticosback.model.Document.Admin;
 import com.example.fantasticosback.model.Document.User;
 import com.example.fantasticosback.repository.UserRepository;
-import com.example.fantasticosback.service.StudentService;
-import com.example.fantasticosback.service.TeacherService;
-import com.example.fantasticosback.service.DeanService;
-import com.example.fantasticosback.service.DeanOfficeService;
-import com.example.fantasticosback.service.SubjectService;
-import com.example.fantasticosback.service.GroupService;
-import com.example.fantasticosback.service.EnrollmentService;
+import com.example.fantasticosback.service.*;
 import com.example.fantasticosback.model.Document.Enrollment;
 import com.example.fantasticosback.dto.response.DeanDTO;
 import com.example.fantasticosback.dto.response.DeanOfficeDTO;
@@ -47,6 +42,7 @@ public class AdminController {
     private final EnrollmentService enrollmentService;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AdminService adminService;
 
     // ========== GESTIÓN DE ESTUDIANTES ==========
 
@@ -182,6 +178,66 @@ public class AdminController {
 
         userRepository.deleteByEmail(email);
         return ResponseEntity.ok(ResponseDTO.success(null, "User deleted by admin"));
+    }
+
+    @Operation(
+        summary = "Actualizar rol de usuario",
+        description = "Admin actualiza el rol y/o profileId de un usuario existente"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Rol actualizado exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
+    @PatchMapping("/users/{email}/role")
+    public ResponseEntity<ResponseDTO<UserResponseDTO>> updateUserRole(
+            @Parameter(description = "Email del usuario") @PathVariable String email,
+            @Parameter(description = "Nuevo rol") @RequestParam(required = false) com.example.fantasticosback.enums.Role role,
+            @Parameter(description = "Nuevo profileId") @RequestParam(required = false) String profileId) {
+        
+        User user = userRepository.findByEmail(email).orElseThrow(
+            () -> new RuntimeException("User not found with email: " + email)
+        );
+
+        if (role != null) {
+            user.setRole(role);
+        }
+        
+        if (profileId != null) {
+            user.setProfileId(profileId);
+        }
+
+        User updated = userRepository.save(user);
+
+        UserResponseDTO response = new UserResponseDTO(
+                updated.getEmail(),
+                updated.getRole(),
+                updated.getProfileId()
+        );
+
+        return ResponseEntity.ok(ResponseDTO.success(response, "User role/profile updated by admin"));
+    }
+
+    @Operation(
+        summary = "Actualizar contraseña de usuario",
+        description = "Admin actualiza la contraseña de un usuario (será hasheada automáticamente)"
+    )
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Contraseña actualizada exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    })
+    @PatchMapping("/users/{email}/password")
+    public ResponseEntity<ResponseDTO<String>> updateUserPassword(
+            @Parameter(description = "Email del usuario") @PathVariable String email,
+            @Parameter(description = "Nueva contraseña") @RequestParam String newPassword) {
+        
+        User user = userRepository.findByEmail(email).orElseThrow(
+            () -> new RuntimeException("User not found with email: " + email)
+        );
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return ResponseEntity.ok(ResponseDTO.success("Password updated", "Password updated successfully for user: " + email));
     }
 
     // ========== GESTIÓN DE DECANOS ==========
@@ -357,6 +413,13 @@ public class AdminController {
         boolean hasConflict = enrollmentService.verifyScheduleConflict(studentId, groupId);
         String message = hasConflict ? "Schedule conflict detected" : "No schedule conflict";
         return ResponseEntity.ok(ResponseDTO.success(hasConflict, message));
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDTO<Admin>> getById(
+            @io.swagger.v3.oas.annotations.Parameter(description = "ID único del admin", required = true)
+            @PathVariable String id) {
+        Admin teacher = adminService.findById(id);
+        return ResponseEntity.ok(ResponseDTO.success(teacher, "Admin Found"));
     }
 
 }

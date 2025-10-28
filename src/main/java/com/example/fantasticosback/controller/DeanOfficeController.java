@@ -30,8 +30,6 @@ public class DeanOfficeController {
     private final DeanOfficeService deanOfficeService;
 
 
-
-
     @Operation(
             summary = "Crear una decanatura",
             description = "Crea una nueva decanatura asociada a una facultad. " +
