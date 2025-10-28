@@ -8,6 +8,7 @@ com\example\fantasticosback\dto\response\BaseDTO.class
 com\example\fantasticosback\model\Factory\ProfileStrategyFactory.class
 com\example\fantasticosback\service\ScheduleService$1.class
 com\example\fantasticosback\model\Document\Subject.class
+com\example\fantasticosback\controller\AdminController.class
 com\example\fantasticosback\enums\Role.class
 com\example\fantasticosback\service\RequestService$1.class
 com\example\fantasticosback\repository\StudentRepository.class
