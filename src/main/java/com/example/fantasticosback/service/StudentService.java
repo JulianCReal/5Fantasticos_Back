@@ -3,6 +3,7 @@ package com.example.fantasticosback.service;
 import com.example.fantasticosback.dto.request.EnrollmentRequestDTO;
 import com.example.fantasticosback.dto.response.StudentDTO;
 import com.example.fantasticosback.dto.response.GroupResponseDTO;
+import com.example.fantasticosback.mapper.GroupMapper;
 import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.mapper.StudentMapper;
@@ -187,6 +188,7 @@ public class StudentService {
             dto.setTeacherId(group.getTeacher().getId());
             dto.setTeacherName(group.getTeacher().getName());
         }
+        dto.setSessions(group.getSessions());
         return dto;
     }
 

@@ -25,11 +25,7 @@ public class GroupMapper {
                 .toList()
             : new ArrayList<>();
 
-        List<SessionResponseDTO> sessions = group.getSessions() != null
-            ? group.getSessions().stream()
-                .map(GroupMapper::sessionToDTO)
-                .toList()
-            : new ArrayList<>();
+        ArrayList<ClassSession> sessions = group.getSessions();
 
         String teacherId = group.getTeacher() != null ? group.getTeacher().getId() : null;
         String teacherName = group.getTeacher() != null ? group.getTeacher().getName() : null;

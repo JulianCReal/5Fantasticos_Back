@@ -1,5 +1,7 @@
 package com.example.fantasticosback.dto.response;
 
+import com.example.fantasticosback.util.ClassSession;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class GroupResponseDTO {
     private String teacherId;
     private String teacherName;
     private List<String> studentIds;
-    private List<SessionResponseDTO> sessions;
+    private ArrayList<ClassSession> sessions;
 
     public GroupResponseDTO() {
         this.studentIds = new ArrayList<>();
@@ -21,7 +23,7 @@ public class GroupResponseDTO {
 
     public GroupResponseDTO(String id, String subjectId, int number, int capacity, boolean active,
                            String teacherId, String teacherName, List<String> studentIds,
-                           List<SessionResponseDTO> sessions) {
+                           ArrayList<ClassSession> sessions) {
         this.id = id;
         this.subjectId = subjectId;
         this.number = number;
@@ -97,11 +99,11 @@ public class GroupResponseDTO {
         this.studentIds = studentIds;
     }
 
-    public List<SessionResponseDTO> getSessions() {
+    public ArrayList<ClassSession> getSessions() {
         return sessions;
     }
 
-    public void setSessions(List<SessionResponseDTO> sessions) {
+    public void setSessions(ArrayList<ClassSession> sessions) {
         this.sessions = sessions;
     }
 }
