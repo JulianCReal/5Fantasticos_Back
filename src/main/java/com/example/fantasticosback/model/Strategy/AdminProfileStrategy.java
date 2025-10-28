@@ -1,6 +1,5 @@
 package com.example.fantasticosback.model.Strategy;
 
-import com.example.fantasticosback.controller.AdminController;
 import com.example.fantasticosback.enums.Role;
 import com.example.fantasticosback.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,8 @@ public class AdminProfileStrategy implements ProfileStrategy{
 
     @Override
     public Object getProfile(String profileId) {
-        return adminService.findById(profileId);
+        // For ADMIN, no specific profile is needed, return null
+        return null;
     }
 
     @Override

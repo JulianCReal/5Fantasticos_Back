@@ -233,21 +233,11 @@ git commit -m "cambios varios"                   # Sin código Jira ni tipo
   El diagrama de componentes específico del backend de SIRHA detalla cómo están organizados los módulos internos del sistema. Cada entidad principal (Decanatura, Materia, Profesor y Estudiante) cuenta con su propio flujo compuesto por Controller, Service y Repository, lo que sigue la arquitectura por capas típica en aplicaciones con Spring.
 
 ## Prebas del funcionamiento del api est
-A continuación se presentan videos que muestran el funcionamiento de los diferentes métodos del API, incluyendo ejemplos de solicitudes POST y GET, así como el proceso de autenticación.
-Son hipervínculos que llevan a los videos alojados en YouTube.
+A continuación se presenta un video que muestra el funcionamiento del API, incluyendo ejemplos de solicitudes y el proceso de autenticación.
 
-**Video métodos POST**
+**Video de funcionamiento del API**
 
-[![Video Post](https://img.youtube.com/vi/fVzrYhhFVuE/hqdefault.jpg)](https://youtu.be/fVzrYhhFVuE)
-
-**Video métodos GET**
-
-[![Video Get](https://img.youtube.com/vi/XOMNDiEAiiY/hqdefault.jpg)](https://youtu.be/XOMNDiEAiiY)
-
-
-**Video de autenticación**
-
-[![Video Auth](https://img.youtube.com/vi/NoaxL3vf8rw/hqdefault.jpg)](https://youtu.be/NoaxL3vf8rw)
+[![Video Swagger](docs/videos/Swagger.mp4)](docs/videos/Swagger.mp4)
 
 
 ## Documentación Swagger
@@ -266,6 +256,3 @@ Son hipervínculos que llevan a los videos alojados en YouTube.
   - **Jacoco y sonarQube**
   - ![Jacoco](docs/images/jacoco.jpg)
   - ![SonarQube](docs/images/sonar.jpg)
-
-
-   
