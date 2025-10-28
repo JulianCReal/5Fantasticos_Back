@@ -12,7 +12,7 @@ public class RequestResponseDTO {
     private String userId;
     private RequestType requestType;
     private String requestStateName;
-    private HashMap<LocalDateTime, String> historyResponses;
+    private HashMap<String, String> historyResponses;
     private String observations;
     private String deanOffice;
 

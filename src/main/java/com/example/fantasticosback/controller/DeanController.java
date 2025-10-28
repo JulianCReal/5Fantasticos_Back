@@ -129,9 +129,14 @@ public class DeanController {
             @PathVariable String requestId,
             @RequestParam String responseMessage,
             @RequestParam Boolean status) {
-
-        Request resolved = deanService.resolveRequest(deanId, requestId, responseMessage, status);
-        return ResponseEntity.ok(ResponseDTO.success(resolved, "Request resolved successfully by Dean"));
+        System.out.println("Params => responseMessage: " + responseMessage + ", status: " + status);
+        try {
+            Request resolved = deanService.resolveRequest(deanId, requestId, responseMessage, status);
+            return ResponseEntity.ok(ResponseDTO.success(resolved, "Request resolved successfully by Dean"));
+        } catch (Exception e) {
+            e.printStackTrace();  // <--- Esto mostrará exactamente la causa y el tipo de excepción
+            return null;
+        }
     }
 
     @Operation(

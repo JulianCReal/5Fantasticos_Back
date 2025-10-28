@@ -185,8 +185,8 @@ public class RequestController {
     @Operation(summary = "Get the response history of a request", description = "Retrieves the entire response history of a request along with timestamps.")
     @ApiResponse(responseCode = "200", description = "Response history retrieved successfully")
     @GetMapping("/responseHistory/{id}")
-    public ResponseEntity<HashMap<LocalDateTime, String>> getRequestResponseHistory(@PathVariable String id) {
-        HashMap<LocalDateTime, String> history = requestService.getRequestHistoryResponses(id);
+    public ResponseEntity<HashMap<String, String>> getRequestResponseHistory(@PathVariable String id) {
+        HashMap<String, String> history = requestService.getRequestHistoryResponses(id);
         return ResponseEntity.ok(history);
     }
 
