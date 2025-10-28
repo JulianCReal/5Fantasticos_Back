@@ -7,6 +7,7 @@ com\example\fantasticosback\dto\response\BaseDTO.class
 com\example\fantasticosback\model\Factory\ProfileStrategyFactory.class
 com\example\fantasticosback\service\ScheduleService$1.class
 com\example\fantasticosback\model\Document\Subject.class
+com\example\fantasticosback\controller\AdminController.class
 com\example\fantasticosback\enums\Role.class
 com\example\fantasticosback\service\RequestService$1.class
 com\example\fantasticosback\repository\StudentRepository.class
@@ -43,6 +44,8 @@ com\example\fantasticosback\enums\UserRole.class
 com\example\fantasticosback\repository\EnrollmentRepository.class
 com\example\fantasticosback\model\Document\Schedule.class
 com\example\fantasticosback\model\Document\Dean.class
+com\example\fantasticosback\config\CorsConfig.class
+com\example\fantasticosback\config\JwtAuthenticationFilter.class
 com\example\fantasticosback\service\ScheduleService.class
 com\example\fantasticosback\dto\response\GroupResponseDTO.class
 com\example\fantasticosback\controller\RequestController.class
@@ -68,7 +71,6 @@ com\example\fantasticosback\model\RequestStates\RequestState.class
 com\example\fantasticosback\model\Validators\RequestValidators\LeaveGroupValidator.class
 com\example\fantasticosback\model\RequestCreatrors\RequestCreator.class
 com\example\fantasticosback\dto\request\EnrollmentRequestDTO.class
-com\example\fantasticosback\service\SubjectCatalogInitializer.class
 com\example\fantasticosback\service\SubjectService.class
 com\example\fantasticosback\repository\TeacherRepository.class
 com\example\fantasticosback\model\RequestCreatrors\RequestJoinCreator.class
@@ -81,7 +83,6 @@ com\example\fantasticosback\model\Document\Career.class
 com\example\fantasticosback\dto\request\CreateGroupRequestDTO.class
 com\example\fantasticosback\mapper\DeanMapper.class
 com\example\fantasticosback\model\Strategy\ProfileStrategy.class
-com\example\fantasticosback\util\SubjectCatalog.class
 com\example\fantasticosback\dto\request\RegisterRequestDTO.class
 com\example\fantasticosback\model\Document\Person.class
 com\example\fantasticosback\model\Observers\RequestCreationObserver.class
@@ -89,6 +90,7 @@ com\example\fantasticosback\service\StudentService.class
 com\example\fantasticosback\dto\request\RequestAddDataDTO.class
 com\example\fantasticosback\model\RequestCreatrors\RequestCreator$1.class
 com\example\fantasticosback\mapper\TeacherMapper.class
+com\example\fantasticosback\repository\ScheduleRepository.class
 com\example\fantasticosback\util\LoginResponse.class
 com\example\fantasticosback\dto\response\CreateGroupDTO.class
 com\example\fantasticosback\exception\ResourceNotFoundException.class
