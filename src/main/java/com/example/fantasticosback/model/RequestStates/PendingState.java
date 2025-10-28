@@ -10,6 +10,7 @@ public class PendingState implements RequestState {
     public void changeState(Request request, Role userRole) {
         if (userRole.equals(Role.DEAN) || userRole.equals(Role.DEAN_OFFICE)) {
             request.setState(new ProcessState());
+            return;
         }
         throw new BusinessValidationException("Only dean office or administrative staff can move a request to 'In Process'");
     }

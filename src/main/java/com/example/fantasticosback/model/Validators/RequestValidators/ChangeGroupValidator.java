@@ -9,11 +9,18 @@ import com.example.fantasticosback.util.ClassSession;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ChangeGroupValidator extends RequestValidator {
+    
+    private static final DateTimeFormatter TIME_FORMATTER = new DateTimeFormatterBuilder()
+            .appendPattern("[H:mm][HH:mm]")
+            .toFormatter();
+    
     @Override
     public boolean handle(Request request) {
         if(!verifyGroupChange(request)){
@@ -25,22 +32,32 @@ public class ChangeGroupValidator extends RequestValidator {
     }
 
     private boolean verifyGroupChange(Request request) {
-        if (request == null || request.getSourceGroup() == null || request.getDestinationGroup() == null) return false;
-        if (request.getSourceGroup().getId() == null || request.getDestinationGroup().getId() == null) return false;
+        if (request == null || request.getSourceGroup() == null || request.getDestinationGroup() == null) {
+            return false;
+        }
+        if (request.getSourceGroup().getId() == null || request.getDestinationGroup().getId() == null) {
+            return false;
+        }
         Group currentGroup = groupService.getGroupById(request.getSourceGroup().getId());
         Group newGroup = groupService.getGroupById(request.getDestinationGroup().getId());
         return (currentGroup != null && newGroup != null);
     }
     private boolean verifyClashWithOtherSubjects(Request request) {
-        if (request == null || request.getDestinationGroup() == null || request.getUserId() == null) return true;
+        if (request == null || request.getDestinationGroup() == null || request.getUserId() == null) {
+            return true;
+        }
         Group newGroup = groupService.getGroupById(request.getDestinationGroup().getId());
         Student student = studentService.findById(request.getUserId());
-        if (newGroup == null || student == null) return true; // fallo seguro si no se puede validar
+        if (newGroup == null || student == null) {
+            return true; // fallo seguro si no se puede validar
+        }
 
         List<ClassSession> newGroupSessions = newGroup.getSessions();
         List<ClassSession> studentSessions = getStudentEnrolledSessions(student);
 
-        if (newGroupSessions == null || studentSessions.isEmpty()) return false;
+        if (newGroupSessions == null || studentSessions.isEmpty()) {
+            return false;
+        }
 
         for (ClassSession newSession : newGroupSessions) {
             for (ClassSession existingSession : studentSessions) {
@@ -54,13 +71,21 @@ public class ChangeGroupValidator extends RequestValidator {
 
     private List<ClassSession> getStudentEnrolledSessions(Student student){
         List<ClassSession> sessions = new ArrayList<>();
-        if (student == null || student.getStudentId() == null) return sessions;
+        if (student == null || student.getStudentId() == null) {
+            return sessions;
+        }
         List<Enrollment> enrollments = enrollmentService.getEnrollmentsByStudentId(student.getStudentId());
-        if (enrollments == null) return sessions;
+        if (enrollments == null) {
+            return sessions;
+        }
         for (Enrollment e : enrollments) {
-            if (!"ACTIVE".equalsIgnoreCase(e.getStatus())) continue;
+            if (!"ACTIVE".equalsIgnoreCase(e.getStatus())) {
+                continue;
+            }
             Group g = groupService.getGroupById(e.getGroupId());
-            if (g == null || g.getSessions() == null) continue;
+            if (g == null || g.getSessions() == null) {
+                continue;
+            }
             sessions.addAll(g.getSessions());
         }
         return sessions;
@@ -69,10 +94,10 @@ public class ChangeGroupValidator extends RequestValidator {
         if (!session1.getDay().equals(session2.getDay())) {
             return false;
         }
-        LocalTime start1 = LocalTime.parse(session1.getStartTime());
-        LocalTime end1 = LocalTime.parse(session1.getEndTime());
-        LocalTime start2 = LocalTime.parse(session2.getStartTime());
-        LocalTime end2 = LocalTime.parse(session2.getEndTime());
+        LocalTime start1 = LocalTime.parse(session1.getStartTime(), TIME_FORMATTER);
+        LocalTime end1 = LocalTime.parse(session1.getEndTime(), TIME_FORMATTER);
+        LocalTime start2 = LocalTime.parse(session2.getStartTime(), TIME_FORMATTER);
+        LocalTime end2 = LocalTime.parse(session2.getEndTime(), TIME_FORMATTER);
 
         return start1.isBefore(end2) && start2.isBefore(end1);
     }

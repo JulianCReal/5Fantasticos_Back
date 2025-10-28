@@ -4,10 +4,12 @@ import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.model.Document.Enrollment;
 import com.example.fantasticosback.model.Document.Group;
 import com.example.fantasticosback.model.Document.Request;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class LeaveGroupValidator extends RequestValidator {
     @Override
     public boolean handle(Request request) {

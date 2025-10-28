@@ -4,12 +4,15 @@ import com.example.fantasticosback.exception.ResourceNotFoundException;
 import com.example.fantasticosback.exception.BusinessValidationException;
 import com.example.fantasticosback.model.Document.Request;
 import com.example.fantasticosback.model.Observers.RequestCreationObserver;
+import com.example.fantasticosback.model.RequestStates.PendingState;
 import com.example.fantasticosback.model.Validators.RequestValidators.*;
 import com.example.fantasticosback.repository.RequestRepository;
 import com.example.fantasticosback.enums.RequestPriority;
 import com.example.fantasticosback.enums.RequestType;
 import com.example.fantasticosback.enums.Role;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.annotation.PostConstruct;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,12 +27,25 @@ public class RequestService {
     private final RequestRepository requestRepository;
     private final DeanOfficeService deanOfficeService;
     private final ArrayList<RequestCreationObserver> observerForCreation;
-    private final HashMap<RequestType, RequestValidator> validatorsForRequest;
+    private HashMap<String, RequestValidator> validatorsForRequest;
+
+    @Autowired
+    private ChangeGroupValidator changeGroupValidator;
+    @Autowired
+    private JoinGroupValidator joinGroupValidator;
+    @Autowired
+    private LeaveGroupValidator leaveGroupValidator;
+    @Autowired
+    private SpecialValidator specialValidator;
 
     public RequestService(RequestRepository requestRepository, DeanOfficeService deanOfficeService, ArrayList<RequestCreationObserver> observerForCreation) {
         this.requestRepository = requestRepository;
         this.deanOfficeService = deanOfficeService;
         this.observerForCreation = observerForCreation;
+    }
+
+    @PostConstruct
+    private void initializeValidators() {
         this.validatorsForRequest = addValidators();
     }
 
@@ -146,29 +162,47 @@ public class RequestService {
         return requestRepository.findAllByRequestDateBetween(startOfDay, endOfDay);
     }
 
-    private HashMap<RequestType, RequestValidator> addValidators(){
-        HashMap<RequestType, RequestValidator> handlersForRequest = new HashMap<>();
-        handlersForRequest.put(RequestType.CHANGE_GROUP, new ChangeGroupValidator());
-        handlersForRequest.put(RequestType.JOIN_GROUP, new JoinGroupValidator());
-        handlersForRequest.put(RequestType.LEAVE_GROUP, new LeaveGroupValidator());
-        handlersForRequest.put(RequestType.SPECIAL, new SpecialValidator());
+    private HashMap<String, RequestValidator> addValidators(){
+        HashMap<String, RequestValidator> handlersForRequest = new HashMap<>();
+        handlersForRequest.put("Change Group", changeGroupValidator);
+        handlersForRequest.put("Join Group", joinGroupValidator);
+        handlersForRequest.put("Leave Group", leaveGroupValidator);
+        handlersForRequest.put("Exceptional Request", specialValidator);
         return handlersForRequest;
     }
     private boolean processRequest(Request request, Role role) {
         RequestType type = request.getType();
-        request.getState().changeState(request, role);
-        request.setRequestResponseTime(LocalDateTime.now());
-        request.setHistoryResponses("Request moved to " + request.getState().getStateName() + " by " + role + " on " + request.getRequestResponseTime());
-        requestRepository.save(request);
-        switch (type) {
-            case CHANGE_GROUP, JOIN_GROUP, LEAVE_GROUP, SPECIAL -> {
-                return validatorsForRequest.get(type).response(request);
+        String currentState = request.getState().getStateName();
+
+        // Solo valida si el estado es Pending
+        if ("Pending".equals(currentState)) {
+            RequestValidator validator = validatorsForRequest.get(type.toString());
+            if (validator == null) {
+                throw new BusinessValidationException("No validator found for request type: " + type);
             }
-            default -> throw new BusinessValidationException("Unsupported request type: " + type);
+            boolean valid = validator.response(request);
+            // Luego cambia de estado a In Progress como dictan tus reglas
+            request.getState().changeState(request, role);
+            // Actualiza el resto (guardar, setHistoryResponses…)
+            requestRepository.save(request);
+            return valid;
         }
+
+        // Si el estado ya es In Progress, simplemente permite seguir la transición
+        if ("In Progress".equals(currentState)) {
+            // No se valida, solo cambia el estado según la acción
+            request.getState().changeState(request, role);
+            requestRepository.save(request);
+            return true;
+        }
+
+        // Otros estados, como Approved o Rejected, tal vez no permiten más transición
+        throw new BusinessValidationException("Request can't be processed in state: " + currentState);
     }
     public void answerRequest(Request request,String message,Boolean answer, Role role){
         request.setRequestResponseTime(LocalDateTime.now());
+        System.out.println("responseMessage: " + message);
+        System.out.println("status: " + answer);
         boolean approved = processRequest(request, role) && answer;
         request.setEvaluationApproved(approved);
         request.getState().changeState(request, role);
@@ -177,7 +211,7 @@ public class RequestService {
         requestRepository.save(request);
     }
 
-    public HashMap<LocalDateTime, String> getRequestHistoryResponses(String requestId) {
+    public HashMap<String, String> getRequestHistoryResponses(String requestId) {
         Request request = findById(requestId);
         return request.getHistoryResponses();
     }

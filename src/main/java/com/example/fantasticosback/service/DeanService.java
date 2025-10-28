@@ -87,7 +87,7 @@ public class DeanService {
             throw new BusinessValidationException("This dean does not manage any DeanOffice.");
         }
 
-        if (!request.getDeanOffice().equals(deanOffice.getId())) {
+        if (!request.getDeanOffice().equals(deanOffice.getFaculty())) {
             throw new BusinessValidationException("Dean cannot resolve requests from another DeanOffice.");
         }
 
