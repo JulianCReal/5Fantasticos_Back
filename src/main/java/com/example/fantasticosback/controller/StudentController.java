@@ -2,6 +2,7 @@ package com.example.fantasticosback.controller;
 
 import com.example.fantasticosback.dto.response.ResponseDTO;
 import com.example.fantasticosback.dto.response.StudentDTO;
+import com.example.fantasticosback.dto.response.GroupResponseDTO;
 import com.example.fantasticosback.service.StudentService;
 import com.example.fantasticosback.model.Document.Student;
 import io.swagger.v3.oas.annotations.Operation;
@@ -129,4 +130,17 @@ public class StudentController {
         StudentDTO response = studentService.convertToStudentDTO(updated);
         return ResponseEntity.ok(ResponseDTO.success(response, "Student partially updated"));
     }
+
+    @Operation(summary = "Obtener grupos de un estudiante",
+            description = "Devuelve todos los grupos en los que está inscrito un estudiante")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Grupos del estudiante obtenidos exitosamente"),
+        @ApiResponse(responseCode = "404", description = "Estudiante no encontrado")
+    })
+    @GetMapping("/{id}/groups")
+    public ResponseEntity<ResponseDTO<List<GroupResponseDTO>>> getStudentGroups(@Parameter(description = "ID del estudiante") @PathVariable String id) {
+        List<GroupResponseDTO> groups = studentService.getStudentGroups(id);
+        return ResponseEntity.ok(ResponseDTO.success(groups, "Student groups"));
+    }
+
 }

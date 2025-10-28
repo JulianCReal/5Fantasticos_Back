@@ -15,8 +15,9 @@ public class ProcessState implements RequestState {
             } else {
                 request.setState(new RejectedState());
             }
+        } else {
+            throw new BusinessValidationException("Only dean office or administrative staff can move a request from 'In Process' to 'Accepted' or 'Rejected'");
         }
-        throw new BusinessValidationException("Only dean office or administrative staff can move a request from 'In Process' to 'Accepted' or 'Rejected'");
     }
 
     @Override

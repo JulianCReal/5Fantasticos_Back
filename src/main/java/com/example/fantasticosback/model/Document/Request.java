@@ -13,6 +13,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 @Getter
@@ -37,7 +38,7 @@ public class Request {
     private Role creatorRole;
     private LocalDateTime requestResponseTime;
     private RequestPriority requestPriority;
-    private HashMap<LocalDateTime, String> historyResponses;
+    private HashMap<String, String> historyResponses;
 
     @Transient
     private transient RequestState state;
@@ -74,6 +75,8 @@ public class Request {
         return requestEvaluation;
     }
     public void setHistoryResponses(String response) {
-        this.historyResponses.put(requestResponseTime, response);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+        String fechaSinPuntos = requestResponseTime.format(formatter);
+        this.historyResponses.put(fechaSinPuntos, response);
     }
 }
