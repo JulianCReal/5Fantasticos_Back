@@ -9,11 +9,18 @@ import com.example.fantasticosback.util.ClassSession;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ChangeGroupValidator extends RequestValidator {
+    
+    private static final DateTimeFormatter TIME_FORMATTER = new DateTimeFormatterBuilder()
+            .appendPattern("[H:mm][HH:mm]")
+            .toFormatter();
+    
     @Override
     public boolean handle(Request request) {
         if(!verifyGroupChange(request)){
@@ -87,10 +94,10 @@ public class ChangeGroupValidator extends RequestValidator {
         if (!session1.getDay().equals(session2.getDay())) {
             return false;
         }
-        LocalTime start1 = LocalTime.parse(session1.getStartTime());
-        LocalTime end1 = LocalTime.parse(session1.getEndTime());
-        LocalTime start2 = LocalTime.parse(session2.getStartTime());
-        LocalTime end2 = LocalTime.parse(session2.getEndTime());
+        LocalTime start1 = LocalTime.parse(session1.getStartTime(), TIME_FORMATTER);
+        LocalTime end1 = LocalTime.parse(session1.getEndTime(), TIME_FORMATTER);
+        LocalTime start2 = LocalTime.parse(session2.getStartTime(), TIME_FORMATTER);
+        LocalTime end2 = LocalTime.parse(session2.getEndTime(), TIME_FORMATTER);
 
         return start1.isBefore(end2) && start2.isBefore(end1);
     }

@@ -12,6 +12,7 @@ import com.example.fantasticosback.enums.RequestType;
 import com.example.fantasticosback.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.annotation.PostConstruct;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class RequestService {
     private final RequestRepository requestRepository;
     private final DeanOfficeService deanOfficeService;
     private final ArrayList<RequestCreationObserver> observerForCreation;
-    private final HashMap<RequestType, RequestValidator> validatorsForRequest;
+    private HashMap<String, RequestValidator> validatorsForRequest;
 
     @Autowired
     private ChangeGroupValidator changeGroupValidator;
@@ -41,6 +42,10 @@ public class RequestService {
         this.requestRepository = requestRepository;
         this.deanOfficeService = deanOfficeService;
         this.observerForCreation = observerForCreation;
+    }
+
+    @PostConstruct
+    private void initializeValidators() {
         this.validatorsForRequest = addValidators();
     }
 
@@ -157,12 +162,12 @@ public class RequestService {
         return requestRepository.findAllByRequestDateBetween(startOfDay, endOfDay);
     }
 
-    private HashMap<RequestType, RequestValidator> addValidators(){
-        HashMap<RequestType, RequestValidator> handlersForRequest = new HashMap<>();
-        handlersForRequest.put(RequestType.CHANGE_GROUP, changeGroupValidator);
-        handlersForRequest.put(RequestType.JOIN_GROUP, joinGroupValidator);
-        handlersForRequest.put(RequestType.LEAVE_GROUP, leaveGroupValidator);
-        handlersForRequest.put(RequestType.SPECIAL, specialValidator);
+    private HashMap<String, RequestValidator> addValidators(){
+        HashMap<String, RequestValidator> handlersForRequest = new HashMap<>();
+        handlersForRequest.put("Change Group", changeGroupValidator);
+        handlersForRequest.put("Join Group", joinGroupValidator);
+        handlersForRequest.put("Leave Group", leaveGroupValidator);
+        handlersForRequest.put("Exceptional Request", specialValidator);
         return handlersForRequest;
     }
     private boolean processRequest(Request request, Role role) {
@@ -171,7 +176,7 @@ public class RequestService {
 
         // Solo valida si el estado es Pending
         if ("Pending".equals(currentState)) {
-            RequestValidator validator = validatorsForRequest.get(type);
+            RequestValidator validator = validatorsForRequest.get(type.toString());
             if (validator == null) {
                 throw new BusinessValidationException("No validator found for request type: " + type);
             }
